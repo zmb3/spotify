@@ -4,6 +4,7 @@ package spotify
 
 import (
 	"encoding/json"
+	"net/http"
 	"strings"
 )
 
@@ -37,6 +38,10 @@ type URI string
 // It can be found at the end of
 // a spotify.URI.
 type ID string
+
+func (id *ID) String() string {
+	return string(*id)
+}
 
 // Timestamp is an ISO 8601 formatted timestamp
 // representing Coordinated Universal Time (UTC)
@@ -74,6 +79,10 @@ type Error struct {
 	Status int `json:"status"`
 }
 
+func (e *Error) Error() string {
+	return e.Message
+}
+
 // ExternalID contains information that identifies
 // an item.
 type ExternalID struct {
@@ -98,6 +107,7 @@ type ExternalURL struct {
 
 // Client is a client for working with the Spotify Web API.
 type Client struct {
+	http http.Client
 }
 
 // NewReleases gets a list of newly released albums that

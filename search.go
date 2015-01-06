@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"encoding/json"
-	"net/http"
 	"net/url"
 )
 
@@ -111,7 +110,7 @@ func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
 	v.Set("q", query)
 	v.Set("type", t.encode())
 	uri := BaseAddress + "search?" + v.Encode()
-	resp, err := http.Get(uri)
+	resp, err := c.http.Get(uri)
 	if err != nil {
 		return nil, err
 	}

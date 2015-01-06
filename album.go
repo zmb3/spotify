@@ -1,5 +1,11 @@
 package spotify
 
+import (
+	"encoding/json"
+	"errors"
+	"strings"
+)
+
 // SimpleAlbum contains basic data about an album.
 type SimpleAlbum struct {
 	// The name of the album.
@@ -44,7 +50,7 @@ type FullAlbum struct {
 	Artists []SimpleArtist `json:"artists"`
 	// The copyright statements of the album.
 	Copyrights []Copyright `json:"copyrights"`
-	//A list of genres used to classify the album.
+	// A list of genres used to classify the album.
 	// For example, "Prog Rock" or "Post-Grunge".
 	// If not yet classified, the slice is empty.
 	Genres []string `json:"genres"`
@@ -62,8 +68,8 @@ type FullAlbum struct {
 	// The precision with which ReleaseDate value
 	// is known: "year", "month", or "day"
 	ReleaseDatePrecision string `json:"release_date_precision"`
-	// The tracks of the album.
-	Tracks []SimpleTrack `json:"tracks"`
+	// The tracks of the album.  Tracks are inside a paging object.
+	Tracks TrackResult `json:"tracks"`
 	// Known external IDs for the album.
 	ExternalIDs ExternalID `json:"external_ids"`
 }
@@ -74,4 +80,59 @@ func (a *SimpleAlbum) String() string {
 
 func (a *FullAlbum) String() string {
 	return "FullAlbum: " + a.Name
+}
+
+// FindAlbum gets Spotify catalog information for a single
+// album, given that album's Spotify ID.
+func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
+	uri := BaseAddress + "albums/" + id
+	resp, err := c.http.Get(string(uri))
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
+		var e Error
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: HTTP response error")
+		}
+		return nil, &e
+	}
+	var a FullAlbum
+	err = json.NewDecoder(resp.Body).Decode(&a)
+	if err != nil {
+		return nil, err
+	}
+	return &a, nil
+}
+
+func toStringSlice(ids []ID) []string {
+	result := make([]string, len(ids))
+	for i, str := range ids {
+		result[i] = str.String()
+	}
+	return result
+}
+
+// FindAlbums gets Spotify Catalog information for multiple
+// albums, given their Spotify IDs.  It support up to 20
+// IDs in a single call.
+func (c *Client) FindAlbums(ids ...ID) (*AlbumResult, error) {
+	if len(ids) > 20 {
+		return nil, errors.New("spotify: exceeded maximum number of albums")
+	}
+	uri := BaseAddress + "albums?ids=" + strings.Join(toStringSlice(ids), ",")
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result AlbumResult
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
 }
