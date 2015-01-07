@@ -5,30 +5,45 @@ import (
 	"net/url"
 )
 
+// TODO: maybe instead of exposing the prev/next URLs,
+// we can just have functions for retrieving the prev/next page
 type resultPage struct {
-	Endpoint string
-	Limit    int
-	Offset   int
-	Total    int
-	Next     string
+	// A link to the Web API Endpoint returning the full
+	// result of this request.
+	FullResult string
+	// The maximum number of items in the response, as set
+	// in the query (or default value if unset).
+	Limit int
+	// The offset of the items returned, as set in the query
+	// (or default value if unset).
+	Offset int
+	// The total number of items available to return.
+	Total int
+	// The URL to the next page of items (if available).
+	Next string
+	// The URL to the previous page of items (if available).
 	Previous string
 }
 
+// ArtistResult contains artists returned by the Web API.
 type ArtistResult struct {
 	resultPage
 	Artists []FullArtist
 }
 
+// AlbumResult contains albums returned by the Web API.
 type AlbumResult struct {
 	resultPage
 	Albums []SimpleAlbum
 }
 
+// PlaylistResult contains playlists returned by the Web API.
 type PlaylistResult struct {
 	resultPage
 	Playlists []SimplePlaylist
 }
 
+// TrackResult contains tracks returned by the Web API.
 type TrackResult struct {
 	resultPage
 	Tracks []SimpleTrack
@@ -135,7 +150,7 @@ func toArtists(p *page) *ArtistResult {
 		return nil
 	}
 	var a ArtistResult
-	a.Endpoint = p.Endpoint
+	a.FullResult = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total
@@ -154,7 +169,7 @@ func toAlbums(p *page) *AlbumResult {
 		return nil
 	}
 	var a AlbumResult
-	a.Endpoint = p.Endpoint
+	a.FullResult = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total
@@ -173,7 +188,7 @@ func toPlaylists(p *page) *PlaylistResult {
 		return nil
 	}
 	var a PlaylistResult
-	a.Endpoint = p.Endpoint
+	a.FullResult = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total
@@ -192,7 +207,7 @@ func toTracks(p *page) *TrackResult {
 		return nil
 	}
 	var a TrackResult
-	a.Endpoint = p.Endpoint
+	a.FullResult = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total

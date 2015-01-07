@@ -3,6 +3,8 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -130,6 +132,47 @@ func (c *Client) FindAlbums(ids ...ID) (*AlbumResult, error) {
 	defer resp.Body.Close()
 
 	var result AlbumResult
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+// FindAlbumTracks gets the tracks for a particular album.
+// If you only care about the tracks, this call is more efficient
+// than FindAlbum.
+func (c *Client) FindAlbumTracks(id ID) (*TrackResult, error) {
+	return c.FindAlbumTracksLimited(id, -1, -1)
+}
+
+// FindAlbumTracksLimited behaves like FindAlbumTracks, with the
+// exception that it allows you to specify extra parameters that
+// limit the number of results returned.
+// The maximum number of results to return is specified by limit.
+// The offset argument can be used to specify the index of the first
+// track to return.  It can be used along with limit to reqeust
+// the next set of results.
+func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult, error) {
+	uri := BaseAddress + "albums/" + string(id) + "/tracks"
+	v := url.Values{}
+	if limit != -1 {
+		v.Set("limit", strconv.Itoa(limit))
+	}
+	if offset != -1 {
+		v.Set("offset", strconv.Itoa(offset))
+	}
+	optional := v.Encode()
+	if optional != "" {
+		uri = uri + "?" + optional
+	}
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var result TrackResult
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err
