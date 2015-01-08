@@ -23,6 +23,29 @@ func TestFindAlbum(t *testing.T) {
 	}
 }
 
+func TestFindAlbumBadID(t *testing.T) {
+	server, client := testClient(404, `{ "error": { "status": 404, "message": "non existing id" } }`)
+	defer server.Close()
+
+	album, err := client.FindAlbum(ID("asdf"))
+	if album != nil {
+		t.Error("Expected nil album, got", album.Name)
+		return
+	}
+	se, ok := err.(Error)
+	if !ok {
+		t.Error("Expected spotify error, got", err)
+		return
+	}
+	if se.Status != 404 {
+		t.Errorf("Expected HTTP 404, got %d. ", se.Status)
+		return
+	}
+	if se.Message != "non existing id" {
+		t.Error("Unexpected error message: ", se.Message)
+	}
+}
+
 // The example from https://developer.spotify.com/web-api/get-several-albums/
 func TestFindAlbums(t *testing.T) {
 	server, client := testClientFromFile(200, "test_data/find_albums.txt", t)

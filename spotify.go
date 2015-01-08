@@ -78,7 +78,7 @@ type Error struct {
 	Status int `json:"status"`
 }
 
-func (e *Error) Error() string {
+func (e Error) Error() string {
 	return e.Message
 }
 

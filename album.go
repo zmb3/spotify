@@ -93,13 +93,15 @@ func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
-		var e Error
+	if resp.StatusCode != 200 {
+		var e struct {
+			E Error `json:"error"`
+		}
 		err = json.NewDecoder(resp.Body).Decode(&e)
 		if err != nil {
 			return nil, errors.New("spotify: HTTP response error")
 		}
-		return nil, &e
+		return nil, e.E
 	}
 	var a FullAlbum
 	err = json.NewDecoder(resp.Body).Decode(&a)

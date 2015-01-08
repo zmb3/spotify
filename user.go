@@ -1,5 +1,7 @@
 package spotify
 
+import "encoding/json"
+
 // User contains the basic, publicly available
 // information about a Spotify user.
 type User struct {
@@ -25,6 +27,7 @@ type User struct {
 // a user.  This data is private and requires user
 // authentication.
 type PrivateUser struct {
+	User
 	// the country of the user, as set in the user's
 	// account profile.  An ISO 3166-1 alpha-2 country
 	// code.  This field is only available when the
@@ -44,4 +47,41 @@ type PrivateUser struct {
 	// This field is only available when the current user
 	// has granted access to the user-read-private scope.
 	Product string `json:"product"`
+}
+
+// UserPublicProfile gets public profile information about a
+// Spotify User.  It does not require authentication.
+func (c *Client) UserPublicProfile(userID string) (*User, error) {
+	uri := baseAddress + "users/" + userID
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		var spotifyError struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&spotifyError)
+		if err != nil {
+			return nil, err
+		}
+		return nil, spotifyError.E
+	}
+
+	var user User
+	err = json.NewDecoder(resp.Body).Decode(&user)
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+// CurrentUser gets detailed profile information about the
+// current user.  It requires that the user authenticates first.
+func (c *Client) CurrentUser() (*PrivateUser, error) {
+	// TODO:
+	//uri := baseAddress + "me"
+	panic("spotify: CurrentUser() requires authentication!")
 }

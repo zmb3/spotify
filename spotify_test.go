@@ -13,8 +13,8 @@ import (
 func testClient(code int, body string) (*httptest.Server, *Client) {
 	baseAddress = "http://localhost/"
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(code)
 		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(code)
 		fmt.Fprintln(w, body)
 	}))
 	transport := &http.Transport{
