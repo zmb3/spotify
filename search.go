@@ -124,7 +124,7 @@ func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
 	v := url.Values{}
 	v.Set("q", query)
 	v.Set("type", t.encode())
-	uri := BaseAddress + "search?" + v.Encode()
+	uri := baseAddress + "search?" + v.Encode()
 	resp, err := c.http.Get(uri)
 	if err != nil {
 		return nil, err

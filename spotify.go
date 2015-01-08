@@ -8,9 +8,8 @@ import (
 	"strings"
 )
 
-const (
-	// BaseAddress is the base URL for the Spotify Web API
-	BaseAddress = "https://api.spotify.com/v1/"
+var (
+	baseAddress = "https://api.spotify.com/v1/"
 )
 
 // SearchType represents the type of a query used

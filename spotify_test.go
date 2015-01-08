@@ -1,6 +1,56 @@
 package spotify
 
-import "testing"
+import (
+	"fmt"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"os"
+	"testing"
+)
+
+func testClient(code int, body string) (*httptest.Server, *Client) {
+	baseAddress = "http://localhost/"
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(code)
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprintln(w, body)
+	}))
+	transport := &http.Transport{
+		Proxy: func(req *http.Request) (*url.URL, error) {
+			return url.Parse(server.URL)
+		},
+	}
+	client := Client{
+		http: http.Client{Transport: transport},
+	}
+	return server, &client
+}
+
+func testClientFromFile(code int, filename string, t *testing.T) (*httptest.Server, *Client) {
+	baseAddress = "http://localhost/"
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(code)
+		file, err := os.Open(filename)
+		if err != nil {
+			t.Error(err.Error())
+			return
+		}
+		defer file.Close()
+		w.Header().Set("Content-Type", "application/json")
+		io.Copy(w, file)
+	}))
+	transport := &http.Transport{
+		Proxy: func(req *http.Request) (*url.URL, error) {
+			return url.Parse(server.URL)
+		},
+	}
+	client := Client{
+		http: http.Client{Transport: transport},
+	}
+	return server, &client
+}
 
 // func TestSearchNoQuery(t *testing.T) {
 // 	client := &Client{}

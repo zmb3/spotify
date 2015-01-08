@@ -87,7 +87,7 @@ func (a *FullAlbum) String() string {
 // FindAlbum gets Spotify catalog information for a single
 // album, given that album's Spotify ID.
 func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
-	uri := BaseAddress + "albums/" + id
+	uri := baseAddress + "albums/" + string(id)
 	resp, err := c.http.Get(string(uri))
 	if err != nil {
 		return nil, err
@@ -124,7 +124,7 @@ func (c *Client) FindAlbums(ids ...ID) (*AlbumResult, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
-	uri := BaseAddress + "albums?ids=" + strings.Join(toStringSlice(ids), ",")
+	uri := baseAddress + "albums?ids=" + strings.Join(toStringSlice(ids), ",")
 	resp, err := c.http.Get(uri)
 	if err != nil {
 		return nil, err
@@ -154,7 +154,7 @@ func (c *Client) FindAlbumTracks(id ID) (*TrackResult, error) {
 // track to return.  It can be used along with limit to reqeust
 // the next set of results.
 func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult, error) {
-	uri := BaseAddress + "albums/" + string(id) + "/tracks"
+	uri := baseAddress + "albums/" + string(id) + "/tracks"
 	v := url.Values{}
 	if limit != -1 {
 		v.Set("limit", strconv.Itoa(limit))
@@ -172,8 +172,20 @@ func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult,
 	}
 	defer resp.Body.Close()
 
+	var p page
+	err = json.NewDecoder(resp.Body).Decode(&p)
+	if err != nil {
+		return nil, err
+	}
 	var result TrackResult
-	err = json.NewDecoder(resp.Body).Decode(&result)
+	result.FullResult = p.Endpoint
+	result.Limit = p.Limit
+	result.Offset = p.Offset
+	result.Next = p.Next
+	result.Total = p.Total
+	result.Previous = p.Previous
+
+	err = json.Unmarshal([]byte(p.Items), &result.Tracks)
 	if err != nil {
 		return nil, err
 	}
