@@ -1,0 +1,182 @@
+{
+  "tracks" : {
+    "href" : "https://api.spotify.com/v1/search?query=holiday&offset=0&limit=2&type=track",
+    "items" : [ {
+      "album" : {
+        "album_type" : "compilation",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/2N8ts2lU3mmMoapxr7BCMM"
+        },
+        "href" : "https://api.spotify.com/v1/albums/2N8ts2lU3mmMoapxr7BCMM",
+        "id" : "2N8ts2lU3mmMoapxr7BCMM",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/d7b2595d05ed7688b76ea7ccaf4f11963c3c8514",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/2260c7f9db4cd153f428ae9ec958a4d641919c79",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/3f8e40f52ab8d571a0c38512acca1ea3e9d5487b",
+          "width" : 64
+        } ],
+        "name" : "All That Jazz, Vol. 21: Billie Holiday, Vol. 1 (2014 Digital Remaster)",
+        "type" : "album",
+        "uri" : "spotify:album:2N8ts2lU3mmMoapxr7BCMM"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/1YzCsTRb22dQkh9lghPIrp"
+        },
+        "href" : "https://api.spotify.com/v1/artists/1YzCsTRb22dQkh9lghPIrp",
+        "id" : "1YzCsTRb22dQkh9lghPIrp",
+        "name" : "Billie Holiday",
+        "type" : "artist",
+        "uri" : "spotify:artist:1YzCsTRb22dQkh9lghPIrp"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 168669,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "DEL111401686"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/2DDyRNAXXX813uHNsmVTZZ"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/2DDyRNAXXX813uHNsmVTZZ",
+      "id" : "2DDyRNAXXX813uHNsmVTZZ",
+      "name" : "I Gotta Right to Sing the Blues",
+      "popularity" : 0,
+      "preview_url" : "https://p.scdn.co/mp3-preview/499ef41820f7f0c2b34c32cdf699c777961a42d4",
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:2DDyRNAXXX813uHNsmVTZZ"
+    }, {
+      "album" : {
+        "album_type" : "compilation",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/2N8ts2lU3mmMoapxr7BCMM"
+        },
+        "href" : "https://api.spotify.com/v1/albums/2N8ts2lU3mmMoapxr7BCMM",
+        "id" : "2N8ts2lU3mmMoapxr7BCMM",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/d7b2595d05ed7688b76ea7ccaf4f11963c3c8514",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/2260c7f9db4cd153f428ae9ec958a4d641919c79",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/3f8e40f52ab8d571a0c38512acca1ea3e9d5487b",
+          "width" : 64
+        } ],
+        "name" : "All That Jazz, Vol. 21: Billie Holiday, Vol. 1 (2014 Digital Remaster)",
+        "type" : "album",
+        "uri" : "spotify:album:2N8ts2lU3mmMoapxr7BCMM"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/1YzCsTRb22dQkh9lghPIrp"
+        },
+        "href" : "https://api.spotify.com/v1/artists/1YzCsTRb22dQkh9lghPIrp",
+        "id" : "1YzCsTRb22dQkh9lghPIrp",
+        "name" : "Billie Holiday",
+        "type" : "artist",
+        "uri" : "spotify:artist:1YzCsTRb22dQkh9lghPIrp"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 167940,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "DEL111401687"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/5HMX3UxFIRq4wFFmoXanCK"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/5HMX3UxFIRq4wFFmoXanCK",
+      "id" : "5HMX3UxFIRq4wFFmoXanCK",
+      "name" : "The Blue Angel (Der blaue Engel): Falling in Love Again",
+      "popularity" : 0,
+      "preview_url" : "https://p.scdn.co/mp3-preview/81036e7dd593cdd86002116fee84127abc1ff4f7",
+      "track_number" : 2,
+      "type" : "track",
+      "uri" : "spotify:track:5HMX3UxFIRq4wFFmoXanCK"
+    } ],
+    "limit" : 2,
+    "next" : "https://api.spotify.com/v1/search?query=holiday&offset=2&limit=2&type=track",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 95757
+  },
+  "playlists" : {
+    "href" : "https://api.spotify.com/v1/search?query=holiday&offset=0&limit=2&type=playlist",
+    "items" : [ {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/myplay.com/playlist/5l6rFyXN63iINVsbaBObag"
+      },
+      "href" : "https://api.spotify.com/v1/users/myplay.com/playlists/5l6rFyXN63iINVsbaBObag",
+      "id" : "5l6rFyXN63iINVsbaBObag",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/741c73f0dbacf0d0c72ab09f7c499ffd0fc42dab"
+      } ],
+      "name" : "The Ultimate Christmas Playlist: The Best Holiday Music (Mariah Carey, Elvis Presley, Glee Christmas, Wham, Pentatonix, Xmas, Michael Bublé, Meghan Trainor)",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/myplay.com"
+        },
+        "href" : "https://api.spotify.com/v1/users/myplay.com",
+        "id" : "myplay.com",
+        "type" : "user",
+        "uri" : "spotify:user:myplay.com"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/myplay.com/playlists/5l6rFyXN63iINVsbaBObag/tracks",
+        "total" : 185
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:myplay.com:playlist:5l6rFyXN63iINVsbaBObag"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/128899670/playlist/5NtjgKz4doejP5HJtKXFcS"
+      },
+      "href" : "https://api.spotify.com/v1/users/128899670/playlists/5NtjgKz4doejP5HJtKXFcS",
+      "id" : "5NtjgKz4doejP5HJtKXFcS",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/ace1ab5eda138776cfbd2fd85b485d524ca16e0e"
+      } ],
+      "name" : "Frozen Soundtrack + Disney Holiday Favorites",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/128899670"
+        },
+        "href" : "https://api.spotify.com/v1/users/128899670",
+        "id" : "128899670",
+        "type" : "user",
+        "uri" : "spotify:user:128899670"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/128899670/playlists/5NtjgKz4doejP5HJtKXFcS/tracks",
+        "total" : 49
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:128899670:playlist:5NtjgKz4doejP5HJtKXFcS"
+    } ],
+    "limit" : 2,
+    "next" : "https://api.spotify.com/v1/search?query=holiday&offset=2&limit=2&type=playlist",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 1232
+  }
+}

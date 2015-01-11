@@ -1,6 +1,9 @@
 package spotify
 
-import "testing"
+import (
+	"net/http"
+	"testing"
+)
 
 // The example from https://developer.spotify.com/web-api/get-album/
 func TestFindAlbum(t *testing.T) {

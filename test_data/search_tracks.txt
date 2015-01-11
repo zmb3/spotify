@@ -1,0 +1,128 @@
+{
+  "tracks" : {
+    "href" : "https://api.spotify.com/v1/search?query=uptown&offset=0&limit=2&type=track",
+    "items" : [ {
+      "album" : {
+        "album_type" : "single",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/0tWBtc7le3TMo1gDdGyJVI"
+        },
+        "href" : "https://api.spotify.com/v1/albums/0tWBtc7le3TMo1gDdGyJVI",
+        "id" : "0tWBtc7le3TMo1gDdGyJVI",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/95f7f3bff78df3fbf5402ee304c9344aaec52890",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/580c5622fd8f547cf9c1bcb9fa673017ae740933",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/d58efe51ceda23cbdf0b75587f41bb0564106c3a",
+          "width" : 64
+        } ],
+        "name" : "Uptown Funk",
+        "type" : "album",
+        "uri" : "spotify:album:0tWBtc7le3TMo1gDdGyJVI"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/3hv9jJF3adDNsBSIQDqcjp"
+        },
+        "href" : "https://api.spotify.com/v1/artists/3hv9jJF3adDNsBSIQDqcjp",
+        "id" : "3hv9jJF3adDNsBSIQDqcjp",
+        "name" : "Mark Ronson",
+        "type" : "artist",
+        "uri" : "spotify:artist:3hv9jJF3adDNsBSIQDqcjp"
+      }, {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/0du5cEVh5yTK9QJze8zA0C"
+        },
+        "href" : "https://api.spotify.com/v1/artists/0du5cEVh5yTK9QJze8zA0C",
+        "id" : "0du5cEVh5yTK9QJze8zA0C",
+        "name" : "Bruno Mars",
+        "type" : "artist",
+        "uri" : "spotify:artist:0du5cEVh5yTK9QJze8zA0C"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 270626,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "GBARL1401524"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/4rmPQGwcLQjCoFq5NrTA0D"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/4rmPQGwcLQjCoFq5NrTA0D",
+      "id" : "4rmPQGwcLQjCoFq5NrTA0D",
+      "name" : "Uptown Funk",
+      "popularity" : 88,
+      "preview_url" : "https://p.scdn.co/mp3-preview/713597abe200371ed6d1ddbe5a52bb64061ef15f",
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:4rmPQGwcLQjCoFq5NrTA0D"
+    }, {
+      "album" : {
+        "album_type" : "compilation",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/7r36rel1M4gyBavfcJP6Yz"
+        },
+        "href" : "https://api.spotify.com/v1/albums/7r36rel1M4gyBavfcJP6Yz",
+        "id" : "7r36rel1M4gyBavfcJP6Yz",
+        "images" : [ {
+          "height" : 638,
+          "url" : "https://i.scdn.co/image/dc82b8076e92803f3ff7b469015f2b4540478d5c",
+          "width" : 640
+        }, {
+          "height" : 299,
+          "url" : "https://i.scdn.co/image/495a29b811788da8fb71bac1c4e66fd605479860",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/59830b7ca00d3f9e816a871ff4dae041b3c4883c",
+          "width" : 64
+        } ],
+        "name" : "The Essential Billy Joel",
+        "type" : "album",
+        "uri" : "spotify:album:7r36rel1M4gyBavfcJP6Yz"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/6zFYqv1mOsgBRQbae3JJ9e"
+        },
+        "href" : "https://api.spotify.com/v1/artists/6zFYqv1mOsgBRQbae3JJ9e",
+        "id" : "6zFYqv1mOsgBRQbae3JJ9e",
+        "name" : "Billy Joel",
+        "type" : "artist",
+        "uri" : "spotify:artist:6zFYqv1mOsgBRQbae3JJ9e"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 2,
+      "duration_ms" : 194866,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USSM18300270"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/3CSpzkoL1XgDBZ1q9aDCUV"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/3CSpzkoL1XgDBZ1q9aDCUV",
+      "id" : "3CSpzkoL1XgDBZ1q9aDCUV",
+      "name" : "Uptown Girl",
+      "popularity" : 71,
+      "preview_url" : "https://p.scdn.co/mp3-preview/0164e9f247a3731e4779d9eaa0598e2b24dab7ed",
+      "track_number" : 3,
+      "type" : "track",
+      "uri" : "spotify:track:3CSpzkoL1XgDBZ1q9aDCUV"
+    } ],
+    "limit" : 2,
+    "next" : "https://api.spotify.com/v1/search?query=uptown&offset=2&limit=2&type=track",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 6922
+  }
+}
