@@ -121,7 +121,7 @@ func toStringSlice(ids []ID) []string {
 }
 
 // FindAlbums gets Spotify Catalog information for multiple
-// albums, given their Spotify IDs.  It support up to 20
+// albums, given their Spotify IDs.  It supports up to 20
 // IDs in a single call.
 func (c *Client) FindAlbums(ids ...ID) (*AlbumResult, error) {
 	if len(ids) > 20 {

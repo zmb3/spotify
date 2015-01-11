@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strings"
 )
 
 // SimpleTrack contains basic info about a track.
@@ -97,4 +98,41 @@ func (c *Client) FindTrack(id ID) (*FullTrack, error) {
 		return nil, err
 	}
 	return &t, nil
+}
+
+// FindTracks gets Spotify catalog information for multiple
+// tracks based on their Spotify IDs.  It supports up to 50
+// tracks in a single call.  Tracks are returned in the order
+// requested.  If a track is not found, that position in the
+// result will be nil.  Duplicate ids in the query will result
+// in duplicate tracks in the result.
+func (c *Client) FindTracks(ids ...ID) ([]*FullTrack, error) {
+	if len(ids) > 50 {
+		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
+	}
+	uri := baseAddress + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: couldn't decode error")
+		}
+		return nil, e.E
+	}
+
+	var t struct {
+		Tracks []*FullTrack `jsosn:"tracks"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&t)
+	if err != nil {
+		return nil, errors.New("spotify:  couldn't decode tracks")
+	}
+	return t.Tracks, nil
 }
