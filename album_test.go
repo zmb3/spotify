@@ -4,7 +4,7 @@ import "testing"
 
 // The example from https://developer.spotify.com/web-api/get-album/
 func TestFindAlbum(t *testing.T) {
-	server, client := testClientFromFile(200, "test_data/find_album.txt", t)
+	server, client := testClientFromFile(http.StatusOK, "test_data/find_album.txt", t)
 	defer server.Close()
 	if t.Failed() {
 		return
@@ -48,7 +48,7 @@ func TestFindAlbumBadID(t *testing.T) {
 
 // The example from https://developer.spotify.com/web-api/get-several-albums/
 func TestFindAlbums(t *testing.T) {
-	server, client := testClientFromFile(200, "test_data/find_albums.txt", t)
+	server, client := testClientFromFile(http.StatusOK, "test_data/find_albums.txt", t)
 	defer server.Close()
 	if t.Failed() {
 		return
@@ -75,7 +75,7 @@ func TestFindAlbums(t *testing.T) {
 }
 
 func TestFindAlbumTracks(t *testing.T) {
-	server, client := testClientFromFile(200, "test_data/find_album_tracks.txt", t)
+	server, client := testClientFromFile(http.StatusOK, "test_data/find_album_tracks.txt", t)
 	defer server.Close()
 	if t.Failed() {
 		return

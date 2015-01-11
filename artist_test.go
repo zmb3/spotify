@@ -3,7 +3,7 @@ package spotify
 import "testing"
 
 func TestFindArtist(t *testing.T) {
-  server, client := testClientFromFile(200, "test_data/find_artist.txt", t)
+  server, client := testClientFromFile(http.StatusOK, "test_data/find_artist.txt", t)
   defer server.Close()
   if t.Failed() {
     return
@@ -23,7 +23,7 @@ func TestFindArtist(t *testing.T) {
 }
 
 func TestArtistTopTracks(t *testing.T) {
-	server, client := testClientFromFile(200, "test_data/artist_top_tracks.txt", t)
+	server, client := testClientFromFile(http.StatusOK, "test_data/artist_top_tracks.txt", t)
 	defer server.Close()
 	if t.Failed() {
 		return
@@ -47,7 +47,7 @@ func TestArtistTopTracks(t *testing.T) {
 }
 
 func TestRelatedArtists(t *testing.T) {
-  server, client := testClientFromFile(200, "test_data/related_artists.txt", t)
+  server, client := testClientFromFile(http.StatusOK, "test_data/related_artists.txt", t)
   defer server.Close()
   if t.Failed() {
     return

@@ -3,6 +3,7 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -93,7 +94,7 @@ func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		var e struct {
 			E Error `json:"error"`
 		}

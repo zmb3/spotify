@@ -59,7 +59,7 @@ func (c *Client) UserPublicProfile(userID string) (*User, error) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		var spotifyError struct {
 			E Error `json:"error"`
 		}
