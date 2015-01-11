@@ -4,11 +4,16 @@ package spotify
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 )
 
 var (
 	baseAddress = "https://api.spotify.com/v1/"
+
+	// ErrNotAuthenticated is returned when an unauthenticated user
+	// makes an API call that requries authentication.
+	ErrNotAuthenticated = errors.New("spotify: this call requires authentication")
 )
 
 // ISO 3166-1 alpha 2 country codes.
