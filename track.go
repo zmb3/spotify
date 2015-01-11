@@ -1,5 +1,11 @@
 package spotify
 
+import (
+	"encoding/json"
+	"errors"
+	"net/http"
+)
+
 // SimpleTrack contains basic info about a track.
 type SimpleTrack struct {
 	// The artists who performed the track.
@@ -66,10 +72,29 @@ type PlaylistTrack struct {
 type SavedTrack struct {
 }
 
-func (t *SimpleTrack) String() string {
-	return "SimpleTrack" + t.Name
-}
-
-func (t *FullTrack) String() string {
-	return "FullTrack" + t.Name
+// FindTrack gets spotify catalog information for
+// a single track identified by its unique Spotify ID.
+func (c *Client) FindTrack(id ID) (*FullTrack, error) {
+	uri := baseAddress + "tracks/" + string(id)
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: Couldn't decode error object")
+		}
+		return nil, e.E
+	}
+	var t FullTrack
+	err = json.NewDecoder(resp.Body).Decode(&t)
+	if err != nil {
+		return nil, err
+	}
+	return &t, nil
 }

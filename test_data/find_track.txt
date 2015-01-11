@@ -1,0 +1,64 @@
+{
+  "album" : {
+    "album_type" : "single",
+    "available_markets" : [ "AD", "AR", "AT", "AU", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DO", "EC", "EE", "ES", "FI", "FR", "GR", "GT", "HK", "HN", "HU", "IE", "IT", "LI", "LT", "LV", "MC", "MT", "MX", "MY", "NI", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/album/3X33e7UII5loqrEgauOKEC"
+    },
+    "href" : "https://api.spotify.com/v1/albums/3X33e7UII5loqrEgauOKEC",
+    "id" : "3X33e7UII5loqrEgauOKEC",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/c171113a197828a6ee8017d1ede2e78c9a7df654",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/de50cbd4f0e62be8d4ffd11c7d6f3c59d964bdb6",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/5a18558e39d542ec9d71345daafe89d5862aa67a",
+      "width" : 64
+    } ],
+    "name" : "Timber",
+    "type" : "album",
+    "uri" : "spotify:album:3X33e7UII5loqrEgauOKEC"
+  },
+  "artists" : [ {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
+    },
+    "href" : "https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg",
+    "id" : "0TnOYISbd1XYRBk9myaseg",
+    "name" : "Pitbull",
+    "type" : "artist",
+    "uri" : "spotify:artist:0TnOYISbd1XYRBk9myaseg"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/6LqNN22kT3074XbTVUrhzX"
+    },
+    "href" : "https://api.spotify.com/v1/artists/6LqNN22kT3074XbTVUrhzX",
+    "id" : "6LqNN22kT3074XbTVUrhzX",
+    "name" : "Ke$ha",
+    "type" : "artist",
+    "uri" : "spotify:artist:6LqNN22kT3074XbTVUrhzX"
+  } ],
+  "available_markets" : [ "AD", "AR", "AT", "AU", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DO", "EC", "EE", "ES", "FI", "FR", "GR", "GT", "HK", "HN", "HU", "IE", "IT", "LI", "LT", "LV", "MC", "MT", "MX", "MY", "NI", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+  "disc_number" : 1,
+  "duration_ms" : 204053,
+  "explicit" : false,
+  "external_ids" : {
+    "isrc" : "USRC11301695"
+  },
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/track/1zHlj4dQ8ZAtrayhuDDmkY"
+  },
+  "href" : "https://api.spotify.com/v1/tracks/1zHlj4dQ8ZAtrayhuDDmkY",
+  "id" : "1zHlj4dQ8ZAtrayhuDDmkY",
+  "name" : "Timber",
+  "popularity" : 85,
+  "preview_url" : "https://p.scdn.co/mp3-preview/18d0a45538122fbe33f22604d0e5608789c10ae4",
+  "track_number" : 1,
+  "type" : "track",
+  "uri" : "spotify:track:1zHlj4dQ8ZAtrayhuDDmkY"
+}
