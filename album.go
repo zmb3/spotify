@@ -147,6 +147,39 @@ func (c *Client) FindAlbums(ids ...ID) ([]*FullAlbum, error) {
 	return a.Albums, nil
 }
 
+// AlbumType represents the type of an album.
+// It can be used to filter results when searching
+// for albums.
+type AlbumType int
+
+// AlbumType values that can be used to filter
+// which types of albums are searched for.
+// These are flags that can be bitwise OR'd together
+//  to search for multiple types of albums simultaneously.
+const (
+	AlbumTypeAlbum       AlbumType = 1 << iota
+	AlbumTypeSingle                = 1 << iota
+	AlbummTypeAppearsOn            = 1 << iota
+	AlbumTypeCompilation           = 1 << iota
+)
+
+func (at AlbumType) encode() string {
+	types := []string{}
+	if at&AlbumTypeAlbum != 0 {
+		types = append(types, "album")
+	}
+	if at&AlbumTypeSingle != 0 {
+		types = append(types, "single")
+	}
+	if at&AlbummTypeAppearsOn != 0 {
+		types = append(types, "appears_on")
+	}
+	if at&AlbumTypeCompilation != 0 {
+		types = append(types, "compilation")
+	}
+	return strings.Join(types, ",")
+}
+
 // FindAlbumTracks gets the tracks for a particular album.
 // If you only care about the tracks, this call is more efficient
 // than FindAlbum.

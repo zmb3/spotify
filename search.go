@@ -3,7 +3,40 @@ package spotify
 import (
 	"encoding/json"
 	"net/url"
+	"strings"
 )
+
+// SearchType represents the type of a query used
+// in the Search function.
+type SearchType int
+
+// Search type values that can be passed
+// to the search function.  These are flags
+// an can be bitwise OR'd together to search
+// for multiple types of content simultaneously.
+const (
+	SearchTypeAlbum    SearchType = 1 << iota
+	SearchTypeArtist              = 1 << iota
+	SearchTypePlaylist            = 1 << iota
+	SearchTypeTrack               = 1 << iota
+)
+
+func (st SearchType) encode() string {
+	types := []string{}
+	if st&SearchTypeAlbum != 0 {
+		types = append(types, "album")
+	}
+	if st&SearchTypeArtist != 0 {
+		types = append(types, "artist")
+	}
+	if st&SearchTypePlaylist != 0 {
+		types = append(types, "playlist")
+	}
+	if st&SearchTypeTrack != 0 {
+		types = append(types, "track")
+	}
+	return strings.Join(types, ",")
+}
 
 // TODO: maybe instead of exposing the prev/next URLs,
 // we can just have functions for retrieving the prev/next page

@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
 )
 
 // SimpleArtist contains basic info about an artist.
@@ -67,6 +70,39 @@ func (c *Client) FindArtist(id ID) (*FullArtist, error) {
 	return &a, nil
 }
 
+// FindArtists gets spotify catalog information for several
+// artists based on their Spotify IDs.  It supports up to
+// 50 artists in a single call.  Artists are returned in the
+// order requested.  If an artist is not found, that position
+// in the result will be nil.  Duplicate IDs will result in
+// duplicate artists in the result.
+func (c *Client) FindArtists(ids ...ID) ([]*FullArtist, error) {
+	uri := baseAddress + "artists?ids=" + strings.Join(toStringSlice(ids), ",")
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: couldn't decode error")
+		}
+		return nil, e.E
+	}
+	var a struct {
+		Artists []*FullArtist
+	}
+	err = json.NewDecoder(resp.Body).Decode(&a)
+	if err != nil {
+		return nil, err
+	}
+	return a.Artists, nil
+}
+
 // ArtistsTopTracks gets Spotify catalog information about
 // an artist's top tracks in a particular country.  It returns
 // a maximum of 10 tracks.  The country is specified as an
@@ -112,14 +148,14 @@ func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-			var e struct {
-				E Error `json:"error"`
-			}
-			err = json.NewDecoder(resp.Body).Decode(&e)
-			if err != nil {
-				return nil, errors.New("spotify: Couldn't decode error")
-			}
-			return nil, e.E
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: Couldn't decode error")
+		}
+		return nil, e.E
 	}
 	var a struct {
 		Artists []FullArtist `json:"artists"`
@@ -129,4 +165,115 @@ func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
 		return nil, err
 	}
 	return a.Artists, nil
+}
+
+// ArtistAlbums gets Spotify catalog information
+// about an artist's albums.  It is equivalent to
+// ArtistAlbumsFiltered(artistID, nil)
+func (c *Client) ArtistAlbums(artistID ID) (*AlbumResult, error) {
+	return c.ArtistAlbumsFiltered(artistID, nil)
+}
+
+// AlbumOptions contains optional parameters for sorting
+// and filtering the results of FindArtistAlbumsFiltered.
+// Only the non-nil fields are used in the query.
+type AlbumOptions struct {
+	// Type contains one or more types of albums
+	// that will be used to filter the result.  If
+	// not specified, all album types will be returned.
+	Type *AlbumType
+	// An ISO 3166-1 alpha-2 country code that  limits
+	// the result to one particular market.  If not given,
+	// results will be returned for all markets and you are
+	// likely to get duplicate results per album, one for
+	// each market in which the album is available!
+	Country *string
+	// The maximum number of objects to return.
+	// Minimum: 1.  Maximum: 50.
+	Limit *int
+	// The index of the first album to return. Use
+	// with Limit to get the next set of albums.
+	Offset *int
+}
+
+// SetType sets the optional AlbumType field.
+func (a *AlbumOptions) SetType(t AlbumType) {
+	a.Type = new(AlbumType)
+	*a.Type = t
+}
+
+// SetCountry sets the optional Country field.
+func (a *AlbumOptions) SetCountry(c string) {
+	a.Country = new(string)
+	*a.Country = c
+}
+
+// SetLimit sets the optional Limit field.
+func (a *AlbumOptions) SetLimit(l int) {
+	a.Limit = new(int)
+	*a.Limit = l
+}
+
+// SetOffset sets the optional Offset field.
+func (a *AlbumOptions) SetOffset(o int) {
+	a.Offset = new(int)
+	*a.Offset = o
+}
+
+// ArtistAlbumsFiltered is just like ArtistAlbums, but
+// it accepts optional parameters to filter and sort the result.
+func (c *Client) ArtistAlbumsFiltered(artistID ID, options *AlbumOptions) (*AlbumResult, error) {
+	uri := baseAddress + "artists/" + string(artistID) + "/albums"
+	// add optional query string if options were specified
+	if options != nil {
+		values := url.Values{}
+		if options.Type != nil {
+			values.Set("album_type", options.Type.encode())
+		}
+		if options.Country != nil {
+			values.Set("market", *options.Country)
+		}
+		if options.Limit != nil {
+			values.Set("limit", strconv.Itoa(*options.Limit))
+		}
+		if options.Offset != nil {
+			values.Set("offset", strconv.Itoa(*options.Offset))
+		}
+		if query := values.Encode(); query != "" {
+			uri += "?" + query
+		}
+	}
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: couldn't decode error")
+		}
+		return nil, e.E
+	}
+	var p page
+	err = json.NewDecoder(resp.Body).Decode(&p)
+	if err != nil {
+		return nil, err
+	}
+	var result AlbumResult
+	err = json.Unmarshal([]byte(p.Items), &result.Albums)
+	if err != nil {
+		return nil, err
+	}
+	result.FullResult = p.Endpoint
+	result.Limit = p.Limit
+	result.Offset = p.Offset
+	result.Total = p.Total
+	result.Previous = p.Previous
+	result.Next = p.Next
+	return &result, nil
 }

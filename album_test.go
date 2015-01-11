@@ -61,8 +61,8 @@ func TestFindAlbums(t *testing.T) {
 		t.Error(err.Error())
 		return
 	}
-	if len(res.Albums) != 3 {
-		t.Error("Expected 3 albums, got " + string(len(res.Albums)))
+	if len(res) != 3 {
+		t.Error("Expected 3 albums, got " + string(len(res)))
 		return
 	}
 	expectedAlbums := []string{
@@ -71,8 +71,8 @@ func TestFindAlbums(t *testing.T) {
 		"Night Train",
 	}
 	for i, name := range expectedAlbums {
-		if res.Albums[i].Name != name {
-			t.Error("Expected album", name, "but got", res.Albums[i].Name)
+		if res[i].Name != name {
+			t.Error("Expected album", name, "but got", res[i].Name)
 		}
 	}
 }

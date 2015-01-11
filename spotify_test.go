@@ -64,7 +64,7 @@ func TestSearchArtist(t *testing.T) {
 	if t.Failed() {
 		return
 	}
-	result, err := client.Search("tania bowra", Artist)
+	result, err := client.Search("tania bowra", SearchTypeArtist)
 	if err != nil {
 		t.Error(err)
 	}
@@ -91,7 +91,7 @@ func TestSearchTracks(t *testing.T) {
 	if t.Failed() {
 		return
 	}
-	result, err := client.Search("uptown", Track)
+	result, err := client.Search("uptown", SearchTypeTrack)
 	if err != nil {
 		t.Error(err)
 	}
@@ -118,7 +118,7 @@ func TestSearchPlaylistTrack(t *testing.T) {
 	if t.Failed() {
 		return
 	}
-	result, err := client.Search("holiday", Playlist|Track)
+	result, err := client.Search("holiday", SearchTypePlaylist|SearchTypeTrack)
 	if err != nil {
 		t.Error(err)
 	}

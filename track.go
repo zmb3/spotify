@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // SimpleTrack contains basic info about a track.
@@ -18,7 +19,7 @@ type SimpleTrack struct {
 	// The disc number (usually 1 unless the album
 	// consists of more than one disc).
 	DiscNumber int `json:"disc_number"`
-	// The length of the track, in milliseconds. TODO: time package?
+	// The length of the track, in milliseconds.
 	Duration int `json:"duration_ms"`
 	// Whether or not the track has explicit lyrics.
 	// true => yes, it does; false => no, it does not.
@@ -71,6 +72,12 @@ type PlaylistTrack struct {
 // SavedTrack provides info about a track saved
 // to a user's account.
 type SavedTrack struct {
+}
+
+// TimeDuration returns the track's duration as a
+// time.Duration value.
+func (t *SimpleTrack) TimeDuration() time.Duration {
+	return time.Duration(t.Duration) * time.Millisecond
 }
 
 // FindTrack gets spotify catalog information for

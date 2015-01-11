@@ -5,26 +5,10 @@ package spotify
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 )
 
 var (
 	baseAddress = "https://api.spotify.com/v1/"
-)
-
-// SearchType represents the type of a query used
-// in the Search function.
-type SearchType int
-
-// Search type values that can be passed
-// to the search function.  These are flags
-// an can be bitwise OR'd together to search
-// for multiple types of content simultaneously.
-const (
-	Album    SearchType = 1 << iota
-	Artist              = 1 << iota
-	Playlist            = 1 << iota
-	Track               = 1 << iota
 )
 
 // ISO 3166-1 alpha 2 country codes.
@@ -142,23 +126,6 @@ func (c *Client) FeaturedPlaylists(country, locale, timestamp string) {
 	// add auth headers
 	// header['Content-Type'] = 'application/json';
 
-}
-
-func (st SearchType) encode() string {
-	types := []string{}
-	if st&Album != 0 {
-		types = append(types, "album")
-	}
-	if st&Artist != 0 {
-		types = append(types, "artist")
-	}
-	if st&Playlist != 0 {
-		types = append(types, "playlist")
-	}
-	if st&Track != 0 {
-		types = append(types, "track")
-	}
-	return strings.Join(types, ",")
 }
 
 // page is a container for a set of objects.
