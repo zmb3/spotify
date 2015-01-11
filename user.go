@@ -1,6 +1,9 @@
 package spotify
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"net/http"
+)
 
 // User contains the basic, publicly available
 // information about a Spotify user.
