@@ -16,15 +16,23 @@ var (
 // in the Search function.
 type SearchType int
 
+// Search type values that can be passed
+// to the search function.  These are flags
+// an can be bitwise OR'd together to search
+// for multiple types of content simultaneously.
 const (
-	// Album searches for albums.
-	Album SearchType = 1 << iota
-	// Artist searches for artists.
-	Artist = 1 << iota
-	// Playlist searches for playlists.
-	Playlist = 1 << iota
-	// Track searches for tracks.
-	Track = 1 << iota
+	Album    SearchType = 1 << iota
+	Artist              = 1 << iota
+	Playlist            = 1 << iota
+	Track               = 1 << iota
+)
+
+// ISO 3166-1 alpha 2 country codes.
+const (
+	CountryAustralia = "AU"
+	CountryBelgium   = "BE"
+	CountryBrazil    = "BR"
+	CountryUSA       = "US"
 )
 
 // URI identifies an artist,

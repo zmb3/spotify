@@ -1,0 +1,33 @@
+{
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
+  },
+  "followers" : {
+    "href" : null,
+    "total" : 2265279
+  },
+  "genres" : [ ],
+  "href" : "https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg",
+  "id" : "0TnOYISbd1XYRBk9myaseg",
+  "images" : [ {
+    "height" : 1500,
+    "url" : "https://i.scdn.co/image/b648bc1dbd4e85a4f176543e84537994500a9803",
+    "width" : 1000
+  }, {
+    "height" : 960,
+    "url" : "https://i.scdn.co/image/252585daeccb52d0fe2f4e6ee53e482a12f9d554",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://i.scdn.co/image/687e8880800f64e0d1ca1aa4174331e9f28ea9e7",
+    "width" : 200
+  }, {
+    "height" : 96,
+    "url" : "https://i.scdn.co/image/21ff7ebaa255ffc649bf71b6d619f8440e613579",
+    "width" : 64
+  } ],
+  "name" : "Pitbull",
+  "popularity" : 97,
+  "type" : "artist",
+  "uri" : "spotify:artist:0TnOYISbd1XYRBk9myaseg"
+}

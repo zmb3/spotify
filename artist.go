@@ -1,5 +1,10 @@
 package spotify
 
+import (
+	"encoding/json"
+	"errors"
+)
+
 // SimpleArtist contains basic info about an artist.
 type SimpleArtist struct {
 	// The name of the artist.
@@ -34,10 +39,61 @@ type FullArtist struct {
 	Images []Image `json:"images"`
 }
 
-func (a *SimpleArtist) String() string {
-	return "SimpleArtist: " + a.Name
+// FindArtist gets Spotify catalog information for a single
+// artist, given that artist's Spotify ID.
+func (c *Client) FindArtist(id ID) (*FullArtist, error) {
+	uri := baseAddress + "artists/" + string(id)
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: HTTP response error")
+		}
+		return nil, e.E
+	}
+	var a FullArtist
+	err = json.NewDecoder(resp.Body).Decode(&a)
+	if err != nil {
+		return nil, err
+	}
+	return &a, nil
 }
 
-func (a *FullArtist) String() string {
-	return "FullArtist: " + a.Name
+// ArtistsTopTracks gets Spotify catalog information about
+// an artist's top tracks in a particular country.  It returns
+// a maximum of 10 tracks.  The country is specified as an
+// ISO 3166-1 alpha-2 country code.
+func (c *Client) ArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
+	uri := baseAddress + "artists/" + string(artistID) + "/top-tracks?country=" + country
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: HTTP response error")
+		}
+		return nil, e.E
+	}
+	var t struct {
+		Tracks []FullTrack `json:"tracks"`
+	}
+
+	err = json.NewDecoder(resp.Body).Decode(&t)
+	if err != nil {
+		return nil, err
+	}
+	return t.Tracks, nil
 }
