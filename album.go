@@ -77,14 +77,6 @@ type FullAlbum struct {
 	ExternalIDs ExternalID `json:"external_ids"`
 }
 
-func (a *SimpleAlbum) String() string {
-	return "SimpleAlbum: " + a.Name
-}
-
-func (a *FullAlbum) String() string {
-	return "FullAlbum: " + a.Name
-}
-
 // FindAlbum gets Spotify catalog information for a single
 // album, given that album's Spotify ID.
 func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
@@ -122,8 +114,10 @@ func toStringSlice(ids []ID) []string {
 
 // FindAlbums gets Spotify Catalog information for multiple
 // albums, given their Spotify IDs.  It supports up to 20
-// IDs in a single call.
-func (c *Client) FindAlbums(ids ...ID) (*AlbumResult, error) {
+// IDs in a single call.  Albums are returned in the order
+// requested.  If an album is not found, that position in the
+// result slice will be nil.
+func (c *Client) FindAlbums(ids ...ID) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
@@ -133,13 +127,24 @@ func (c *Client) FindAlbums(ids ...ID) (*AlbumResult, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-
-	var result AlbumResult
-	err = json.NewDecoder(resp.Body).Decode(&result)
+	if resp.StatusCode != http.StatusOK {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: couldn't decode error")
+		}
+		return nil, e.E
+	}
+	var a struct {
+		Albums []*FullAlbum `json:"albums"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&a)
 	if err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return a.Albums, nil
 }
 
 // FindAlbumTracks gets the tracks for a particular album.
