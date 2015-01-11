@@ -45,3 +45,27 @@ func TestArtistTopTracks(t *testing.T) {
 		t.Errorf("Track number was %d, expected 24\n", track.TrackNumber)
 	}
 }
+
+func TestRelatedArtists(t *testing.T) {
+  server, client := testClientFromFile(200, "test_data/related_artists.txt", t)
+  defer server.Close()
+  if t.Failed() {
+    return
+  }
+  artists, err := client.FindRelatedArtists(ID("43ZHCT0cAZBISjO8DG9PnE"))
+  if err != nil {
+    t.Error(err)
+    return
+  }
+  if count := len(artists); count != 20 {
+    t.Errorf("Got %d artists, wanted 20\n", count)
+    return
+  }
+  a2 := artists[2]
+  if a2.Name != "Carl Perkins" {
+    t.Error("Expected Carl Perkins, got ", a2.Name)
+  }
+  if a2.Popularity != 54 {
+    t.Errorf("Expected popularity 54, got %d\n", a2.Popularity)
+  }
+}

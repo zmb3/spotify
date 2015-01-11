@@ -3,6 +3,7 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
 )
 
 // SimpleArtist contains basic info about an artist.
@@ -48,7 +49,7 @@ func (c *Client) FindArtist(id ID) (*FullArtist, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		var e struct {
 			E Error `json:"error"`
 		}
@@ -77,7 +78,7 @@ func (c *Client) ArtistsTopTracks(artistID ID, country string) ([]FullTrack, err
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		var e struct {
 			E Error `json:"error"`
 		}
@@ -96,4 +97,36 @@ func (c *Client) ArtistsTopTracks(artistID ID, country string) ([]FullTrack, err
 		return nil, err
 	}
 	return t.Tracks, nil
+}
+
+// FindRelatedArtists gets Spotify catalog information about
+// artists similar to a given artist.  Similarity is based on
+// analysis of the Spotify community's listening history.
+// This function returns up to 20 artists that are considered
+// related to the specified artist.
+func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
+	uri := baseAddress + "artists/" + string(id) + "/related-artists"
+	resp, err := c.http.Get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+			var e struct {
+				E Error `json:"error"`
+			}
+			err = json.NewDecoder(resp.Body).Decode(&e)
+			if err != nil {
+				return nil, errors.New("spotify: Couldn't decode error")
+			}
+			return nil, e.E
+	}
+	var a struct {
+		Artists []FullArtist `json:"artists"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&a)
+	if err != nil {
+		return nil, err
+	}
+	return a.Artists, nil
 }
