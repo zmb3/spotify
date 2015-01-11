@@ -1,55 +1,84 @@
 package spotify
 
 import (
-	"fmt"
-	"io"
+	"errors"
 	"net/http"
-	"net/http/httptest"
-	"net/url"
 	"os"
+	"strings"
 	"testing"
 )
 
-func testClient(code int, body string) (*httptest.Server, *Client) {
-	baseAddress = "http://localhost/"
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(code)
-		fmt.Fprintln(w, body)
-	}))
-	transport := &http.Transport{
-		Proxy: func(req *http.Request) (*url.URL, error) {
-			return url.Parse(server.URL)
-		},
-	}
-	client := Client{
-		http: http.Client{Transport: transport},
-	}
-	return server, &client
+type stringRoundTripper struct {
+	strings.Reader
+	statusCode int
 }
 
-func testClientFromFile(code int, filename string, t *testing.T) (*httptest.Server, *Client) {
-	baseAddress = "http://localhost/"
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(code)
-		file, err := os.Open(filename)
-		if err != nil {
-			t.Error(err.Error())
-			return
+func newStringRoundTripper(code int, s string) *stringRoundTripper {
+	return &stringRoundTripper{*strings.NewReader(s), code}
+}
+
+func (s stringRoundTripper) Close() error {
+	return nil
+}
+
+type fileRoundTripper struct {
+	*os.File
+	statusCode int
+}
+
+func newFileRoundTripper(code int, filename string) *fileRoundTripper {
+	file, err := os.Open(filename)
+	if err != nil {
+		panic("Couldn't open file " + filename)
+	}
+	return &fileRoundTripper{file, code}
+}
+
+func (s *stringRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	if req.Header == nil {
+		if req.Body != nil {
+			req.Body.Close()
 		}
-		defer file.Close()
-		w.Header().Set("Content-Type", "application/json")
-		io.Copy(w, file)
-	}))
-	transport := &http.Transport{
-		Proxy: func(req *http.Request) (*url.URL, error) {
-			return url.Parse(server.URL)
+		return nil, errors.New("stringRoundTripper: nil request header")
+	}
+	return &http.Response{
+		StatusCode: s.statusCode,
+		Body:       s,
+	}, nil
+}
+
+func (f *fileRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	if req.Header == nil {
+		if req.Body != nil {
+			req.Body.Close()
+		}
+		return nil, errors.New("fileRoundTripper: nil request header")
+	}
+	return &http.Response{
+		StatusCode: f.statusCode,
+		Body:       f,
+	}, nil
+}
+
+// Returns a client whose requests will always return
+// the specified status code and body.
+func testClientString(code int, body string) *Client {
+	return &Client{
+		http: http.Client{
+			Transport: newStringRoundTripper(code, body),
 		},
 	}
-	client := Client{
-		http: http.Client{Transport: transport},
+}
+
+// Returns a client whose requests will always return
+// a response with the specified status code and a body
+// that is read from the specified file.
+func testClientFile(code int, filename string) *Client {
+	return &Client{
+		http: http.Client{
+			Transport: newFileRoundTripper(code, filename),
+		},
 	}
-	return server, &client
 }
 
 // func TestSearchNoQuery(t *testing.T) {
@@ -59,11 +88,7 @@ func testClientFromFile(code int, filename string, t *testing.T) (*httptest.Serv
 // }
 
 func TestSearchArtist(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/search_artist.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/search_artist.txt")
 	result, err := client.Search("tania bowra", SearchTypeArtist)
 	if err != nil {
 		t.Error(err)
@@ -86,11 +111,7 @@ func TestSearchArtist(t *testing.T) {
 }
 
 func TestSearchTracks(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/search_tracks.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/search_tracks.txt")
 	result, err := client.Search("uptown", SearchTypeTrack)
 	if err != nil {
 		t.Error(err)
@@ -113,11 +134,7 @@ func TestSearchTracks(t *testing.T) {
 }
 
 func TestSearchPlaylistTrack(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/search_trackplaylist.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/search_trackplaylist.txt")
 	result, err := client.Search("holiday", SearchTypePlaylist|SearchTypeTrack)
 	if err != nil {
 		t.Error(err)

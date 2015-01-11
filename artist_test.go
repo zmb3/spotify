@@ -65,11 +65,7 @@ const albumsResponse = `
 }`
 
 func TestFindArtist(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/find_artist.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/find_artist.txt")
 	artist, err := client.FindArtist(ID("0TnOYISbd1XYRBk9myaseg"))
 	if err != nil {
 		t.Error(err)
@@ -85,11 +81,7 @@ func TestFindArtist(t *testing.T) {
 }
 
 func TestArtistTopTracks(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/artist_top_tracks.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/artist_top_tracks.txt")
 	tracks, err := client.ArtistsTopTracks(ID("43ZHCT0cAZBISjO8DG9PnE"), "SE")
 	if err != nil {
 		t.Error(err)
@@ -109,11 +101,7 @@ func TestArtistTopTracks(t *testing.T) {
 }
 
 func TestRelatedArtists(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/related_artists.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/related_artists.txt")
 	artists, err := client.FindRelatedArtists(ID("43ZHCT0cAZBISjO8DG9PnE"))
 	if err != nil {
 		t.Error(err)
@@ -133,8 +121,7 @@ func TestRelatedArtists(t *testing.T) {
 }
 
 func TestArtistAlbumsFiltered(t *testing.T) {
-	server, client := testClient(http.StatusOK, albumsResponse)
-	defer server.Close()
+	client := testClientString(http.StatusOK, albumsResponse)
 
 	options := AlbumOptions{}
 	options.SetType(AlbumTypeSingle)

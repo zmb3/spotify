@@ -6,11 +6,7 @@ import (
 )
 
 func TestFindTrack(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/find_track.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/find_track.txt")
 	track, err := client.FindTrack(ID("1zHlj4dQ8ZAtrayhuDDmkY"))
 	if err != nil {
 		t.Error(err)
@@ -22,11 +18,7 @@ func TestFindTrack(t *testing.T) {
 }
 
 func TestFindTracksSimple(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/find_tracks_simple.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/find_tracks_simple.txt")
 	tracks, err := client.FindTracks(ID("0eGsygTp906u18L0Oimnem"), ID("1lDWb6b6ieDQ2xT7ewTC3G"))
 	if err != nil {
 		t.Error(err)
@@ -40,11 +32,7 @@ func TestFindTracksSimple(t *testing.T) {
 }
 
 func TestFindTracksNotFound(t *testing.T) {
-	server, client := testClientFromFile(http.StatusOK, "test_data/find_tracks_notfound.txt", t)
-	defer server.Close()
-	if t.Failed() {
-		return
-	}
+	client := testClientFile(http.StatusOK, "test_data/find_tracks_notfound.txt")
 	tracks, err := client.FindTracks(ID("0eGsygTp906u18L0Oimnem"), ID("1lDWb6b6iecccdsdckTC3G"))
 	if err != nil {
 		t.Error(err)

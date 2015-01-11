@@ -27,8 +27,7 @@ const userResponse = `
 }`
 
 func TestUserProfile(t *testing.T) {
-	server, client := testClient(http.StatusOK, userResponse)
-	defer server.Close()
+	client := testClientString(http.StatusOK, userResponse)
 	user, err := client.UserPublicProfile("wizzler")
 	if err != nil {
 		t.Error(err)
