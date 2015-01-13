@@ -19,15 +19,18 @@ To install the library, simply
 ## Authentication
 
 Most of the functionality is available without authenticating.
-However, authenticated users benefit from increased rate limits,
-even for calls that don't require authentication.
+However, authenticated users benefit from increased rate limits.
 
-All functions requiring authentication are explicitly marked as
+Features that access a user's private data require authorization.
+All functions requiring authorization are explicitly marked as
 such in the godoc.  If you attempt to call any of these functions
-without authenticating first, the error returned will be
-`spotify.ErrNotAuthenticated`.
+without authorization, the error returned will be
+`spotify.ErrNotAuthorized`.
 
-To authenticate [TBD ...]
+The first step towards authenticating is to get a __client ID__ and __secret key__ by registering your application at the following page:
+
+https://developer.spotify.com/my-applications/.
+
 
 ## Examples
 

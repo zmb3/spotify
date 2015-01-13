@@ -64,11 +64,3 @@ type FullPlaylist struct {
 	// TODO: paging object.  is this the same as simple?
 	Tracks string `json:"tracks"`
 }
-
-func (p *SimplePlaylist) String() string {
-	return "SimplePlaylist: " + p.Name
-}
-
-func (p *FullPlaylist) String() string {
-	return "FullPlaylist: " + p.Name
-}
