@@ -11,6 +11,9 @@ import (
 var (
 	baseAddress = "https://api.spotify.com/v1/"
 
+	// DefaultClient is the default client and is used by ...
+	DefaultClient = &Client{}
+
 	// ErrNotAuthenticated is returned when an unauthenticated user
 	// makes an API call that requries authentication.
 	ErrNotAuthenticated = errors.New("spotify: this call requires authentication")

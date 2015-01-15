@@ -2,6 +2,8 @@ package spotify
 
 import (
 	"encoding/json"
+	"errors"
+	"net/http"
 	"net/url"
 	"strings"
 )
@@ -98,6 +100,11 @@ type SearchResult struct {
 	Tracks    *TrackResult
 }
 
+// Search is a wrapper around DefaultClient.Search.
+func Search(query string, t SearchType) (*SearchResult, error) {
+	return DefaultClient.Search(query, t)
+}
+
 // Search gets Spotify catalog information about artists,
 // albums, tracks, or playlists that match a keyword string.
 // t is a mask containing one or more search types.  For
@@ -150,9 +157,10 @@ type SearchResult struct {
 // popularity.
 //
 // Other possible field filters, depending on object types
-// being searched, indclude "genre", "upc", and "isrc".
+// being searched, include "genre", "upc", and "isrc".
 // For example "damian genre:reggae-pop".
 func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
+	// TODO: need to provide API for specifying limit/offset
 	query = url.QueryEscape(query)
 	v := url.Values{}
 	v.Set("q", query)
@@ -163,6 +171,17 @@ func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		var e struct {
+			E Error `json:"error"`
+		}
+		err = json.NewDecoder(resp.Body).Decode(&e)
+		if err != nil {
+			return nil, errors.New("spotify: couldn't decode error")
+		}
+		return nil, e.E
+	}
 
 	var result searchResult
 	err = json.NewDecoder(resp.Body).Decode(&result)

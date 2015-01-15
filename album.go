@@ -112,6 +112,11 @@ func toStringSlice(ids []ID) []string {
 	return result
 }
 
+// FindAlbums is a wrapper around DefaultClient.FindAlbums.
+func FindAlbums(ids ...ID) ([]*FullAlbum, error) {
+	return DefaultClient.FindAlbums(ids...)
+}
+
 // FindAlbums gets Spotify Catalog information for multiple
 // albums, given their Spotify IDs.  It supports up to 20
 // IDs in a single call.  Albums are returned in the order
@@ -180,11 +185,21 @@ func (at AlbumType) encode() string {
 	return strings.Join(types, ",")
 }
 
+// FindAlbumTracks is a wrapper around DefaultClient.FindAlbumTracks.
+func FindAlbumTracks(id ID) (*TrackResult, error) {
+	return DefaultClient.FindAlbumTracks(id)
+}
+
 // FindAlbumTracks gets the tracks for a particular album.
 // If you only care about the tracks, this call is more efficient
 // than FindAlbum.
 func (c *Client) FindAlbumTracks(id ID) (*TrackResult, error) {
 	return c.FindAlbumTracksLimited(id, -1, -1)
+}
+
+// FindAlbumTracksLimited is a wrapper around DefaultClient.FindAlbumTracksLimited.
+func FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult, error) {
+	return DefaultClient.FindAlbumTracksLimited(id, limit, offset)
 }
 
 // FindAlbumTracksLimited behaves like FindAlbumTracks, with the

@@ -80,6 +80,11 @@ func (t *SimpleTrack) TimeDuration() time.Duration {
 	return time.Duration(t.Duration) * time.Millisecond
 }
 
+// FindTrack is a wrapper around DefaultClient.FindTrack.
+func FindTrack(id ID) (*FullTrack, error) {
+	return DefaultClient.FindTrack(id)
+}
+
 // FindTrack gets spotify catalog information for
 // a single track identified by its unique Spotify ID.
 func (c *Client) FindTrack(id ID) (*FullTrack, error) {
@@ -105,6 +110,11 @@ func (c *Client) FindTrack(id ID) (*FullTrack, error) {
 		return nil, err
 	}
 	return &t, nil
+}
+
+// FindTracks is a wrapper around DefaultClient.FindTracks.
+func FindTracks(ids ...ID) ([]*FullTrack, error) {
+	return DefaultClient.FindTracks(ids...)
 }
 
 // FindTracks gets Spotify catalog information for multiple

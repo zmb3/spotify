@@ -52,10 +52,15 @@ type PrivateUser struct {
 	Product string `json:"product"`
 }
 
+// UserPublicProfile is a wrapper around DefaultClient.UserPublicProfile.
+func UserPublicProfile(userID ID) (*User, error) {
+	return DefaultClient.UserPublicProfile(userID)
+}
+
 // UserPublicProfile gets public profile information about a
 // Spotify User.  It does not require authentication.
-func (c *Client) UserPublicProfile(userID string) (*User, error) {
-	uri := baseAddress + "users/" + userID
+func (c *Client) UserPublicProfile(userID ID) (*User, error) {
+	uri := baseAddress + "users/" + string(userID)
 	resp, err := c.http.Get(uri)
 	if err != nil {
 		return nil, err

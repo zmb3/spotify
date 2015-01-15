@@ -43,6 +43,11 @@ type FullArtist struct {
 	Images []Image `json:"images"`
 }
 
+// FindArtist is a wrapper around DefaultClient.FindArtist.
+func FindArtist(id ID) (*FullArtist, error) {
+	return DefaultClient.FindArtist(id)
+}
+
 // FindArtist gets Spotify catalog information for a single
 // artist, given that artist's Spotify ID.
 func (c *Client) FindArtist(id ID) (*FullArtist, error) {
@@ -68,6 +73,11 @@ func (c *Client) FindArtist(id ID) (*FullArtist, error) {
 		return nil, err
 	}
 	return &a, nil
+}
+
+// FindArtists is a wrapper around DefaultClient.FindArtists.
+func FindArtists(ids ...ID) ([]*FullArtist, error) {
+	return DefaultClient.FindArtists(ids...)
 }
 
 // FindArtists gets spotify catalog information for several
@@ -103,6 +113,11 @@ func (c *Client) FindArtists(ids ...ID) ([]*FullArtist, error) {
 	return a.Artists, nil
 }
 
+// ArtistsTopTracks is a wrapper around DefaultClient.ArtistTopTracks.
+func ArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
+	return DefaultClient.ArtistsTopTracks(artistID, country)
+}
+
 // ArtistsTopTracks gets Spotify catalog information about
 // an artist's top tracks in a particular country.  It returns
 // a maximum of 10 tracks.  The country is specified as an
@@ -135,6 +150,11 @@ func (c *Client) ArtistsTopTracks(artistID ID, country string) ([]FullTrack, err
 	return t.Tracks, nil
 }
 
+// FindRelatedArtists is a wrapper around DefaultClient.FindRelatedArtists.
+func FindRelatedArtists(id ID) ([]FullArtist, error) {
+	return DefaultClient.FindRelatedArtists(id)
+}
+
 // FindRelatedArtists gets Spotify catalog information about
 // artists similar to a given artist.  Similarity is based on
 // analysis of the Spotify community's listening history.
@@ -165,6 +185,11 @@ func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
 		return nil, err
 	}
 	return a.Artists, nil
+}
+
+// ArtistAlbums is a wrapper around DefaultClient.ArtistAlbums.
+func ArtistAlbums(artistID ID) (*AlbumResult, error) {
+	return DefaultClient.ArtistAlbums(artistID)
 }
 
 // ArtistAlbums gets Spotify catalog information
@@ -218,6 +243,11 @@ func (a *AlbumOptions) SetLimit(l int) {
 func (a *AlbumOptions) SetOffset(o int) {
 	a.Offset = new(int)
 	*a.Offset = o
+}
+
+// ArtistAlbumsFiltered is a wrapper around DefaultClient.ArtistAlbumsFiltered
+func ArtistAlbumsFiltered(artistID ID, options *AlbumOptions) (*AlbumResult, error) {
+	return DefaultClient.ArtistAlbumsFiltered(artistID, options)
 }
 
 // ArtistAlbumsFiltered is just like ArtistAlbums, but
