@@ -95,14 +95,7 @@ func (c *Client) FindTrack(id ID) (*FullTrack, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: Couldn't decode error object")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var t FullTrack
 	err = json.NewDecoder(resp.Body).Decode(&t)
@@ -134,14 +127,7 @@ func (c *Client) FindTracks(ids ...ID) ([]*FullTrack, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: couldn't decode error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 
 	var t struct {

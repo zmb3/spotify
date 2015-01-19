@@ -65,19 +65,9 @@ func (c *Client) UserPublicProfile(userID ID) (*User, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-
 	if resp.StatusCode != http.StatusOK {
-		var spotifyError struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&spotifyError)
-		if err != nil {
-			return nil, err
-		}
-		return nil, spotifyError.E
+		return nil, decodeError(resp.Body)
 	}
-
 	var user User
 	err = json.NewDecoder(resp.Body).Decode(&user)
 	if err != nil {

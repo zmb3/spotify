@@ -5,6 +5,7 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 )
 
@@ -80,6 +81,19 @@ type Error struct {
 
 func (e Error) Error() string {
 	return e.Message
+}
+
+// decodeError decodes an error from
+// an io.Reader.
+func decodeError(r io.Reader) error {
+	var e struct {
+		E Error `json:"error"`
+	}
+	err := json.NewDecoder(r).Decode(&e)
+	if err != nil {
+		return errors.New("spotify: couldn't decode error")
+	}
+	return e.E
 }
 
 // ExternalID contains information that identifies

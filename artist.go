@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -58,14 +57,7 @@ func (c *Client) FindArtist(id ID) (*FullArtist, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: HTTP response error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var a FullArtist
 	err = json.NewDecoder(resp.Body).Decode(&a)
@@ -94,14 +86,7 @@ func (c *Client) FindArtists(ids ...ID) ([]*FullArtist, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: couldn't decode error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var a struct {
 		Artists []*FullArtist
@@ -130,14 +115,7 @@ func (c *Client) ArtistsTopTracks(artistID ID, country string) ([]FullTrack, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: HTTP response error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var t struct {
 		Tracks []FullTrack `json:"tracks"`
@@ -168,14 +146,7 @@ func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: Couldn't decode error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var a struct {
 		Artists []FullArtist `json:"artists"`
@@ -280,14 +251,7 @@ func (c *Client) ArtistAlbumsFiltered(artistID ID, options *AlbumOptions) (*Albu
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: couldn't decode error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var p page
 	err = json.NewDecoder(resp.Body).Decode(&p)

@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"net/url"
 	"strings"
@@ -173,14 +172,7 @@ func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: couldn't decode error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 
 	var result searchResult

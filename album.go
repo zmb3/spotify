@@ -87,14 +87,7 @@ func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: HTTP response error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var a FullAlbum
 	err = json.NewDecoder(resp.Body).Decode(&a)
@@ -133,14 +126,7 @@ func (c *Client) FindAlbums(ids ...ID) ([]*FullAlbum, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		var e struct {
-			E Error `json:"error"`
-		}
-		err = json.NewDecoder(resp.Body).Decode(&e)
-		if err != nil {
-			return nil, errors.New("spotify: couldn't decode error")
-		}
-		return nil, e.E
+		return nil, decodeError(resp.Body)
 	}
 	var a struct {
 		Albums []*FullAlbum `json:"albums"`
