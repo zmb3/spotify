@@ -28,29 +28,24 @@ const (
 	CountryUSA       = "US"
 )
 
-// URI identifies an artist,
-// album, or track.  For example,
+// URI identifies an artist, album, or track.  For example,
 // spotify:track:6rqhFgbbKwnb9MLmUQDhG6
 type URI string
 
-// ID is a base-62 identifier for
-// an artist, track, album, etc.
-// It can be found at the end of
-// a spotify.URI.
+// ID is a base-62 identifier for an artist, track, album, etc.
+// It can be found at the end of a spotify.URI.
 type ID string
 
 func (id *ID) String() string {
 	return string(*id)
 }
 
-// Timestamp is an ISO 8601 formatted timestamp
-// representing Coordinated Universal Time (UTC)
-// with zero offset: YYYY-MM-DDTHH:MM:SSZ.
+// Timestamp is an ISO 8601 formatted timestamp representing Coordinated
+// Universal Time (UTC) with zero offset: YYYY-MM-DDTHH:MM:SSZ.
 type Timestamp string
 
-// Followers contains information about the
-// number of people following a particular
-// artist or playlist.
+// Followers contains information about the number of people following
+// a particular artist or playlist.
 type Followers struct {
 	// The total number of followers.
 	Count uint `json:"total"`
@@ -70,8 +65,7 @@ type Image struct {
 	URL string `json:"url"`
 }
 
-// Error represents an error returned by the
-// Spotify Web API.
+// Error represents an error returned by the Spotify Web API.
 type Error struct {
 	// A short description of the error.
 	Message string `json:"message"`
@@ -83,8 +77,7 @@ func (e Error) Error() string {
 	return e.Message
 }
 
-// decodeError decodes an error from
-// an io.Reader.
+// decodeError decodes an error from an io.Reader.
 func decodeError(r io.Reader) error {
 	var e struct {
 		E Error `json:"error"`
@@ -96,8 +89,7 @@ func decodeError(r io.Reader) error {
 	return e.E
 }
 
-// ExternalID contains information that identifies
-// an item.
+// ExternalID contains information that identifies an item.
 type ExternalID struct {
 	// The identifier type, for example:
 	//   "isrc" - International Standard Recording Code
@@ -108,8 +100,7 @@ type ExternalID struct {
 	Value string `json:"{value}"`
 }
 
-// ExternalURL indicates an external, public URL
-// for an item.
+// ExternalURL indicates an external, public URL for an item.
 type ExternalURL struct {
 	// The type of the URL, for example:
 	//    "spotify" - The Spotify URL for the object.
@@ -150,14 +141,11 @@ func (c *Client) FeaturedPlaylists(country, locale, timestamp string) {
 
 }
 
-// page is a container for a set of objects.
-// We don't expose this to the user because
-// the Items field is just raw JSON.  Instead,
-// the user gets AlbumResult, ArtistResult,
-// TrackResult, and PlaylistResult.  These
-// type all contain the same data as page
-// but the Items field is a strongly typed
-// slice.
+// page is a container for a set of objects. We don't expose this to the
+// user because the Items field is just raw JSON.  Instead, the user gets
+// AlbumResult, ArtistResult, TrackResult, and PlaylistResult.  These
+// types all contain the same data as page but the Items field is a strongly
+// typed slice.
 type page struct {
 	Endpoint string          `json:"href"`
 	Items    json.RawMessage `json:"items"`
