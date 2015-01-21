@@ -4,7 +4,18 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
+)
+
+const (
+	// MarketFromToken can be used in place of the Market parameter
+	// if the Client has a valid access token.  In this case, the
+	// results will be limited to content that is playable in the
+	// country associated with the user's account.  The user must have
+	// granted access to the user-read-private scope when the access
+	// token was issued.
+	MarketFromToken = "from_token"
 )
 
 // SearchType represents the type of a query used
@@ -90,6 +101,24 @@ type searchResult struct {
 	Playlists *page `json:"playlists"`
 }
 
+// SearchOptions contains optional parameters for the search functions.
+// Only the non-nil fields are used in the query.
+type SearchOptions struct {
+	// The maximum number of objects to return.  If not specified,
+	// Spotify will return 20 results by default.  Minimum: 1,
+	// Maximum 50.
+	Limit *int
+	// The index of the first object to return.  If not specified,
+	// Spotify returns the first object.  Use with Limit to get the
+	// next set of results.
+	Offset *int
+	// An ISO 3166-1 alpha-2 country code, or the constant string
+	// MarketFromToken.  If specified, only artists, albums, and tracks
+	// with content playable in the specified market will be returned.
+	// (Playlist results are not affected by the market parameter)
+	Market *string
+}
+
 // SearchResult contains the results of a call to Search.
 // Fields that weren't searched for will be nil pointers.
 type SearchResult struct {
@@ -102,6 +131,11 @@ type SearchResult struct {
 // Search is a wrapper around DefaultClient.Search.
 func Search(query string, t SearchType) (*SearchResult, error) {
 	return DefaultClient.Search(query, t)
+}
+
+// SearchFiltered is a wrapper around DefaultClient.SearchFiltered
+func SearchFiltered(query string, t SearchType, opt *SearchOptions) (*SearchResult, error) {
+	return DefaultClient.SearchFiltered(query, t, opt)
 }
 
 // Search gets Spotify catalog information about artists,
@@ -159,11 +193,27 @@ func Search(query string, t SearchType) (*SearchResult, error) {
 // being searched, include "genre", "upc", and "isrc".
 // For example "damian genre:reggae-pop".
 func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
-	// TODO: need to provide API for specifying limit/offset
+	return c.SearchFiltered(query, t, nil)
+}
+
+// SearchFiltered works just like Search, but it accepts additional
+// parameters for filtering the output.
+func (c *Client) SearchFiltered(query string, t SearchType, opt *SearchOptions) (*SearchResult, error) {
 	query = url.QueryEscape(query)
 	v := url.Values{}
 	v.Set("q", query)
 	v.Set("type", t.encode())
+	if opt != nil {
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Market != nil {
+			v.Set("market", *opt.Market)
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+	}
 	uri := baseAddress + "search?" + v.Encode()
 	resp, err := c.http.Get(uri)
 	if err != nil {
