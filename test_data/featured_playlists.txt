@@ -1,0 +1,336 @@
+{
+  "message" : "Enjoy a mellow afternoon.",
+  "playlists" : {
+    "href" : "https://api.spotify.com/v1/browse/featured-playlists?country=SE&timestamp=2015-01-25T16:47:34&offset=0&limit=20",
+    "items" : [ {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/5mYuqPUConqYzvTA0IGibc"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/5mYuqPUConqYzvTA0IGibc",
+      "id" : "5mYuqPUConqYzvTA0IGibc",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/89c8ce91851e4f4c9d6312c6012bbc62f19c5459"
+      } ],
+      "name" : "Hangover Friendly Singer-Songwriter",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/5mYuqPUConqYzvTA0IGibc/tracks",
+        "total" : 86
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:5mYuqPUConqYzvTA0IGibc"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/0sMRTIZrf9NdwDboJUztZn"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/0sMRTIZrf9NdwDboJUztZn",
+      "id" : "0sMRTIZrf9NdwDboJUztZn",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/1803a515338ed2685d0c89347b6250c2392ad2da"
+      } ],
+      "name" : "Sunday Stroll",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/0sMRTIZrf9NdwDboJUztZn/tracks",
+        "total" : 70
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:0sMRTIZrf9NdwDboJUztZn"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/177ddWh0FuKFgzrl5D57Md"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/177ddWh0FuKFgzrl5D57Md",
+      "id" : "177ddWh0FuKFgzrl5D57Md",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/152b9abfe38a528c1b7d353b3def1e21c6aacb5c"
+      } ],
+      "name" : "Indie Brunch",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/177ddWh0FuKFgzrl5D57Md/tracks",
+        "total" : 51
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:177ddWh0FuKFgzrl5D57Md"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/4wtLaWQcPct5tlAWTxqjMD"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/4wtLaWQcPct5tlAWTxqjMD",
+      "id" : "4wtLaWQcPct5tlAWTxqjMD",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/f005b8105b1a4db1dbfa07f9d721570f740573ed"
+      } ],
+      "name" : "The Happy Hipster",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/4wtLaWQcPct5tlAWTxqjMD/tracks",
+        "total" : 176
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:4wtLaWQcPct5tlAWTxqjMD"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/0i0KOEPUK7pA1A5A29ulk4"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/0i0KOEPUK7pA1A5A29ulk4",
+      "id" : "0i0KOEPUK7pA1A5A29ulk4",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/a2391ed5622b7954583699ea882b265eb64ba72b"
+      } ],
+      "name" : "Hanging Out and Relaxing",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/0i0KOEPUK7pA1A5A29ulk4/tracks",
+        "total" : 88
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:0i0KOEPUK7pA1A5A29ulk4"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/5xtPbr795elinw40DsMnTY"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/5xtPbr795elinw40DsMnTY",
+      "id" : "5xtPbr795elinw40DsMnTY",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/cee27f2c683224f53494e0c2e434461fb140c6ff"
+      } ],
+      "name" : "Indie Workout",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/5xtPbr795elinw40DsMnTY/tracks",
+        "total" : 265
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:5xtPbr795elinw40DsMnTY"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/2KhnhTzEbZYCSz0ljMgQSn"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/2KhnhTzEbZYCSz0ljMgQSn",
+      "id" : "2KhnhTzEbZYCSz0ljMgQSn",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/355110a31e65ca349da491d3c9dfb8351c8d80ea"
+      } ],
+      "name" : "Lazy Weekend",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/2KhnhTzEbZYCSz0ljMgQSn/tracks",
+        "total" : 217
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:2KhnhTzEbZYCSz0ljMgQSn"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/2i0HbrNwqR7TTHFFet80W6"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/2i0HbrNwqR7TTHFFet80W6",
+      "id" : "2i0HbrNwqR7TTHFFet80W6",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/e0fdde70966dbcf7fa1c8dd265908c2418f24702"
+      } ],
+      "name" : "Sunday Drive",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/2i0HbrNwqR7TTHFFet80W6/tracks",
+        "total" : 50
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:2i0HbrNwqR7TTHFFet80W6"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/4MNCftvCERT8MreHSpoRPe"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/4MNCftvCERT8MreHSpoRPe",
+      "id" : "4MNCftvCERT8MreHSpoRPe",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/5d5a91e82a84ed96042151371998d60d6a37d7bc"
+      } ],
+      "name" : "Soft Pop Hits",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/4MNCftvCERT8MreHSpoRPe/tracks",
+        "total" : 180
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:4MNCftvCERT8MreHSpoRPe"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/7C49D2hDFRiWLcyFL8oCWN"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/7C49D2hDFRiWLcyFL8oCWN",
+      "id" : "7C49D2hDFRiWLcyFL8oCWN",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/c585c533463ef8abd4a5f6dc8490b7304f0835cd"
+      } ],
+      "name" : "An Instrumental Sunday",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/7C49D2hDFRiWLcyFL8oCWN/tracks",
+        "total" : 48
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:7C49D2hDFRiWLcyFL8oCWN"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/6VFQeQWFz2WgvSZrpJ7uuy"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/6VFQeQWFz2WgvSZrpJ7uuy",
+      "id" : "6VFQeQWFz2WgvSZrpJ7uuy",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/b52458df211366cd847207deace31461d6b2abee"
+      } ],
+      "name" : "R&B Love",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/6VFQeQWFz2WgvSZrpJ7uuy/tracks",
+        "total" : 168
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:6VFQeQWFz2WgvSZrpJ7uuy"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/570tVSLPdLnRU0z0bqd8Wk"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/570tVSLPdLnRU0z0bqd8Wk",
+      "id" : "570tVSLPdLnRU0z0bqd8Wk",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/34b68da3e74632592dd864f9e38e7e062d063054"
+      } ],
+      "name" : "Women of Jazz",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/570tVSLPdLnRU0z0bqd8Wk/tracks",
+        "total" : 72
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:570tVSLPdLnRU0z0bqd8Wk"
+    } ],
+    "limit" : 20,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 12
+  }
+}

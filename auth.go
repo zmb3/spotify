@@ -12,15 +12,30 @@ import (
 	"golang.org/x/oauth2"
 )
 
+// TokenType indicates which type of authorization a client uses.
+type TokenType string
+
 const (
-	authorizeBaseAddress = "https://accounts.spotify.com/authorize"
-	tokenBaseAddress     = "https://accounts.spotify.com/api/token"
+	// BasicToken authorization provides an increased rate limit, but don't
+	// offer access to a user's private data.
+	BasicToken TokenType = "Basic"
+	// BearerToken authorization offers access to a user's private data.
+	BearerToken = "Bearer"
 )
 
-// Endpoint contains Spotify server's OAuth2 token endpoint URLs.
-var Endpoint = oauth2.Endpoint{
-	AuthURL:  authorizeBaseAddress,
-	TokenURL: tokenBaseAddress,
+const (
+	// AuthorizeBaseAddress is the URL to the Spotify Accounts Service's
+	// authorization endpoint.
+	AuthorizeBaseAddress = "https://accounts.spotify.com/authorize"
+	// TokenBaseAddress is the URL to the Spotify Accounts Service's
+	// token endpoint.
+	TokenBaseAddress = "https://accounts.spotify.com/api/token"
+)
+
+// Oauth2Endpoint contains the OAuth2 token endpoint URLs for the Spotify Web API.
+var Oauth2Endpoint = oauth2.Endpoint{
+	AuthURL:  AuthorizeBaseAddress,
+	TokenURL: TokenBaseAddress,
 }
 
 // Scopes let you specify exactly which types of data your
@@ -103,7 +118,7 @@ func (c *Client) AuthenticateClientCredentials(opt AuthenticationOptions) error 
 		values.Set("scopes", strings.Join(opt.Scopes, " "))
 	}
 
-	req, err := http.NewRequest("POST", tokenBaseAddress+"?"+values.Encode(), nil)
+	req, err := http.NewRequest("POST", TokenBaseAddress+"?"+values.Encode(), nil)
 	if err != nil {
 		return err
 	}

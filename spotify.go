@@ -120,34 +120,15 @@ type ExternalURL struct {
 
 // Client is a client for working with the Spotify Web API.
 type Client struct {
-	http http.Client
+	http        http.Client
+	AccessToken string
+	TokenType   TokenType
 }
 
 // NewReleases gets a list of newly released albums that
 // are featured in Spotify.
 func (c *Client) NewReleases(country string) { // TODO limit/offset
 	// get("browse/new-releases")
-}
-
-// FeaturedPlaylists gets a list of featured playlists on Spotify.
-// This call requires authentication.  The country, locale,
-// and timestamp parameters are all optional - pass the
-// empty string if you don't care about them.  The country
-// parameter allows you to specify an ISO 3166-1 alpha-2
-// country code to get featured playlists relevant in a
-// particular country.  The locale parameter specifies the
-// desired language of the response - it is a lowercase
-// ISO 639 language code and an uppercase ISO 3166-1 alpha-2
-// country code, joined by an underscore (ie en_US).
-// If locale is not supplied, Spotify's default locale is
-// used (American English).  The timestamp parameter allows you
-// to specify a user's local time (in ISO 8601 format) to
-// get results tailored to that specific time.
-func (c *Client) FeaturedPlaylists(country, locale, timestamp string) {
-	// TODO limit/offset
-	// add auth headers
-	// header['Content-Type'] = 'application/json';
-
 }
 
 // page is a container for a set of objects.

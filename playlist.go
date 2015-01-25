@@ -1,5 +1,13 @@
 package spotify
 
+import (
+	"encoding/json"
+	"errors"
+	"net/http"
+	"net/url"
+	"strconv"
+)
+
 // PlaylistTracks contains details about the tracks in a
 // playlist.
 type PlaylistTracks struct {
@@ -63,4 +71,90 @@ type FullPlaylist struct {
 	// TODO: array of playlist track objects inside a
 	// TODO: paging object.  is this the same as simple?
 	Tracks string `json:"tracks"`
+}
+
+// PlaylistOptions contains optional perameters that can be
+// used when querying for featured playlists.  Only the
+// non-nil fields are used in the request.
+type PlaylistOptions struct {
+	// The desired language, consisting of a lowercase IO 639
+	// language code and an uppercase ISO 3166-1 alpha-2
+	// country code, joined by an underscore.  Provide this
+	// parameter if you want the results returned in a particular
+	// language.  If not specified, the result will be returned
+	// in the Spotify default language (American English).
+	Locale *string
+	// An ISO 3166-1 alpha-2 country code.  Provide this parameter
+	// if you want the list of returned items to be relevant to a
+	// particular country.
+	Country *string
+	// A timestamp in ISO 8601 format (yyyy-MM-ddTHH:mm:ss).
+	// use this paramter to specify th euser's local time to
+	// get results tailored for that specific date and time
+	// in the day.  If not provided, the response defaults to
+	// the current UTC time.
+	Timestamp *string
+	// The maximum number of items to return.  Default 20.
+	Limit *int
+	// The index of the first item to return.  Default 0.
+	// Use with Limit to get the next set of items.
+	Offset *int
+}
+
+// FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
+// It accepts a number of optional parameters via the opt argument.
+func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *PlaylistResult, e error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return "", nil, errors.New("this call requires bearer authorization")
+	}
+	uri := baseAddress + "browse/featured-playlists"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Locale != nil {
+			v.Set("locale", *opt.Locale)
+		}
+		if opt.Country != nil {
+			v.Set("country", *opt.Country)
+		}
+		if opt.Timestamp != nil {
+			v.Set("timestamp", *opt.Timestamp)
+		}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			uri += "?" + params
+		}
+	}
+	req, err := http.NewRequest("GET", uri, nil)
+	if err != nil {
+		return "", nil, errors.New("spotify: Couldn't create request")
+	}
+	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return "", nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return "", nil, decodeError(resp.Body)
+	}
+	var result struct {
+		Playlists *page  `json:"playlists"`
+		Message   string `json:"message"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return "", nil, err
+	}
+	return result.Message, toPlaylists(result.Playlists), nil
+}
+
+// FeaturedPlaylists gets a list of playlists featured by Spotify.
+// It is equivalent to c.FeaturedPlaylistsOpt(nil).
+func (c *Client) FeaturedPlaylists() (message string, playlists *PlaylistResult, e error) {
+	return c.FeaturedPlaylistsOpt(nil)
 }
