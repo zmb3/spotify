@@ -7,6 +7,8 @@ import (
 	"errors"
 	"io"
 	"net/http"
+	"net/url"
+	"strconv"
 )
 
 var (
@@ -129,14 +131,11 @@ type Options struct {
 	Offset *int
 }
 
-// page is a container for a set of objects.
-// We don't expose this to the user because
-// the Items field is just raw JSON.  Instead,
-// the user gets AlbumResult, ArtistResult,
-// TrackResult, and PlaylistResult.  These
-// type all contain the same data as page
-// but the Items field is a strongly typed
-// slice.
+// page is a container for a set of objects. We don't expose this to the user
+// because the Items field is just raw JSON.  Instead, the user gets
+// AlbumResult, ArtistResult, TrackResult, and PlaylistResult.
+// These types all contain the same data as page, but the Items field is a
+// strongly typed slice.
 type page struct {
 	Endpoint string          `json:"href"`
 	Items    json.RawMessage `json:"items"`
@@ -145,4 +144,56 @@ type page struct {
 	Offset   int             `json:"offset"`
 	Previous string          `json:"previous"`
 	Total    int             `json:"total"`
+}
+
+// NewReleasesOpt is like NewReleases, but it accepts optional parameters
+// for filtering the results.
+func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return nil, errors.New("this call requires bearer authorization")
+	}
+	uri := baseAddress + "browse/new-releases"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("country", *opt.Country)
+		}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			uri += "?" + params
+		}
+	}
+	req, err := http.NewRequest("GET", uri, nil)
+	if err != nil {
+		return nil, errors.New("spotify: couldn't build request")
+	}
+	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result struct {
+		Albums *page `json:"albums"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return toAlbums(result.Albums), nil
+
+}
+
+// NewReleases gets a list of new album releases featured in Spotify.
+// This call requires bearer authorization.
+func (c *Client) NewReleases() (albums *AlbumResult, err error) {
+	return c.NewReleasesOpt(nil)
 }

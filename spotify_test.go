@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"testing"
 )
 
 type stringRoundTripper struct {
@@ -80,8 +81,10 @@ func testClientFile(code int, filename string) *Client {
 	}
 }
 
-// func TestSearchNoQuery(t *testing.T) {
-// 	client := &Client{}
-// 	client.Search("", Artist|Album)
-// TODO: expect error 400, no search query
-// }
+func TestNewReleasesNoAuth(t *testing.T) {
+	c := testClientString(400, "")
+	_, _, err := c.NewReleases()
+	if err == nil {
+		t.Errorf("Call should have failed without authorization")
+	}
+}
