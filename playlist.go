@@ -96,7 +96,7 @@ type PlaylistOptions struct {
 // It accepts a number of optional parameters via the opt argument.
 func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *PlaylistResult, e error) {
 	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return "", nil, errors.New("this call requires bearer authorization")
+		return "", nil, ErrAuthorizationRequired
 	}
 	uri := baseAddress + "browse/featured-playlists"
 	if opt != nil {

@@ -25,12 +25,19 @@ Features that access a user's private data require authorization.
 All functions requiring authorization are explicitly marked as
 such in the godoc.  If you attempt to call any of these functions
 without authorization, the error returned will be
-`spotify.ErrNotAuthorized`.
+`spotify.ErrAuthorizationRequired`.
+
+Spotify uses OAuth2 for authentication.
 
 The first step towards authenticating is to get a __client ID__ and __secret key__ by registering your application at the following page:
 
 https://developer.spotify.com/my-applications/.
 
+This API supports two different forms of authentication.
+
+### Client Credentials
+
+### Manual Authorization Code
 
 ## Examples
 

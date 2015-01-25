@@ -83,8 +83,17 @@ func testClientFile(code int, filename string) *Client {
 
 func TestNewReleasesNoAuth(t *testing.T) {
 	c := testClientString(400, "")
-	_, _, err := c.NewReleases()
+	_, err := c.NewReleases()
 	if err == nil {
 		t.Errorf("Call should have failed without authorization")
+	}
+}
+
+func TestNewReleases(t *testing.T) {
+	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
+	_, err := c.NewReleases()
+	if err != nil {
+		t.Error(err)
+		return
 	}
 }

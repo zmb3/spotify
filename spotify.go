@@ -17,9 +17,9 @@ var (
 	// DefaultClient is the default client and is used by ...
 	DefaultClient = &Client{}
 
-	// ErrNotAuthenticated is returned when an unauthenticated user
-	// makes an API call that requries authentication.
-	ErrNotAuthenticated = errors.New("spotify: this call requires authentication")
+	// ErrAuthorizationRequired is the error returned when an unauthenticated
+	//  user makes an API call that requries authorization.
+	ErrAuthorizationRequired = errors.New("spotify: this call requires authentication")
 )
 
 // URI identifies an artist, album, or track.  For example,
@@ -34,9 +34,8 @@ func (id *ID) String() string {
 	return string(*id)
 }
 
-// Timestamp is an ISO 8601 formatted timestamp
-// representing Coordinated Universal Time (UTC)
-// with zero offset: YYYY-MM-DDTHH:MM:SSZ.
+// Timestamp is an ISO 8601 formatted timestamp representing
+// Coordinated Universal Time (UTC) with zero offset: YYYY-MM-DDTHH:MM:SSZ.
 type Timestamp string
 
 // Followers contains information about the number of people following a
@@ -58,6 +57,24 @@ type Image struct {
 	Width int `json:"width"`
 	// The source URL of the image.
 	URL string `json:"url"`
+}
+
+// Download downloads the image and writes its data to the specified io.Writer.
+func (i Image) Download(dst io.Writer) error {
+	resp, err := http.Get(i.URL)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	// TODO: get Content-Type from header?
+	if resp.StatusCode != http.StatusOK {
+		return errors.New("Couldn't download image - HTTP" + strconv.Itoa(resp.StatusCode))
+	}
+	_, err = io.Copy(dst, resp.Body)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // Error represents an error returned by the Spotify Web API.
@@ -84,8 +101,7 @@ func decodeError(r io.Reader) error {
 	return e.E
 }
 
-// ExternalID contains information that identifies
-// an item.
+// ExternalID contains information that identifies an item.
 type ExternalID struct {
 	// The identifier type, for example:
 	//   "isrc" - International Standard Recording Code
@@ -96,8 +112,7 @@ type ExternalID struct {
 	Value string `json:"{value}"`
 }
 
-// ExternalURL indicates an external, public URL
-// for an item.
+// ExternalURL indicates an external, public URL for an item.
 type ExternalURL struct {
 	// The type of the URL, for example:
 	//    "spotify" - The Spotify URL for the object.
@@ -116,8 +131,6 @@ type Client struct {
 // Options contains optional parameters that can be provided
 // to various API calls.  Only the non-nil fields are used
 // in queries.
-//
-//
 type Options struct {
 	// Country is an ISO 3166-1 alpha-2 country code.  Provide
 	// this parameter if you want the list of returned items to
@@ -150,7 +163,7 @@ type page struct {
 // for filtering the results.
 func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
 	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return nil, errors.New("this call requires bearer authorization")
+		return nil, ErrAuthorizationRequired
 	}
 	uri := baseAddress + "browse/new-releases"
 	if opt != nil {
