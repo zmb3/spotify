@@ -101,24 +101,6 @@ type searchResult struct {
 	Playlists *page `json:"playlists"`
 }
 
-// SearchOptions contains optional parameters for the search functions.
-// Only the non-nil fields are used in the query.
-type SearchOptions struct {
-	// The maximum number of objects to return.  If not specified,
-	// Spotify will return 20 results by default.  Minimum: 1,
-	// Maximum 50.
-	Limit *int
-	// The index of the first object to return.  If not specified,
-	// Spotify returns the first object.  Use with Limit to get the
-	// next set of results.
-	Offset *int
-	// An ISO 3166-1 alpha-2 country code, or the constant string
-	// MarketFromToken.  If specified, only artists, albums, and tracks
-	// with content playable in the specified market will be returned.
-	// (Playlist results are not affected by the market parameter)
-	Market *string
-}
-
 // SearchResult contains the results of a call to Search.
 // Fields that weren't searched for will be nil pointers.
 type SearchResult struct {
@@ -133,9 +115,9 @@ func Search(query string, t SearchType) (*SearchResult, error) {
 	return DefaultClient.Search(query, t)
 }
 
-// SearchFiltered is a wrapper around DefaultClient.SearchFiltered
-func SearchFiltered(query string, t SearchType, opt *SearchOptions) (*SearchResult, error) {
-	return DefaultClient.SearchFiltered(query, t, opt)
+// SearchOpt is a wrapper around DefaultClient.SearchOpt
+func SearchOpt(query string, t SearchType, opt *Options) (*SearchResult, error) {
+	return DefaultClient.SearchOpt(query, t, opt)
 }
 
 // Search gets Spotify catalog information about artists,
@@ -193,12 +175,18 @@ func SearchFiltered(query string, t SearchType, opt *SearchOptions) (*SearchResu
 // being searched, include "genre", "upc", and "isrc".
 // For example "damian genre:reggae-pop".
 func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
-	return c.SearchFiltered(query, t, nil)
+	return c.SearchOpt(query, t, nil)
 }
 
-// SearchFiltered works just like Search, but it accepts additional
-// parameters for filtering the output.
-func (c *Client) SearchFiltered(query string, t SearchType, opt *SearchOptions) (*SearchResult, error) {
+// SearchOpt works just like Search, but it accepts additional
+// parameters for filtering the output.  If the Country field is specified
+// in the options, then the results will only contain artists, albums, and
+// tracks playable in the specified country (playlist results are not affected
+// by the Country option).  Additionally, the constant MarketFromToken can
+// be used with authenticated clients.  If the client has a valid access
+// token, then the results will only include content playable in the user's
+// country.
+func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchResult, error) {
 	query = url.QueryEscape(query)
 	v := url.Values{}
 	v.Set("q", query)
@@ -207,8 +195,8 @@ func (c *Client) SearchFiltered(query string, t SearchType, opt *SearchOptions) 
 		if opt.Limit != nil {
 			v.Set("limit", strconv.Itoa(*opt.Limit))
 		}
-		if opt.Market != nil {
-			v.Set("market", *opt.Market)
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
 		}
 		if opt.Offset != nil {
 			v.Set("offset", strconv.Itoa(*opt.Offset))

@@ -20,23 +20,12 @@ var (
 	ErrNotAuthenticated = errors.New("spotify: this call requires authentication")
 )
 
-// ISO 3166-1 alpha 2 country codes.
-const (
-	CountryAustralia = "AU"
-	CountryBelgium   = "BE"
-	CountryBrazil    = "BR"
-	CountryUSA       = "US"
-)
-
-// URI identifies an artist,
-// album, or track.  For example,
+// URI identifies an artist, album, or track.  For example,
 // spotify:track:6rqhFgbbKwnb9MLmUQDhG6
 type URI string
 
-// ID is a base-62 identifier for
-// an artist, track, album, etc.
-// It can be found at the end of
-// a spotify.URI.
+// ID is a base-62 identifier for an artist, track, album, etc.
+// It can be found at the end of a spotify.URI.
 type ID string
 
 func (id *ID) String() string {
@@ -48,9 +37,8 @@ func (id *ID) String() string {
 // with zero offset: YYYY-MM-DDTHH:MM:SSZ.
 type Timestamp string
 
-// Followers contains information about the
-// number of people following a particular
-// artist or playlist.
+// Followers contains information about the number of people following a
+// particular artist or playlist.
 type Followers struct {
 	// The total number of followers.
 	Count uint `json:"total"`
@@ -70,8 +58,7 @@ type Image struct {
 	URL string `json:"url"`
 }
 
-// Error represents an error returned by the
-// Spotify Web API.
+// Error represents an error returned by the Spotify Web API.
 type Error struct {
 	// A short description of the error.
 	Message string `json:"message"`
@@ -83,8 +70,7 @@ func (e Error) Error() string {
 	return e.Message
 }
 
-// decodeError decodes an error from
-// an io.Reader.
+// decodeError decodes an error from an io.Reader.
 func decodeError(r io.Reader) error {
 	var e struct {
 		E Error `json:"error"`
@@ -125,10 +111,22 @@ type Client struct {
 	TokenType   TokenType
 }
 
-// NewReleases gets a list of newly released albums that
-// are featured in Spotify.
-func (c *Client) NewReleases(country string) { // TODO limit/offset
-	// get("browse/new-releases")
+// Options contains optional parameters that can be provided
+// to various API calls.  Only the non-nil fields are used
+// in queries.
+//
+//
+type Options struct {
+	// Country is an ISO 3166-1 alpha-2 country code.  Provide
+	// this parameter if you want the list of returned items to
+	// be relevant to a particular country.  If omitted, the
+	// results will be relevant to all countries.
+	Country *string
+	// Limit is the maximum number of items to return.
+	Limit *int
+	// Offset is the index of the first item to return.  Use it
+	// with Limit to get the next set of items.
+	Offset *int
 }
 
 // page is a container for a set of objects.

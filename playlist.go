@@ -73,10 +73,10 @@ type FullPlaylist struct {
 	Tracks string `json:"tracks"`
 }
 
-// PlaylistOptions contains optional perameters that can be
-// used when querying for featured playlists.  Only the
-// non-nil fields are used in the request.
+// PlaylistOptions contains optional parameters that can be used when querying
+// for featured playlists.  Only the non-nil fields are used in the request.
 type PlaylistOptions struct {
+	Options
 	// The desired language, consisting of a lowercase IO 639
 	// language code and an uppercase ISO 3166-1 alpha-2
 	// country code, joined by an underscore.  Provide this
@@ -84,21 +84,12 @@ type PlaylistOptions struct {
 	// language.  If not specified, the result will be returned
 	// in the Spotify default language (American English).
 	Locale *string
-	// An ISO 3166-1 alpha-2 country code.  Provide this parameter
-	// if you want the list of returned items to be relevant to a
-	// particular country.
-	Country *string
 	// A timestamp in ISO 8601 format (yyyy-MM-ddTHH:mm:ss).
 	// use this paramter to specify th euser's local time to
 	// get results tailored for that specific date and time
 	// in the day.  If not provided, the response defaults to
 	// the current UTC time.
 	Timestamp *string
-	// The maximum number of items to return.  Default 20.
-	Limit *int
-	// The index of the first item to return.  Default 0.
-	// Use with Limit to get the next set of items.
-	Offset *int
 }
 
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.

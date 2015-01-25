@@ -9,8 +9,8 @@ import (
 func TestFeaturedPlaylistNoAuth(t *testing.T) {
 	var client Client
 	_, _, err := client.FeaturedPlaylists()
-	if err != nil {
-		t.Error("Call should have failed without authorization", err)
+	if err == nil {
+		t.Error("Call should have failed without authorization:", err)
 	}
 }
 
@@ -22,9 +22,9 @@ func TestFeaturedPlaylists(t *testing.T) {
 	client.AccessToken = "this is a test"
 
 	country := "SE"
-	opt := PlaylistOptions{
-		Country: &country,
-	}
+	opt := PlaylistOptions{}
+	opt.Country = &country
+
 	msg, p, err := client.FeaturedPlaylistsOpt(&opt)
 	if err != nil {
 		t.Error(err)

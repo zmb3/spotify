@@ -163,76 +163,38 @@ func ArtistAlbums(artistID ID) (*AlbumResult, error) {
 	return DefaultClient.ArtistAlbums(artistID)
 }
 
-// ArtistAlbums gets Spotify catalog information
-// about an artist's albums.  It is equivalent to
-// ArtistAlbumsFiltered(artistID, nil)
+// ArtistAlbums gets Spotify catalog information about an artist's albums.
+// It is equivalent to ArtistAlbumsOpt(artistID, nil).
 func (c *Client) ArtistAlbums(artistID ID) (*AlbumResult, error) {
-	return c.ArtistAlbumsFiltered(artistID, nil)
+	return c.ArtistAlbumsOpt(artistID, nil, nil)
 }
 
-// AlbumOptions contains optional parameters for sorting
-// and filtering the results of FindArtistAlbumsFiltered.
-// Only the non-nil fields are used in the query.
-type AlbumOptions struct {
-	// Type contains one or more types of albums
-	// that will be used to filter the result.  If
-	// not specified, all album types will be returned.
-	Type *AlbumType
-	// An ISO 3166-1 alpha-2 country code that  limits
-	// the result to one particular market.  If not given,
-	// results will be returned for all markets and you are
-	// likely to get duplicate results per album, one for
-	// each market in which the album is available!
-	Country *string
-	// The maximum number of objects to return.
-	// Minimum: 1.  Maximum: 50.
-	Limit *int
-	// The index of the first album to return. Use
-	// with Limit to get the next set of albums.
-	Offset *int
+// ArtistAlbumsOpt is a wrapper around DefaultClient.ArtistAlbumsOpt
+func ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*AlbumResult, error) {
+	return DefaultClient.ArtistAlbumsOpt(artistID, options, t)
 }
 
-// SetType sets the optional AlbumType field.
-func (a *AlbumOptions) SetType(t AlbumType) {
-	a.Type = new(AlbumType)
-	*a.Type = t
-}
-
-// SetCountry sets the optional Country field.
-func (a *AlbumOptions) SetCountry(c string) {
-	a.Country = new(string)
-	*a.Country = c
-}
-
-// SetLimit sets the optional Limit field.
-func (a *AlbumOptions) SetLimit(l int) {
-	a.Limit = new(int)
-	*a.Limit = l
-}
-
-// SetOffset sets the optional Offset field.
-func (a *AlbumOptions) SetOffset(o int) {
-	a.Offset = new(int)
-	*a.Offset = o
-}
-
-// ArtistAlbumsFiltered is a wrapper around DefaultClient.ArtistAlbumsFiltered
-func ArtistAlbumsFiltered(artistID ID, options *AlbumOptions) (*AlbumResult, error) {
-	return DefaultClient.ArtistAlbumsFiltered(artistID, options)
-}
-
-// ArtistAlbumsFiltered is just like ArtistAlbums, but
-// it accepts optional parameters to filter and sort the result.
-func (c *Client) ArtistAlbumsFiltered(artistID ID, options *AlbumOptions) (*AlbumResult, error) {
+// ArtistAlbumsOpt is just like ArtistAlbums, but it accepts optional parameters
+// to filter and sort the result.
+//
+// The AlbumType argument can be used to find a particular type of album.  Search
+// for multiple types by OR-ing the types together.
+func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*AlbumResult, error) {
 	uri := baseAddress + "artists/" + string(artistID) + "/albums"
 	// add optional query string if options were specified
 	if options != nil {
 		values := url.Values{}
-		if options.Type != nil {
-			values.Set("album_type", options.Type.encode())
+		if t != nil {
+			values.Set("album_type", t.encode())
 		}
 		if options.Country != nil {
 			values.Set("market", *options.Country)
+		} else {
+			// if the market is not specified, Spotify will likely return a lot
+			// of duplicates (one for each market in which the album is available)
+			// - prevent this behavior by falling back to the US by default
+			// TODO: would this ever be the desired behavior?
+			values.Set("market", CountryUSA)
 		}
 		if options.Limit != nil {
 			values.Set("limit", strconv.Itoa(*options.Limit))

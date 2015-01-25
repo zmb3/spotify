@@ -123,10 +123,13 @@ func TestRelatedArtists(t *testing.T) {
 func TestArtistAlbumsFiltered(t *testing.T) {
 	client := testClientString(http.StatusOK, albumsResponse)
 
-	options := AlbumOptions{}
-	options.SetType(AlbumTypeSingle)
-	options.SetLimit(2)
-	albums, err := client.ArtistAlbumsFiltered(ID("1vCWHaC5f2uS3yhpwWbIA6"), &options)
+	l := 2
+	var typ AlbumType = AlbumTypeSingle
+
+	options := Options{}
+	options.Limit = &l
+
+	albums, err := client.ArtistAlbumsOpt(ID("1vCWHaC5f2uS3yhpwWbIA6"), &options, &typ)
 	if err != nil {
 		t.Error(err)
 		return
