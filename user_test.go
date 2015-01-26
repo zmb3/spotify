@@ -114,3 +114,17 @@ func TestFollowUsersInvalidToken(t *testing.T) {
 		}
 	}
 }
+
+func TestUserFollows(t *testing.T) {
+	json := "[ false, true ]"
+	client := testClientString(http.StatusOK, json)
+	addDummyAuth(client)
+	follows, err := client.UserFollows("artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if len(follows) != 2 || follows[0] || !follows[1] {
+		t.Error("Incorrect result", follows)
+	}
+}

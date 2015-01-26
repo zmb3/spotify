@@ -123,14 +123,73 @@ func (c *Client) CurrentUser() (*PrivateUser, error) {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) Follow(ids ...ID) error {
+	return c.modifyFollowers(true, ids...)
+}
+
+// Unfollow removes the current user as a follower of one or more
+// artists or other Spotify users.  This call requires authorization.
+//
+// Modifying the lists of artists or users the current user follows
+// requires that the application has the ScopeUserFollowModify scope.
+func (c *Client) Unfollow(ids ...ID) error {
+	return c.modifyFollowers(false, ids...)
+}
+
+// UserFollows checks to see if the current user is following
+// one or more artists or other Spotify Users.  This call requires
+// authorization, and that the application has the ScopeUserFollowRead
+// scope.
+//
+// The t argument indicates the type of the IDs, and must be either
+// "user" or "artist".
+//
+// The result is returned as a slice of bool values in the same order
+// in which the IDs were specified.
+func (c *Client) UserFollows(t string, ids ...ID) ([]bool, error) {
+	if c.AccessToken == "" || c.TokenType != BearerToken {
+		return nil, ErrAuthorizationRequired
+	}
+	if l := len(ids); l == 0 || l > 50 {
+		return nil, errors.New("spotify: UserFollows supports 1 to 50 IDs")
+	}
+	if t != "artist" && t != "user" {
+		return nil, errors.New("spotify: t must be 'artist' or 'user'")
+	}
+	uri := baseAddress + "me/folowing/contains?type=" + t + "&ids="
+	uri += strings.Join(toStringSlice(ids), ",")
+	req, err := http.NewRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result []bool
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	if c.AccessToken == "" || c.TokenType != BearerToken {
 		return ErrAuthorizationRequired
 	}
 	if l := len(ids); l == 0 || l > 50 {
-		return errors.New("spotify: Follow supports 1 to 50 IDs")
+		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
 	uri := baseAddress + "me/following?" + strings.Join(toStringSlice(ids), ",")
-	req, err := http.NewRequest("PUT", uri, nil)
+	method := "PUT"
+	if !follow {
+		method = "DELETE"
+	}
+	req, err := http.NewRequest(method, uri, nil)
 	if err != nil {
 		return err
 	}

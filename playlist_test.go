@@ -1,7 +1,6 @@
 package spotify
 
 import (
-	"fmt"
 	"net/http"
 	"testing"
 )
@@ -41,18 +40,27 @@ func TestFeaturedPlaylists(t *testing.T) {
 	}
 }
 
-func TestZacFeatured(t *testing.T) {
-	t.Skip("skipping real auth test")
-	var c Client
-	c.AccessToken = "BQAve8rG6wz28MdIsPhuX3v_ziKeaSmBtcE2ncfq3hNn5ypTVTuOD_-Ki7go_qvzgS0Eq_zXO-AbRhmbzmY4t7xBK0mP4wqdTLqLuBJQ3fowQamWjzGL0VJI0I0A2EOpaDQ_wZ33xrVUenJ4eGfZrlWhuM3DI6tI8jXof0tdbiyqyX-oev4aDAZ4AFJS1YEr37Hjdu6qDQ"
-	c.TokenType = BearerToken
-	msg, p, err := c.FeaturedPlaylists()
-	if err != nil {
-		t.Error(err)
+func TestFeaturedPlaylistsExpiredToken(t *testing.T) {
+	json := `{
+		"error": {
+			"status": 401,
+			"message": "The access token expired"
+		}
+	}`
+	client := testClientString(http.StatusUnauthorized, json)
+	addDummyAuth(client)
+
+	msg, pl, err := client.FeaturedPlaylists()
+	if msg != "" || pl != nil || err == nil {
+		t.Error("Expected an error")
 		return
 	}
-	fmt.Println(msg)
-	for _, item := range p.Playlists {
-		fmt.Println(item.Name)
+	serr, ok := err.(Error)
+	if !ok {
+		t.Error("Expected spotify Error")
+		return
+	}
+	if serr.Status != http.StatusUnauthorized {
+		t.Error("Expected HTTP 401")
 	}
 }
