@@ -91,6 +91,8 @@ func TestNewReleasesNoAuth(t *testing.T) {
 
 func TestNewReleases(t *testing.T) {
 	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
+	c.AccessToken = "sample token"
+	c.TokenType = BearerToken
 	_, err := c.NewReleases()
 	if err != nil {
 		t.Error(err)

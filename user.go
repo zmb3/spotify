@@ -2,7 +2,9 @@ package spotify
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
+	"strings"
 )
 
 // User contains the basic, publicly available
@@ -77,9 +79,69 @@ func (c *Client) UserPublicProfile(userID ID) (*User, error) {
 }
 
 // CurrentUser gets detailed profile information about the
-// current user.  It requires that the user authenticates first.
+// current user.  This call requires authorization.
+//
+// Reading the user's email address requires that the application
+// has the ScopeUserReadEmail scope.  Reading the country, display
+// name, profile images, and product subscription level requires
+// that the application has the ScopeUserReadPrivate scope.
+//
+// Warning: The email address in the response will be the address
+// that was entered when the user created their spotify account.
+// This email address is unverified - do not assume that Spotify has
+// checked that the email address actually belongs to the user.
 func (c *Client) CurrentUser() (*PrivateUser, error) {
-	// TODO:
-	//uri := baseAddress + "me"
-	panic("spotify: CurrentUser() requires authentication!")
+	if c.AccessToken == "" || c.TokenType != BearerToken {
+		return nil, ErrAuthorizationRequired
+	}
+	uri := baseAddress + "me"
+	req, err := http.NewRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result PrivateUser
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+// Follow adds the current user as a follower of one or more
+// artists or other spotify users, identified by their Spotify IDs.
+// This call requires authorization.
+//
+// Modifying the lists of artists or users the current user follows
+// requires that the application has the ScopeUserFollowModify scope.
+func (c *Client) Follow(ids ...ID) error {
+	if c.AccessToken == "" || c.TokenType != BearerToken {
+		return ErrAuthorizationRequired
+	}
+	if l := len(ids); l == 0 || l > 50 {
+		return errors.New("spotify: Follow supports 1 to 50 IDs")
+	}
+	uri := baseAddress + "me/following?" + strings.Join(toStringSlice(ids), ",")
+	req, err := http.NewRequest("PUT", uri, nil)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
