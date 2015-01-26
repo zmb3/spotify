@@ -74,3 +74,43 @@ func TestCurrentUser(t *testing.T) {
 		t.Error("Received incorrect response")
 	}
 }
+
+func TestFollowUsersMissingScope(t *testing.T) {
+	json := `{
+		"error": {
+			"status": 403,
+			"message": "Insufficient client scope"
+		}
+	}`
+	client := testClientString(http.StatusForbidden, json)
+	addDummyAuth(client)
+
+	err := client.Follow(ID("exampleuser01"))
+	if serr, ok := err.(Error); !ok {
+		t.Error("Expected insufficient client scope error")
+	} else {
+		if serr.Status != http.StatusForbidden {
+			t.Error("Expected HTTP 403")
+		}
+	}
+}
+
+func TestFollowUsersInvalidToken(t *testing.T) {
+	json := `{
+		"error": {
+			"status": 401,
+			"message": "Invalid access token"
+		}
+	}`
+	client := testClientString(http.StatusUnauthorized, json)
+	addDummyAuth(client)
+
+	err := client.Follow(ID("dummyID"))
+	if serr, ok := err.(Error); !ok {
+		t.Error("Expected invalid token error")
+	} else {
+		if serr.Status != http.StatusUnauthorized {
+			t.Error("Expected HTTP 401")
+		}
+	}
+}
