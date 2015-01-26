@@ -16,10 +16,7 @@ func TestFeaturedPlaylistNoAuth(t *testing.T) {
 
 func TestFeaturedPlaylists(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/featured_playlists.txt")
-
-	// put in some dummy authorization to allow the test to success
-	client.TokenType = BearerToken
-	client.AccessToken = "this is a test"
+	addDummyAuth(client)
 
 	country := "SE"
 	opt := PlaylistOptions{}

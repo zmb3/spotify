@@ -61,8 +61,8 @@ func TestCurrentUser(t *testing.T) {
 		"uri" : "spotify:user:username"
 	}`
 	client := testClientString(http.StatusOK, json)
-	client.TokenType = BearerToken
-	client.AccessToken = "sample token"
+	addDummyAuth(client)
+
 	me, err := client.CurrentUser()
 	if err != nil {
 		t.Error(err)

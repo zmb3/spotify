@@ -81,6 +81,14 @@ func testClientFile(code int, filename string) *Client {
 	}
 }
 
+// addDummyAuth puts fake authorization data in the specified
+// client, which allows the basic authentication checks to pass
+// for the purpose of testing
+func addDummyAuth(c *Client) {
+	c.AccessToken = "sample token"
+	c.TokenType = BearerToken
+}
+
 func TestNewReleasesNoAuth(t *testing.T) {
 	c := testClientString(400, "")
 	_, err := c.NewReleases()
@@ -91,8 +99,7 @@ func TestNewReleasesNoAuth(t *testing.T) {
 
 func TestNewReleases(t *testing.T) {
 	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
-	c.AccessToken = "sample token"
-	c.TokenType = BearerToken
+	addDummyAuth(c)
 	_, err := c.NewReleases()
 	if err != nil {
 		t.Error(err)
