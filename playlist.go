@@ -125,11 +125,10 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 			uri += "?" + params
 		}
 	}
-	req, err := http.NewRequest("GET", uri, nil)
+	req, err := c.newHTTPRequest("GET", uri, nil)
 	if err != nil {
 		return "", nil, errors.New("spotify: Couldn't create request")
 	}
-	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
 	resp, err := c.http.Do(req)
 	if err != nil {
 		return "", nil, err
@@ -169,11 +168,10 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 	}
 	uri := buildFollowURI(owner, playlist)
 	body := strings.NewReader(strconv.FormatBool(public))
-	req, err := http.NewRequest("PUT", uri, body)
+	req, err := c.newHTTPRequest("PUT", uri, body)
 	if err != nil {
 		return err
 	}
-	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
 	// TODO: this is required - we should have a test to ensure it's in the header
 	req.Header.Set("Content-Type", "application/json")
 
@@ -197,7 +195,7 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 		return ErrAuthorizationRequired
 	}
 	uri := buildFollowURI(owner, playlist)
-	req, err := http.NewRequest("DELETE", uri, nil)
+	req, err := c.newHTTPRequest("DELETE", uri, nil)
 	if err != nil {
 		return err
 	}

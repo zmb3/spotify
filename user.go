@@ -109,7 +109,7 @@ func (c *Client) CurrentUser() (*PrivateUser, error) {
 		return nil, ErrAuthorizationRequired
 	}
 	uri := baseAddress + "me"
-	req, err := http.NewRequest("GET", uri, nil)
+	req, err := c.newHTTPRequest("GET", uri, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func (c *Client) UserFollows(t string, ids ...ID) ([]bool, error) {
 	}
 	uri := baseAddress + "me/folowing/contains?type=" + t + "&ids="
 	uri += strings.Join(toStringSlice(ids), ",")
-	req, err := http.NewRequest("GET", uri, nil)
+	req, err := c.newHTTPRequest("GET", uri, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	if !follow {
 		method = "DELETE"
 	}
-	req, err := http.NewRequest(method, uri, nil)
+	req, err := c.newHTTPRequest(method, uri, nil)
 	if err != nil {
 		return err
 	}

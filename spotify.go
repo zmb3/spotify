@@ -142,6 +142,14 @@ type Client struct {
 	TokenType   TokenType
 }
 
+func (c *Client) newHTTPRequest(method, uri string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(method, uri, body)
+	if t := string(c.TokenType); err != nil && t != "" && c.AccessToken != "" {
+		req.Header.Set("Authorization", t+" "+c.AccessToken)
+	}
+	return req, err
+}
+
 // Options contains optional parameters that can be provided
 // to various API calls.  Only the non-nil fields are used
 // in queries.
@@ -195,7 +203,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
 			uri += "?" + params
 		}
 	}
-	req, err := http.NewRequest("GET", uri, nil)
+	req, err := c.newHTTPRequest("GET", uri, nil)
 	if err != nil {
 		return nil, errors.New("spotify: couldn't build request")
 	}
