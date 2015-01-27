@@ -207,7 +207,6 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
 	if err != nil {
 		return nil, errors.New("spotify: couldn't build request")
 	}
-	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
 	resp, err := c.http.Do(req)
 	if err != nil {
 		return nil, err

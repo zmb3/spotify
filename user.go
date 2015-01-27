@@ -113,7 +113,6 @@ func (c *Client) CurrentUser() (*PrivateUser, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
 	resp, err := c.http.Do(req)
 	if err != nil {
 		return nil, err
@@ -207,7 +206,6 @@ func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	req.Header.Set("Authorization", string(c.TokenType)+" "+c.AccessToken)
 	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
