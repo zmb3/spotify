@@ -14,23 +14,8 @@
 
 package spotify
 
-import "encoding/json"
-
 // This file contains the types that implement Spotify's paging object.
 // See: https://developer.spotify.com/web-api/object-model/#paging-object
-
-// rawPage is a container for a set of objects. This type is unexported because the
-// Items field is raw JSON.  There are exported types containing various strongly-
-// typed Items sets.
-type rawPage struct {
-	Endpoint string          `json:"href"`
-	Items    json.RawMessage `json:"items"`
-	Limit    int             `json:"limit"`
-	Next     string          `json:"next"`
-	Offset   int             `json:"offset"`
-	Previous string          `json:"previous"`
-	Total    int             `json:"total"`
-}
 
 // TODO: maybe instead of exposing the prev/next URLs,
 // we can just have functions for retrieving the prev/next page

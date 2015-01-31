@@ -228,20 +228,8 @@ func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*SimpleTrackP
 	}
 	defer resp.Body.Close()
 
-	var p rawPage
-	err = json.NewDecoder(resp.Body).Decode(&p)
-	if err != nil {
-		return nil, err
-	}
 	var result SimpleTrackPage
-	result.Endpoint = p.Endpoint
-	result.Limit = p.Limit
-	result.Offset = p.Offset
-	result.Next = p.Next
-	result.Total = p.Total
-	result.Previous = p.Previous
-
-	err = json.Unmarshal([]byte(p.Items), &result.Tracks)
+	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err
 	}

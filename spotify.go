@@ -200,15 +200,12 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	if resp.StatusCode != http.StatusOK {
 		return nil, decodeError(resp.Body)
 	}
-	var result struct {
-		Albums *rawPage `json:"albums"`
-	}
+	var result SimpleAlbumPage
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err
 	}
-	return toAlbums(result.Albums), nil
-
+	return &result, nil
 }
 
 // NewReleases gets a list of new album releases featured in Spotify.

@@ -229,21 +229,10 @@ func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*
 	if resp.StatusCode != http.StatusOK {
 		return nil, decodeError(resp.Body)
 	}
-	var p rawPage
+	var p SimpleAlbumPage
 	err = json.NewDecoder(resp.Body).Decode(&p)
 	if err != nil {
 		return nil, err
 	}
-	var result SimpleAlbumPage
-	err = json.Unmarshal([]byte(p.Items), &result.Albums)
-	if err != nil {
-		return nil, err
-	}
-	result.Endpoint = p.Endpoint
-	result.Limit = p.Limit
-	result.Offset = p.Offset
-	result.Total = p.Total
-	result.Previous = p.Previous
-	result.Next = p.Next
-	return &result, nil
+	return &p, nil
 }

@@ -138,14 +138,14 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 		return "", nil, decodeError(resp.Body)
 	}
 	var result struct {
-		Playlists *rawPage `json:"playlists"`
-		Message   string   `json:"message"`
+		Playlists SimplePlaylistPage `json:"playlists"`
+		Message   string             `json:"message"`
 	}
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return "", nil, err
 	}
-	return result.Message, toPlaylists(result.Playlists), nil
+	return result.Message, &result.Playlists, nil
 }
 
 // FeaturedPlaylists gets a list of playlists featured by Spotify.

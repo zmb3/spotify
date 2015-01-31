@@ -64,20 +64,13 @@ func (st SearchType) encode() string {
 	return strings.Join(types, ",")
 }
 
-type searchResult struct {
-	Artists   *rawPage `json:"artists"`
-	Albums    *rawPage `json:"albums"`
-	Tracks    *rawPage `json:"tracks"`
-	Playlists *rawPage `json:"playlists"`
-}
-
 // SearchResult contains the results of a call to Search.
 // Fields that weren't searched for will be nil pointers.
 type SearchResult struct {
-	Artists   *FullArtistPage
-	Albums    *SimpleAlbumPage
-	Playlists *SimplePlaylistPage
-	Tracks    *SimpleTrackPage
+	Artists   *FullArtistPage     `json:"artists"`
+	Albums    *SimpleAlbumPage    `json:"albums"`
+	Playlists *SimplePlaylistPage `json:"playlists"`
+	Tracks    *SimpleTrackPage    `json:"tracks"`
 }
 
 // Search is a wrapper around DefaultClient.Search.
@@ -183,92 +176,10 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 		return nil, decodeError(resp.Body)
 	}
 
-	var result searchResult
+	var result SearchResult
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err
 	}
-	sr := &SearchResult{
-		Artists:   toArtists(result.Artists),
-		Playlists: toPlaylists(result.Playlists),
-		Albums:    toAlbums(result.Albums),
-		Tracks:    toTracks(result.Tracks),
-	}
-	return sr, err
-}
-
-func toArtists(p *rawPage) *FullArtistPage {
-	if p == nil {
-		return nil
-	}
-	var a FullArtistPage
-	a.Endpoint = p.Endpoint
-	a.Limit = p.Limit
-	a.Offset = p.Offset
-	a.Total = p.Total
-	a.Previous = p.Previous
-	a.Next = p.Next
-
-	err := json.Unmarshal([]byte(p.Items), &a.Artists)
-	if err != nil {
-		return nil
-	}
-	return &a
-}
-
-func toAlbums(p *rawPage) *SimpleAlbumPage {
-	if p == nil {
-		return nil
-	}
-	var a SimpleAlbumPage
-	a.Endpoint = p.Endpoint
-	a.Limit = p.Limit
-	a.Offset = p.Offset
-	a.Total = p.Total
-	a.Previous = p.Previous
-	a.Next = p.Next
-
-	err := json.Unmarshal([]byte(p.Items), &a.Albums)
-	if err != nil {
-		return nil
-	}
-	return &a
-}
-
-func toPlaylists(p *rawPage) *SimplePlaylistPage {
-	if p == nil {
-		return nil
-	}
-	var a SimplePlaylistPage
-	a.Endpoint = p.Endpoint
-	a.Limit = p.Limit
-	a.Offset = p.Offset
-	a.Total = p.Total
-	a.Previous = p.Previous
-	a.Next = p.Next
-
-	err := json.Unmarshal([]byte(p.Items), &a.Playlists)
-	if err != nil {
-		return nil
-	}
-	return &a
-}
-
-func toTracks(p *rawPage) *SimpleTrackPage {
-	if p == nil {
-		return nil
-	}
-	var a SimpleTrackPage
-	a.Endpoint = p.Endpoint
-	a.Limit = p.Limit
-	a.Offset = p.Offset
-	a.Total = p.Total
-	a.Previous = p.Previous
-	a.Next = p.Next
-
-	err := json.Unmarshal([]byte(p.Items), &a.Tracks)
-	if err != nil {
-		return nil
-	}
-	return &a
+	return &result, err
 }
