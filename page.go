@@ -70,3 +70,9 @@ type SavedTrackPage struct {
 	basePage
 	Tracks []SavedTrack `json:"items"`
 }
+
+// PlaylistTrackPage contains information about tracks in a playlist.
+type PlaylistTrackPage struct {
+	basePage
+	Tracks []PlaylistTrack `json:"items"`
+}

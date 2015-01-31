@@ -73,9 +73,7 @@ type FullPlaylist struct {
 	// requests to target a specific playlist version.
 	SnapshotID string `json:"snapshot_id"`
 	// Information about the tracks of the playlist.
-	// TODO: array of playlist track objects inside a
-	// TODO: paging object.  is this the same as simple?
-	Tracks string `json:"tracks"`
+	Tracks PlaylistTrackPage `json:"tracks"`
 }
 
 // PlaylistOptions contains optional parameters that can be used when querying
@@ -219,4 +217,103 @@ func buildFollowURI(owner, playlist ID) string {
 	buff.WriteString(string(playlist))
 	buff.WriteString("/followers")
 	return string(buff.Bytes())
+}
+
+// PlaylistsForUser gets a list of the playlists owned or followed by a particular
+// Spotify user.  This call requires authorization.
+//
+// Private playlists are only retrievable for the current user, and require the
+// ScopePlaylistReadPrivate scope.
+//
+// A user's collaborative playlists are not currently retrievable (this is a Web
+// API limitation, not a limitation of package spotify).
+func (c *Client) PlaylistsForUser(userID string) (*SimplePlaylistPage, error) {
+	return c.PlaylistsForUserOpt(userID, nil)
+}
+
+// PlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional paramters
+// for filtering the results.
+func (c *Client) PlaylistsForUserOpt(userID string, opt *Options) (*SimplePlaylistPage, error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return nil, ErrAuthorizationRequired
+	}
+	uri := baseAddress + "users/" + userID + "/playlists"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			uri += "?" + params
+		}
+	}
+	req, err := c.newHTTPRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result SimplePlaylistPage
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	return &result, err
+}
+
+// GetPlaylist gets a playlist owned by a Spotify user.
+// This call requires authorization.  Both public and private
+// playlists belonging to any user are retrievable with a valid
+// access token.
+func (c *Client) GetPlaylist(userID string, playlistID ID) (*FullPlaylist, error) {
+	return c.GetPlaylistOpt(userID, playlistID, "")
+}
+
+// GetPlaylistOpt is like GetPlaylist, but it accepts an optional fields parameter
+// that can be used to filter the query.
+//
+// fields is a comma-separated list of the fields to return.
+// See the JSON tags on the FullPlaylist struct for valid field options.
+// For example, to get just the playlist's description and URI:
+//    fields = "description,uri"
+//
+// A dot separator can be used to specify non-reoccurring fields, while
+// parentheses can be used to specify reoccurring fields within objects.
+// For example, to get just the added date and the user ID of the adder:
+//    fields = "tracks.items(added_at,added_by.id)"
+//
+// Use multiple parentheses to drill down into nested objects, for example:
+//    fields = "tracks.items(track(name,href,album(name,href)))"
+//
+// Fields can be excluded by prefixing them with an exclamation mark, for example;
+//    fields = "tracks.items(track(name,href,album(!name,href)))"
+func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*FullPlaylist, error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return nil, ErrAuthorizationRequired
+	}
+	uri := baseAddress + "users/" + userID + "/playlists/" + string(playlistID)
+	if fields != "" {
+		uri += "?fields=" + url.QueryEscape(fields)
+	}
+	req, err := c.newHTTPRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var playlist FullPlaylist
+	err = json.NewDecoder(resp.Body).Decode(&playlist)
+	return &playlist, err
 }

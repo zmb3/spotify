@@ -1,0 +1,701 @@
+{
+  "collaborative" : false,
+  "description" : null,
+  "external_urls" : {
+    "spotify" : "http://open.spotify.com/user/zbergquist99/playlist/7I6yjOAxMq4qsvzgqxw7aU"
+  },
+  "followers" : {
+    "href" : null,
+    "total" : 0
+  },
+  "href" : "https://api.spotify.com/v1/users/zbergquist99/playlists/7I6yjOAxMq4qsvzgqxw7aU?fields=fields=href,name,owner(!href,external_urls),tracks.items(added_by.id,track(name,href,album(name,href)))",
+  "id" : "7I6yjOAxMq4qsvzgqxw7aU",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+    "width" : 640
+  } ],
+  "name" : "O.A.R. — The Rockville LP",
+  "owner" : {
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/zbergquist99"
+    },
+    "href" : "https://api.spotify.com/v1/users/zbergquist99",
+    "id" : "zbergquist99",
+    "type" : "user",
+    "uri" : "spotify:user:zbergquist99"
+  },
+  "public" : true,
+  "snapshot_id" : "Yo+BthwRfySLE498r55BaKSJNw0/3ZDUzVYBcRxVtMReZ3joqyhIlBoMJKif2OWJ",
+  "tracks" : {
+    "href" : "https://api.spotify.com/v1/users/zbergquist99/playlists/7I6yjOAxMq4qsvzgqxw7aU/tracks?offset=0&limit=100",
+    "items" : [ {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 189508,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403537"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/3eL2TpzK8nJyaAq7DRafh3"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3eL2TpzK8nJyaAq7DRafh3",
+        "id" : "3eL2TpzK8nJyaAq7DRafh3",
+        "name" : "Two Hands Up",
+        "popularity" : 46,
+        "preview_url" : "https://p.scdn.co/mp3-preview/a42b99a34899e9c99386c20a35cf8ef138be642d",
+        "track_number" : 1,
+        "type" : "track",
+        "uri" : "spotify:track:3eL2TpzK8nJyaAq7DRafh3"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 206590,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403538"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/1l7E6PxXL78DscO7YEDSBc"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/1l7E6PxXL78DscO7YEDSBc",
+        "id" : "1l7E6PxXL78DscO7YEDSBc",
+        "name" : "We'll Pick Up Where We Left Off",
+        "popularity" : 43,
+        "preview_url" : "https://p.scdn.co/mp3-preview/e107d8f17f036868d8389de406bae057bb609afa",
+        "track_number" : 2,
+        "type" : "track",
+        "uri" : "spotify:track:1l7E6PxXL78DscO7YEDSBc"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 215915,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403507"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/2xwsf9FuFINP1X4FTsqZ7Q"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/2xwsf9FuFINP1X4FTsqZ7Q",
+        "id" : "2xwsf9FuFINP1X4FTsqZ7Q",
+        "name" : "Peace",
+        "popularity" : 63,
+        "preview_url" : "https://p.scdn.co/mp3-preview/284a912e61b3b609a856249db2d3c0294ad4ba6d",
+        "track_number" : 3,
+        "type" : "track",
+        "uri" : "spotify:track:2xwsf9FuFINP1X4FTsqZ7Q"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 188402,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403540"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/4Xex8yWezu6gostXaeZ2qs"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/4Xex8yWezu6gostXaeZ2qs",
+        "id" : "4Xex8yWezu6gostXaeZ2qs",
+        "name" : "The Element",
+        "popularity" : 42,
+        "preview_url" : "https://p.scdn.co/mp3-preview/c1c04603159d37ce88f27726c73f2640e0467001",
+        "track_number" : 4,
+        "type" : "track",
+        "uri" : "spotify:track:4Xex8yWezu6gostXaeZ2qs"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 205038,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403541"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/3d2aDshX0T1IYXIqA4GguZ"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3d2aDshX0T1IYXIqA4GguZ",
+        "id" : "3d2aDshX0T1IYXIqA4GguZ",
+        "name" : "Favorite Song",
+        "popularity" : 48,
+        "preview_url" : "https://p.scdn.co/mp3-preview/62631744295d5b0b81200a114bec7e0e1bebbf66",
+        "track_number" : 5,
+        "type" : "track",
+        "uri" : "spotify:track:3d2aDshX0T1IYXIqA4GguZ"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 216687,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403542"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/69qE90aLw0iwMUbDDXZW5z"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/69qE90aLw0iwMUbDDXZW5z",
+        "id" : "69qE90aLw0iwMUbDDXZW5z",
+        "name" : "So Good So Far",
+        "popularity" : 41,
+        "preview_url" : "https://p.scdn.co/mp3-preview/bd8a10d677b813e3410db3e38437e31e44f605ae",
+        "track_number" : 6,
+        "type" : "track",
+        "uri" : "spotify:track:69qE90aLw0iwMUbDDXZW5z"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 250838,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403543"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/0GpCmz1dAGsTXpqJIp43XG"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/0GpCmz1dAGsTXpqJIp43XG",
+        "id" : "0GpCmz1dAGsTXpqJIp43XG",
+        "name" : "The Architect",
+        "popularity" : 40,
+        "preview_url" : "https://p.scdn.co/mp3-preview/fb63b6cd5259d47ba31dc4b321bc33f602c82cf8",
+        "track_number" : 7,
+        "type" : "track",
+        "uri" : "spotify:track:0GpCmz1dAGsTXpqJIp43XG"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 289501,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403544"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/5iXpnUwj4fI5qObReUg32W"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5iXpnUwj4fI5qObReUg32W",
+        "id" : "5iXpnUwj4fI5qObReUg32W",
+        "name" : "Place To Hide",
+        "popularity" : 41,
+        "preview_url" : "https://p.scdn.co/mp3-preview/391bed0461962a3479233c5c066d5b3d0fc9dd53",
+        "track_number" : 8,
+        "type" : "track",
+        "uri" : "spotify:track:5iXpnUwj4fI5qObReUg32W"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 412716,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403545"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/6dvjzJqpFKUr0dkdvKNvbc"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/6dvjzJqpFKUr0dkdvKNvbc",
+        "id" : "6dvjzJqpFKUr0dkdvKNvbc",
+        "name" : "Caroline The Wrecking Ball",
+        "popularity" : 39,
+        "preview_url" : "https://p.scdn.co/mp3-preview/b2fa29845883d5ddcc008d305030b354a370eb53",
+        "track_number" : 9,
+        "type" : "track",
+        "uri" : "spotify:track:6dvjzJqpFKUr0dkdvKNvbc"
+      }
+    }, {
+      "added_at" : "2014-06-10T11:23:19Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/zbergquist99"
+        },
+        "href" : "https://api.spotify.com/v1/users/zbergquist99",
+        "id" : "zbergquist99",
+        "type" : "user",
+        "uri" : "spotify:user:zbergquist99"
+      },
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "available_markets" : [ "CA", "MX", "US" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
+          },
+          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
+          "id" : "23PusidYfyDzIC8X9l640f",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
+            "width" : 64
+          } ],
+          "name" : "The Rockville LP",
+          "type" : "album",
+          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
+          },
+          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
+          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
+          "name" : "O.A.R.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
+        } ],
+        "available_markets" : [ "CA", "MX", "US" ],
+        "disc_number" : 1,
+        "duration_ms" : 541787,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USVG21403546"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/43ByDewjtOwEZXi9qI2J66"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/43ByDewjtOwEZXi9qI2J66",
+        "id" : "43ByDewjtOwEZXi9qI2J66",
+        "name" : "I Will Find You",
+        "popularity" : 39,
+        "preview_url" : "https://p.scdn.co/mp3-preview/894236ed584f6e9c72352c57325f820d41247307",
+        "track_number" : 10,
+        "type" : "track",
+        "uri" : "spotify:track:43ByDewjtOwEZXi9qI2J66"
+      }
+    } ],
+    "limit" : 100,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 10
+  },
+  "type" : "playlist",
+  "uri" : "spotify:user:zbergquist99:playlist:7I6yjOAxMq4qsvzgqxw7aU"
+}

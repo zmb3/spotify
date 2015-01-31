@@ -78,3 +78,42 @@ func TestFeaturedPlaylistsExpiredToken(t *testing.T) {
 		t.Error("Expected HTTP 401")
 	}
 }
+
+func TestPlaylistsForUser(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/playlists_for_user.txt")
+	addDummyAuth(client)
+	playlists, err := client.PlaylistsForUser("whizler")
+	if err != nil {
+		t.Error(err)
+	}
+	if l := len(playlists.Playlists); l == 0 {
+		t.Error("Didn't get any results")
+		return
+	}
+	p := playlists.Playlists[0]
+	if p.Name != "Nederlandse Tipparade" {
+		t.Error("Expected Nederlandse Tipparade, got", p.Name)
+	}
+	if p.Tracks.Total != 29 {
+		t.Error("Expected 29 tracks, got", p.Tracks.Total)
+	}
+}
+
+func TestGetPlaylistOpt(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/get_playlist_opt.txt")
+	addDummyAuth(client)
+	fields := "href,name,owner(!href,external_urls),tracks.items(added_by.id,track(name,href,album(name,href)))"
+	p, err := client.GetPlaylistOpt("spotify", "59ZbFPES4DQwEjBpWHzrtC", fields)
+	if err != nil {
+		t.Error(err)
+	}
+	if p.Collaborative {
+		t.Error("Playlist shouldn't be collaborative")
+	}
+	if p.Description != "" {
+		t.Error("No description should be included")
+	}
+	if p.Tracks.Total != 10 {
+		t.Error("Expected 10 tracks")
+	}
+}

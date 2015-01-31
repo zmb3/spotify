@@ -1,0 +1,120 @@
+{
+  "href" : "https://api.spotify.com/v1/users/whizler/playlists?offset=0&limit=20",
+  "items" : [ {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/nederlandse_top_40/playlist/7vrhBxI0VHV0CNcj06Cno3"
+    },
+    "href" : "https://api.spotify.com/v1/users/nederlandse_top_40/playlists/7vrhBxI0VHV0CNcj06Cno3",
+    "id" : "7vrhBxI0VHV0CNcj06Cno3",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ee915e50041ce0dd1dfde71cc6e2c28e078aa8e83dac748919303efb1a48a6c5994307f54a9fff8ecfa5aa42c03d94a58e35e842da62ae7ebf30d53dda803660b1bb9226871fe5d127c49a70cbbc6bd1",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ee915e50041ce0dd1dfde71cc6e2c28e078aa8e83dac748919303efb1a48a6c5994307f54a9fff8ecfa5aa42c03d94a58e35e842da62ae7ebf30d53dda803660b1bb9226871fe5d127c49a70cbbc6bd1",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ee915e50041ce0dd1dfde71cc6e2c28e078aa8e83dac748919303efb1a48a6c5994307f54a9fff8ecfa5aa42c03d94a58e35e842da62ae7ebf30d53dda803660b1bb9226871fe5d127c49a70cbbc6bd1",
+      "width" : 60
+    } ],
+    "name" : "Nederlandse Tipparade",
+    "owner" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/nederlandse_top_40"
+      },
+      "href" : "https://api.spotify.com/v1/users/nederlandse_top_40",
+      "id" : "nederlandse_top_40",
+      "type" : "user",
+      "uri" : "spotify:user:nederlandse_top_40"
+    },
+    "public" : true,
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/nederlandse_top_40/playlists/7vrhBxI0VHV0CNcj06Cno3/tracks",
+      "total" : 29
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:nederlandse_top_40:playlist:7vrhBxI0VHV0CNcj06Cno3"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/1133215025/playlist/6yLFV3fDchwcGliaqYlp6T"
+    },
+    "href" : "https://api.spotify.com/v1/users/1133215025/playlists/6yLFV3fDchwcGliaqYlp6T",
+    "id" : "6yLFV3fDchwcGliaqYlp6T",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/0fc4f5402a0a8dc60df091054b61010bdf2618ecf3cf87bfde0748d389702a69e0ba01f6091e24032288494ae80940bed4f31bfb1c6e9bec0f0729a8a8d38a3b1fcedf019957a93b8982fc1a54977aba",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/0fc4f5402a0a8dc60df091054b61010bdf2618ecf3cf87bfde0748d389702a69e0ba01f6091e24032288494ae80940bed4f31bfb1c6e9bec0f0729a8a8d38a3b1fcedf019957a93b8982fc1a54977aba",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/0fc4f5402a0a8dc60df091054b61010bdf2618ecf3cf87bfde0748d389702a69e0ba01f6091e24032288494ae80940bed4f31bfb1c6e9bec0f0729a8a8d38a3b1fcedf019957a93b8982fc1a54977aba",
+      "width" : 60
+    } ],
+    "name" : "NL Totaallijst (Mega top 50 - Top 40 - Tipparade - 3fm playlist - Supercrazyturbotophit)",
+    "owner" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/1133215025"
+      },
+      "href" : "https://api.spotify.com/v1/users/1133215025",
+      "id" : "1133215025",
+      "type" : "user",
+      "uri" : "spotify:user:1133215025"
+    },
+    "public" : true,
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/1133215025/playlists/6yLFV3fDchwcGliaqYlp6T/tracks",
+      "total" : 97
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:1133215025:playlist:6yLFV3fDchwcGliaqYlp6T"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/vincsie/playlist/1jM0LrhiTpxx9NtrJYRi28"
+    },
+    "href" : "https://api.spotify.com/v1/users/vincsie/playlists/1jM0LrhiTpxx9NtrJYRi28",
+    "id" : "1jM0LrhiTpxx9NtrJYRi28",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/646e9619750dfa3d1eadbbea959dc6f528a9109e4956daa8f52ba99d2a2a5818bdec2d05b3c4e4f6080e781821d768e4ba130a3645f7a4367fe8abcb70d6105c78c0dcb66d4a762dd1272473578ef9d7",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/646e9619750dfa3d1eadbbea959dc6f528a9109e4956daa8f52ba99d2a2a5818bdec2d05b3c4e4f6080e781821d768e4ba130a3645f7a4367fe8abcb70d6105c78c0dcb66d4a762dd1272473578ef9d7",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/646e9619750dfa3d1eadbbea959dc6f528a9109e4956daa8f52ba99d2a2a5818bdec2d05b3c4e4f6080e781821d768e4ba130a3645f7a4367fe8abcb70d6105c78c0dcb66d4a762dd1272473578ef9d7",
+      "width" : 60
+    } ],
+    "name" : "Top 40 nl / www.HotSpotify.com",
+    "owner" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/vincsie"
+      },
+      "href" : "https://api.spotify.com/v1/users/vincsie",
+      "id" : "vincsie",
+      "type" : "user",
+      "uri" : "spotify:user:vincsie"
+    },
+    "public" : true,
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/vincsie/playlists/1jM0LrhiTpxx9NtrJYRi28/tracks",
+      "total" : 40
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:vincsie:playlist:1jM0LrhiTpxx9NtrJYRi28"
+  } ],
+  "limit" : 20,
+  "next" : null,
+  "offset" : 0,
+  "previous" : null,
+  "total" : 3
+}
