@@ -99,7 +99,7 @@ type PlaylistOptions struct {
 
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
 // It accepts a number of optional parameters via the opt argument.
-func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *PlaylistResult, e error) {
+func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *SimplePlaylistPage, e error) {
 	if c.TokenType != BearerToken || c.AccessToken == "" {
 		return "", nil, ErrAuthorizationRequired
 	}
@@ -138,8 +138,8 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 		return "", nil, decodeError(resp.Body)
 	}
 	var result struct {
-		Playlists *page  `json:"playlists"`
-		Message   string `json:"message"`
+		Playlists *rawPage `json:"playlists"`
+		Message   string   `json:"message"`
 	}
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
@@ -150,7 +150,7 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 
 // FeaturedPlaylists gets a list of playlists featured by Spotify.
 // It is equivalent to c.FeaturedPlaylistsOpt(nil).
-func (c *Client) FeaturedPlaylists() (message string, playlists *PlaylistResult, e error) {
+func (c *Client) FeaturedPlaylists() (message string, playlists *SimplePlaylistPage, e error) {
 	return c.FeaturedPlaylistsOpt(nil)
 }
 

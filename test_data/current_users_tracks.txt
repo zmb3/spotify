@@ -1,0 +1,181 @@
+{
+  "href" : "https://api.spotify.com/v1/me/tracks?offset=0&limit=20",
+  "items" : [ {
+    "added_at" : "2015-01-31T00:37:55Z",
+    "track" : {
+      "album" : {
+        "album_type" : "album",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/4OTAx9un4e6NfoHuVRiOrC"
+        },
+        "href" : "https://api.spotify.com/v1/albums/4OTAx9un4e6NfoHuVRiOrC",
+        "id" : "4OTAx9un4e6NfoHuVRiOrC",
+        "images" : [ {
+          "height" : 636,
+          "url" : "https://i.scdn.co/image/cfc4dd997d3e84b7214517ea749ac37877513449",
+          "width" : 640
+        }, {
+          "height" : 298,
+          "url" : "https://i.scdn.co/image/12bd3a4b4a3946953c2016874506bce7d2c06ac1",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/50cf6dc10028a19efbb449861416b4a18a1e79a0",
+          "width" : 64
+        } ],
+        "name" : "Love In The Future",
+        "type" : "album",
+        "uri" : "spotify:album:4OTAx9un4e6NfoHuVRiOrC"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+        },
+        "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+        "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+        "name" : "John Legend",
+        "type" : "artist",
+        "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 252653,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USSM11304007"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/55nlbqqFVnSsArIeYSQlqx"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/55nlbqqFVnSsArIeYSQlqx",
+      "id" : "55nlbqqFVnSsArIeYSQlqx",
+      "name" : "You & I (Nobody In The World)",
+      "popularity" : 72,
+      "preview_url" : "https://p.scdn.co/mp3-preview/67759436618e256c9de1bfbe7f5f7a33b35ef8b5",
+      "track_number" : 14,
+      "type" : "track",
+      "uri" : "spotify:track:55nlbqqFVnSsArIeYSQlqx"
+    }
+  }, {
+    "added_at" : "2015-01-10T22:34:46Z",
+    "track" : {
+      "album" : {
+        "album_type" : "album",
+        "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/6rIbiUMmZJfqJRnXhVxFvg"
+        },
+        "href" : "https://api.spotify.com/v1/albums/6rIbiUMmZJfqJRnXhVxFvg",
+        "id" : "6rIbiUMmZJfqJRnXhVxFvg",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/0cbd3cf918346f95af5f180e86224943711a2f3a",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/58edae00cdeea2c12c530caca4e8387f45aa7283",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/cc9c6898717766d8a5b3525d3685095bea59e2dd",
+          "width" : 64
+        } ],
+        "name" : "Dream Your Life Away",
+        "type" : "album",
+        "uri" : "spotify:album:6rIbiUMmZJfqJRnXhVxFvg"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+        },
+        "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+        "id" : "10exVja0key0uqUkk6LJRT",
+        "name" : "Vance Joy",
+        "type" : "artist",
+        "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 204280,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "AULI01385760"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/7yq4Qj7cqayVTp3FF9CWbm"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/7yq4Qj7cqayVTp3FF9CWbm",
+      "id" : "7yq4Qj7cqayVTp3FF9CWbm",
+      "name" : "Riptide",
+      "popularity" : 90,
+      "preview_url" : "https://p.scdn.co/mp3-preview/8aa620b29956113f04c299d1107331f4a7a89145",
+      "track_number" : 4,
+      "type" : "track",
+      "uri" : "spotify:track:7yq4Qj7cqayVTp3FF9CWbm"
+    }
+  }, {
+    "added_at" : "2014-12-16T12:38:02Z",
+    "track" : {
+      "album" : {
+        "album_type" : "album",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/1EQNkmhggPKCVbFpJldHeb"
+        },
+        "href" : "https://api.spotify.com/v1/albums/1EQNkmhggPKCVbFpJldHeb",
+        "id" : "1EQNkmhggPKCVbFpJldHeb",
+        "images" : [ {
+          "height" : 574,
+          "url" : "https://i.scdn.co/image/19fdb3a247d839b2cb34b53ef0ae5c25de98d75a",
+          "width" : 640
+        }, {
+          "height" : 269,
+          "url" : "https://i.scdn.co/image/ea9e805a9b86a66088879eb83a7404b74aa1a8de",
+          "width" : 300
+        }, {
+          "height" : 57,
+          "url" : "https://i.scdn.co/image/ae2ca70d88742764dd332c799eb4185b9efa9da8",
+          "width" : 64
+        } ],
+        "name" : "Make A Move",
+        "type" : "album",
+        "uri" : "spotify:album:1EQNkmhggPKCVbFpJldHeb"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/5DYAABs8rkY9VhwtENoQCz"
+        },
+        "href" : "https://api.spotify.com/v1/artists/5DYAABs8rkY9VhwtENoQCz",
+        "id" : "5DYAABs8rkY9VhwtENoQCz",
+        "name" : "Gavin DeGraw",
+        "type" : "artist",
+        "uri" : "spotify:artist:5DYAABs8rkY9VhwtENoQCz"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 212640,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USRC11301407"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/0dnuRWX0v0FQEkmEAiMl7z"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/0dnuRWX0v0FQEkmEAiMl7z",
+      "id" : "0dnuRWX0v0FQEkmEAiMl7z",
+      "name" : "Finest Hour",
+      "popularity" : 50,
+      "preview_url" : "https://p.scdn.co/mp3-preview/7053fa6d9cd1de6ac57a4b52682bc03173f1ce73",
+      "track_number" : 3,
+      "type" : "track",
+      "uri" : "spotify:track:0dnuRWX0v0FQEkmEAiMl7z"
+    }
+  }
+  ],
+  "limit" : 20,
+  "next" : "https://api.spotify.com/v1/me/tracks?offset=20&limit=20",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 3
+}

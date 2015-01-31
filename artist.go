@@ -173,18 +173,18 @@ func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
 }
 
 // ArtistAlbums is a wrapper around DefaultClient.ArtistAlbums.
-func ArtistAlbums(artistID ID) (*AlbumResult, error) {
+func ArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 	return DefaultClient.ArtistAlbums(artistID)
 }
 
 // ArtistAlbums gets Spotify catalog information about an artist's albums.
 // It is equivalent to ArtistAlbumsOpt(artistID, nil).
-func (c *Client) ArtistAlbums(artistID ID) (*AlbumResult, error) {
+func (c *Client) ArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 	return c.ArtistAlbumsOpt(artistID, nil, nil)
 }
 
 // ArtistAlbumsOpt is a wrapper around DefaultClient.ArtistAlbumsOpt
-func ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*AlbumResult, error) {
+func ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
 	return DefaultClient.ArtistAlbumsOpt(artistID, options, t)
 }
 
@@ -193,7 +193,7 @@ func ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*AlbumResult,
 //
 // The AlbumType argument can be used to find a particular type of album.  Search
 // for multiple types by OR-ing the types together.
-func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*AlbumResult, error) {
+func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
 	uri := baseAddress + "artists/" + string(artistID) + "/albums"
 	// add optional query string if options were specified
 	if options != nil {
@@ -229,17 +229,17 @@ func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*
 	if resp.StatusCode != http.StatusOK {
 		return nil, decodeError(resp.Body)
 	}
-	var p page
+	var p rawPage
 	err = json.NewDecoder(resp.Body).Decode(&p)
 	if err != nil {
 		return nil, err
 	}
-	var result AlbumResult
+	var result SimpleAlbumPage
 	err = json.Unmarshal([]byte(p.Items), &result.Albums)
 	if err != nil {
 		return nil, err
 	}
-	result.FullResult = p.Endpoint
+	result.Endpoint = p.Endpoint
 	result.Limit = p.Limit
 	result.Offset = p.Offset
 	result.Total = p.Total

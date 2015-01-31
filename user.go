@@ -18,6 +18,8 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -122,6 +124,54 @@ func (c *Client) CurrentUser() (*PrivateUser, error) {
 		return nil, decodeError(resp.Body)
 	}
 	var result PrivateUser
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+// CurrentUsersTracks gets a list of songs saved in the current
+// Spotify user's "Your Music" library.
+func (c *Client) CurrentUsersTracks() (*SavedTrackPage, error) {
+	return c.CurrentUsersTracksOpt(nil)
+}
+
+// CurrentUsersTracksOpt is like CurrentUsersTracks, but it accepts additional
+// options for sorting and filtering the results.
+func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
+	if c.AccessToken == "" || c.TokenType != BearerToken {
+		return nil, ErrAuthorizationRequired
+	}
+	uri := baseAddress + "me/tracks"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("country", *opt.Country)
+		}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			uri += "?" + params
+		}
+	}
+	req, err := c.newHTTPRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result SavedTrackPage
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err

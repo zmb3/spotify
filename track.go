@@ -74,10 +74,10 @@ type FullTrack struct {
 // in a playlist.
 type PlaylistTrack struct {
 	// The date and time the track was added to the playlist.
-	// TODO: very old playlists may return null here.
+	// Warning: very old playlists may not populate this value.
 	AddedAt Timestamp `json:"added_at"`
 	// The Spotify user who added the track to the playlist.
-	// TODO: very old playlists may return null here
+	// Warning: vary old playlists may not populate this value.
 	AddedBy User `json:"added_by"`
 	// Information about the track.
 	Track FullTrack `json:"track"`
@@ -86,6 +86,11 @@ type PlaylistTrack struct {
 // SavedTrack provides info about a track saved
 // to a user's account.
 type SavedTrack struct {
+	// The date and tie the track was saved.
+	// Represented as an ISO 8601 UTC timestamp with a zero offset:
+	// YYYY-MM-DDTHH:MM:SSZ.
+	AddedAt   string `json:"added_at"`
+	FullTrack `json:"track"`
 }
 
 // TimeDuration returns the track's duration as a

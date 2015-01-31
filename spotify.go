@@ -144,7 +144,7 @@ type Client struct {
 
 func (c *Client) newHTTPRequest(method, uri string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, uri, body)
-	if t := string(c.TokenType); err != nil && t != "" && c.AccessToken != "" {
+	if t := string(c.TokenType); err == nil && t != "" && c.AccessToken != "" {
 		req.Header.Set("Authorization", t+" "+c.AccessToken)
 	}
 	return req, err
@@ -166,24 +166,9 @@ type Options struct {
 	Offset *int
 }
 
-// page is a container for a set of objects. We don't expose this to the user
-// because the Items field is just raw JSON.  Instead, the user gets
-// AlbumResult, ArtistResult, TrackResult, and PlaylistResult.
-// These types all contain the same data as page, but the Items field is a
-// strongly typed slice.
-type page struct {
-	Endpoint string          `json:"href"`
-	Items    json.RawMessage `json:"items"`
-	Limit    int             `json:"limit"`
-	Next     string          `json:"next"`
-	Offset   int             `json:"offset"`
-	Previous string          `json:"previous"`
-	Total    int             `json:"total"`
-}
-
 // NewReleasesOpt is like NewReleases, but it accepts optional parameters
 // for filtering the results.
-func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
+func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err error) {
 	if c.TokenType != BearerToken || c.AccessToken == "" {
 		return nil, ErrAuthorizationRequired
 	}
@@ -216,7 +201,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
 		return nil, decodeError(resp.Body)
 	}
 	var result struct {
-		Albums *page `json:"albums"`
+		Albums *rawPage `json:"albums"`
 	}
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
@@ -228,6 +213,6 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *AlbumResult, err error) {
 
 // NewReleases gets a list of new album releases featured in Spotify.
 // This call requires bearer authorization.
-func (c *Client) NewReleases() (albums *AlbumResult, err error) {
+func (c *Client) NewReleases() (albums *SimpleAlbumPage, err error) {
 	return c.NewReleasesOpt(nil)
 }

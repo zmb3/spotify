@@ -86,7 +86,7 @@ type FullAlbum struct {
 	// is known: "year", "month", or "day"
 	ReleaseDatePrecision string `json:"release_date_precision"`
 	// The tracks of the album.  Tracks are inside a paging object.
-	Tracks TrackResult `json:"tracks"`
+	Tracks SimpleTrackPage `json:"tracks"`
 	// Known external IDs for the album.
 	ExternalIDs ExternalID `json:"external_ids"`
 }
@@ -186,19 +186,19 @@ func (at AlbumType) encode() string {
 }
 
 // FindAlbumTracks is a wrapper around DefaultClient.FindAlbumTracks.
-func FindAlbumTracks(id ID) (*TrackResult, error) {
+func FindAlbumTracks(id ID) (*SimpleTrackPage, error) {
 	return DefaultClient.FindAlbumTracks(id)
 }
 
 // FindAlbumTracks gets the tracks for a particular album.
 // If you only care about the tracks, this call is more efficient
 // than FindAlbum.
-func (c *Client) FindAlbumTracks(id ID) (*TrackResult, error) {
+func (c *Client) FindAlbumTracks(id ID) (*SimpleTrackPage, error) {
 	return c.FindAlbumTracksLimited(id, -1, -1)
 }
 
 // FindAlbumTracksLimited is a wrapper around DefaultClient.FindAlbumTracksLimited.
-func FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult, error) {
+func FindAlbumTracksLimited(id ID, limit, offset int) (*SimpleTrackPage, error) {
 	return DefaultClient.FindAlbumTracksLimited(id, limit, offset)
 }
 
@@ -209,7 +209,7 @@ func FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult, error) {
 // The offset argument can be used to specify the index of the first
 // track to return.  It can be used along with limit to reqeust
 // the next set of results.
-func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult, error) {
+func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*SimpleTrackPage, error) {
 	uri := baseAddress + "albums/" + string(id) + "/tracks"
 	v := url.Values{}
 	if limit != -1 {
@@ -228,13 +228,13 @@ func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*TrackResult,
 	}
 	defer resp.Body.Close()
 
-	var p page
+	var p rawPage
 	err = json.NewDecoder(resp.Body).Decode(&p)
 	if err != nil {
 		return nil, err
 	}
-	var result TrackResult
-	result.FullResult = p.Endpoint
+	var result SimpleTrackPage
+	result.Endpoint = p.Endpoint
 	result.Limit = p.Limit
 	result.Offset = p.Offset
 	result.Next = p.Next

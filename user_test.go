@@ -15,6 +15,7 @@
 package spotify
 
 import (
+	"fmt"
 	"net/http"
 	"testing"
 )
@@ -140,5 +141,34 @@ func TestUserFollows(t *testing.T) {
 	}
 	if len(follows) != 2 || follows[0] || !follows[1] {
 		t.Error("Incorrect result", follows)
+	}
+}
+
+func TestCurrentUsersTracks(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/current_users_tracks.txt")
+	addDummyAuth(client)
+	tracks, err := client.CurrentUsersTracks()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if tracks.Limit != 20 {
+		t.Errorf("Expected limit 20, got %s\n", tracks.Limit)
+	}
+	if tracks.Endpoint != "https://api.spotify.com/v1/me/tracks?offset=0&limit=20" {
+		t.Error("Endpoint incorrect")
+	}
+	if tracks.Total != 3 {
+		t.Errorf("Expect 3 results, got %d\n", tracks.Total)
+		return
+	}
+	if len(tracks.Tracks) != tracks.Total {
+		t.Error("Didn't get expected number of results")
+		return
+	}
+	expected := "You & I (Nobody In The World)"
+	if tracks.Tracks[0].Name != expected {
+		t.Errorf("Expected '%s', got '%s'\n", expected, tracks.Tracks[0].Name)
+		fmt.Printf("\n%#v\n", tracks.Tracks[0])
 	}
 }

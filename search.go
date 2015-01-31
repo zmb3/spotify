@@ -64,64 +64,20 @@ func (st SearchType) encode() string {
 	return strings.Join(types, ",")
 }
 
-// TODO: maybe instead of exposing the prev/next URLs,
-// we can just have functions for retrieving the prev/next page
-type resultPage struct {
-	// A link to the Web API Endpoint returning the full
-	// result of this request.
-	FullResult string
-	// The maximum number of items in the response, as set
-	// in the query (or default value if unset).
-	Limit int
-	// The offset of the items returned, as set in the query
-	// (or default value if unset).
-	Offset int
-	// The total number of items available to return.
-	Total int
-	// The URL to the next page of items (if available).
-	Next string
-	// The URL to the previous page of items (if available).
-	Previous string
-}
-
-// ArtistResult contains artists returned by the Web API.
-type ArtistResult struct {
-	resultPage
-	Artists []FullArtist
-}
-
-// AlbumResult contains albums returned by the Web API.
-type AlbumResult struct {
-	resultPage
-	Albums []SimpleAlbum
-}
-
-// PlaylistResult contains playlists returned by the Web API.
-type PlaylistResult struct {
-	resultPage
-	Playlists []SimplePlaylist
-}
-
-// TrackResult contains tracks returned by the Web API.
-type TrackResult struct {
-	resultPage
-	Tracks []SimpleTrack
-}
-
 type searchResult struct {
-	Artists   *page `json:"artists"`
-	Albums    *page `json:"albums"`
-	Tracks    *page `json:"tracks"`
-	Playlists *page `json:"playlists"`
+	Artists   *rawPage `json:"artists"`
+	Albums    *rawPage `json:"albums"`
+	Tracks    *rawPage `json:"tracks"`
+	Playlists *rawPage `json:"playlists"`
 }
 
 // SearchResult contains the results of a call to Search.
 // Fields that weren't searched for will be nil pointers.
 type SearchResult struct {
-	Artists   *ArtistResult
-	Albums    *AlbumResult
-	Playlists *PlaylistResult
-	Tracks    *TrackResult
+	Artists   *FullArtistPage
+	Albums    *SimpleAlbumPage
+	Playlists *SimplePlaylistPage
+	Tracks    *SimpleTrackPage
 }
 
 // Search is a wrapper around DefaultClient.Search.
@@ -241,12 +197,12 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 	return sr, err
 }
 
-func toArtists(p *page) *ArtistResult {
+func toArtists(p *rawPage) *FullArtistPage {
 	if p == nil {
 		return nil
 	}
-	var a ArtistResult
-	a.FullResult = p.Endpoint
+	var a FullArtistPage
+	a.Endpoint = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total
@@ -260,12 +216,12 @@ func toArtists(p *page) *ArtistResult {
 	return &a
 }
 
-func toAlbums(p *page) *AlbumResult {
+func toAlbums(p *rawPage) *SimpleAlbumPage {
 	if p == nil {
 		return nil
 	}
-	var a AlbumResult
-	a.FullResult = p.Endpoint
+	var a SimpleAlbumPage
+	a.Endpoint = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total
@@ -279,12 +235,12 @@ func toAlbums(p *page) *AlbumResult {
 	return &a
 }
 
-func toPlaylists(p *page) *PlaylistResult {
+func toPlaylists(p *rawPage) *SimplePlaylistPage {
 	if p == nil {
 		return nil
 	}
-	var a PlaylistResult
-	a.FullResult = p.Endpoint
+	var a SimplePlaylistPage
+	a.Endpoint = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total
@@ -298,12 +254,12 @@ func toPlaylists(p *page) *PlaylistResult {
 	return &a
 }
 
-func toTracks(p *page) *TrackResult {
+func toTracks(p *rawPage) *SimpleTrackPage {
 	if p == nil {
 		return nil
 	}
-	var a TrackResult
-	a.FullResult = p.Endpoint
+	var a SimpleTrackPage
+	a.Endpoint = p.Endpoint
 	a.Limit = p.Limit
 	a.Offset = p.Offset
 	a.Total = p.Total

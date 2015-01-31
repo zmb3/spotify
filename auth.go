@@ -15,7 +15,6 @@
 package spotify
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -112,12 +111,12 @@ type AuthenticationOptions struct {
 func (c *Client) AuthenticateClientCredentials(opt AuthenticationOptions) error {
 	var id, secret string
 	if opt.ClientID == nil {
-		id = os.Getenv("SPOTIFY_CLIENT_ID")
+		id = os.Getenv("SPOTIFY_ID")
 	} else {
 		id = *opt.ClientID
 	}
 	if opt.ClientSecret == nil {
-		secret = os.Getenv("SPOTIFY_SECRET_KEY")
+		secret = os.Getenv("SPOTIFY_SECRET")
 	} else {
 		secret = *opt.ClientSecret
 	}
@@ -136,7 +135,7 @@ func (c *Client) AuthenticateClientCredentials(opt AuthenticationOptions) error 
 	if err != nil {
 		return err
 	}
-	req.Header.Set("Authorization", "Basic "+encodeClientID(id, secret))
+	req.SetBasicAuth(id, secret)
 	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
@@ -156,9 +155,4 @@ func (c *Client) AuthenticateClientCredentials(opt AuthenticationOptions) error 
 	// now the client has a non-nil token
 	// TODO: all api calls must be udpated to include access token in header
 	return nil
-}
-
-func encodeClientID(id, key string) string {
-	data := []byte(id + ":" + key)
-	return base64.StdEncoding.EncodeToString(data)
 }
