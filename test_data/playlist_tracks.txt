@@ -1,0 +1,150 @@
+{
+  "href" : "https://api.spotify.com/v1/users/spotify_espa%C3%B1a/playlists/21THa8j9TaSGuXYNBU5tsC/tracks?offset=0&limit=2",
+  "items" : [ {
+    "added_at" : "2014-11-25T18:15:01Z",
+    "added_by" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify_espa%C3%B1a"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify_espa%C3%B1a",
+      "id" : "spotify_españa",
+      "type" : "user",
+      "uri" : "spotify:user:spotify_espa%C3%B1a"
+    },
+    "track" : {
+      "album" : {
+        "album_type" : "album",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/4EUf4YyNjuXypWY6W5wEDm"
+        },
+        "href" : "https://api.spotify.com/v1/albums/4EUf4YyNjuXypWY6W5wEDm",
+        "id" : "4EUf4YyNjuXypWY6W5wEDm",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/835884befb1b595476e590e656f27b3ec028308b",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/b3074557f3c45bb3a2c9884ecbfeb692f3c51be4",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/6dc754ec4bc27563dc707fb2178a55c71b7352c9",
+          "width" : 64
+        } ],
+        "name" : "Globalization",
+        "type" : "album",
+        "uri" : "spotify:album:4EUf4YyNjuXypWY6W5wEDm"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
+        },
+        "href" : "https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg",
+        "id" : "0TnOYISbd1XYRBk9myaseg",
+        "name" : "Pitbull",
+        "type" : "artist",
+        "uri" : "spotify:artist:0TnOYISbd1XYRBk9myaseg"
+      }, {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/21E3waRsmPlU7jZsS13rcj"
+        },
+        "href" : "https://api.spotify.com/v1/artists/21E3waRsmPlU7jZsS13rcj",
+        "id" : "21E3waRsmPlU7jZsS13rcj",
+        "name" : "Ne-Yo",
+        "type" : "artist",
+        "uri" : "spotify:artist:21E3waRsmPlU7jZsS13rcj"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 229360,
+      "explicit" : true,
+      "external_ids" : {
+        "isrc" : "USRC11402647"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/2bJvI42r8EF3wxjOuDav4r"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/2bJvI42r8EF3wxjOuDav4r",
+      "id" : "2bJvI42r8EF3wxjOuDav4r",
+      "name" : "Time Of Our Lives",
+      "popularity" : 88,
+      "preview_url" : "https://p.scdn.co/mp3-preview/f6cd2dac5beb16dc277d92ba4656df19765f9ab6",
+      "track_number" : 4,
+      "type" : "track",
+      "uri" : "spotify:track:2bJvI42r8EF3wxjOuDav4r"
+    }
+  }, {
+    "added_at" : "2014-12-17T22:17:49Z",
+    "added_by" : {
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify_espa%C3%B1a"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify_espa%C3%B1a",
+      "id" : "spotify_españa",
+      "type" : "user",
+      "uri" : "spotify:user:spotify_espa%C3%B1a"
+    },
+    "track" : {
+      "album" : {
+        "album_type" : "single",
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/3XozpQpm9a1WIf4Ozv7558"
+        },
+        "href" : "https://api.spotify.com/v1/albums/3XozpQpm9a1WIf4Ozv7558",
+        "id" : "3XozpQpm9a1WIf4Ozv7558",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/da604d365fe1620a311b8310d274063fb629dfd3",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/1e3c47aaf37ddb8a6310e3cef14ff93dc5bc0889",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/931682e759ecfb5a04faca6eddae7f9beb44b584",
+          "width" : 64
+        } ],
+        "name" : "Como Yo Le Doy",
+        "type" : "album",
+        "uri" : "spotify:album:3XozpQpm9a1WIf4Ozv7558"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/1noWnd8QFQD9VLxWEeo4Zf"
+        },
+        "href" : "https://api.spotify.com/v1/artists/1noWnd8QFQD9VLxWEeo4Zf",
+        "id" : "1noWnd8QFQD9VLxWEeo4Zf",
+        "name" : "Don Miguelo",
+        "type" : "artist",
+        "uri" : "spotify:artist:1noWnd8QFQD9VLxWEeo4Zf"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 222853,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "uscgj1400749"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/07IZD41kFwKZbEkd1frD2M"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/07IZD41kFwKZbEkd1frD2M",
+      "id" : "07IZD41kFwKZbEkd1frD2M",
+      "name" : "Como Yo Le Doy",
+      "popularity" : 67,
+      "preview_url" : "https://p.scdn.co/mp3-preview/37fafc0b532d01c1b33067a73b66b1c9f286b3eb",
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:07IZD41kFwKZbEkd1frD2M"
+    }
+  } ],
+  "limit" : 2,
+  "next" : "https://api.spotify.com/v1/users/spotify_espa%C3%B1a/playlists/21THa8j9TaSGuXYNBU5tsC/tracks?offset=2&limit=2",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 47
+}

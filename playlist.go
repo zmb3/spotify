@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -316,4 +317,112 @@ func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*F
 	var playlist FullPlaylist
 	err = json.NewDecoder(resp.Body).Decode(&playlist)
 	return &playlist, err
+}
+
+// GetPlaylistTracks gets full details of the tracks in a playlist, given the
+// owner of the playlist and the playlist's Spotify ID.
+// This call requires authorization.
+func (c *Client) GetPlaylistTracks(userID string, playlistID ID) (*PlaylistTrackPage, error) {
+	return c.GetPlaylistTracksOpt(userID, playlistID, nil, "")
+}
+
+// GetPlaylistTracksOpt is like GetPlaylistTracks, but it accepts optional parameters
+// for sorting and filtering the results.  This call requries authorization.
+//
+// The field parameter is a comma-separated list of the fields to return.  See the
+// JSON struct tags for the PlaylistTrackPage type for valid field names.
+// For example, to get just the total number of tracks and the request limit:
+//     fields = "total,limit"
+//
+// A dot separator can be used to specify non-reoccurring fields, while parentheses
+// can be used to specify reoccurring fields within objects.  For example, to get
+// just the added date and user ID of the adder:
+//     fields = "items(added_at,added_by.id
+//
+// Use multiple parentheses to drill down into nested objects.  For example:
+//     fields = "items(track(name,href,album(name,href)))"
+//
+// Fields can be excluded by prefixing them with an exclamation mark.  For example:
+//     fields = "items.track.album(!external_urls,images)"
+func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID, opt *Options, fields string) (*PlaylistTrackPage, error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return nil, ErrAuthorizationRequired
+	}
+	uri := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)
+	v := url.Values{}
+	if fields != "" {
+		v.Set("fields", fields)
+	}
+	if opt != nil {
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+	}
+	if params := v.Encode(); params != "" {
+		uri += "?" + params
+	}
+
+	req, err := c.newHTTPRequest("GET", uri, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result PlaylistTrackPage
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	return &result, err
+}
+
+// CreatePlaylistForUser creates a playlist for a Spotify user.
+// The playlist will be empty until you add tracks to it.
+// The playlistName does not need to be unique - a user can have
+// several playlists with the same name.
+//
+// This call requires authorization.  Creating a public playlist
+// for a user requires the ScopePlaylistModifyPublic scope;
+// creating a private playlist requires the ScopePlaylistModifyPrivate
+// scope.
+//
+// On success, the newly created playlist is returned.
+func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool) (*FullPlaylist, error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return nil, ErrAuthorizationRequired
+	}
+	uri := fmt.Sprintf("%susers/%s/playlists", baseAddress, userID)
+	body := struct {
+		Name   string `json:"name"`
+		Public bool   `json:"public"`
+	}{
+		playlistName,
+		public,
+	}
+	bodyJSON, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	req, err := c.newHTTPRequest("POST", uri, bytes.NewReader(bodyJSON))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, decodeError(resp.Body)
+	}
+	var p FullPlaylist
+	err = json.NewDecoder(resp.Body).Decode(&p)
+	return &p, err
 }

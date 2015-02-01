@@ -117,3 +117,81 @@ func TestGetPlaylistOpt(t *testing.T) {
 		t.Error("Expected 10 tracks")
 	}
 }
+
+func TestGetPlaylistTracks(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/playlist_tracks.txt")
+	addDummyAuth(client)
+	tracks, err := client.GetPlaylistTracks("user", "playlistID")
+	if err != nil {
+		t.Error(err)
+	}
+	if tracks.Total != 47 {
+		t.Errorf("Got %d tracks, expected 47\n", tracks.Total)
+	}
+	if len(tracks.Tracks) == 0 {
+		t.Error("No tracks returned")
+		return
+	}
+	expected := "Time Of Our Lives"
+	actual := tracks.Tracks[0].Track.Name
+	if expected != actual {
+		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
+	}
+}
+
+var newPlaylist = `
+{
+"collaborative": false,
+"description": null,
+"external_urls": {
+	"spotify": "http://open.spotify.com/user/thelinmichael/playlist/7d2D2S200NyUE5KYs80PwO"
+},
+"followers": {
+	"href": null,
+	"total": 0
+},
+"href": "https://api.spotify.com/v1/users/thelinmichael/playlists/7d2D2S200NyUE5KYs80PwO",
+"id": "7d2D2S200NyUE5KYs80PwO",
+"images": [ ],
+"name": "A New Playlist",
+"owner": {
+	"external_urls": {
+	"spotify": "http://open.spotify.com/user/thelinmichael"
+	},
+	"href": "https://api.spotify.com/v1/users/thelinmichael",
+	"id": "thelinmichael",
+	"type": "user",
+	"uri": "spotify:user:thelinmichael"
+},
+"public": false,
+"snapshot_id": "s0o3TSuYnRLl2jch+oA4OEbKwq/fNxhGBkSPnvhZdmWjNV0q3uCAWuGIhEx8SHIx",
+"tracks": {
+	"href": "https://api.spotify.com/v1/users/thelinmichael/playlists/7d2D2S200NyUE5KYs80PwO/tracks",
+	"items": [ ],
+	"limit": 100,
+	"next": null,
+	"offset": 0,
+	"previous": null,
+	"total": 0
+},
+"type": "playlist",
+"uri": "spotify:user:thelinmichael:playlist:7d2D2S200NyUE5KYs80PwO"
+}`
+
+func TestCreatePlaylist(t *testing.T) {
+	client := testClientString(http.StatusCreated, newPlaylist)
+	addDummyAuth(client)
+	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", false)
+	if err != nil {
+		t.Error(err)
+	}
+	if p.IsPublic {
+		t.Error("Expected private playlist, got public")
+	}
+	if p.Name != "A New Playlist" {
+		t.Errorf("Expected 'A New Playlist', got '%s'\n", p.Name)
+	}
+	if p.Tracks.Total != 0 {
+		t.Error("Expected new playlist to be empty")
+	}
+}
