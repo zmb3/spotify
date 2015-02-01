@@ -195,3 +195,47 @@ func TestCreatePlaylist(t *testing.T) {
 		t.Error("Expected new playlist to be empty")
 	}
 }
+
+func TestRenamePlaylist(t *testing.T) {
+	client := testClientString(http.StatusOK, "")
+	addDummyAuth(client)
+	if err := client.ChangePlaylistName("user", ID("playlist-id"), "new name"); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestChangePlaylistAccess(t *testing.T) {
+	client := testClientString(http.StatusOK, "")
+	addDummyAuth(client)
+	if err := client.ChangePlaylistAccess("user", ID("playlist-id"), true); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestChangePlaylistNamdAndAccess(t *testing.T) {
+	client := testClientString(http.StatusOK, "")
+	addDummyAuth(client)
+	if err := client.ChangePlaylistNameAndAccess("user", ID("playlist-id"), "new_name", true); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestChangePlaylistNameFailure(t *testing.T) {
+	client := testClientString(http.StatusForbidden, "")
+	addDummyAuth(client)
+	if err := client.ChangePlaylistName("user", ID("playlist-id"), "new_name"); err == nil {
+		t.Error("Expected error but didn't get one")
+	}
+}
+
+func TestAddTracksToPlaylist(t *testing.T) {
+	client := testClientString(http.StatusCreated, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`)
+	addDummyAuth(client)
+	snapshot, err := client.AddTracksToPlaylist("user", ID("playlist_id"), ID("track1"), ID("track2"))
+	if err != nil {
+		t.Error(err)
+	}
+	if snapshot != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
+		t.Error("Didn't get expected snapshot ID")
+	}
+}

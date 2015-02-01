@@ -426,3 +426,97 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 	err = json.NewDecoder(resp.Body).Decode(&p)
 	return &p, err
 }
+
+// ChangePlaylistName changes the name of a playlist.  This call requires that the
+// user has authorized the ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate
+// scopes (depending on whether the playlist is public or private).
+// The current user must own the playlist in order to modify it.
+func (c *Client) ChangePlaylistName(userID string, playlistID ID, newName string) error {
+	return c.modifyPlaylist(userID, playlistID, newName, nil)
+}
+
+// ChangePlaylistAccess modifies the public/private status of a playlist.  This call
+// requires that the user has authorized the ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate
+// scopes (depending on whether the playlist is currently public or private).
+// The current user must own the playlist in order to modify it.
+func (c *Client) ChangePlaylistAccess(userID string, playlistID ID, public bool) error {
+	return c.modifyPlaylist(userID, playlistID, "", &public)
+}
+
+// ChangePlaylistNameAndAccess combines ChangePlaylistName and ChangePlaylistAccess into
+// a single Web API call.  It requires that the user has authorized the ScopePlaylistModifyPublic
+// or ScopePlaylistModifyPrivate scopes (depending on whether the playlist is currently
+// public or private).  The current user must own the playlist in order to modify it.
+func (c *Client) ChangePlaylistNameAndAccess(userID string, playlistID ID, newName string, public bool) error {
+	return c.modifyPlaylist(userID, playlistID, newName, &public)
+}
+
+func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, public *bool) error {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return ErrAuthorizationRequired
+	}
+	body := struct {
+		Name   string `json:"name,omitempty"`
+		Public *bool  `json:"public,omitempty"`
+	}{
+		newName,
+		public,
+	}
+	bodyJSON, err := json.Marshal(body)
+	if err != nil {
+		return err
+	}
+	uri := fmt.Sprintf("%susers/%s/playlists/%s", baseAddress, userID, string(playlistID))
+	req, err := c.newHTTPRequest("PUT", uri, bytes.NewReader(bodyJSON))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return decodeError(resp.Body)
+	}
+	return nil
+}
+
+// AddTracksToPlaylist adds one or more tracks to a user's playlist.  This call requires
+// authorization (ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate).  A maximum of
+// 100 tracks can be added per call.  It returns a snapshot ID that can be used to
+// identify this version (the new version) of the playlist in future requests.
+func (c *Client) AddTracksToPlaylist(userID string, playlistID ID, trackIDs ...ID) (snapshotID string, err error) {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return "", ErrAuthorizationRequired
+	}
+	// convert track IDs to Spotify URIs (spotify:track:<ID>)
+	uris := make([]string, len(trackIDs))
+	for i, id := range trackIDs {
+		uris[i] = fmt.Sprintf("spotify:track:%s", id)
+	}
+	uri := fmt.Sprintf("%susers/%s/playlists/%s/tracks?uris=%s",
+		baseAddress, userID, string(playlistID), strings.Join(uris, ","))
+	req, err := c.newHTTPRequest("POST", uri, nil)
+	if err != nil {
+		return "", err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusCreated {
+		return "", decodeError(resp.Body)
+	}
+	body := struct {
+		SnapshotID string `json:"snapshot_id"`
+	}{}
+	err = json.NewDecoder(resp.Body).Decode(&body)
+	if err != nil {
+		// the response code indicates success..
+		return "", err
+	}
+	return body.SnapshotID, nil
+}
