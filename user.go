@@ -17,6 +17,7 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -78,8 +79,8 @@ func UserPublicProfile(userID ID) (*User, error) {
 // UserPublicProfile gets public profile information about a
 // Spotify User.  It does not require authentication.
 func (c *Client) UserPublicProfile(userID ID) (*User, error) {
-	uri := baseAddress + "users/" + string(userID)
-	resp, err := c.http.Get(uri)
+	spotifyURL := baseAddress + "users/" + string(userID)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -110,8 +111,8 @@ func (c *Client) CurrentUser() (*PrivateUser, error) {
 	if c.AccessToken == "" || c.TokenType != BearerToken {
 		return nil, ErrAuthorizationRequired
 	}
-	uri := baseAddress + "me"
-	req, err := c.newHTTPRequest("GET", uri, nil)
+	spotifyURL := baseAddress + "me"
+	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +144,7 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 	if c.AccessToken == "" || c.TokenType != BearerToken {
 		return nil, ErrAuthorizationRequired
 	}
-	uri := baseAddress + "me/tracks"
+	spotifyURL := baseAddress + "me/tracks"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Country != nil {
@@ -156,10 +157,10 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 			v.Set("offset", strconv.Itoa(*opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
-			uri += "?" + params
+			spotifyURL += "?" + params
 		}
 	}
-	req, err := c.newHTTPRequest("GET", uri, nil)
+	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -218,9 +219,9 @@ func (c *Client) UserFollows(t string, ids ...ID) ([]bool, error) {
 	if t != "artist" && t != "user" {
 		return nil, errors.New("spotify: t must be 'artist' or 'user'")
 	}
-	uri := baseAddress + "me/folowing/contains?type=" + t + "&ids="
-	uri += strings.Join(toStringSlice(ids), ",")
-	req, err := c.newHTTPRequest("GET", uri, nil)
+	spotifyURL := fmt.Sprintf("%sme/following/contains?type=%s&ids=%s",
+		baseAddress, t, strings.Join(toStringSlice(ids), ","))
+	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -247,12 +248,12 @@ func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
-	uri := baseAddress + "me/following?" + strings.Join(toStringSlice(ids), ",")
+	spotifyURL := baseAddress + "me/following?" + strings.Join(toStringSlice(ids), ",")
 	method := "PUT"
 	if !follow {
 		method = "DELETE"
 	}
-	req, err := c.newHTTPRequest(method, uri, nil)
+	req, err := c.newHTTPRequest(method, spotifyURL, nil)
 	if err != nil {
 		return err
 	}

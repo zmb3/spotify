@@ -32,7 +32,7 @@ var (
 	DefaultClient = &Client{}
 
 	// ErrAuthorizationRequired is the error returned when an unauthenticated
-	//  user makes an API call that requries authorization.
+	//  user makes an API call that requrles authorization.
 	ErrAuthorizationRequired = errors.New("spotify: this call requires authentication")
 )
 
@@ -142,8 +142,8 @@ type Client struct {
 	TokenType   TokenType
 }
 
-func (c *Client) newHTTPRequest(method, uri string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(method, uri, body)
+func (c *Client) newHTTPRequest(method, url string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(method, url, body)
 	if t := string(c.TokenType); err == nil && t != "" && c.AccessToken != "" {
 		req.Header.Set("Authorization", t+" "+c.AccessToken)
 	}
@@ -172,7 +172,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	if c.TokenType != BearerToken || c.AccessToken == "" {
 		return nil, ErrAuthorizationRequired
 	}
-	uri := baseAddress + "browse/new-releases"
+	spotifyURL := baseAddress + "browse/new-releases"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Country != nil {
@@ -185,10 +185,10 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			v.Set("offset", strconv.Itoa(*opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
-			uri += "?" + params
+			spotifyURL += "?" + params
 		}
 	}
-	req, err := c.newHTTPRequest("GET", uri, nil)
+	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
 	if err != nil {
 		return nil, errors.New("spotify: couldn't build request")
 	}

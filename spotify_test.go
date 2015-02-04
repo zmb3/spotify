@@ -24,11 +24,12 @@ import (
 
 type stringRoundTripper struct {
 	strings.Reader
-	statusCode int
+	statusCode  int
+	lastRequest *http.Request
 }
 
 func newStringRoundTripper(code int, s string) *stringRoundTripper {
-	return &stringRoundTripper{*strings.NewReader(s), code}
+	return &stringRoundTripper{*strings.NewReader(s), code, nil}
 }
 
 func (s stringRoundTripper) Close() error {
@@ -37,7 +38,8 @@ func (s stringRoundTripper) Close() error {
 
 type fileRoundTripper struct {
 	*os.File
-	statusCode int
+	statusCode  int
+	lastRequest *http.Request
 }
 
 func newFileRoundTripper(code int, filename string) *fileRoundTripper {
@@ -45,10 +47,11 @@ func newFileRoundTripper(code int, filename string) *fileRoundTripper {
 	if err != nil {
 		panic("Couldn't open file " + filename)
 	}
-	return &fileRoundTripper{file, code}
+	return &fileRoundTripper{file, code, nil}
 }
 
 func (s *stringRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	s.lastRequest = req
 	if req.Header == nil {
 		if req.Body != nil {
 			req.Body.Close()
@@ -62,6 +65,7 @@ func (s *stringRoundTripper) RoundTrip(req *http.Request) (*http.Response, error
 }
 
 func (f *fileRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	f.lastRequest = req
 	if req.Header == nil {
 		if req.Body != nil {
 			req.Body.Close()
@@ -93,6 +97,16 @@ func testClientFile(code int, filename string) *Client {
 			Transport: newFileRoundTripper(code, filename),
 		},
 	}
+}
+
+func getLastRequest(c *Client) *http.Request {
+	if frt, ok := c.http.Transport.(*fileRoundTripper); ok {
+		return frt.lastRequest
+	}
+	if srt, ok := c.http.Transport.(*stringRoundTripper); ok {
+		return srt.lastRequest
+	}
+	return nil
 }
 
 // addDummyAuth puts fake authorization data in the specified

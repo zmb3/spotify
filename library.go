@@ -17,6 +17,7 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"strings"
 )
@@ -30,9 +31,8 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 	if l := len(ids); l == 0 || l > 50 {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
 	}
-	uri := baseAddress + "me/tracks/contains?ids="
-	uri += strings.Join(toStringSlice(ids), ",")
-	req, err := c.newHTTPRequest("GET", uri, nil)
+	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -72,13 +72,12 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: this call supports 1 to 50 IDs per call")
 	}
-	uri := baseAddress + "me/tracks?ids="
-	uri += strings.Join(toStringSlice(ids), ",")
+	spotifyURL := fmt.Sprintf("%sme/tracks?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
 	method := "DELETE"
 	if add {
 		method = "PUT"
 	}
-	req, err := c.newHTTPRequest(method, uri, nil)
+	req, err := c.newHTTPRequest(method, spotifyURL, nil)
 	if err != nil {
 		return err
 	}

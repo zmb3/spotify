@@ -15,6 +15,9 @@
 package spotify
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"testing"
 )
@@ -118,6 +121,24 @@ func TestGetPlaylistOpt(t *testing.T) {
 	}
 }
 
+func TestFollowPlaylistSetsContentType(t *testing.T) {
+	client := testClientString(http.StatusOK, "")
+	addDummyAuth(client)
+	err := client.FollowPlaylist("ownerID", "playlistID", true)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	req := getLastRequest(client)
+	if req == nil {
+		t.Error("Last request was nil")
+		return
+	}
+	if req.Header.Get("Content-Type") != "application/json" {
+		t.Error("Follow playlist request didn't contain Content-Type: application/json")
+	}
+}
+
 func TestGetPlaylistTracks(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/playlist_tracks.txt")
 	addDummyAuth(client)
@@ -161,7 +182,7 @@ var newPlaylist = `
 	"href": "https://api.spotify.com/v1/users/thelinmichael",
 	"id": "thelinmichael",
 	"type": "user",
-	"uri": "spotify:user:thelinmichael"
+	"url": "spotify:user:thelinmichael"
 },
 "public": false,
 "snapshot_id": "s0o3TSuYnRLl2jch+oA4OEbKwq/fNxhGBkSPnvhZdmWjNV0q3uCAWuGIhEx8SHIx",
@@ -175,7 +196,7 @@ var newPlaylist = `
 	"total": 0
 },
 "type": "playlist",
-"uri": "spotify:user:thelinmichael:playlist:7d2D2S200NyUE5KYs80PwO"
+"url": "spotify:user:thelinmichael:playlist:7d2D2S200NyUE5KYs80PwO"
 }`
 
 func TestCreatePlaylist(t *testing.T) {
@@ -238,4 +259,105 @@ func TestAddTracksToPlaylist(t *testing.T) {
 	if snapshot != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
 		t.Error("Didn't get expected snapshot ID")
 	}
+}
+
+func TestRemoveTracksFromPlaylist(t *testing.T) {
+	client := testClientString(http.StatusOK, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`)
+	addDummyAuth(client)
+	snapshotID, err := client.RemoveTracksFromPlaylist("userID", "playlistID", "track1", "track2")
+	if err != nil {
+		t.Error(err)
+	}
+	if snapshotID != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
+		t.Error("Incorrect snapshot ID")
+	}
+
+	req := getLastRequest(client)
+	if req == nil {
+		t.Error("Last request was nil")
+		return
+	}
+	requestBody, err := ioutil.ReadAll(req.Body)
+	req.Body.Close()
+
+	var body map[string]interface{}
+	err = json.Unmarshal(requestBody, &body)
+	if err != nil {
+		t.Error("Error decoding request body:", err)
+		return
+	}
+	tracksArray, ok := body["tracks"]
+	if !ok {
+		t.Error("No tracks JSON object in request body")
+		return
+	}
+	tracksSlice := tracksArray.([]interface{})
+	if l := len(tracksSlice); l != 2 {
+		t.Errorf("Expected 2 tracks, got %d\n", l)
+		return
+	}
+	track0 := tracksSlice[0].(map[string]interface{})
+	trackURI, ok := track0["uri"]
+	if !ok {
+		t.Error("Track object doesn't contain 'uri' field")
+		return
+	}
+	if trackURI != "spotify:track:track1" {
+		t.Errorf("Expeced URI: 'spotify:track:track1', got '%s'\n", trackURI)
+	}
+}
+
+func TestRemoveTracksFromPlaylistOpt(t *testing.T) {
+	client := testClientString(http.StatusOK, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`)
+	addDummyAuth(client)
+	tracks := []TrackToRemove{
+		NewTrackToRemove("track0", []int{0, 4}), // remove track0 in position 0 and 4
+		NewTrackToRemove("track1", []int{9}),    // remove track1 in position 9...
+		NewTrackToRemove("track2", []int{8}),
+	}
+	// intentionally not passing a snapshot ID here
+	snapshotID, err := client.RemoveTracksFromPlaylistOpt("userID", "playlistID", tracks, "")
+	if err != nil || snapshotID != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
+		t.Error("Remove call failed. err=", err)
+		return
+	}
+	// now make sure we got the JSON correct
+	req := getLastRequest(client)
+	if req == nil {
+		t.Error("last request was nil")
+		return
+	}
+	requestBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	var body map[string]interface{}
+	err = json.Unmarshal(requestBody, &body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if _, ok := body["snapshot_id"]; ok {
+		t.Error("JSON contains snapshot_id field when none was specified")
+		fmt.Println(string(requestBody))
+		return
+	}
+	jsonTracks := body["tracks"].([]interface{})
+	if len(jsonTracks) != 3 {
+		t.Error("Expected 3 tracks, got", len(jsonTracks))
+		return
+	}
+	track1 := jsonTracks[1].(map[string]interface{})
+	expected := "spotify:track:track1"
+	if track1["uri"] != expected {
+		t.Errorf("Want '%s', got '%s'\n", expected, track1["uri"])
+		return
+	}
+	indices := track1["positions"].([]interface{})
+	if len(indices) != 1 || int(indices[0].(float64)) != 9 {
+		t.Error("Track indices incorrect")
+	}
+
 }

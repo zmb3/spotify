@@ -17,6 +17,7 @@ package spotify
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -94,8 +95,8 @@ type FullAlbum struct {
 // FindAlbum gets Spotify catalog information for a single
 // album, given that album's Spotify ID.
 func (c *Client) FindAlbum(id ID) (*FullAlbum, error) {
-	uri := baseAddress + "albums/" + string(id)
-	resp, err := c.http.Get(string(uri))
+	spotifyURL := fmt.Sprintf("%salbums/%s", baseAddress, id)
+	resp, err := c.http.Get(string(spotifyURL))
 	if err != nil {
 		return nil, err
 	}
@@ -133,8 +134,8 @@ func (c *Client) FindAlbums(ids ...ID) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
-	uri := baseAddress + "albums?ids=" + strings.Join(toStringSlice(ids), ",")
-	resp, err := c.http.Get(uri)
+	spotifyURL := fmt.Sprintf("%salbums?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -210,7 +211,7 @@ func FindAlbumTracksLimited(id ID, limit, offset int) (*SimpleTrackPage, error) 
 // track to return.  It can be used along with limit to reqeust
 // the next set of results.
 func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*SimpleTrackPage, error) {
-	uri := baseAddress + "albums/" + string(id) + "/tracks"
+	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", baseAddress, id)
 	v := url.Values{}
 	if limit != -1 {
 		v.Set("limit", strconv.Itoa(limit))
@@ -220,9 +221,9 @@ func (c *Client) FindAlbumTracksLimited(id ID, limit, offset int) (*SimpleTrackP
 	}
 	optional := v.Encode()
 	if optional != "" {
-		uri = uri + "?" + optional
+		spotifyURL = spotifyURL + "?" + optional
 	}
-	resp, err := c.http.Get(uri)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

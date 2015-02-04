@@ -16,6 +16,7 @@ package spotify
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -64,8 +65,8 @@ func FindArtist(id ID) (*FullArtist, error) {
 // FindArtist gets Spotify catalog information for a single
 // artist, given that artist's Spotify ID.
 func (c *Client) FindArtist(id ID) (*FullArtist, error) {
-	uri := baseAddress + "artists/" + string(id)
-	resp, err := c.http.Get(uri)
+	spotifyURL := fmt.Sprintf("%sartists/%s", baseAddress, id)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -93,8 +94,8 @@ func FindArtists(ids ...ID) ([]*FullArtist, error) {
 // in the result will be nil.  Duplicate IDs will result in
 // duplicate artists in the result.
 func (c *Client) FindArtists(ids ...ID) ([]*FullArtist, error) {
-	uri := baseAddress + "artists?ids=" + strings.Join(toStringSlice(ids), ",")
-	resp, err := c.http.Get(uri)
+	spotifyURL := fmt.Sprintf("%sartists?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +123,8 @@ func ArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
 // a maximum of 10 tracks.  The country is specified as an
 // ISO 3166-1 alpha-2 country code.
 func (c *Client) ArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
-	uri := baseAddress + "artists/" + string(artistID) + "/top-tracks?country=" + country
-	resp, err := c.http.Get(uri)
+	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", baseAddress, artistID, country)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -153,8 +154,8 @@ func FindRelatedArtists(id ID) ([]FullArtist, error) {
 // This function returns up to 20 artists that are considered
 // related to the specified artist.
 func (c *Client) FindRelatedArtists(id ID) ([]FullArtist, error) {
-	uri := baseAddress + "artists/" + string(id) + "/related-artists"
-	resp, err := c.http.Get(uri)
+	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", baseAddress, id)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +195,7 @@ func ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumP
 // The AlbumType argument can be used to find a particular type of album.  Search
 // for multiple types by OR-ing the types together.
 func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
-	uri := baseAddress + "artists/" + string(artistID) + "/albums"
+	spotifyURL := fmt.Sprintf("%sartists/%s/albums", baseAddress, artistID)
 	// add optional query string if options were specified
 	if options != nil {
 		values := url.Values{}
@@ -217,10 +218,10 @@ func (c *Client) ArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*
 			values.Set("offset", strconv.Itoa(*options.Offset))
 		}
 		if query := values.Encode(); query != "" {
-			uri += "?" + query
+			spotifyURL += "?" + query
 		}
 	}
-	resp, err := c.http.Get(uri)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

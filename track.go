@@ -107,8 +107,8 @@ func FindTrack(id ID) (*FullTrack, error) {
 // FindTrack gets spotify catalog information for
 // a single track identified by its unique Spotify ID.
 func (c *Client) FindTrack(id ID) (*FullTrack, error) {
-	uri := baseAddress + "tracks/" + string(id)
-	resp, err := c.http.Get(uri)
+	spotifyURL := baseAddress + "tracks/" + string(id)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -139,8 +139,8 @@ func (c *Client) FindTracks(ids ...ID) ([]*FullTrack, error) {
 	if len(ids) > 50 {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}
-	uri := baseAddress + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
-	resp, err := c.http.Get(uri)
+	spotifyURL := baseAddress + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

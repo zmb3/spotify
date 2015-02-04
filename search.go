@@ -165,8 +165,8 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 			v.Set("offset", strconv.Itoa(*opt.Offset))
 		}
 	}
-	uri := baseAddress + "search?" + v.Encode()
-	resp, err := c.http.Get(uri)
+	spotifyURL := baseAddress + "search?" + v.Encode()
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
