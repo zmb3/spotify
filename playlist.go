@@ -605,3 +605,38 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	return result.SnapshotID, err
 }
+
+// ReplacePlaylistTracks replaces all of the tracks in a playlist, overwriting its
+// exising tracks  This can be useful for replacing or reordering tracks, or for
+// clearing a playlist.  This call requires authorization.
+//
+// Modifying a public playlist requires that the user has authorized the
+// ScopePlaylistModifyPublic scope.  Modifying a private playlist requires the
+// ScopePlaylistModifyPrivate scope.
+//
+// A maximum of 100 tracks is permited in this call.  Additional tracks must be
+// added via AddTracksToPlaylist.
+func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ...ID) error {
+	if c.TokenType != BearerToken || c.AccessToken == "" {
+		return ErrAuthorizationRequired
+	}
+	trackURIs := make([]string, len(trackIDs))
+	for i, u := range trackIDs {
+		trackURIs[i] = fmt.Sprintf("spotify:track:%s", u)
+	}
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?uris=%s",
+		baseAddress, userID, playlistID, strings.Join(trackURIs, ","))
+	req, err := c.newHTTPRequest("PUT", spotifyURL, nil)
+	if err != nil {
+		return err
+	}
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusCreated {
+		return decodeError(resp.Body)
+	}
+	return nil
+}

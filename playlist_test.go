@@ -359,5 +359,22 @@ func TestRemoveTracksFromPlaylistOpt(t *testing.T) {
 	if len(indices) != 1 || int(indices[0].(float64)) != 9 {
 		t.Error("Track indices incorrect")
 	}
+}
 
+func TestReplacePlaylistTracks(t *testing.T) {
+	client := testClientString(http.StatusCreated, "")
+	addDummyAuth(client)
+	err := client.ReplacePlaylistTracks("userID", "playlistID", "track1", "track2")
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestReplacePlaylistTracksForbidden(t *testing.T) {
+	client := testClientString(http.StatusForbidden, "")
+	addDummyAuth(client)
+	err := client.ReplacePlaylistTracks("userID", "playlistID", "track1", "track2")
+	if err == nil {
+		t.Error("Replace succeeded but shouldn't have")
+	}
 }
