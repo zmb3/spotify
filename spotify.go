@@ -57,17 +57,16 @@ type Timestamp string
 type Followers struct {
 	// The total number of followers.
 	Count uint `json:"total"`
-	// A link to the Web API endpoint providing
-	// full details of the followers, or the empty
-	// string if this data is not available.
+	// A link to the Web API endpoint providing full details of the followers,
+	// or the empty string if this data is not available.
 	Endpoint string `json:"href"`
 }
 
 // Image identifies an image associated with an item.
 type Image struct {
-	// The image height, in pixels.  TODO if unknown?
+	// The image height, in pixels.
 	Height int `json:"height"`
-	// The image width, in pixels.  TODO if unknown?
+	// The image width, in pixels.
 	Width int `json:"width"`
 	// The source URL of the image.
 	URL string `json:"url"`
@@ -103,7 +102,7 @@ func (e Error) Error() string {
 	return e.Message
 }
 
-// decodeError decodes an error from an io.Reader.
+// decodeError decodes an Error from an io.Reader.
 func decodeError(r io.Reader) error {
 	var e struct {
 		E Error `json:"error"`

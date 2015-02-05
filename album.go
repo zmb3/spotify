@@ -51,8 +51,7 @@ type SimpleAlbum struct {
 	ExternalURLs ExternalURL `json:"external_urls"`
 }
 
-// Copyright contains the copyright statement
-// associated with an album.
+// Copyright contains the copyright statement associated with an album.
 type Copyright struct {
 	// The copyright text for the album.
 	Text string `json:"text"`
