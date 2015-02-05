@@ -59,40 +59,27 @@ type Copyright struct {
 	Type string `json:"type"`
 }
 
-// FullAlbum provides extra album data in addition
-// to the data provided by SimpleAlbum.
+// FullAlbum provides extra album data in addition to the data provided by SimpleAlbum.
 type FullAlbum struct {
 	SimpleAlbum
-	// The artists of the album.
-	Artists []SimpleArtist `json:"artists"`
-	// The copyright statements of the album.
-	Copyrights []Copyright `json:"copyrights"`
-	// A list of genres used to classify the album.
-	// For example, "Prog Rock" or "Post-Grunge".
-	// If not yet classified, the slice is empty.
-	Genres []string `json:"genres"`
-	// The popularity of the album.  The value will
-	// be between 0 and 100, with 100 being the most
-	// popular.  Popularity of an album is calculated
-	// from the popularify of the album's individual
-	// tracks.
+	Artists    []SimpleArtist `json:"artists"`
+	Copyrights []Copyright    `json:"copyrights"`
+	Genres     []string       `json:"genres"`
+	// The popularity of the album, represented as an integer between 0 and 100,
+	// with 100 being the most popular.  Popularity of an album is calculated
+	// from the popularify of the album's individual tracks.
 	Popularity int `json:"popularity"`
-	// The date the album was first released.  For
-	// example, "1981-12-15".  Depending on the
-	// ReleaseDatePrecision, it might be shown as
+	// The date the album was first released.  For example, "1981-12-15".
+	// Depending on the ReleaseDatePrecision, it might be shown as
 	// "1981" or "1981-12".
-	ReleaseDate string `json:"release_date"` // TODO change to Timestamp
-	// The precision with which ReleaseDate value
-	// is known: "year", "month", or "day"
-	ReleaseDatePrecision string `json:"release_date_precision"`
-	// The tracks of the album.  Tracks are inside a paging object.
-	Tracks SimpleTrackPage `json:"tracks"`
-	// Known external IDs for the album.
-	ExternalIDs ExternalID `json:"external_ids"`
+	ReleaseDate string `json:"release_date"` // TODO timestamp?
+	// The precision with which ReleaseDate value is known: "year", "month", or "day"
+	ReleaseDatePrecision string          `json:"release_date_precision"`
+	Tracks               SimpleTrackPage `json:"tracks"`
+	ExternalIDs          ExternalID      `json:"external_ids"`
 }
 
-// GetAlbum gets Spotify catalog information for a single
-// album, given that album's Spotify ID.
+// GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
 func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", baseAddress, id)
 	resp, err := c.http.Get(string(spotifyURL))
@@ -124,10 +111,9 @@ func GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 	return DefaultClient.GetAlbums(ids...)
 }
 
-// GetAlbums gets Spotify Catalog information for multiple
-// albums, given their Spotify IDs.  It supports up to 20
-// IDs in a single call.  Albums are returned in the order
-// requested.  If an album is not found, that position in the
+// GetAlbums gets Spotify Catalog information for multiple albums, given their
+// Spotify IDs.  It supports up to 20 IDs in a single call.  Albums are returned
+// in the order requested.  If an album is not found, that position in the
 // result slice will be nil.
 func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
@@ -152,15 +138,13 @@ func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 	return a.Albums, nil
 }
 
-// AlbumType represents the type of an album.
-// It can be used to filter results when searching
-// for albums.
+// AlbumType represents the type of an album. It can be used to filter
+// results when searching for albums.
 type AlbumType int
 
-// AlbumType values that can be used to filter
-// which types of albums are searched for.
-// These are flags that can be bitwise OR'd together
-//  to search for multiple types of albums simultaneously.
+// AlbumType values that can be used to filter which types of albums are
+// searched for.  These are flags that can be bitwise OR'd together
+// to search for multiple types of albums simultaneously.
 const (
 	AlbumTypeAlbum       AlbumType = 1 << iota
 	AlbumTypeSingle                = 1 << iota
@@ -202,13 +186,11 @@ func GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, error) {
 	return DefaultClient.GetAlbumTracksOpt(id, limit, offset)
 }
 
-// GetAlbumTracksOpt behaves like GetAlbumTracks, with the
-// exception that it allows you to specify extra parameters that
-// limit the number of results returned.
+// GetAlbumTracksOpt behaves like GetAlbumTracks, with the exception that it
+// allows you to specify extra parameters that limit the number of results returned.
 // The maximum number of results to return is specified by limit.
-// The offset argument can be used to specify the index of the first
-// track to return.  It can be used along with limit to reqeust
-// the next set of results.
+// The offset argument can be used to specify the index of the first track to return.
+// It can be used along with limit to reqeust the next set of results.
 func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", baseAddress, id)
 	v := url.Values{}

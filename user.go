@@ -192,7 +192,7 @@ func (c *Client) Unfollow(ids ...ID) error {
 	return c.modifyFollowers(false, ids...)
 }
 
-// UserFollows checks to see if the current user is following
+// CurrentUserFollows checks to see if the current user is following
 // one or more artists or other Spotify Users.  This call requires
 // authorization, and that the application has the ScopeUserFollowRead
 // scope.
@@ -202,7 +202,7 @@ func (c *Client) Unfollow(ids ...ID) error {
 //
 // The result is returned as a slice of bool values in the same order
 // in which the IDs were specified.
-func (c *Client) UserFollows(t string, ids ...ID) ([]bool, error) {
+func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	if c.AccessToken == "" || c.TokenType != BearerToken {
 		return nil, ErrAuthorizationRequired
 	}
