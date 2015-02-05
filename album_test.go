@@ -22,7 +22,7 @@ import (
 // The example from https://developer.spotify.com/web-api/get-album/
 func TestFindAlbum(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/find_album.txt")
-	album, err := client.FindAlbum(ID("0sNOF9WDwhWunNAHPD3Baj"))
+	album, err := client.GetAlbum(ID("0sNOF9WDwhWunNAHPD3Baj"))
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -39,7 +39,7 @@ func TestFindAlbum(t *testing.T) {
 func TestFindAlbumBadID(t *testing.T) {
 	client := testClientString(http.StatusNotFound, `{ "error": { "status": 404, "message": "non existing id" } }`)
 
-	album, err := client.FindAlbum(ID("asdf"))
+	album, err := client.GetAlbum(ID("asdf"))
 	if album != nil {
 		t.Error("Expected nil album, got", album.Name)
 		return
@@ -61,7 +61,7 @@ func TestFindAlbumBadID(t *testing.T) {
 // The example from https://developer.spotify.com/web-api/get-several-albums/
 func TestFindAlbums(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/find_albums.txt")
-	res, err := client.FindAlbums(ID("41MnTivkwTO3UUJ8DrqEJJ"), ID("6JWc4iAiJ9FjyK0B59ABb4"), ID("6UXCm6bOO4gFlDQZV5yL37"))
+	res, err := client.GetAlbums(ID("41MnTivkwTO3UUJ8DrqEJJ"), ID("6JWc4iAiJ9FjyK0B59ABb4"), ID("6UXCm6bOO4gFlDQZV5yL37"))
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -84,7 +84,7 @@ func TestFindAlbums(t *testing.T) {
 
 func TestFindAlbumTracks(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/find_album_tracks.txt")
-	res, err := client.FindAlbumTracksLimited(ID("0sNOF9WDwhWunNAHPD3Baj"), 1, 0)
+	res, err := client.GetAlbumTracksOpt(ID("0sNOF9WDwhWunNAHPD3Baj"), 1, 0)
 	if err != nil {
 		t.Error(err)
 		return

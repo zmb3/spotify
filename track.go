@@ -57,21 +57,18 @@ type SimpleTrack struct {
 	URI URI `json:"uri"`
 }
 
-// FullTrack provides extra track data in addition
-// to what is provided by SimpleTrack.
+// FullTrack provides extra track data in addition to what is provided by SimpleTrack.
 type FullTrack struct {
 	SimpleTrack
 	// Known external IDs for the track.
 	ExternalIDs ExternalID `json:"exernal_ids"`
-	// Popularity of the trakc.  The value will be
-	// between 0 and 100, with 100 being the most
-	// popular.  The popularity is calculated from
+	// Popularity of the track.  The value will be between 0 and 100,
+	// with 100 being the most popular.  The popularity is calculated from
 	// both total plays and most recent plays.
 	Popularity int `json:"popularity"`
 }
 
-// PlaylistTrack contains info about a track
-// in a playlist.
+// PlaylistTrack contains info about a track in a playlist.
 type PlaylistTrack struct {
 	// The date and time the track was added to the playlist.
 	// Warning: very old playlists may not populate this value.
@@ -83,8 +80,7 @@ type PlaylistTrack struct {
 	Track FullTrack `json:"track"`
 }
 
-// SavedTrack provides info about a track saved
-// to a user's account.
+// SavedTrack provides info about a track saved to a user's account.
 type SavedTrack struct {
 	// The date and tie the track was saved.
 	// Represented as an ISO 8601 UTC timestamp with a zero offset:
@@ -93,20 +89,19 @@ type SavedTrack struct {
 	FullTrack `json:"track"`
 }
 
-// TimeDuration returns the track's duration as a
-// time.Duration value.
+// TimeDuration returns the track's duration as a time.Duration value.
 func (t *SimpleTrack) TimeDuration() time.Duration {
 	return time.Duration(t.Duration) * time.Millisecond
 }
 
-// FindTrack is a wrapper around DefaultClient.FindTrack.
-func FindTrack(id ID) (*FullTrack, error) {
-	return DefaultClient.FindTrack(id)
+// GetTrack is a wrapper around DefaultClient.GetTrack.
+func GetTrack(id ID) (*FullTrack, error) {
+	return DefaultClient.GetTrack(id)
 }
 
-// FindTrack gets spotify catalog information for
+// GetTrack gets spotify catalog information for
 // a single track identified by its unique Spotify ID.
-func (c *Client) FindTrack(id ID) (*FullTrack, error) {
+func (c *Client) GetTrack(id ID) (*FullTrack, error) {
 	spotifyURL := baseAddress + "tracks/" + string(id)
 	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
@@ -124,18 +119,17 @@ func (c *Client) FindTrack(id ID) (*FullTrack, error) {
 	return &t, nil
 }
 
-// FindTracks is a wrapper around DefaultClient.FindTracks.
-func FindTracks(ids ...ID) ([]*FullTrack, error) {
-	return DefaultClient.FindTracks(ids...)
+// GetTracks is a wrapper around DefaultClient.GetTracks.
+func GetTracks(ids ...ID) ([]*FullTrack, error) {
+	return DefaultClient.GetTracks(ids...)
 }
 
-// FindTracks gets Spotify catalog information for multiple
-// tracks based on their Spotify IDs.  It supports up to 50
-// tracks in a single call.  Tracks are returned in the order
-// requested.  If a track is not found, that position in the
-// result will be nil.  Duplicate ids in the query will result
-// in duplicate tracks in the result.
-func (c *Client) FindTracks(ids ...ID) ([]*FullTrack, error) {
+// GetTracks gets Spotify catalog information for multiple tracks based on their
+// Spotify IDs.  It supports up to 50 tracks in a single call.  Tracks are
+// returned in the order requested.  If a track is not found, that position in the
+// result will be nil.  Duplicate ids in the query will result in duplicate
+// tracks in the result.
+func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
 	if len(ids) > 50 {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}

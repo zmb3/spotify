@@ -213,7 +213,7 @@ func buildFollowURI(owner, playlist ID) string {
 		baseAddress, string(owner), string(playlist))
 }
 
-// PlaylistsForUser gets a list of the playlists owned or followed by a particular
+// GetPlaylistsForUser gets a list of the playlists owned or followed by a particular
 // Spotify user.  This call requires authorization.
 //
 // Private playlists are only retrievable for the current user, and require the
@@ -221,13 +221,13 @@ func buildFollowURI(owner, playlist ID) string {
 //
 // A user's collaborative playlists are not currently retrievable (this is a Web
 // API limitation, not a limitation of package spotify).
-func (c *Client) PlaylistsForUser(userID string) (*SimplePlaylistPage, error) {
-	return c.PlaylistsForUserOpt(userID, nil)
+func (c *Client) GetPlaylistsForUser(userID string) (*SimplePlaylistPage, error) {
+	return c.GetPlaylistsForUserOpt(userID, nil)
 }
 
-// PlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional paramters
+// GetPlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional paramters
 // for filtering the results.
-func (c *Client) PlaylistsForUserOpt(userID string, opt *Options) (*SimplePlaylistPage, error) {
+func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePlaylistPage, error) {
 	if c.TokenType != BearerToken || c.AccessToken == "" {
 		return nil, ErrAuthorizationRequired
 	}
@@ -431,9 +431,9 @@ func (c *Client) ChangePlaylistName(userID string, playlistID ID, newName string
 }
 
 // ChangePlaylistAccess modifies the public/private status of a playlist.  This call
-// requires that the user has authorized the ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate
-// scopes (depending on whether the playlist is currently public or private).
-// The current user must own the playlist in order to modify it.
+// requires that the user has authorized the ScopePlaylistModifyPublic or
+// ScopePlaylistModifyPrivate scopes (depending on whether the playlist is
+// currently public or private).  The current user must own the playlist in order to modify it.
 func (c *Client) ChangePlaylistAccess(userID string, playlistID ID, public bool) error {
 	return c.modifyPlaylist(userID, playlistID, "", &public)
 }
@@ -478,11 +478,14 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 	return nil
 }
 
-// AddTracksToPlaylist adds one or more tracks to a user's playlist.  This call requires
-// authorization (ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate).  A maximum of
-// 100 tracks can be added per call.  It returns a snapshot ID that can be used to
-// identify this version (the new version) of the playlist in future requests.
-func (c *Client) AddTracksToPlaylist(userID string, playlistID ID, trackIDs ...ID) (snapshotID string, err error) {
+// AddTracksToPlaylist adds one or more tracks to a user's playlist.  This call
+// requires authorization (ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate).
+// A maximum of 100 tracks can be added per call.  It returns a snapshot ID that
+// can be used to identify this version (the new version) of the playlist in
+// future requests.
+func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
+	trackIDs ...ID) (snapshotID string, err error) {
+
 	if c.TokenType != BearerToken || c.AccessToken == "" {
 		return "", ErrAuthorizationRequired
 	}
@@ -522,7 +525,9 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID, trackIDs ...I
 // If the track(s) occur multiple times in the specified playlist, then all occurrences
 // of the track will be removed.  If successful, the snapshot ID returned can be used to
 // identify the playlist version in future requests.
-func (c *Client) RemoveTracksFromPlaylist(userID string, playlistID ID, trackIDs ...ID) (newSnapshotID string, err error) {
+func (c *Client) RemoveTracksFromPlaylist(userID string, playlistID ID,
+	trackIDs ...ID) (newSnapshotID string, err error) {
+
 	tracks := make([]struct {
 		URI string `json:"uri"`
 	}, len(trackIDs))

@@ -43,7 +43,7 @@ const userResponse = `
 
 func TestUserProfile(t *testing.T) {
 	client := testClientString(http.StatusOK, userResponse)
-	user, err := client.UserPublicProfile("wizzler")
+	user, err := client.GetUsersPublicProfile("wizzler")
 	if err != nil {
 		t.Error(err)
 		return

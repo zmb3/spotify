@@ -85,7 +85,7 @@ func TestFeaturedPlaylistsExpiredToken(t *testing.T) {
 func TestPlaylistsForUser(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/playlists_for_user.txt")
 	addDummyAuth(client)
-	playlists, err := client.PlaylistsForUser("whizler")
+	playlists, err := client.GetPlaylistsForUser("whizler")
 	if err != nil {
 		t.Error(err)
 	}

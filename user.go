@@ -24,8 +24,7 @@ import (
 	"strings"
 )
 
-// User contains the basic, publicly available
-// information about a Spotify user.
+// User contains the basic, publicly available information about a Spotify user.
 type User struct {
 	// The name displayed on the user's profile.
 	// Note: Spotify currently fails to populate
@@ -45,40 +44,34 @@ type User struct {
 	URI URI `json:"uri"`
 }
 
-// PrivateUser contains additional information about
-// a user.  This data is private and requires user
-// authentication.
+// PrivateUser contains additional information about a user.
+// This data is private and requires user authentication.
 type PrivateUser struct {
 	User
-	// the country of the user, as set in the user's
-	// account profile.  An ISO 3166-1 alpha-2 country
-	// code.  This field is only available when the
-	// current user has granted acess to the
-	// user-read-private scope.
+	// The country of the user, as set in the user's account profile.
+	// An ISO 3166-1 alpha-2 country code.  This field is only available when the
+	// current user has granted acess to the ScopeUserReadPrivate scope.
 	Country string `json:"country"`
-	// The user's email address, as entered by the user
-	// when creating their account.  Note: this email
-	// is UNVERIFIED - there is no proof that it actually
-	// belongs to the user.  This field is only available
-	// when the current user has granted access to the
-	// user-read-email scope.
+	// The user's email address, as entered by the user when creating their account.
+	// Note: this email is UNVERIFIED - there is no proof that it actually
+	// belongs to the user.  This field is only available when the current user
+	// has granted access to the ScopeUserReadEmail scope.
 	Email string `json:"email"`
-	// The user's Spotify subscription level:
-	// "premium", "free", etc.  The subscription level
-	// "open" can be considered the same as "free".
-	// This field is only available when the current user
-	// has granted access to the user-read-private scope.
+	// The user's Spotify subscription level: "premium", "free", etc.
+	// The subscription level "open" can be considered the same as "free".
+	// This field is only available when the current user has granted access to
+	// the ScopeUserReadPrivate scope.
 	Product string `json:"product"`
 }
 
-// UserPublicProfile is a wrapper around DefaultClient.UserPublicProfile.
-func UserPublicProfile(userID ID) (*User, error) {
-	return DefaultClient.UserPublicProfile(userID)
+// GetUsersPublicProfile is a wrapper around DefaultClient.GetUsersPublicProfile.
+func GetUsersPublicProfile(userID ID) (*User, error) {
+	return DefaultClient.GetUsersPublicProfile(userID)
 }
 
-// UserPublicProfile gets public profile information about a
+// GetUsersPublicProfile gets public profile information about a
 // Spotify User.  It does not require authentication.
-func (c *Client) UserPublicProfile(userID ID) (*User, error) {
+func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 	spotifyURL := baseAddress + "users/" + string(userID)
 	resp, err := c.http.Get(spotifyURL)
 	if err != nil {

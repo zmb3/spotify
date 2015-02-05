@@ -80,7 +80,7 @@ const albumsResponse = `
 
 func TestFindArtist(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/find_artist.txt")
-	artist, err := client.FindArtist(ID("0TnOYISbd1XYRBk9myaseg"))
+	artist, err := client.GetArtist(ID("0TnOYISbd1XYRBk9myaseg"))
 	if err != nil {
 		t.Error(err)
 		return
@@ -116,7 +116,7 @@ func TestArtistTopTracks(t *testing.T) {
 
 func TestRelatedArtists(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/related_artists.txt")
-	artists, err := client.FindRelatedArtists(ID("43ZHCT0cAZBISjO8DG9PnE"))
+	artists, err := client.GetRelatedArtists(ID("43ZHCT0cAZBISjO8DG9PnE"))
 	if err != nil {
 		t.Error(err)
 		return
