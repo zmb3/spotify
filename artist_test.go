@@ -96,7 +96,7 @@ func TestFindArtist(t *testing.T) {
 
 func TestArtistTopTracks(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/artist_top_tracks.txt")
-	tracks, err := client.ArtistsTopTracks(ID("43ZHCT0cAZBISjO8DG9PnE"), "SE")
+	tracks, err := client.GetArtistsTopTracks(ID("43ZHCT0cAZBISjO8DG9PnE"), "SE")
 	if err != nil {
 		t.Error(err)
 		return
@@ -143,7 +143,7 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 	options := Options{}
 	options.Limit = &l
 
-	albums, err := client.ArtistAlbumsOpt(ID("1vCWHaC5f2uS3yhpwWbIA6"), &options, &typ)
+	albums, err := client.GetArtistAlbumsOpt(ID("1vCWHaC5f2uS3yhpwWbIA6"), &options, &typ)
 	if err != nil {
 		t.Error(err)
 		return

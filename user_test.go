@@ -134,7 +134,7 @@ func TestUserFollows(t *testing.T) {
 	json := "[ false, true ]"
 	client := testClientString(http.StatusOK, json)
 	addDummyAuth(client)
-	follows, err := client.UserFollows("artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
+	follows, err := client.CurrentUserFollows("artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
 	if err != nil {
 		t.Error(err)
 		return
