@@ -1,6 +1,8 @@
 Spotify
 =======
 
+[![GoDoc](https://godoc.org/github.com/zmb3/spotify?status.svg)](http://godoc.org/github.com/zmb3/spotify)
+
 This is a Go wrapper for working with Spotify's
 [Web API](https://developer.spotify.com/web-api/).
 
@@ -53,7 +55,8 @@ https://developer.spotify.com/web-api/authorization-guide/
 2. Go's OAuth2 package:
 https://godoc.org/golang.org/x/oauth2/google
 
-3. (example app that authenticates - TBD)
+3. spoticli - an example application that authenticates with OAuth2
+https://github.com/zmb3/spoticli
 
 ## Helpful Hints
 
