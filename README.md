@@ -43,7 +43,7 @@ Additionally, specify the token type (most likely "Bearer").
 
 ````Go
 c := spotify.Client{}
-c.AccessToken("my_token")
+c.AccessToken = "my_token"
 c.TokenType = spotify.BearerToken
 ````
 
@@ -73,10 +73,6 @@ Many of the functions in this package come in two forms - a simple version that
 omits optional parameters and uses reasonable defaults, and a more sophisticated
 version that accepts additional parameters.  The latter is suffixed with `Opt`
 to indicate that it accepts some optional parameters.
-
-### Paging Objects
-
-TODO: note on these (still need API updates)
 
 ## API Examples
 
