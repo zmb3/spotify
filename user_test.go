@@ -153,7 +153,7 @@ func TestCurrentUsersTracks(t *testing.T) {
 		return
 	}
 	if tracks.Limit != 20 {
-		t.Errorf("Expected limit 20, got %s\n", tracks.Limit)
+		t.Errorf("Expected limit 20, got %d\n", tracks.Limit)
 	}
 	if tracks.Endpoint != "https://api.spotify.com/v1/me/tracks?offset=0&limit=20" {
 		t.Error("Endpoint incorrect")

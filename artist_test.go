@@ -154,7 +154,7 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 	}
 	// since we didn't specify a country, we got duplicate albums
 	// (the album has a different ID in different regions)
-	if l := len(albums.Albums); l != 2 {
+	if l = len(albums.Albums); l != 2 {
 		t.Errorf("Expected 2 albums, got %d\n", l)
 		return
 	}

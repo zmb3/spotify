@@ -81,7 +81,7 @@ type PlaylistOptions struct {
 	// in the Spotify default language (American English).
 	Locale *string
 	// A timestamp in ISO 8601 format (yyyy-MM-ddTHH:mm:ss).
-	// use this paramter to specify th euser's local time to
+	// use this paramter to specify the user's local time to
 	// get results tailored for that specific date and time
 	// in the day.  If not provided, the response defaults to
 	// the current UTC time.
