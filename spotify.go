@@ -28,12 +28,9 @@ import (
 var (
 	baseAddress = "https://api.spotify.com/v1/"
 
-	// DefaultClient is the default client and is used by ...
+	// DefaultClient is the default client that is used by the wrapper functions
+	// that don't require authorization.
 	DefaultClient = &Client{}
-
-	// ErrAuthorizationRequired is the error returned when an unauthenticated
-	//  user makes an API call that requrles authorization.
-	ErrAuthorizationRequired = errors.New("spotify: this call requires authentication")
 )
 
 // URI identifies an artist, album, or track.  For example,
@@ -136,17 +133,7 @@ type ExternalURL struct {
 
 // Client is a client for working with the Spotify Web API.
 type Client struct {
-	http        http.Client
-	AccessToken string
-	TokenType   TokenType
-}
-
-func (c *Client) newHTTPRequest(method, url string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(method, url, body)
-	if t := string(c.TokenType); err == nil && t != "" && c.AccessToken != "" {
-		req.Header.Set("Authorization", t+" "+c.AccessToken)
-	}
-	return req, err
+	HTTP *http.Client
 }
 
 // Options contains optional parameters that can be provided
@@ -168,9 +155,6 @@ type Options struct {
 // NewReleasesOpt is like NewReleases, but it accepts optional parameters
 // for filtering the results.
 func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err error) {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return nil, ErrAuthorizationRequired
-	}
 	spotifyURL := baseAddress + "browse/new-releases"
 	if opt != nil {
 		v := url.Values{}
@@ -187,11 +171,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			spotifyURL += "?" + params
 		}
 	}
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, errors.New("spotify: couldn't build request")
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

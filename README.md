@@ -25,29 +25,36 @@ However, authenticated users benefit from increased rate limits.
 
 Features that access a user's private data require authorization.
 All functions requiring authorization are explicitly marked as
-such in the godoc.  If you attempt to call any of these functions
-without authorization, the error returned will be
-`spotify.ErrAuthorizationRequired`.
+such in the godoc.
 
 Spotify uses OAuth2 for authentication, which typically requires the user to login
 via a web browser.  Your application will have to implement the OAuth2 process
 and provide the access token to this package.
 
-The first step towards authenticating is to get a __client ID__ and __secret key__
+The easiest way to do this is to use an HTTP client that inserts the token in the
+request headers automatically.  Start by getting a __client ID__ and __secret key__
 by registering your application at the following page:
 
 https://developer.spotify.com/my-applications/.
 
-Use the ID and key to get an OAuth2 access token, and provide it to the client.
-Additionally, specify the token type (most likely "Bearer").
+The `golang.org/x/oauth2` package is helpful here:
 
 ````Go
+config := oauth2.Config{
+      ClientID:     yourAppsID,
+      ClientSecret: yourSecretKey,
+      RedirectURL:  yourURL,
+      Endpoint: oauth2.Endpoint{
+            AuthURL:  spotify.AuthURL,
+            TokenURL: spotify.TokenURL,
+      },
+}
 c := spotify.Client{}
-c.AccessToken = "my_token"
-c.TokenType = spotify.BearerToken
+// get a *oauth2.Token (omitted)
+c.HTTP = config.Client(oauth2.NoContext, token)
 ````
 
-You may find the following resources helpful:
+You may find the following resources useful:
 
 1. Spotify's Web API Authorization Guide:
 https://developer.spotify.com/web-api/authorization-guide/
@@ -113,12 +120,11 @@ fmt.Println(user.DisplayName)
 fmt.Println(user.Followers.Count, "followers")
 ````
 
-To get information about the current user, you must authenticcate first:
+To get information about the current user, you must authenticate first:
 
 ````Go
 c := spotify.Client{}
-c.AccessToken = "my-token"
-c.TokenType = spotify.BearerToken
+c.HTTP = getHTTPClient()
 me, err := c.CurrentUser()
 // error handling omitted
 

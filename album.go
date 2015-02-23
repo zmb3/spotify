@@ -82,7 +82,7 @@ type FullAlbum struct {
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
 func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", baseAddress, id)
-	resp, err := c.http.Get(string(spotifyURL))
+	resp, err := c.HTTP.Get(string(spotifyURL))
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
 	spotifyURL := fmt.Sprintf("%salbums?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, 
 	if optional != "" {
 		spotifyURL = spotifyURL + "?" + optional
 	}
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

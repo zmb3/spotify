@@ -82,7 +82,7 @@ func (f *fileRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 // the specified status code and body.
 func testClientString(code int, body string) *Client {
 	return &Client{
-		http: http.Client{
+		HTTP: &http.Client{
 			Transport: newStringRoundTripper(code, body),
 		},
 	}
@@ -93,17 +93,17 @@ func testClientString(code int, body string) *Client {
 // that is read from the specified file.
 func testClientFile(code int, filename string) *Client {
 	return &Client{
-		http: http.Client{
+		HTTP: &http.Client{
 			Transport: newFileRoundTripper(code, filename),
 		},
 	}
 }
 
 func getLastRequest(c *Client) *http.Request {
-	if frt, ok := c.http.Transport.(*fileRoundTripper); ok {
+	if frt, ok := c.HTTP.Transport.(*fileRoundTripper); ok {
 		return frt.lastRequest
 	}
-	if srt, ok := c.http.Transport.(*stringRoundTripper); ok {
+	if srt, ok := c.HTTP.Transport.(*stringRoundTripper); ok {
 		return srt.lastRequest
 	}
 	return nil
@@ -113,16 +113,8 @@ func getLastRequest(c *Client) *http.Request {
 // client, which allows the basic authentication checks to pass
 // for the purpose of testing
 func addDummyAuth(c *Client) {
-	c.AccessToken = "sample token"
-	c.TokenType = BearerToken
-}
-
-func TestNewReleasesNoAuth(t *testing.T) {
-	c := testClientString(400, "")
-	_, err := c.NewReleases()
-	if err == nil {
-		t.Errorf("Call should have failed without authorization")
-	}
+	// c.AccessToken = "sample token"
+	// c.TokenType = BearerToken
 }
 
 func TestNewReleases(t *testing.T) {

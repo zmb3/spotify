@@ -17,7 +17,6 @@ package spotify
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -90,10 +89,8 @@ type PlaylistOptions struct {
 
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
 // It accepts a number of optional parameters via the opt argument.
+// This call requires authorization.
 func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *SimplePlaylistPage, e error) {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return "", nil, ErrAuthorizationRequired
-	}
 	spotifyURL := baseAddress + "browse/featured-playlists"
 	if opt != nil {
 		v := url.Values{}
@@ -116,11 +113,7 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 			spotifyURL += "?" + params
 		}
 	}
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return "", nil, errors.New("spotify: Couldn't create request")
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return "", nil, err
 	}
@@ -154,18 +147,14 @@ func (c *Client) FeaturedPlaylists() (message string, playlists *SimplePlaylistP
 // must have granted the ScopePlaylistModifyPrivate scope.  The
 // ScopePlaylistModifyPublic scope is required to follow playlists publicly.
 func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return ErrAuthorizationRequired
-	}
 	spotifyURL := buildFollowURI(owner, playlist)
 	body := strings.NewReader(strconv.FormatBool(public))
-	req, err := c.newHTTPRequest("PUT", spotifyURL, body)
+	req, err := http.NewRequest("PUT", spotifyURL, body)
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return err
 	}
@@ -181,15 +170,12 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 // requires the ScopePlaylistModifyPublic scope.  Unfolowing a privately followed,
 // playlist requies the ScopePlaylistModifyPrivate scope.
 func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return ErrAuthorizationRequired
-	}
 	spotifyURL := buildFollowURI(owner, playlist)
-	req, err := c.newHTTPRequest("DELETE", spotifyURL, nil)
+	req, err := http.NewRequest("DELETE", spotifyURL, nil)
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return err
 	}
@@ -220,9 +206,6 @@ func (c *Client) GetPlaylistsForUser(userID string) (*SimplePlaylistPage, error)
 // GetPlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional paramters
 // for filtering the results.
 func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePlaylistPage, error) {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return nil, ErrAuthorizationRequired
-	}
 	spotifyURL := baseAddress + "users/" + userID + "/playlists"
 	if opt != nil {
 		v := url.Values{}
@@ -236,11 +219,7 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 			spotifyURL += "?" + params
 		}
 	}
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -279,18 +258,11 @@ func (c *Client) GetPlaylist(userID string, playlistID ID) (*FullPlaylist, error
 // Fields can be excluded by prefixing them with an exclamation mark, for example;
 //    fields = "tracks.items(track(name,href,album(!name,href)))"
 func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*FullPlaylist, error) {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return nil, ErrAuthorizationRequired
-	}
-	spotifyURL := baseAddress + "users/" + userID + "/playlists/" + string(playlistID)
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s", baseAddress, userID, playlistID)
 	if fields != "" {
 		spotifyURL += "?fields=" + url.QueryEscape(fields)
 	}
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -331,9 +303,6 @@ func (c *Client) GetPlaylistTracks(userID string, playlistID ID) (*PlaylistTrack
 func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 	opt *Options, fields string) (*PlaylistTrackPage, error) {
 
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return nil, ErrAuthorizationRequired
-	}
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)
 	v := url.Values{}
 	if fields != "" {
@@ -350,12 +319,7 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
-
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -380,9 +344,6 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 //
 // On success, the newly created playlist is returned.
 func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool) (*FullPlaylist, error) {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return nil, ErrAuthorizationRequired
-	}
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists", baseAddress, userID)
 	body := struct {
 		Name   string `json:"name"`
@@ -395,12 +356,12 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 	if err != nil {
 		return nil, err
 	}
-	req, err := c.newHTTPRequest("POST", spotifyURL, bytes.NewReader(bodyJSON))
+	req, err := http.NewRequest("POST", spotifyURL, bytes.NewReader(bodyJSON))
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -438,9 +399,6 @@ func (c *Client) ChangePlaylistNameAndAccess(userID string, playlistID ID, newNa
 }
 
 func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, public *bool) error {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return ErrAuthorizationRequired
-	}
 	body := struct {
 		Name   string `json:"name,omitempty"`
 		Public *bool  `json:"public,omitempty"`
@@ -453,12 +411,12 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 		return err
 	}
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s", baseAddress, userID, string(playlistID))
-	req, err := c.newHTTPRequest("PUT", spotifyURL, bytes.NewReader(bodyJSON))
+	req, err := http.NewRequest("PUT", spotifyURL, bytes.NewReader(bodyJSON))
 	if err != nil {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return err
 	}
@@ -477,20 +435,17 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	trackIDs ...ID) (snapshotID string, err error) {
 
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return "", ErrAuthorizationRequired
-	}
 	uris := make([]string, len(trackIDs))
 	for i, id := range trackIDs {
 		uris[i] = fmt.Sprintf("spotify:track:%s", id)
 	}
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?urls=%s",
 		baseAddress, userID, string(playlistID), strings.Join(uris, ","))
-	req, err := c.newHTTPRequest("POST", spotifyURL, nil)
+	req, err := http.NewRequest("POST", spotifyURL, nil)
 	if err != nil {
 		return "", err
 	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return "", err
 	}
@@ -567,9 +522,6 @@ func (c *Client) RemoveTracksFromPlaylistOpt(userID string, playlistID ID,
 func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 	tracks interface{}, snapshotID string) (newSnapshotID string, err error) {
 
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return "", ErrAuthorizationRequired
-	}
 	m := make(map[string]interface{})
 	m["tracks"] = tracks
 	if snapshotID != "" {
@@ -582,12 +534,12 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 	if err != nil {
 		return "", err
 	}
-	req, err := c.newHTTPRequest("DELETE", spotifyURL, bytes.NewReader(body))
+	req, err := http.NewRequest("DELETE", spotifyURL, bytes.NewReader(body))
 	if err != nil {
 		return "", nil
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return "", nil
 	}
@@ -613,20 +565,17 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 // A maximum of 100 tracks is permited in this call.  Additional tracks must be
 // added via AddTracksToPlaylist.
 func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ...ID) error {
-	if c.TokenType != BearerToken || c.AccessToken == "" {
-		return ErrAuthorizationRequired
-	}
 	trackURIs := make([]string, len(trackIDs))
 	for i, u := range trackIDs {
 		trackURIs[i] = fmt.Sprintf("spotify:track:%s", u)
 	}
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?uris=%s",
 		baseAddress, userID, playlistID, strings.Join(trackURIs, ","))
-	req, err := c.newHTTPRequest("PUT", spotifyURL, nil)
+	req, err := http.NewRequest("PUT", spotifyURL, nil)
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return err
 	}

@@ -158,7 +158,7 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 		}
 	}
 	spotifyURL := baseAddress + "search?" + v.Encode()
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

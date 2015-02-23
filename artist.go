@@ -56,7 +56,7 @@ func GetArtist(id ID) (*FullArtist, error) {
 // GetArtist gets Spotify catalog information for a single artist, given its Spotify ID.
 func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s", baseAddress, id)
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func GetArtists(ids ...ID) ([]*FullArtist, error) {
 // in the result.
 func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
 // country is specified as an ISO 3166-1 alpha-2 country code.
 func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", baseAddress, artistID, country)
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func GetRelatedArtists(id ID) ([]FullArtist, error) {
 // related to the specified artist.
 func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", baseAddress, id)
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +208,7 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 			spotifyURL += "?" + query
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

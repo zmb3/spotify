@@ -73,7 +73,7 @@ func GetUsersPublicProfile(userID ID) (*User, error) {
 // Spotify User.  It does not require authentication.
 func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 	spotifyURL := baseAddress + "users/" + string(userID)
-	resp, err := c.http.Get(spotifyURL)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -101,15 +101,7 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 // This email address is unverified - do not assume that Spotify has
 // checked that the email address actually belongs to the user.
 func (c *Client) CurrentUser() (*PrivateUser, error) {
-	if c.AccessToken == "" || c.TokenType != BearerToken {
-		return nil, ErrAuthorizationRequired
-	}
-	spotifyURL := baseAddress + "me"
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(baseAddress + "me")
 	if err != nil {
 		return nil, err
 	}
@@ -134,9 +126,6 @@ func (c *Client) CurrentUsersTracks() (*SavedTrackPage, error) {
 // CurrentUsersTracksOpt is like CurrentUsersTracks, but it accepts additional
 // options for sorting and filtering the results.
 func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
-	if c.AccessToken == "" || c.TokenType != BearerToken {
-		return nil, ErrAuthorizationRequired
-	}
 	spotifyURL := baseAddress + "me/tracks"
 	if opt != nil {
 		v := url.Values{}
@@ -153,11 +142,7 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -203,9 +188,6 @@ func (c *Client) Unfollow(ids ...ID) error {
 // The result is returned as a slice of bool values in the same order
 // in which the IDs were specified.
 func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
-	if c.AccessToken == "" || c.TokenType != BearerToken {
-		return nil, ErrAuthorizationRequired
-	}
 	if l := len(ids); l == 0 || l > 50 {
 		return nil, errors.New("spotify: UserFollows supports 1 to 50 IDs")
 	}
@@ -214,11 +196,7 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	}
 	spotifyURL := fmt.Sprintf("%sme/following/contains?type=%s&ids=%s",
 		baseAddress, t, strings.Join(toStringSlice(ids), ","))
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -235,9 +213,6 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 }
 
 func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
-	if c.AccessToken == "" || c.TokenType != BearerToken {
-		return ErrAuthorizationRequired
-	}
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
@@ -246,11 +221,11 @@ func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	if !follow {
 		method = "DELETE"
 	}
-	req, err := c.newHTTPRequest(method, spotifyURL, nil)
+	req, err := http.NewRequest(method, spotifyURL, nil)
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return err
 	}

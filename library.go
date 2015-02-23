@@ -25,18 +25,11 @@ import (
 // UserHasTracks checks if one or more tracks are saved to the current user's
 // "Your Music" library.  This call requires authorization.
 func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
-	if c.AccessToken == "" || c.TokenType != BearerToken {
-		return nil, ErrAuthorizationRequired
-	}
 	if l := len(ids); l == 0 || l > 50 {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
 	}
 	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	req, err := c.newHTTPRequest("GET", spotifyURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -66,9 +59,6 @@ func (c *Client) RemoveTracksFromLibrary(ids ...ID) error {
 }
 
 func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
-	if c.AccessToken == "" || c.TokenType != BearerToken {
-		return ErrAuthorizationRequired
-	}
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: this call supports 1 to 50 IDs per call")
 	}
@@ -77,11 +67,11 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if add {
 		method = "PUT"
 	}
-	req, err := c.newHTTPRequest(method, spotifyURL, nil)
+	req, err := http.NewRequest(method, spotifyURL, nil)
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	resp, err := c.HTTP.Do(req)
 	if err != nil {
 		return err
 	}
