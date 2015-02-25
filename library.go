@@ -29,7 +29,7 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
 	}
 	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
 	}

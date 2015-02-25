@@ -113,7 +113,7 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return "", nil, err
 	}
@@ -154,7 +154,7 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
 	}
@@ -175,7 +175,7 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
 	}
@@ -219,7 +219,7 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +262,7 @@ func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*F
 	if fields != "" {
 		spotifyURL += "?fields=" + url.QueryEscape(fields)
 	}
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -361,7 +361,7 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -416,7 +416,7 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
 	}
@@ -445,7 +445,7 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	if err != nil {
 		return "", err
 	}
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return "", err
 	}
@@ -539,7 +539,7 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 		return "", nil
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return "", nil
 	}
@@ -575,7 +575,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 	if err != nil {
 		return err
 	}
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
 	}

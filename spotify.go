@@ -29,8 +29,11 @@ var (
 	baseAddress = "https://api.spotify.com/v1/"
 
 	// DefaultClient is the default client that is used by the wrapper functions
-	// that don't require authorization.
-	DefaultClient = &Client{}
+	// that don't require authorization.  If you need to authenticate, create
+	// your own client with `Authenticator.NewClient`.
+	DefaultClient = &Client{
+		http: new(http.Client),
+	}
 )
 
 // URI identifies an artist, album, or track.  For example,
@@ -132,8 +135,11 @@ type ExternalURL struct {
 }
 
 // Client is a client for working with the Spotify Web API.
+// To create an authenticated client, use the
+// `Authenticator.NewClient` method.  If you don't need to
+// authenticate, you can use `DefaultClient`.
 type Client struct {
-	HTTP *http.Client
+	http *http.Client
 }
 
 // Options contains optional parameters that can be provided
@@ -171,7 +177,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}

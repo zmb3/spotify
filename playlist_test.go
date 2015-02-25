@@ -22,14 +22,6 @@ import (
 	"testing"
 )
 
-func TestFeaturedPlaylistNoAuth(t *testing.T) {
-	var client Client
-	_, _, err := client.FeaturedPlaylists()
-	if err == nil {
-		t.Error("Call should have failed without authorization:", err)
-	}
-}
-
 func TestFeaturedPlaylists(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/featured_playlists.txt")
 	addDummyAuth(client)

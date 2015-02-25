@@ -28,30 +28,45 @@ All functions requiring authorization are explicitly marked as
 such in the godoc.
 
 Spotify uses OAuth2 for authentication, which typically requires the user to login
-via a web browser.  Your application will have to implement the OAuth2 process
-and provide the access token to this package.
+via a web browser.  This package includes an `Authenticator` type to handle the details for you.
 
-The easiest way to do this is to use an HTTP client that inserts the token in the
-request headers automatically.  Start by getting a __client ID__ and __secret key__
-by registering your application at the following page:
+Start by getting registering your application at the following page:
 
 https://developer.spotify.com/my-applications/.
 
-The `golang.org/x/oauth2` package is helpful here:
+You'll get a __client ID__ and __secret key__ for your application.  An easy way to
+provide this data to your application is to set the SPOTIFY_ID and SPOTIFY_SECRET
+environment variables.  If you choose not to use environment variables, you can
+provide this data manually.
+
 
 ````Go
-config := oauth2.Config{
-      ClientID:     yourAppsID,
-      ClientSecret: yourSecretKey,
-      RedirectURL:  yourURL,
-      Endpoint: oauth2.Endpoint{
-            AuthURL:  spotify.AuthURL,
-            TokenURL: spotify.TokenURL,
-      },
+// the redirect URL must be an exact match of a URL you've registered for your application
+// scopes determine which permissions the user is prompted to authorize
+auth := spotify.NewAuthenticator(redirectURL, spotify.ScopeUserReadPrivate)
+
+// if you didn't store your ID and secret key in the specified environment variables,
+// you can set them manually here
+auth.SetAuthInfo(clientID, secretKey)
+
+// get the user to this URL - how you do that is up to you
+// you should specify a unique state string to identify the session
+url := auth.AuthURL(state)
+
+// the user will eventually be redirected back to your redirect URL
+// typically you'll have a handler set up like the following:
+func redirectHandler(w http.ResponseWriter, r *http.Request) {
+      // use the same state string here that you used to generate the URL
+      token, err := auth.Token(state, r)
+      if err != nil {
+            http.Error(w, "Couldn't get token", http.StatusNotFound)
+            return
+      }
+      // create a client using the specified token
+      client := auth.NewClient(token)
+
+      // the client can now be used to make authenticated requests
 }
-c := spotify.Client{}
-// get a *oauth2.Token (omitted)
-c.HTTP = config.Client(oauth2.NoContext, token)
 ````
 
 You may find the following resources useful:
@@ -62,17 +77,17 @@ https://developer.spotify.com/web-api/authorization-guide/
 2. Go's OAuth2 package:
 https://godoc.org/golang.org/x/oauth2/google
 
-3. spoticli - an example application that authenticates with OAuth2
-https://github.com/zmb3/spoticli
 
 ## Helpful Hints
 
 ### Default Client
 
-In general, for API calls that require authorization, you should create your own
-`spotify.Client`.  For calls that don't require authorization, package level functions
-are provided.  (These functions just proxy through `spotify.DefaultClient`, similar
-to the way the `net/http` package works.)
+For API calls that require authorization, you should create your own
+`spotify.Client` using an `Authenticator`.  For calls that don't require authorization,
+package level wrapper functions are provided (see `spotify.Search` for example)
+
+These functions just proxy through `spotify.DefaultClient`, similar to the way
+the `net/http` package works.
 
 ### Optional Parameters
 

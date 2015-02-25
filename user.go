@@ -73,7 +73,7 @@ func GetUsersPublicProfile(userID ID) (*User, error) {
 // Spotify User.  It does not require authentication.
 func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 	spotifyURL := baseAddress + "users/" + string(userID)
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 // This email address is unverified - do not assume that Spotify has
 // checked that the email address actually belongs to the user.
 func (c *Client) CurrentUser() (*PrivateUser, error) {
-	resp, err := c.HTTP.Get(baseAddress + "me")
+	resp, err := c.http.Get(baseAddress + "me")
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	}
 	spotifyURL := fmt.Sprintf("%sme/following/contains?type=%s&ids=%s",
 		baseAddress, t, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.HTTP.Get(spotifyURL)
+	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +225,7 @@ func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.HTTP.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return err
 	}

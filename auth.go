@@ -14,15 +14,12 @@
 
 package spotify
 
-// TokenType indicates which type of authorization a client uses.
-type TokenType string
+import (
+	"errors"
+	"net/http"
+	"os"
 
-const (
-	// BasicToken authorization provides an increased rate limit, but don't
-	// offer access to a user's private data.
-	BasicToken TokenType = "Basic"
-	// BearerToken authorization offers access to a user's private data.
-	BearerToken = "Bearer"
+	"golang.org/x/oauth2"
 )
 
 const (
@@ -63,3 +60,92 @@ const (
 	// ScopeUserReadEmail seeks read access to a user's email address.
 	ScopeUserReadEmail = "user-read-email"
 )
+
+// Authenticator provides convenience functions for implementing the OAuth2 flow.
+// You should always use `NewAuthenticator` to make them.
+//
+// Example:
+//
+//     a := spotify.NewAuthenticator(redirectURL, spotify.ScopeUserLibaryRead, spotify.ScopeUserFollowRead)
+//     // direct user to Spotify to log in
+//     http.Redirect(w, r, a.AuthURL("state-string"), http.StatusFound)
+//
+//     // then, in redirect handler:
+//     token, err := a.Token(state, r)
+//     client := a.NewClient(token)
+//
+type Authenticator struct {
+	config *oauth2.Config
+}
+
+// NewAuthenticator creates an authenticator which is used to implement the
+// OAuth2 authorization flow.  The redirectURL must exactly match one of the
+// URLs specified in your Spotify developer account.
+//
+// By default, NewAuthenticator pulls your client ID and secret key from the
+// SPOTIFY_ID and SPOTIFY_SECRET environment variables.  If you'd like to provide
+// them from some other source, you can call `SetAuthInfo(id, key)` on the
+// returned authenticator.
+func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
+	cfg := &oauth2.Config{
+		ClientID:     os.Getenv("SPOTIFY_ID"),
+		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
+		RedirectURL:  redirectURL,
+		Scopes:       scopes,
+		Endpoint: oauth2.Endpoint{
+			AuthURL:  AuthURL,
+			TokenURL: TokenURL,
+		},
+	}
+	return Authenticator{
+		config: cfg,
+	}
+}
+
+// SetAuthInfo overwrites the client ID and secret key used by the authenticator.
+// You can use this if you don't want to store this information in environment variables.
+func (a *Authenticator) SetAuthInfo(clientID, secretKey string) {
+	a.config.ClientID = clientID
+	a.config.ClientSecret = secretKey
+}
+
+// AuthURL returns a URL to the the Spotify Accounts Service's OAuth2 endpoint.
+//
+// State is a token to protect the user from CSRF attacks.  You should pass the
+// same state to `Token`, where it will be validated.  For more info, refer to
+// http://tools.ietf.org/html/rfc6749#section-10.12.
+func (a Authenticator) AuthURL(state string) string {
+	return a.config.AuthCodeURL(state)
+}
+
+// Token pulls an authorization code from an HTTP request and attempts to exchange
+// it for an access token.  The standard use case is to call Token from the handler
+// that handles requests to your application's redirect URL.
+func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, error) {
+	values := r.URL.Query()
+	if e := values.Get("error"); e != "" {
+		return nil, errors.New("spotify: auth failed - " + e)
+	}
+	code := values.Get("code")
+	if code == "" {
+		return nil, errors.New("spotify: didn't get access code")
+	}
+	actualState := values.Get("state")
+	if actualState != state {
+		return nil, errors.New("spotify: redirect state parameter doesn't match")
+	}
+	return a.config.Exchange(oauth2.NoContext, code)
+}
+
+// Exchange is like Token, except it allows you to manually specify the access
+// code instead of pulling it out of an HTTP request.
+func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
+	return a.config.Exchange(oauth2.NoContext, code)
+}
+
+// NewClient creates a Client that will use the specified access token for its API requests.
+func (a Authenticator) NewClient(token *oauth2.Token) Client {
+	return Client{
+		http: a.config.Client(oauth2.NoContext, token),
+	}
+}

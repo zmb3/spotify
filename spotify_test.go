@@ -82,7 +82,7 @@ func (f *fileRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 // the specified status code and body.
 func testClientString(code int, body string) *Client {
 	return &Client{
-		HTTP: &http.Client{
+		http: &http.Client{
 			Transport: newStringRoundTripper(code, body),
 		},
 	}
@@ -93,17 +93,17 @@ func testClientString(code int, body string) *Client {
 // that is read from the specified file.
 func testClientFile(code int, filename string) *Client {
 	return &Client{
-		HTTP: &http.Client{
+		http: &http.Client{
 			Transport: newFileRoundTripper(code, filename),
 		},
 	}
 }
 
 func getLastRequest(c *Client) *http.Request {
-	if frt, ok := c.HTTP.Transport.(*fileRoundTripper); ok {
+	if frt, ok := c.http.Transport.(*fileRoundTripper); ok {
 		return frt.lastRequest
 	}
-	if srt, ok := c.HTTP.Transport.(*stringRoundTripper); ok {
+	if srt, ok := c.http.Transport.(*stringRoundTripper); ok {
 		return srt.lastRequest
 	}
 	return nil
