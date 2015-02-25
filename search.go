@@ -67,7 +67,7 @@ type SearchResult struct {
 	Artists   *FullArtistPage     `json:"artists"`
 	Albums    *SimpleAlbumPage    `json:"albums"`
 	Playlists *SimplePlaylistPage `json:"playlists"`
-	Tracks    *SimpleTrackPage    `json:"tracks"`
+	Tracks    *FullTrackPage      `json:"tracks"`
 }
 
 // Search is a wrapper around DefaultClient.Search.
