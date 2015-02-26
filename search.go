@@ -175,3 +175,67 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 	}
 	return &result, err
 }
+
+// NextArtistResults loads the next page of artists into the specified search result.
+func (c *Client) NextArtistResults(s *SearchResult) error {
+	if s.Artists == nil || s.Artists.Next == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Artists.Next, s)
+}
+
+// PreviousArtistResults loads the previous page of artists into the specified search result.
+func (c *Client) PreviousArtistResults(s *SearchResult) error {
+	if s.Artists == nil || s.Artists.Previous == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Artists.Previous, s)
+}
+
+// NextAlbumResults loads the next page of albums into the specified search result.
+func (c *Client) NextAlbumResults(s *SearchResult) error {
+	if s.Albums == nil || s.Albums.Next == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Albums.Next, s)
+}
+
+// PreviousAlbumResults loads the previous page of albums into the specified search result.
+func (c *Client) PreviousAlbumResults(s *SearchResult) error {
+	if s.Albums == nil || s.Albums.Previous == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Albums.Previous, s)
+}
+
+// NextPlaylistResults loads the next page of playlists into the specified search result.
+func (c *Client) NextPlaylistResults(s *SearchResult) error {
+	if s.Playlists == nil || s.Playlists.Next == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Playlists.Next, s)
+}
+
+// PreviousPlaylistResults loads the previous page of playlists into the specified search result.
+func (c *Client) PreviousPlaylistResults(s *SearchResult) error {
+	if s.Playlists == nil || s.Playlists.Previous == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Playlists.Previous, s)
+}
+
+// PreviousTrackResults loads the previous page of tracks into the specified search result.
+func (c *Client) PreviousTrackResults(s *SearchResult) error {
+	if s.Tracks == nil || s.Tracks.Previous == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Tracks.Previous, s)
+}
+
+// NextTrackResults loads the next page of tracks into the specified search result.
+func (c *Client) NextTrackResults(s *SearchResult) error {
+	if s.Tracks == nil || s.Tracks.Next == "" {
+		return ErrNoMorePages
+	}
+	return c.getPage(s.Tracks.Next, s)
+}

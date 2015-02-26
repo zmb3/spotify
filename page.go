@@ -14,11 +14,17 @@
 
 package spotify
 
+import (
+	"encoding/json"
+	"errors"
+)
+
+// ErrNoMorePages is the error returned when you attempt to get the next
+// (or previous) set of data but you've reached the end of the data set.
+var ErrNoMorePages = errors.New("spotify: no more pages")
+
 // This file contains the types that implement Spotify's paging object.
 // See: https://developer.spotify.com/web-api/object-model/#paging-object
-
-// TODO: maybe instead of exposing the prev/next URLs,
-// we can just have functions for retrieving the prev/next page
 
 // basePage contains all of the fields in a Spotify paging object, except
 // for the actual items.  This type is meant to be embedded in other types
@@ -81,4 +87,14 @@ type SavedTrackPage struct {
 type PlaylistTrackPage struct {
 	basePage
 	Tracks []PlaylistTrack `json:"items"`
+}
+
+// getPage GETs the data at the specified URL and unmarshals it into page.
+func (c *Client) getPage(url string, page interface{}) error {
+	resp, err := c.http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	return json.NewDecoder(resp.Body).Decode(page)
 }
