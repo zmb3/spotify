@@ -585,3 +585,27 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 	}
 	return nil
 }
+
+// UserFollowsPlaylist checks if one or more (up to 5) Spotify users are following
+// a Spotify playlist, given the playlist's owner and ID.  This call requires
+// authorization.
+//
+// Checking if a user follows a playlist publicly doesn't require any scopes.
+// Checking if the user is privately following a playlist is only possible for the
+// current user when that user has granted access to the ScopePlaylistReadPrivate scope.
+func (c *Client) UserFollowsPlaylist(ownerID string, playlistID ID, userIDs ...string) ([]bool, error) {
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/followers/contains?ids=%s",
+		baseAddress, ownerID, playlistID, strings.Join(userIDs, ","))
+	resp, err := c.http.Get(spotifyURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	follows := make([]bool, len(userIDs))
+	err = json.NewDecoder(resp.Body).Decode(&follows)
+	return follows, err
+
+}

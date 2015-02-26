@@ -152,6 +152,17 @@ func TestGetPlaylistTracks(t *testing.T) {
 	}
 }
 
+func TestUserFollowsPlaylist(t *testing.T) {
+	client := testClientString(http.StatusOK, `[ true, false ]`)
+	follows, err := client.UserFollowsPlaylist("jmperezperez", ID("2v3iNvBS8Ay1Gt2uXtUKUT"), "possan", "elogain")
+	if err != nil {
+		t.Error(err)
+	}
+	if len(follows) != 2 || !follows[0] || follows[1] {
+		t.Errorf("Expected '[true, false]', got %#v\n", follows)
+	}
+}
+
 var newPlaylist = `
 {
 "collaborative": false,
