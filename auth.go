@@ -59,6 +59,8 @@ const (
 	ScopeUserReadPrivate = "user-read-private"
 	// ScopeUserReadEmail seeks read access to a user's email address.
 	ScopeUserReadEmail = "user-read-email"
+	// ScopeUserReadBirthday seeks read access to a user's birthdate.
+	ScopeUserReadBirthdate = "user-read-birthdate"
 )
 
 // Authenticator provides convenience functions for implementing the OAuth2 flow.
