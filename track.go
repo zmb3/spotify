@@ -54,7 +54,7 @@ type SimpleTrack struct {
 type FullTrack struct {
 	SimpleTrack
 	// Known external IDs for the track.
-	ExternalIDs ExternalID `json:"exernal_ids"`
+	ExternalIDs ExternalID `json:"external_ids"`
 	// Popularity of the track.  The value will be between 0 and 100,
 	// with 100 being the most popular.  The popularity is calculated from
 	// both total plays and most recent plays.

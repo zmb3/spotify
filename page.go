@@ -68,7 +68,7 @@ type SimpleTrackPage struct {
 // FullTrackPage contains FullTracks returned by the Web API.
 type FullTrackPage struct {
 	basePage
-	Tracks []FullTrack `json:"tracks"`
+	Tracks []FullTrack `json:"items"`
 }
 
 // SavedTrackPage contains SavedTracks return by the Web API.

@@ -48,9 +48,6 @@ func TestSearchTracks(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if result.Tracks == nil || len(result.Tracks.Tracks) == 0 {
-		t.Error("Didn't receive track results")
-	}
 	if result.Albums != nil {
 		t.Error("Searched for tracks but got album results")
 	}
@@ -59,6 +56,9 @@ func TestSearchTracks(t *testing.T) {
 	}
 	if result.Artists != nil {
 		t.Error("Searched for tracks but got artist results")
+	}
+	if result.Tracks == nil || len(result.Tracks.Tracks) == 0 {
+		t.Fatal("Didn't receive track results")
 	}
 	if name := result.Tracks.Tracks[0].Name; name != "Uptown Funk" {
 		t.Errorf("Got %s, wanted Uptown Funk\n", name)
