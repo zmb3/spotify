@@ -130,6 +130,7 @@ func TestSearchAgainstAPI(t *testing.T) {
 		t.Skip()
 		return
 	}
+	t.Parallel()
 	res, err := Search("Dave", SearchTypeArtist)
 	if err != nil {
 		t.Fatal(err)
