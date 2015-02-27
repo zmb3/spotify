@@ -607,5 +607,4 @@ func (c *Client) UserFollowsPlaylist(ownerID string, playlistID ID, userIDs ...s
 	follows := make([]bool, len(userIDs))
 	err = json.NewDecoder(resp.Body).Decode(&follows)
 	return follows, err
-
 }

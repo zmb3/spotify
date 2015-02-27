@@ -89,6 +89,12 @@ type PlaylistTrackPage struct {
 	Tracks []PlaylistTrack `json:"items"`
 }
 
+// CategoryPage contains Category objects returned by the Web API.
+type CategoryPage struct {
+	basePage
+	Categories []Category `json:"items"`
+}
+
 // getPage GETs the data at the specified URL and unmarshals it into page.
 func (c *Client) getPage(url string, page interface{}) error {
 	resp, err := c.http.Get(url)
