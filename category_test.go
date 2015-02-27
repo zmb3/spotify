@@ -64,6 +64,57 @@ func TestGetCategoryPlaylists(t *testing.T) {
 	}
 }
 
+func TestGetCategoryOpt(t *testing.T) {
+	client := testClientString(http.StatusNotFound, "")
+	client.GetCategoryOpt("id", CountryBrazil, "es_MX")
+
+	// verify that the optional parameters were included in the request
+	req := getLastRequest(client)
+	values := req.URL.Query()
+	if c := values.Get("country"); c != CountryBrazil {
+		t.Errorf("Expected country '%s', got '%s'\n", CountryBrazil, c)
+	}
+	if l := values.Get("locale"); l != "es_MX" {
+		t.Errorf("Expected locale 'es_MX', got '%s'\n", l)
+	}
+}
+
+func TestGetCategoryPlaylistsOpt(t *testing.T) {
+	client := testClientString(http.StatusNotFound, "")
+	opt := &Options{}
+	opt.Limit = new(int)
+	opt.Offset = new(int)
+	*opt.Limit = 5
+	*opt.Offset = 10
+	client.GetCategoryPlaylistsOpt("id", opt)
+	req := getLastRequest(client)
+	values := req.URL.Query()
+	if c := values.Get("country"); c != "" {
+		t.Errorf("Country should not have been set, got %s\n", c)
+	}
+	if l := values.Get("limit"); l != "5" {
+		t.Errorf("Expected limit 5, got %s\n", l)
+	}
+	if o := values.Get("offset"); o != "10" {
+		t.Errorf("Expected offset 10, got %s\n", o)
+	}
+}
+
+func TestGetCategoriesInvalidToken(t *testing.T) {
+	client := testClientString(http.StatusUnauthorized, invalidToken)
+	_, err := client.GetCategories()
+	if err == nil {
+		t.Fatal("Expected error but didn't get one")
+	}
+	serr, ok := err.(Error)
+	if !ok {
+		t.Fatal("Expected a 'spotify.Error'")
+	}
+	if serr.Status != http.StatusUnauthorized {
+		t.Error("Error didn't have status code 401")
+	}
+}
+
 var getCategories = `
 {
   "categories" : {
@@ -175,5 +226,13 @@ var getCategoryPlaylists = `
     "offset" : 0,
     "previous" : null,
     "total" : 36
+  }
+}`
+
+var invalidToken = `
+{
+  "error": {
+    "status": 401,
+    "message": "Invalid access token"
   }
 }`
