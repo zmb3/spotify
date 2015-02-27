@@ -184,11 +184,11 @@ func GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlb
 func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", baseAddress, artistID)
 	// add optional query string if options were specified
+	values := url.Values{}
+	if t != nil {
+		values.Set("album_type", t.encode())
+	}
 	if options != nil {
-		values := url.Values{}
-		if t != nil {
-			values.Set("album_type", t.encode())
-		}
 		if options.Country != nil {
 			values.Set("market", *options.Country)
 		} else {
@@ -204,9 +204,9 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 		if options.Offset != nil {
 			values.Set("offset", strconv.Itoa(*options.Offset))
 		}
-		if query := values.Encode(); query != "" {
-			spotifyURL += "?" + query
-		}
+	}
+	if query := values.Encode(); query != "" {
+		spotifyURL += "?" + query
 	}
 	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
