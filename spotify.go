@@ -25,6 +25,18 @@ import (
 	"strconv"
 )
 
+const (
+	// DateLayout can be used with time.Parse to create time.Time values
+	// from Spotify date strings.  For example, PrivateUser.Birthdate
+	// uses this format.
+	DateLayout = "2006-01-02"
+	// TimestampLayout can be used with time.Parse to create time.Time
+	// values from SpotifyTimestamp strings.  It is an ISO 8601 UTC timestamp
+	// with a zero offset.  For example, PlaylistTrack's AddedAt field uses
+	// this format.
+	TimestampLayout = "2006-01-02T15:04:05Z"
+)
+
 var (
 	baseAddress = "https://api.spotify.com/v1/"
 
@@ -36,7 +48,7 @@ var (
 	}
 )
 
-// URI identifies an artist, album, or track.  For example,
+// URI identifies an artist, album, track, or category.  For example,
 // spotify:track:6rqhFgbbKwnb9MLmUQDhG6
 type URI string
 
@@ -47,10 +59,6 @@ type ID string
 func (id *ID) String() string {
 	return string(*id)
 }
-
-// Timestamp is an ISO 8601 formatted timestamp representing
-// Coordinated Universal Time (UTC) with zero offset: YYYY-MM-DDTHH:MM:SSZ.
-type Timestamp string
 
 // Followers contains information about the number of people following a
 // particular artist or playlist.

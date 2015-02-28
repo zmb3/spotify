@@ -34,6 +34,10 @@ func TestFindAlbum(t *testing.T) {
 	if album.Name != "She's So Unusual" {
 		t.Error("Got wrong album")
 	}
+	released := album.ReleaseDateTime()
+	if released.Year() != 1983 {
+		t.Errorf("Expected release date 1983, got %d\n", released.Year())
+	}
 }
 
 func TestFindAlbumBadID(t *testing.T) {
@@ -79,6 +83,13 @@ func TestFindAlbums(t *testing.T) {
 		if res[i].Name != name {
 			t.Error("Expected album", name, "but got", res[i].Name)
 		}
+	}
+	release := res[0].ReleaseDateTime()
+	if release.Year() != 2013 ||
+		release.Month() != 11 ||
+		release.Day() != 8 {
+		t.Errorf("Expected release 2013-11-08, got %d-%02d-%02d\n",
+			release.Year(), release.Month(), release.Day())
 	}
 }
 

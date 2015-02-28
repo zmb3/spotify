@@ -62,9 +62,10 @@ type PrivateUser struct {
 	// This field is only available when the current user has granted access to
 	// the ScopeUserReadPrivate scope.
 	Product string `json:"product"`
-	// The user's date of birth, "YYYY-MM-DD".
-	// This field is only available when the current user has granted access
-	// to the ScopeUserReadBirthdate scope.
+	// The user's date of birth, in the format 'YYYY-MM-DD'.  You can use
+	// the DateLayout constant to convert this to a time.Time value.
+	// This field is only available when the current user has granted
+	// access to the ScopeUserReadBirthdate scope.
 	Birthdate string `json:"birthdate"`
 }
 

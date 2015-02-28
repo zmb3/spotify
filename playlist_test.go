@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"testing"
+	"time"
 )
 
 func TestFeaturedPlaylists(t *testing.T) {
@@ -149,6 +150,14 @@ func TestGetPlaylistTracks(t *testing.T) {
 	actual := tracks.Tracks[0].Track.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
+	}
+	added := tracks.Tracks[0].AddedAt
+	tm, err := time.Parse(TimestampLayout, added)
+	if err != nil {
+		t.Error(err)
+	}
+	if f := tm.Format(DateLayout); f != "2014-11-25" {
+		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
 	}
 }
 

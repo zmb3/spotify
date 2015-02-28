@@ -73,10 +73,10 @@ func TestCurrentUser(t *testing.T) {
 		"images" : [ ],
 		"product" : "premium",
 		"type" : "user",
-		"uri" : "spotify:user:username"
+		"uri" : "spotify:user:username",
+		"birthdate" : "1985-05-01"
 	}`
 	client := testClientString(http.StatusOK, json)
-	addDummyAuth(client)
 
 	me, err := client.CurrentUser()
 	if err != nil {
@@ -87,6 +87,9 @@ func TestCurrentUser(t *testing.T) {
 		me.Email != "username@domain.com" ||
 		me.Product != "premium" {
 		t.Error("Received incorrect response")
+	}
+	if me.Birthdate != "1985-05-01" {
+		t.Error("Expected '1985-05-01', got '%s'\n", me.Birthdate)
 	}
 }
 
