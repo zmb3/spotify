@@ -381,3 +381,45 @@ func TestReplacePlaylistTracksForbidden(t *testing.T) {
 		t.Error("Replace succeeded but shouldn't have")
 	}
 }
+
+func TestReorderPlaylistRequest(t *testing.T) {
+	client := testClientString(http.StatusNotFound, "")
+	client.ReorderPlaylistTracks("user", "playlist", PlaylistReorderOptions{
+		RangeStart:   3,
+		InsertBefore: 8,
+	})
+	req := getLastRequest(client)
+	if ct := req.Header.Get("Content-Type"); ct != "application/json" {
+		t.Errorf("Expected Content-Type: application/json, got '%s'\n", ct)
+	}
+	if req.Method != "PUT" {
+		t.Errorf("Expected a PUT, got a %s\n", req.Method)
+	}
+	// unmarshal the JSON into a map[string]interface{}
+	// so we can test for existence of certain keys
+	var body map[string]interface{}
+	json.NewDecoder(req.Body).Decode(&body)
+
+	if start, ok := body["range_start"]; ok {
+		if start != float64(3) {
+			t.Errorf("Expected range_start to be 3, but it was %#v\n", start)
+		}
+	} else {
+		t.Errorf("Required field range_start is missing")
+	}
+
+	if ib, ok := body["insert_before"]; ok {
+		if ib != float64(8) {
+			t.Errorf("Expected insert_before to be 8, but it was %#v\n", ib)
+		}
+	} else {
+		t.Errorf("Required field insert_before is missing")
+	}
+
+	if _, ok := body["range_length"]; ok {
+		t.Error("Parameter range_length shouldn't have been in body")
+	}
+	if _, ok := body["snapshot_id"]; ok {
+		t.Error("Parameter snapshot_id shouldn't have been in body")
+	}
+}

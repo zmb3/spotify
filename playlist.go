@@ -608,3 +608,67 @@ func (c *Client) UserFollowsPlaylist(ownerID string, playlistID ID, userIDs ...s
 	err = json.NewDecoder(resp.Body).Decode(&follows)
 	return follows, err
 }
+
+// PlaylistReorderOptions is used with ReorderPlaylistTracks to reorder
+// a track or group of tracks in a playlist.
+//
+// For example, in a playlist with 10 tracks, you can:
+//
+// - move the first track to the end of the playlist by setting
+//   RangeStart to 0 and InsertBefore to 10
+// - move the last track to the beginning of the playlist by setting
+//   RangeStart to 9 and InsertBefore to 0
+// - Move the last 2 tracks to the beginning of the playlist by setting
+//   RangeStart to 8 and RangeLength to 2.
+type PlaylistReorderOptions struct {
+	// The position of the first track to be reordered.
+	// This field is required.
+	RangeStart int `json:"range_start"`
+	// The amount of tracks to be reordered.  This field is optional.  If
+	// you don't set it, the value 1 will be used.
+	RangeLength int `json:"range_length,omitempty"`
+	// The position where the tracks should be inserted.  To reorder the
+	// tracks to the end of the playlist, simply set this to the position
+	// after the last track.  This field is required.
+	InsertBefore int `json:"insert_before"`
+	// The playlist's snapshot ID against which you wish to make the changes.
+	// This field is optional.
+	SnapshotID string `json:"snapshot_id,omitempty"`
+}
+
+// ReorderPlaylistTracks reorders a track or group of tracks in a playlist.  It
+// returns a snapshot ID that can be used to identify the [newly modified] playlist
+// version in future requests.
+//
+// See the docs for PlaylistReorderOptions for information on how the reordering
+// works.
+//
+// This call requires authorization.  Rordering tracks in the current user's
+// public playlist requires ScopePlaylistModifyPublic.  Reordering tracks in
+// the user's private playlists (including collaborative playlists) requires
+// ScopePlaylistModifyPrivate.
+func (c *Client) ReorderPlaylistTracks(userID, playlistID ID, opt PlaylistReorderOptions) (snapshotID string, err error) {
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)
+	j, err := json.Marshal(opt)
+	if err != nil {
+		return "", err
+	}
+	req, err := http.NewRequest("PUT", spotifyURL, bytes.NewReader(j))
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return "", decodeError(resp.Body)
+	}
+	result := struct {
+		SnapshotID string `json:"snapshot_id"`
+	}{}
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	return result.SnapshotID, err
+}
