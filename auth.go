@@ -43,6 +43,9 @@ const (
 	// ScopePlaylistModifyPrivate seeks write access to
 	// a user's private playlists.
 	ScopePlaylistModifyPrivate = "playlist-modify-private"
+	// ScopePlaylistReadCollaborative seeks permission to
+	// access a user's collaborative playlists.
+	ScopePlaylistReadCollaborative = "playlist-read-collaborative"
 	// ScopeUserFollowModify seeks write/delete access to
 	// the list of artists and other users that a user follows.
 	ScopeUserFollowModify = "user-follow-modify"
@@ -59,7 +62,7 @@ const (
 	ScopeUserReadPrivate = "user-read-private"
 	// ScopeUserReadEmail seeks read access to a user's email address.
 	ScopeUserReadEmail = "user-read-email"
-	// ScopeUserReadBirthday seeks read access to a user's birthdate.
+	// ScopeUserReadBirthdate seeks read access to a user's birthdate.
 	ScopeUserReadBirthdate = "user-read-birthdate"
 )
 

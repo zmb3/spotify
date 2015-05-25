@@ -191,14 +191,15 @@ func buildFollowURI(owner, playlist ID) string {
 		baseAddress, string(owner), string(playlist))
 }
 
-// GetPlaylistsForUser gets a list of the playlists owned or followed by a particular
-// Spotify user.  This call requires authorization.
+// GetPlaylistsForUser gets a list of the playlists owned or followed by a
+// particular Spotify user.  This call requires authorization.
 //
-// Private playlists are only retrievable for the current user, and require the
-// ScopePlaylistReadPrivate scope.
-//
-// A user's collaborative playlists are not currently retrievable (this is a Web
-// API limitation, not a limitation of package spotify).
+// Private playlists and collaborative playlists are only retrievable for the
+// current user.  In order to read private playlists, the user must have granted
+// the ScopePlaylistReadPrivate scope.  Note that this scope alone will not
+// return collaborative playlists, even though they are always private.  In
+// order to read collaborative playlists, the user must have granted the
+// ScopePlaylistReadCollaborative scope.
 func (c *Client) GetPlaylistsForUser(userID string) (*SimplePlaylistPage, error) {
 	return c.GetPlaylistsForUserOpt(userID, nil)
 }
