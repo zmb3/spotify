@@ -49,6 +49,9 @@ type SimplePlaylist struct {
 	Name     string  `json:"name"`
 	Owner    User    `json:"owner"`
 	IsPublic bool    `json:"public"`
+	// The version identifier for the current playlist. Can be supplied in other
+	// requests to target a specific playlist version.
+	SnapshotID string `json:"snapshot_id"`
 	// A collection to the Web API endpoint where full details of the playlist's
 	// tracks can be retrieved, along with the total number of tracks in the playlist.
 	Tracks PlaylistTracks `json:"tracks"`
@@ -61,11 +64,8 @@ type FullPlaylist struct {
 	// The playlist description.  Only returned for modified, verified playlists.
 	Description string `json:"description"`
 	// Information about the followers of this playlist.
-	Followers Followers `json:"followers"`
-	// The version identifier for the current playlist. Can be supplied in other
-	// requests to target a specific playlist version.
-	SnapshotID string            `json:"snapshot_id"`
-	Tracks     PlaylistTrackPage `json:"tracks"`
+	Followers Followers         `json:"followers"`
+	Tracks    PlaylistTrackPage `json:"tracks"`
 }
 
 // PlaylistOptions contains optional parameters that can be used when querying
