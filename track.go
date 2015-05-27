@@ -24,7 +24,6 @@ import (
 
 // SimpleTrack contains basic info about a track.
 type SimpleTrack struct {
-	Album   SimpleAlbum    `json:"album"`
 	Artists []SimpleArtist `json:"artists"`
 	// A list of the countries in which the track can be played,
 	// identified by their ISO 3166-1 alpha-2 codes.
@@ -54,6 +53,8 @@ type SimpleTrack struct {
 // FullTrack provides extra track data in addition to what is provided by SimpleTrack.
 type FullTrack struct {
 	SimpleTrack
+	// The album on which the track appears. The album object includes a link in href to full information about the album.
+	Album SimpleAlbum `json:"album"`
 	// Known external IDs for the track.
 	ExternalIDs ExternalID `json:"external_ids"`
 	// Popularity of the track.  The value will be between 0 and 100,
