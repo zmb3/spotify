@@ -89,7 +89,7 @@ func TestCurrentUser(t *testing.T) {
 		t.Error("Received incorrect response")
 	}
 	if me.Birthdate != "1985-05-01" {
-		t.Error("Expected '1985-05-01', got '%s'\n", me.Birthdate)
+		t.Errorf("Expected '1985-05-01', got '%s'\n", me.Birthdate)
 	}
 }
 
@@ -173,5 +173,68 @@ func TestCurrentUsersTracks(t *testing.T) {
 	if tracks.Tracks[0].Name != expected {
 		t.Errorf("Expected '%s', got '%s'\n", expected, tracks.Tracks[0].Name)
 		fmt.Printf("\n%#v\n", tracks.Tracks[0])
+	}
+}
+
+func TestUsersFollowedArtists(t *testing.T) {
+	json := `
+{
+  "artists" : {
+    "items" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/0I2XqVXqHScXjHhk6AYYRe"
+      },
+      "followers" : {
+        "href" : null,
+        "total" : 7753
+      },
+      "genres" : [ "swedish hip hop" ],
+      "href" : "https://api.spotify.com/v1/artists/0I2XqVXqHScXjHhk6AYYRe",
+      "id" : "0I2XqVXqHScXjHhk6AYYRe",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/2c8c0cea05bf3d3c070b7498d8d0b957c4cdec20",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/394302b42c4b894786943e028cdd46d7baaa29b7",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ca9df7225ade6e5dfc62e7076709ca3409a7cbbf",
+        "width" : 64
+      } ],
+      "name" : "Afasi & Filthy",
+      "popularity" : 54,
+      "type" : "artist",
+      "uri" : "spotify:artist:0I2XqVXqHScXjHhk6AYYRe"
+   } ],
+  "next" : "https://api.spotify.com/v1/users/thelinmichael/following?type=artist&after=0aV6DOiouImYTqrR5YlIqx&limit=20",
+  "total" : 183,
+    "cursors" : {
+      "after" : "0aV6DOiouImYTqrR5YlIqx"
+    },
+   "limit" : 20,
+   "href" : "https://api.spotify.com/v1/users/thelinmichael/following?type=artist&limit=20"
+  }
+}`
+	client := testClientString(http.StatusOK, json)
+	addDummyAuth(client)
+	artists, err := client.CurrentUsersFollowedArtists()
+	if err != nil {
+		t.Fatal(err)
+	}
+	exp := 20
+	if artists.Limit != exp {
+		t.Errorf("Expected limit %d, got %d\n", exp, artists.Limit)
+	}
+	if a := artists.Cursor.After; a != "0aV6DOiouImYTqrR5YlIqx" {
+		t.Error("Invalid 'after' cursor")
+	}
+	if l := len(artists.Artists); l != 1 {
+		t.Fatalf("Expected 1 artist, got %d\n", l)
+	}
+	if n := artists.Artists[0].Name; n != "Afasi & Filthy" {
+		t.Error("Got wrong artist name")
 	}
 }

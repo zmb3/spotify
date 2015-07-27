@@ -240,3 +240,46 @@ func (c *Client) modifyFollowers(follow bool, ids ...ID) error {
 	}
 	return nil
 }
+
+// CurrentUsersFollowedArtists gets the current user's followed artists.
+// This call requires authorization, and that the user has granted the
+// ScopeUserFollowRead scope.
+func (c *Client) CurrentUsersFollowedArtists() (*FullArtistCursorPage, error) {
+	return c.CurrentUsersFollowedArtistsOpt(-1, "")
+}
+
+// CurrentUsersFollowedArtistsOpt is like CurrentUsersFollowedArtists,
+// but it accept the optional arguments limit and after.  Limit is the
+// maximum number of items to return (1 <= limit <= 50), and after is
+// the last artist ID retrieved from the previous request.  If you don't
+// wish to specify either of the parameters, use -1 for limit and the empty
+// string for after.
+func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullArtistCursorPage, error) {
+	spotifyURL := baseAddress + "me/following?type=artist"
+	v := url.Values{}
+	if limit != -1 {
+		v.Set("limit", strconv.Itoa(limit))
+	}
+	if after != "" {
+		v.Set("after", after)
+	}
+	if params := v.Encode(); params != "" {
+		spotifyURL += "?" + params
+	}
+	resp, err := c.http.Get(spotifyURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result struct {
+		A FullArtistCursorPage `json:"artists"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result.A, nil
+}
