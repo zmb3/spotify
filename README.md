@@ -110,13 +110,13 @@ results, err := spotify.Search("holiday", SearchTypePlaylist|SearchTypeAlbum)
 
 // handle album results
 if results.Albums != nil {
-    for _, item := results.Albums.Albums {
+    for _, item := range results.Albums.Albums {
         fmt.Println("Album: ", item.Name)
     }
 }
 // handle playlist results
 if results.Playlists != nil {
-    for _, item := results.Playlists.Playlists {
+    for _, item := range results.Playlists.Playlists {
         fmt.Println("Playlist: ", item.Name)
     }
 }
