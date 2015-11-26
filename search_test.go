@@ -66,6 +66,34 @@ func TestSearchTracks(t *testing.T) {
 	}
 }
 
+func TestSearchTrackWithFilter(t *testing.T) {
+	if os.Getenv("FULLTEST") == "" {
+		t.Skip()
+		return
+	}
+
+	result, err := Search("uptown artist:bruno mars", SearchTypeTrack)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if result.Albums != nil {
+		t.Error("Searched for tracks but got album results")
+	}
+	if result.Playlists != nil {
+		t.Error("Searched for tracks but got playlist results")
+	}
+	if result.Artists != nil {
+		t.Error("Searched for tracks but got artist results")
+	}
+	if result.Tracks == nil || len(result.Tracks.Tracks) == 0 {
+		t.Fatal("Didn't receive track results")
+	}
+	if name := result.Tracks.Tracks[0].Name; name != "Uptown Funk" {
+		t.Errorf("Got %s, wanted Uptown Funk\n", name)
+	}
+}
+
 func TestSearchPlaylistTrack(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/search_trackplaylist.txt")
 	result, err := client.Search("holiday", SearchTypePlaylist|SearchTypeTrack)
