@@ -142,7 +142,6 @@ func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
 // If the client has a valid access token, then the results will only include
 // content playable in the user's country.
 func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchResult, error) {
-	query = url.QueryEscape(query)
 	v := url.Values{}
 	v.Set("q", query)
 	v.Set("type", t.encode())
