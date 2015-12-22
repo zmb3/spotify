@@ -1,0 +1,129 @@
+{
+	"href": "https://api.spotify.com/v1/users/zbergquist99/playlists?offset=0&limit=20",
+	"items": [{
+		"collaborative": false,
+		"external_urls": {
+			"spotify": "http://open.spotify.com/user/spotifydiscover/playlist/49rgS5DAQGleEzLzgVN6PK"
+		},
+		"href": "https://api.spotify.com/v1/users/spotifydiscover/playlists/49rgS5DAQGleEzLzgVN6PK",
+		"id": "49rgS5DAQGleEzLzgVN6PK",
+		"images": [{
+			"height": 300,
+			"url": "https://i.scdn.co/image/8f5aaf6fed40ace25b38a62d62eaef5d4b788126",
+			"width": 300
+		}],
+		"name": "Discover Weekly",
+		"owner": {
+			"external_urls": {
+				"spotify": "http://open.spotify.com/user/spotifydiscover"
+			},
+			"href": "https://api.spotify.com/v1/users/spotifydiscover",
+			"id": "spotifydiscover",
+			"type": "user",
+			"uri": "spotify:user:spotifydiscover"
+		},
+		"public": false,
+		"snapshot_id": "tk3IF4Uksr76l3spVkCqtci3OJ4T98ijvh2zuzidrtbSwJhVn9HFdILnF6BVCxJU",
+		"tracks": {
+			"href": "https://api.spotify.com/v1/users/spotifydiscover/playlists/49rgS5DAQGleEzLzgVN6PK/tracks",
+			"total": 30
+		},
+		"type": "playlist",
+		"uri": "spotify:user:spotifydiscover:playlist:49rgS5DAQGleEzLzgVN6PK"
+	}, {
+		"collaborative": false,
+		"external_urls": {
+			"spotify": "http://open.spotify.com/user/spotify/playlist/4BKT5olNFqLB1FAa8OtC8k"
+		},
+		"href": "https://api.spotify.com/v1/users/spotify/playlists/4BKT5olNFqLB1FAa8OtC8k",
+		"id": "4BKT5olNFqLB1FAa8OtC8k",
+		"images": [{
+			"height": 300,
+			"url": "https://i.scdn.co/image/dde0c0ca2931038a00c22f5b0750fd38335bdeff",
+			"width": 300
+		}],
+		"name": "Your Favorite Coffeehouse",
+		"owner": {
+			"external_urls": {
+				"spotify": "http://open.spotify.com/user/spotify"
+			},
+			"href": "https://api.spotify.com/v1/users/spotify",
+			"id": "spotify",
+			"type": "user",
+			"uri": "spotify:user:spotify"
+		},
+		"public": false,
+		"snapshot_id": "12QhxYHYdEJmkz54dlDciQbPgwFhHJrXKTUHm1DN2+2JLS2zPr1F/eDcIYJU3Py9",
+		"tracks": {
+			"href": "https://api.spotify.com/v1/users/spotify/playlists/4BKT5olNFqLB1FAa8OtC8k/tracks",
+			"total": 69
+		},
+		"type": "playlist",
+		"uri": "spotify:user:spotify:playlist:4BKT5olNFqLB1FAa8OtC8k"
+	}, {
+		"collaborative": false,
+		"external_urls": {
+			"spotify": "http://open.spotify.com/user/spotify/playlist/16BpjqQV1Ey0HeDueNDSYz"
+		},
+		"href": "https://api.spotify.com/v1/users/spotify/playlists/16BpjqQV1Ey0HeDueNDSYz",
+		"id": "16BpjqQV1Ey0HeDueNDSYz",
+		"images": [{
+			"height": 300,
+			"url": "https://i.scdn.co/image/6b282f0ad7f5de8c8f04a20268376be638e8241a",
+			"width": 300
+		}],
+		"name": "Afternoon Acoustic",
+		"owner": {
+			"external_urls": {
+				"spotify": "http://open.spotify.com/user/spotify"
+			},
+			"href": "https://api.spotify.com/v1/users/spotify",
+			"id": "spotify",
+			"type": "user",
+			"uri": "spotify:user:spotify"
+		},
+		"public": false,
+		"snapshot_id": "+BmVMef6WTYmcU1IJWJjPgbmlcKaKPLNVS82ei/NXyWmVAJx4hIMmvKptafWkYVb",
+		"tracks": {
+			"href": "https://api.spotify.com/v1/users/spotify/playlists/16BpjqQV1Ey0HeDueNDSYz/tracks",
+			"total": 99
+		},
+		"type": "playlist",
+		"uri": "spotify:user:spotify:playlist:16BpjqQV1Ey0HeDueNDSYz"
+	}, {
+		"collaborative": false,
+		"external_urls": {
+			"spotify": "http://open.spotify.com/user/spotify_uk_/playlist/00XAjSa5jB0MNX56tIKMq0"
+		},
+		"href": "https://api.spotify.com/v1/users/spotify_uk_/playlists/00XAjSa5jB0MNX56tIKMq0",
+		"id": "00XAjSa5jB0MNX56tIKMq0",
+		"images": [{
+			"height": 300,
+			"url": "https://i.scdn.co/image/cbca878ec842b14821604767ff745feb1a0f6130",
+			"width": 300
+		}],
+		"name": "Yoga and Meditation",
+		"owner": {
+			"external_urls": {
+				"spotify": "http://open.spotify.com/user/spotify_uk_"
+			},
+			"href": "https://api.spotify.com/v1/users/spotify_uk_",
+			"id": "spotify_uk_",
+			"type": "user",
+			"uri": "spotify:user:spotify_uk_"
+		},
+		"public": true,
+		"snapshot_id": "Y+IT9jxMArqInFKtUUgZfUHGNg+4ZZ9EyKOkhqwwqEJ6BHAHiHmI8urIpIeYGzAd",
+		"tracks": {
+			"href": "https://api.spotify.com/v1/users/spotify_uk_/playlists/00XAjSa5jB0MNX56tIKMq0/tracks",
+			"total": 31
+		},
+		"type": "playlist",
+		"uri": "spotify:user:spotify_uk_:playlist:00XAjSa5jB0MNX56tIKMq0"
+	}],
+	"limit": 20,
+	"next": null,
+	"offset": 0,
+	"previous": null,
+	"total": 4
+}

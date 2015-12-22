@@ -205,6 +205,43 @@ func TestCurrentUsersAlbums(t *testing.T) {
 	}
 }
 
+func TestCurrentUsersPlaylists(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/current_users_playlists.txt")
+	addDummyAuth(client)
+	playlists, err := client.CurrentUsersPlaylists()
+	if err != nil {
+		t.Error(err)
+	}
+	if playlists.Limit != 20 {
+		t.Errorf("Expected limit 20, got %d\n", playlists.Limit)
+	}
+	if playlists.Total != 4 {
+		t.Errorf("Expected 4 playlists, got %d\n", playlists.Total)
+	}
+	tests := []struct {
+		Name       string
+		Public     bool
+		TrackCount uint
+	}{
+		{"Discover Weekly", false, 30},
+		{"Your Favorite Coffeehouse", false, 69},
+		{"Afternoon Acoustic", false, 99},
+		{"Yoga and Meditation", true, 31},
+	}
+	for i := range tests {
+		p := playlists.Playlists[i]
+		if p.Name != tests[i].Name {
+			t.Errorf("Expected '%s', got '%s'\n", tests[i].Name, p.Name)
+		}
+		if p.IsPublic != tests[i].Public {
+			t.Errorf("Expected public to be %#v, got %#v\n", tests[i].Public, p.IsPublic)
+		}
+		if p.Tracks.Total != tests[i].TrackCount {
+			t.Errorf("Expected %d tracks, got %d\n", tests[i].TrackCount, p.Tracks.Total)
+		}
+	}
+}
+
 func TestUsersFollowedArtists(t *testing.T) {
 	json := `
 {

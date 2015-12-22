@@ -324,3 +324,45 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 	}
 	return &result, nil
 }
+
+// CurrentUsersPlaylists gets a list of the playlists owned or followed by
+// the current spotify user.  This call requires authorization.
+// Private playlists require the ScopePlaylistReadPrivate scope.  Note that
+// this scope alone will not return collaborative playlists, even though
+// they are always private.  In order to retrieve collaborative playlists
+// the user must authorize the ScopePlaylistReadCollaborative scope.
+func (c *Client) CurrentUsersPlaylists() (*SimplePlaylistPage, error) {
+	return c.CurrentUsersPlaylistsOpt(nil)
+}
+
+// CurrentUsersPlaylistsOpt is like CurrentUsersPlaylists, but it accepts
+// additional options for sorting and filtering the results.
+func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, error) {
+	spotifyURL := baseAddress + "me/playlists"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+	resp, err := c.http.Get(spotifyURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result SimplePlaylistPage
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
