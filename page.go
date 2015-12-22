@@ -59,6 +59,12 @@ type SimpleAlbumPage struct {
 	Albums []SimpleAlbum `json:"items"`
 }
 
+// SavedAlbumPage contains SavedAlbums returned by the Web API.
+type SavedAlbumPage struct {
+	basePage
+	Albums []SavedAlbum `json:"items"`
+}
+
 // SimplePlaylistPage contains SimplePlaylists returned by the Web API.
 type SimplePlaylistPage struct {
 	basePage

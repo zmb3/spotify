@@ -176,6 +176,35 @@ func TestCurrentUsersTracks(t *testing.T) {
 	}
 }
 
+func TestCurrentUsersAlbums(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/current_users_albums.txt")
+	addDummyAuth(client)
+	albums, err := client.CurrentUsersAlbums()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if albums.Limit != 20 {
+		t.Errorf("Expected limit 20, got %d\n", albums.Limit)
+	}
+	if albums.Endpoint != "https://api.spotify.com/v1/me/albums?offset=0&limit=20" {
+		t.Error("Endpoint incorrect")
+	}
+	if albums.Total != 2 {
+		t.Errorf("Expect 2 results, got %d\n", albums.Total)
+		return
+	}
+	if len(albums.Albums) != albums.Total {
+		t.Error("Didn't get expected number of results")
+		return
+	}
+	expected := "Love In The Future"
+	if albums.Albums[0].Name != expected {
+		t.Errorf("Expected '%s', got '%s'\n", expected, albums.Albums[0].Name)
+		fmt.Printf("\n%#v\n", albums.Albums[0])
+	}
+}
+
 func TestUsersFollowedArtists(t *testing.T) {
 	json := `
 {

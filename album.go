@@ -81,6 +81,17 @@ type FullAlbum struct {
 	ExternalIDs          ExternalID      `json:"external_ids"`
 }
 
+// SavedAlbum provides info about an album saved to an user's account.
+type SavedAlbum struct {
+	// The date and time the track was saved, represented as an ISO
+	// 8601 UTC timestamp with a zero offset (YYYY-MM-DDTHH:MM:SSZ).
+	// You can use the TimestampLayout constant to convert this to
+	// a time.Time value.
+	AddedAt   string `json:"added_at"`
+	FullAlbum `json:"album"`
+}
+
+
 // ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
 // All of the fields in the result may not be valid.  For example, if
 // f.ReleaseDatePrecision is "month", then only the month and year

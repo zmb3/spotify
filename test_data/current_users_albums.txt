@@ -1,0 +1,978 @@
+{
+  "href" : "https://api.spotify.com/v1/me/albums?offset=0&limit=20",
+  "items" : [ {
+    "added_at" : "2015-12-21T21:42:24Z",
+    "album" : {
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+        },
+        "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+        "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+        "name" : "John Legend",
+        "type" : "artist",
+        "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "copyrights" : [ {
+        "text" : "(P) 2013 Getting Out Our Dreams and Columbia Records, a Division of Sony Music Entertainment",
+        "type" : "P"
+      } ],
+      "external_ids" : {
+        "upc" : "886444160742"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/4OTAx9un4e6NfoHuVRiOrC"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/albums/4OTAx9un4e6NfoHuVRiOrC",
+      "id" : "4OTAx9un4e6NfoHuVRiOrC",
+      "images" : [ {
+        "height" : 636,
+        "url" : "https://i.scdn.co/image/cfc4dd997d3e84b7214517ea749ac37877513449",
+        "width" : 640
+      }, {
+        "height" : 298,
+        "url" : "https://i.scdn.co/image/12bd3a4b4a3946953c2016874506bce7d2c06ac1",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/50cf6dc10028a19efbb449861416b4a18a1e79a0",
+        "width" : 64
+      } ],
+      "name" : "Love In The Future",
+      "popularity" : 76,
+      "release_date" : "2013-08-30",
+      "release_date_precision" : "day",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/albums/4OTAx9un4e6NfoHuVRiOrC/tracks?offset=0&limit=50",
+        "items" : [ {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 40426,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1DM0p3WrhjLh6sddmLK0c9"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1DM0p3WrhjLh6sddmLK0c9",
+          "id" : "1DM0p3WrhjLh6sddmLK0c9",
+          "name" : "Love In The Future (Intro)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/ace5b9c13e27ad124337bd2721936d98d71d6d33",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:1DM0p3WrhjLh6sddmLK0c9"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 205053,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6KLgKZwCJp8GWo35KEOF3S"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6KLgKZwCJp8GWo35KEOF3S",
+          "id" : "6KLgKZwCJp8GWo35KEOF3S",
+          "name" : "The Beginning...",
+          "preview_url" : "https://p.scdn.co/mp3-preview/a6fa29a702871072248ddbef2a5fa05a2e29568d",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:6KLgKZwCJp8GWo35KEOF3S"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 186800,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/03YrTPLMgGXQOlKTTBwgiO"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/03YrTPLMgGXQOlKTTBwgiO",
+          "id" : "03YrTPLMgGXQOlKTTBwgiO",
+          "name" : "Open Your Eyes",
+          "preview_url" : "https://p.scdn.co/mp3-preview/34cb04490cc0893c3e2f6585f6de9b8b45795f06",
+          "track_number" : 3,
+          "type" : "track",
+          "uri" : "spotify:track:03YrTPLMgGXQOlKTTBwgiO"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 240346,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1G2Ya2ubnlS7xFfs1CfY3j"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1G2Ya2ubnlS7xFfs1CfY3j",
+          "id" : "1G2Ya2ubnlS7xFfs1CfY3j",
+          "name" : "Made to Love",
+          "preview_url" : "https://p.scdn.co/mp3-preview/13319680f2943b57020ab193a17846b4b1c27298",
+          "track_number" : 4,
+          "type" : "track",
+          "uri" : "spotify:track:1G2Ya2ubnlS7xFfs1CfY3j"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/0faKlLECzDxSOns5J3faZq"
+            },
+            "href" : "https://api.spotify.com/v1/artists/0faKlLECzDxSOns5J3faZq",
+            "id" : "0faKlLECzDxSOns5J3faZq",
+            "name" : "Rick Ross",
+            "type" : "artist",
+            "uri" : "spotify:artist:0faKlLECzDxSOns5J3faZq"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 292640,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2scd9lw4ljzDwMfG3WW4gD"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2scd9lw4ljzDwMfG3WW4gD",
+          "id" : "2scd9lw4ljzDwMfG3WW4gD",
+          "name" : "Who Do We Think We Are",
+          "preview_url" : "https://p.scdn.co/mp3-preview/0dd17390c9134a0b25114fe60601e8bf3979584e",
+          "track_number" : 5,
+          "type" : "track",
+          "uri" : "spotify:track:2scd9lw4ljzDwMfG3WW4gD"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 269560,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3U4isOIWM3VvDubwSI3y7a"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/3U4isOIWM3VvDubwSI3y7a",
+          "id" : "3U4isOIWM3VvDubwSI3y7a",
+          "name" : "All of Me",
+          "preview_url" : "https://p.scdn.co/mp3-preview/488c53471e56ff9f629652691444438951e880bb",
+          "track_number" : 6,
+          "type" : "track",
+          "uri" : "spotify:track:3U4isOIWM3VvDubwSI3y7a"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 158093,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5GNvTRrghExnVkZfAasBXg"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5GNvTRrghExnVkZfAasBXg",
+          "id" : "5GNvTRrghExnVkZfAasBXg",
+          "name" : "Hold On Longer",
+          "preview_url" : "https://p.scdn.co/mp3-preview/a19c437b055821049dcd154f97b01fccc1ef2a6b",
+          "track_number" : 7,
+          "type" : "track",
+          "uri" : "spotify:track:5GNvTRrghExnVkZfAasBXg"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 189293,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7vugjA0BxBUIRqrdRjncBx"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7vugjA0BxBUIRqrdRjncBx",
+          "id" : "7vugjA0BxBUIRqrdRjncBx",
+          "name" : "Save The Night",
+          "preview_url" : "https://p.scdn.co/mp3-preview/7c405ae49c2c02e8311cf989b5e65ab4ae0c0fc3",
+          "track_number" : 8,
+          "type" : "track",
+          "uri" : "spotify:track:7vugjA0BxBUIRqrdRjncBx"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 212986,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0LoL9e5uLLtjYOx41TRcxE"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0LoL9e5uLLtjYOx41TRcxE",
+          "id" : "0LoL9e5uLLtjYOx41TRcxE",
+          "name" : "Tomorrow",
+          "preview_url" : "https://p.scdn.co/mp3-preview/5c9899fb168fdd18fec1c19f2b6136bb2df023ed",
+          "track_number" : 9,
+          "type" : "track",
+          "uri" : "spotify:track:0LoL9e5uLLtjYOx41TRcxE"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 50786,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3okyrXShiPzxXzWwAGQHIm"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/3okyrXShiPzxXzWwAGQHIm",
+          "id" : "3okyrXShiPzxXzWwAGQHIm",
+          "name" : "What If I Told You? (Interlude)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/7136ce874eb0469c514005d0ef05535a524c5edc",
+          "track_number" : 10,
+          "type" : "track",
+          "uri" : "spotify:track:3okyrXShiPzxXzWwAGQHIm"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 158600,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/37XoUirsSqwmJG9cyBhznJ"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/37XoUirsSqwmJG9cyBhznJ",
+          "id" : "37XoUirsSqwmJG9cyBhznJ",
+          "name" : "Dreams",
+          "preview_url" : "https://p.scdn.co/mp3-preview/7570fe28c9f5169067bbef75c0d609b960c0207e",
+          "track_number" : 11,
+          "type" : "track",
+          "uri" : "spotify:track:37XoUirsSqwmJG9cyBhznJ"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 186133,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1FGINGTZ23XJRf68sN60T9"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1FGINGTZ23XJRf68sN60T9",
+          "id" : "1FGINGTZ23XJRf68sN60T9",
+          "name" : "Wanna Be Loved",
+          "preview_url" : "https://p.scdn.co/mp3-preview/811e3dbc06f9ba0d41a470dea183339420158c90",
+          "track_number" : 12,
+          "type" : "track",
+          "uri" : "spotify:track:1FGINGTZ23XJRf68sN60T9"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/0yq6uHIfFks9yOURUuCITV"
+            },
+            "href" : "https://api.spotify.com/v1/artists/0yq6uHIfFks9yOURUuCITV",
+            "id" : "0yq6uHIfFks9yOURUuCITV",
+            "name" : "Stacy Barthe",
+            "type" : "artist",
+            "uri" : "spotify:artist:0yq6uHIfFks9yOURUuCITV"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 84480,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7tJRs2UPalK0XWwkQ4e73I"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7tJRs2UPalK0XWwkQ4e73I",
+          "id" : "7tJRs2UPalK0XWwkQ4e73I",
+          "name" : "Angel (Interlude)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/51ebcaa1121f0f4777e8e13b9b79dbae8cbf1b3d",
+          "track_number" : 13,
+          "type" : "track",
+          "uri" : "spotify:track:7tJRs2UPalK0XWwkQ4e73I"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 252653,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/55nlbqqFVnSsArIeYSQlqx"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/55nlbqqFVnSsArIeYSQlqx",
+          "id" : "55nlbqqFVnSsArIeYSQlqx",
+          "name" : "You & I (Nobody in the World)",
+          "preview_url" : "https://p.scdn.co/mp3-preview/66e485d41fc984d5ec281027bc078d617b6f47cc",
+          "track_number" : 14,
+          "type" : "track",
+          "uri" : "spotify:track:55nlbqqFVnSsArIeYSQlqx"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 197640,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7lomZYWSJafp2msfEQyjy5"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7lomZYWSJafp2msfEQyjy5",
+          "id" : "7lomZYWSJafp2msfEQyjy5",
+          "name" : "Asylum",
+          "preview_url" : "https://p.scdn.co/mp3-preview/43a85d7c360334fbff704a9ed34db3df45d6cfae",
+          "track_number" : 15,
+          "type" : "track",
+          "uri" : "spotify:track:7lomZYWSJafp2msfEQyjy5"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "ES", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LU", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 225600,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1cR4aNHFDCVESzt8HhxO17"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1cR4aNHFDCVESzt8HhxO17",
+          "id" : "1cR4aNHFDCVESzt8HhxO17",
+          "name" : "Caught Up",
+          "preview_url" : "https://p.scdn.co/mp3-preview/4b6c64c97d624f0464b635f2d42f126107cb3127",
+          "track_number" : 16,
+          "type" : "track",
+          "uri" : "spotify:track:1cR4aNHFDCVESzt8HhxO17"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 286400,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/4jMmMxVZIK6Tykoa3ehmAZ"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/4jMmMxVZIK6Tykoa3ehmAZ",
+          "id" : "4jMmMxVZIK6Tykoa3ehmAZ",
+          "name" : "So Gone",
+          "preview_url" : "https://p.scdn.co/mp3-preview/8080ba3eecc058ba04a1279d1f88ba866d0c9e20",
+          "track_number" : 17,
+          "type" : "track",
+          "uri" : "spotify:track:4jMmMxVZIK6Tykoa3ehmAZ"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5GtMEZEeFFsuHY8ad4kOxv"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5GtMEZEeFFsuHY8ad4kOxv",
+            "id" : "5GtMEZEeFFsuHY8ad4kOxv",
+            "name" : "Seal",
+            "type" : "artist",
+            "uri" : "spotify:artist:5GtMEZEeFFsuHY8ad4kOxv"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 242773,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6FmEVOQProbemD1POcFZji"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6FmEVOQProbemD1POcFZji",
+          "id" : "6FmEVOQProbemD1POcFZji",
+          "name" : "We Loved It",
+          "preview_url" : "https://p.scdn.co/mp3-preview/a2d6ebde5aaeb369240f05de34418bf8c8b1bf01",
+          "track_number" : 18,
+          "type" : "track",
+          "uri" : "spotify:track:6FmEVOQProbemD1POcFZji"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 258066,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/3ZvmOf48d9zZGrVs90CsRH"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/3ZvmOf48d9zZGrVs90CsRH",
+          "id" : "3ZvmOf48d9zZGrVs90CsRH",
+          "name" : "Aim High",
+          "preview_url" : "https://p.scdn.co/mp3-preview/695bd6da7d665af679eb8910a29e63ec19517ef5",
+          "track_number" : 19,
+          "type" : "track",
+          "uri" : "spotify:track:3ZvmOf48d9zZGrVs90CsRH"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/5y2Xq6xcjJb2jVM54GHK3t"
+            },
+            "href" : "https://api.spotify.com/v1/artists/5y2Xq6xcjJb2jVM54GHK3t",
+            "id" : "5y2Xq6xcjJb2jVM54GHK3t",
+            "name" : "John Legend",
+            "type" : "artist",
+            "uri" : "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 312346,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1kzc6gS8MnxCDX7ykBXsxM"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1kzc6gS8MnxCDX7ykBXsxM",
+          "id" : "1kzc6gS8MnxCDX7ykBXsxM",
+          "name" : "For the First Time",
+          "preview_url" : "https://p.scdn.co/mp3-preview/15e5062094f4a60029bc279c37d0268b4bdbbf76",
+          "track_number" : 20,
+          "type" : "track",
+          "uri" : "spotify:track:1kzc6gS8MnxCDX7ykBXsxM"
+        } ],
+        "limit" : 50,
+        "next" : null,
+        "offset" : 0,
+        "previous" : null,
+        "total" : 20
+      },
+      "type" : "album",
+      "uri" : "spotify:album:4OTAx9un4e6NfoHuVRiOrC"
+    }
+  }, {
+    "added_at" : "2015-12-21T21:40:57Z",
+    "album" : {
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+        },
+        "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+        "id" : "10exVja0key0uqUkk6LJRT",
+        "name" : "Vance Joy",
+        "type" : "artist",
+        "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+      "copyrights" : [ {
+        "text" : "2014 Atlantic Recording Corporation for the United States and WEA International Inc. for the world outside of the United States excluding Australia and New Zealand",
+        "type" : "C"
+      }, {
+        "text" : "2014 Atlantic Recording Corporation for the United States and WEA International Inc. for the world outside of the United States excluding Australia and New Zealand.",
+        "type" : "P"
+      } ],
+      "external_ids" : {
+        "upc" : "075679936653"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/6rIbiUMmZJfqJRnXhVxFvg"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/albums/6rIbiUMmZJfqJRnXhVxFvg",
+      "id" : "6rIbiUMmZJfqJRnXhVxFvg",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/0cbd3cf918346f95af5f180e86224943711a2f3a",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/58edae00cdeea2c12c530caca4e8387f45aa7283",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/cc9c6898717766d8a5b3525d3685095bea59e2dd",
+        "width" : 64
+      } ],
+      "name" : "Dream Your Life Away",
+      "popularity" : 70,
+      "release_date" : "2014-07-11",
+      "release_date_precision" : "day",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/albums/6rIbiUMmZJfqJRnXhVxFvg/tracks?offset=0&limit=50",
+        "items" : [ {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 135826,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/1Ud7FWi7UXYXzDsOnkQYMU"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/1Ud7FWi7UXYXzDsOnkQYMU",
+          "id" : "1Ud7FWi7UXYXzDsOnkQYMU",
+          "name" : "Winds Of Change",
+          "preview_url" : "https://p.scdn.co/mp3-preview/749ee1b77e4ed2a8fc307250f416a2611199330e",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:1Ud7FWi7UXYXzDsOnkQYMU"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 223640,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7BVwi9cIzSc6tpyxsp47vJ"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7BVwi9cIzSc6tpyxsp47vJ",
+          "id" : "7BVwi9cIzSc6tpyxsp47vJ",
+          "name" : "Mess Is Mine",
+          "preview_url" : "https://p.scdn.co/mp3-preview/0bb48304530e1d8b5ad0f7e96c3c0064a7ba10dd",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:7BVwi9cIzSc6tpyxsp47vJ"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 300973,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7DmiHaP1MxL9i1p0kHhXq2"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7DmiHaP1MxL9i1p0kHhXq2",
+          "id" : "7DmiHaP1MxL9i1p0kHhXq2",
+          "name" : "Wasted Time",
+          "preview_url" : "https://p.scdn.co/mp3-preview/1a51e4afce9c0a5204cc71c9e198aab097a35893",
+          "track_number" : 3,
+          "type" : "track",
+          "uri" : "spotify:track:7DmiHaP1MxL9i1p0kHhXq2"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 204280,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7yq4Qj7cqayVTp3FF9CWbm"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7yq4Qj7cqayVTp3FF9CWbm",
+          "id" : "7yq4Qj7cqayVTp3FF9CWbm",
+          "name" : "Riptide",
+          "preview_url" : "https://p.scdn.co/mp3-preview/0dd45171d094ca8d374219054879662fe7982462",
+          "track_number" : 4,
+          "type" : "track",
+          "uri" : "spotify:track:7yq4Qj7cqayVTp3FF9CWbm"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 159600,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6ls6Wxw0iivqDIQmlFeG6F"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6ls6Wxw0iivqDIQmlFeG6F",
+          "id" : "6ls6Wxw0iivqDIQmlFeG6F",
+          "name" : "Who Am I",
+          "preview_url" : "https://p.scdn.co/mp3-preview/d995b03d6e4a322298bf632192c89c88cfc850a6",
+          "track_number" : 5,
+          "type" : "track",
+          "uri" : "spotify:track:6ls6Wxw0iivqDIQmlFeG6F"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 262200,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0xLoYaRyQxTDR7kNIo69B3"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0xLoYaRyQxTDR7kNIo69B3",
+          "id" : "0xLoYaRyQxTDR7kNIo69B3",
+          "name" : "From Afar",
+          "preview_url" : "https://p.scdn.co/mp3-preview/82517981641ca15da3870676c56227d2c122828e",
+          "track_number" : 6,
+          "type" : "track",
+          "uri" : "spotify:track:0xLoYaRyQxTDR7kNIo69B3"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 247560,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/7cxg6WIDYoXza9QAOPDRpT"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/7cxg6WIDYoXza9QAOPDRpT",
+          "id" : "7cxg6WIDYoXza9QAOPDRpT",
+          "name" : "We All Die Trying To Get It Right",
+          "preview_url" : "https://p.scdn.co/mp3-preview/1da079eb24b494e20c9c44abd22b3fc6be80bdcb",
+          "track_number" : 7,
+          "type" : "track",
+          "uri" : "spotify:track:7cxg6WIDYoXza9QAOPDRpT"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 230506,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/6Fha6tXHkL3r9m9nNqQG8p"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/6Fha6tXHkL3r9m9nNqQG8p",
+          "id" : "6Fha6tXHkL3r9m9nNqQG8p",
+          "name" : "Georgia",
+          "preview_url" : "https://p.scdn.co/mp3-preview/56b0ed77bb0313edab50d2e62589fe7187de254a",
+          "track_number" : 8,
+          "type" : "track",
+          "uri" : "spotify:track:6Fha6tXHkL3r9m9nNqQG8p"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 303826,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/43YnOHuci8PolOAzI7XoXe"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/43YnOHuci8PolOAzI7XoXe",
+          "id" : "43YnOHuci8PolOAzI7XoXe",
+          "name" : "Red Eye",
+          "preview_url" : "https://p.scdn.co/mp3-preview/a367da070f5d3de1caf01568c63520082dea9115",
+          "track_number" : 9,
+          "type" : "track",
+          "uri" : "spotify:track:43YnOHuci8PolOAzI7XoXe"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 224626,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/2qEv3RLo2KTgjP844901gV"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/2qEv3RLo2KTgjP844901gV",
+          "id" : "2qEv3RLo2KTgjP844901gV",
+          "name" : "First Time",
+          "preview_url" : "https://p.scdn.co/mp3-preview/51bcb5781de0bfc5d69a6c298e3953380773ac41",
+          "track_number" : 10,
+          "type" : "track",
+          "uri" : "spotify:track:2qEv3RLo2KTgjP844901gV"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 216880,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0flEnO91yDqBreMjCayzBF"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0flEnO91yDqBreMjCayzBF",
+          "id" : "0flEnO91yDqBreMjCayzBF",
+          "name" : "All I Ever Wanted",
+          "preview_url" : "https://p.scdn.co/mp3-preview/9919afb276fa6ec2b919a5d603aa2b435f697076",
+          "track_number" : 11,
+          "type" : "track",
+          "uri" : "spotify:track:0flEnO91yDqBreMjCayzBF"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 210320,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/32fDz5sQmtuqukL5sYi4Yk"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/32fDz5sQmtuqukL5sYi4Yk",
+          "id" : "32fDz5sQmtuqukL5sYi4Yk",
+          "name" : "Best That I Can",
+          "preview_url" : "https://p.scdn.co/mp3-preview/b86256f73b33c4e1c5d9ee8c4147bec0857cc7cd",
+          "track_number" : 12,
+          "type" : "track",
+          "uri" : "spotify:track:32fDz5sQmtuqukL5sYi4Yk"
+        }, {
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/10exVja0key0uqUkk6LJRT"
+            },
+            "href" : "https://api.spotify.com/v1/artists/10exVja0key0uqUkk6LJRT",
+            "id" : "10exVja0key0uqUkk6LJRT",
+            "name" : "Vance Joy",
+            "type" : "artist",
+            "uri" : "spotify:artist:10exVja0key0uqUkk6LJRT"
+          } ],
+          "available_markets" : [ "AD", "AR", "AT", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
+          "disc_number" : 1,
+          "duration_ms" : 229840,
+          "explicit" : false,
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/19478RhU7tV6UkD8sWcxo7"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/19478RhU7tV6UkD8sWcxo7",
+          "id" : "19478RhU7tV6UkD8sWcxo7",
+          "name" : "My Kind Of Man",
+          "preview_url" : "https://p.scdn.co/mp3-preview/31710174f97328067803e874e6b14488a5d5e4a5",
+          "track_number" : 13,
+          "type" : "track",
+          "uri" : "spotify:track:19478RhU7tV6UkD8sWcxo7"
+        } ],
+        "limit" : 50,
+        "next" : null,
+        "offset" : 0,
+        "previous" : null,
+        "total" : 13
+      },
+      "type" : "album",
+      "uri" : "spotify:album:6rIbiUMmZJfqJRnXhVxFvg"
+    }
+  } ],
+  "limit" : 20,
+  "next" : null,
+  "offset" : 0,
+  "previous" : null,
+  "total" : 2
+}

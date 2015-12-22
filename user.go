@@ -283,3 +283,44 @@ func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullA
 	}
 	return &result.A, nil
 }
+
+// CurrentUsersAlbums gets a list of albums saved in the current
+// Spotify user's "Your Music" library.
+func (c *Client) CurrentUsersAlbums() (*SavedAlbumPage, error) {
+	return c.CurrentUsersAlbumsOpt(nil)
+}
+
+// CurrentUsersAlbumsOpt is like CurrentUsersAlbums, but it accepts additional
+// options for sorting and filtering the results.
+func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
+	spotifyURL := baseAddress + "me/albums"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
+		}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+	resp, err := c.http.Get(spotifyURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	var result SavedAlbumPage
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
