@@ -36,7 +36,7 @@ type SimpleTrack struct {
 	// true => yes, it does; false => no, it does not.
 	Explicit bool `json:"explicit"`
 	// External URLs for this track.
-	ExternalURLs ExternalURL `json:"external_urls"`
+	ExternalURLs map[string]string `json:"external_urls"`
 	// A link to the Web API endpoint providing full details for this track.
 	Endpoint string `json:"href"`
 	ID       ID     `json:"id"`

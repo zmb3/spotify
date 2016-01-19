@@ -31,7 +31,7 @@ type User struct {
 	// this field when querying for a playlist.
 	DisplayName string `json:"display_name"`
 	// Known public external URLs for the user.
-	ExternalURLs ExternalURL `json:"external_urls"`
+	ExternalURLs map[string]string `json:"external_urls"`
 	// Information about followers of the user.
 	Followers Followers `json:"followers"`
 	// A link to the Web API endpoint for this user.

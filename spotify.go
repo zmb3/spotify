@@ -133,15 +133,6 @@ type ExternalID struct {
 	Value string `json:"{value}"`
 }
 
-// ExternalURL indicates an external, public URL for an item.
-type ExternalURL struct {
-	// The type of the URL, for example:
-	//    "spotify" - The Spotify URL for the object.
-	Key string `json:"{key}"`
-	// An external, public URL to the object.
-	Value string `json:"{value}"`
-}
-
 // Client is a client for working with the Spotify Web API.
 // To create an authenticated client, use the
 // `Authenticator.NewClient` method.  If you don't need to
