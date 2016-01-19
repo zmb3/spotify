@@ -440,7 +440,7 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	for i, id := range trackIDs {
 		uris[i] = fmt.Sprintf("spotify:track:%s", id)
 	}
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?urls=%s",
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?uris=%s",
 		baseAddress, userID, string(playlistID), strings.Join(uris, ","))
 	req, err := http.NewRequest("POST", spotifyURL, nil)
 	if err != nil {
