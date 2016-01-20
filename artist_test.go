@@ -161,4 +161,13 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 	if albums.Albums[0].Name != "The Days / Nights" {
 		t.Error("Expected 'The Days / Nights', got ", albums.Albums[0].Name)
 	}
+
+	url := "https://open.spotify.com/album/3ckwyt0bTOcDbXovWbweMp"
+	spotifyURL, ok := albums.Albums[0].ExternalURLs["spotify"]
+	if !ok {
+		t.Error("Missing Spotify external URL")
+	}
+	if spotifyURL != url {
+		t.Errorf("Wrong Spotify external URL: want %s, got %s\n", url, spotifyURL)
+	}
 }
