@@ -38,7 +38,7 @@ type SimplePlaylist struct {
 	// Indicates whether the playlist owner allows others to modify the playlist.
 	// Note: only non-collaborative playlists are currently returned by Spotify's Web API.
 	Collaborative bool        `json:"collaborative"`
-	ExternalURLs  ExternalURL `json:"external_urls"`
+	ExternalURLs  map[string]string `json:"external_urls"`
 	// A link to the Web API endpoint providing full details of the playlist.
 	Endpoint string `json:"href"`
 	ID       ID     `json:"id"`

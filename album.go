@@ -49,7 +49,7 @@ type SimpleAlbum struct {
 	// widest first.
 	Images []Image `json:"images"`
 	// Known external URLs for this album.
-	ExternalURLs ExternalURL `json:"external_urls"`
+	ExternalURLs map[string]string `json:"external_urls"`
 }
 
 // Copyright contains the copyright statement associated with an album.

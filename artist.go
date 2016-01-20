@@ -31,7 +31,7 @@ type SimpleArtist struct {
 	URI URI `json:"uri"`
 	// A link to the Web API enpoint providing full details of the artist.
 	Endpoint     string      `json:"href"`
-	ExternalURLs ExternalURL `json:"external_urls"`
+	ExternalURLs map[string]string `json:"external_urls"`
 }
 
 // FullArtist provides extra artist data in addition to what is provided by SimpleArtist.
