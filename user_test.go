@@ -203,6 +203,15 @@ func TestCurrentUsersAlbums(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'\n", expected, albums.Albums[0].Name)
 		fmt.Printf("\n%#v\n", albums.Albums[0])
 	}
+
+	upc := "886444160742"
+	u, ok := albums.Albums[0].ExternalIDs["upc"]
+	if !ok {
+		t.Error("External IDs missing UPC")
+	}
+	if u != upc {
+		t.Errorf("Wrong UPC: want %s, got %s\n", upc, u)
+	}
 }
 
 func TestCurrentUsersPlaylists(t *testing.T) {
