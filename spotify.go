@@ -122,17 +122,6 @@ func decodeError(r io.Reader) error {
 	return e.E
 }
 
-// ExternalID contains information that identifies an item.
-type ExternalID struct {
-	// The identifier type, for example:
-	//   "isrc" - International Standard Recording Code
-	//   "ean"  - International Article Number
-	//   "upc"  - Universal Product Code
-	Key string `json:"{key}"`
-	// An external identifier for the object.
-	Value string `json:"{value}"`
-}
-
 // Client is a client for working with the Spotify Web API.
 // To create an authenticated client, use the
 // `Authenticator.NewClient` method.  If you don't need to

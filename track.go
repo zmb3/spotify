@@ -56,7 +56,7 @@ type FullTrack struct {
 	// The album on which the track appears. The album object includes a link in href to full information about the album.
 	Album SimpleAlbum `json:"album"`
 	// Known external IDs for the track.
-	ExternalIDs ExternalID `json:"external_ids"`
+	ExternalIDs map[string]string `json:"external_ids"`
 	// Popularity of the track.  The value will be between 0 and 100,
 	// with 100 being the most popular.  The popularity is calculated from
 	// both total plays and most recent plays.

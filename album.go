@@ -76,9 +76,9 @@ type FullAlbum struct {
 	// to a time.Time value.
 	ReleaseDate string `json:"release_date"`
 	// The precision with which ReleaseDate value is known: "year", "month", or "day"
-	ReleaseDatePrecision string          `json:"release_date_precision"`
-	Tracks               SimpleTrackPage `json:"tracks"`
-	ExternalIDs          ExternalID      `json:"external_ids"`
+	ReleaseDatePrecision string            `json:"release_date_precision"`
+	Tracks               SimpleTrackPage   `json:"tracks"`
+	ExternalIDs          map[string]string `json:"external_ids"`
 }
 
 // SavedAlbum provides info about an album saved to an user's account.
@@ -90,7 +90,6 @@ type SavedAlbum struct {
 	AddedAt   string `json:"added_at"`
 	FullAlbum `json:"album"`
 }
-
 
 // ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
 // All of the fields in the result may not be valid.  For example, if
