@@ -33,7 +33,7 @@ such in the godoc.
 Spotify uses OAuth2 for authentication, which typically requires the user to login
 via a web browser.  This package includes an `Authenticator` type to handle the details for you.
 
-Start by getting registering your application at the following page:
+Start by registering your application at the following page:
 
 https://developer.spotify.com/my-applications/.
 
