@@ -1,0 +1,661 @@
+{
+  "tracks" : [ {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/3b53Nd3oz2VmtBudgUmDVm"
+      },
+      "href" : "https://api.spotify.com/v1/albums/3b53Nd3oz2VmtBudgUmDVm",
+      "id" : "3b53Nd3oz2VmtBudgUmDVm",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/8f55b589f8d117b57b39182eaf065fabca068afb",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/4ec0e31bf1afe4b8555ffea1c489801784e9ed6a",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/39a2cc992748bfc8b748ca9c0432618f0718909e",
+        "width" : 64
+      } ],
+      "name" : "The Book of Madrigals",
+      "type" : "album",
+      "uri" : "spotify:album:3b53Nd3oz2VmtBudgUmDVm"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/1G6jUCigH2z7oGk7jm6OhS"
+      },
+      "href" : "https://api.spotify.com/v1/artists/1G6jUCigH2z7oGk7jm6OhS",
+      "id" : "1G6jUCigH2z7oGk7jm6OhS",
+      "name" : "Heinrich Isaac",
+      "type" : "artist",
+      "uri" : "spotify:artist:1G6jUCigH2z7oGk7jm6OhS"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6Yjl9paMEFt55XWtAnt0cs"
+      },
+      "href" : "https://api.spotify.com/v1/artists/6Yjl9paMEFt55XWtAnt0cs",
+      "id" : "6Yjl9paMEFt55XWtAnt0cs",
+      "name" : "Amarcord",
+      "type" : "artist",
+      "uri" : "spotify:artist:6Yjl9paMEFt55XWtAnt0cs"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 165786,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "DECD60610111"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/7cgi6lRggiLAAzsuJOBBeW"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/7cgi6lRggiLAAzsuJOBBeW",
+    "id" : "7cgi6lRggiLAAzsuJOBBeW",
+    "is_playable" : true,
+    "name" : "Innsbruck, ich muß dich lassen",
+    "popularity" : 20,
+    "preview_url" : "https://p.scdn.co/mp3-preview/ca802676a0bf2e1bb5c94adf583a6e907baecc51",
+    "track_number" : 11,
+    "type" : "track",
+    "uri" : "spotify:track:7cgi6lRggiLAAzsuJOBBeW"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7xndkpntqpWJv78ABczNzO"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7xndkpntqpWJv78ABczNzO",
+      "id" : "7xndkpntqpWJv78ABczNzO",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/e0d815ecd9b9f53a337991063fff9563329c9ba3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/3b1859b40b19a5b8e115770fca0bf1200ada330a",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/4e76264319e49efde9756fbb32aaa7714da2e9e8",
+        "width" : 64
+      } ],
+      "name" : "The Age Of Puccini",
+      "type" : "album",
+      "uri" : "spotify:album:7xndkpntqpWJv78ABczNzO"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/0OzxPXyowUEQ532c9AmHUR"
+      },
+      "href" : "https://api.spotify.com/v1/artists/0OzxPXyowUEQ532c9AmHUR",
+      "id" : "0OzxPXyowUEQ532c9AmHUR",
+      "name" : "Giacomo Puccini",
+      "type" : "artist",
+      "uri" : "spotify:artist:0OzxPXyowUEQ532c9AmHUR"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2OHnFY58Dg8c2SC2PtootB"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2OHnFY58Dg8c2SC2PtootB",
+      "id" : "2OHnFY58Dg8c2SC2PtootB",
+      "name" : "Jonas Kaufmann",
+      "type" : "artist",
+      "uri" : "spotify:artist:2OHnFY58Dg8c2SC2PtootB"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/0Rz5lkGCgaSSycEKtyIbLs"
+      },
+      "href" : "https://api.spotify.com/v1/artists/0Rz5lkGCgaSSycEKtyIbLs",
+      "id" : "0Rz5lkGCgaSSycEKtyIbLs",
+      "name" : "Prague Philharmonic Orchestra",
+      "type" : "artist",
+      "uri" : "spotify:artist:0Rz5lkGCgaSSycEKtyIbLs"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/36WnZcQTHWowOoT1kS3LxV"
+      },
+      "href" : "https://api.spotify.com/v1/artists/36WnZcQTHWowOoT1kS3LxV",
+      "id" : "36WnZcQTHWowOoT1kS3LxV",
+      "name" : "Marco Armiliato",
+      "type" : "artist",
+      "uri" : "spotify:artist:36WnZcQTHWowOoT1kS3LxV"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 311973,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "GBBBA0742400"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/0T02WlrUAK45ApAVVixmcc"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/0T02WlrUAK45ApAVVixmcc",
+    "id" : "0T02WlrUAK45ApAVVixmcc",
+    "is_playable" : true,
+    "name" : "La Bohème / Act 1: \"Che gelida manina\"",
+    "popularity" : 18,
+    "preview_url" : "https://p.scdn.co/mp3-preview/563bef01b1cab0f59f92e77cf3d776b8e1173b50",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:0T02WlrUAK45ApAVVixmcc"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/4fY8Y1BdpjIrR9HWbmV6sH"
+      },
+      "href" : "https://api.spotify.com/v1/albums/4fY8Y1BdpjIrR9HWbmV6sH",
+      "id" : "4fY8Y1BdpjIrR9HWbmV6sH",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9aa654c673591a5d4dd1de20bad49e0d73ec5488",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/a915d009818179028d069feb53b9291f83128967",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/f81a984b384a3156653181eee440d9f13690994e",
+        "width" : 64
+      } ],
+      "name" : "Moments (The Remixes)",
+      "type" : "album",
+      "uri" : "spotify:album:4fY8Y1BdpjIrR9HWbmV6sH"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4NHQUGzhtTLFvgF5SZesLK"
+      },
+      "href" : "https://api.spotify.com/v1/artists/4NHQUGzhtTLFvgF5SZesLK",
+      "id" : "4NHQUGzhtTLFvgF5SZesLK",
+      "name" : "Tove Lo",
+      "type" : "artist",
+      "uri" : "spotify:artist:4NHQUGzhtTLFvgF5SZesLK"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5iNrZmtVMtYev5M9yoWpEq"
+      },
+      "href" : "https://api.spotify.com/v1/artists/5iNrZmtVMtYev5M9yoWpEq",
+      "id" : "5iNrZmtVMtYev5M9yoWpEq",
+      "name" : "Seeb",
+      "type" : "artist",
+      "uri" : "spotify:artist:5iNrZmtVMtYev5M9yoWpEq"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 178947,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "SEUM71600314"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/0GaVkII433PqC4EkMSjWEV"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/0GaVkII433PqC4EkMSjWEV",
+    "id" : "0GaVkII433PqC4EkMSjWEV",
+    "is_playable" : true,
+    "name" : "Moments - Seeb Remix",
+    "popularity" : 59,
+    "preview_url" : "https://p.scdn.co/mp3-preview/608e3fd225cb30c2c69917c0c612d1e6a39b4aca",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:0GaVkII433PqC4EkMSjWEV"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/6acF7PqqIu7w4fAq5C9Jzu"
+      },
+      "href" : "https://api.spotify.com/v1/albums/6acF7PqqIu7w4fAq5C9Jzu",
+      "id" : "6acF7PqqIu7w4fAq5C9Jzu",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/8652c35626604e4643bca507476e6ebdd6008bac",
+        "width" : 636
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/d0429c72ee85e048078751476230f661bf4230c5",
+        "width" : 298
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/4fb51b2101fa5e09141b952793abdce62dbcd1bb",
+        "width" : 64
+      } ],
+      "name" : "Donizetti: Double Concerto / Flute Concertino / Clarinet Concertino",
+      "type" : "album",
+      "uri" : "spotify:album:6acF7PqqIu7w4fAq5C9Jzu"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2jCGEMSZXMSOImpD8sqo56"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2jCGEMSZXMSOImpD8sqo56",
+      "id" : "2jCGEMSZXMSOImpD8sqo56",
+      "name" : "Gaetano Donizetti",
+      "type" : "artist",
+      "uri" : "spotify:artist:2jCGEMSZXMSOImpD8sqo56"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/08rjCUyvQtQWqDYiwb1ODm"
+      },
+      "href" : "https://api.spotify.com/v1/artists/08rjCUyvQtQWqDYiwb1ODm",
+      "id" : "08rjCUyvQtQWqDYiwb1ODm",
+      "name" : "Raymond Meylan",
+      "type" : "artist",
+      "uri" : "spotify:artist:08rjCUyvQtQWqDYiwb1ODm"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4MJZ46co2VqGiDOYLGp3Dy"
+      },
+      "href" : "https://api.spotify.com/v1/artists/4MJZ46co2VqGiDOYLGp3Dy",
+      "id" : "4MJZ46co2VqGiDOYLGp3Dy",
+      "name" : "Béla Kovács",
+      "type" : "artist",
+      "uri" : "spotify:artist:4MJZ46co2VqGiDOYLGp3Dy"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6hULRsinZ7lZhoUYG6Xswl"
+      },
+      "href" : "https://api.spotify.com/v1/artists/6hULRsinZ7lZhoUYG6Xswl",
+      "id" : "6hULRsinZ7lZhoUYG6Xswl",
+      "name" : "Camerata De Budapest",
+      "type" : "artist",
+      "uri" : "spotify:artist:6hULRsinZ7lZhoUYG6Xswl"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/0GoRaC898oaUfHmbnlSObf"
+      },
+      "href" : "https://api.spotify.com/v1/artists/0GoRaC898oaUfHmbnlSObf",
+      "id" : "0GoRaC898oaUfHmbnlSObf",
+      "name" : "Laszlo Kovacs",
+      "type" : "artist",
+      "uri" : "spotify:artist:0GoRaC898oaUfHmbnlSObf"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 250000,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "HKI190448509"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/1H9rGpQ1Xqh45Y13mzfJvU"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/1H9rGpQ1Xqh45Y13mzfJvU",
+    "id" : "1H9rGpQ1Xqh45Y13mzfJvU",
+    "is_playable" : true,
+    "name" : "Clarinet Concerto in B-Flat Major (reconstructed R. Meylan): I. Andante sostenuto",
+    "popularity" : 47,
+    "preview_url" : "https://p.scdn.co/mp3-preview/9d9ad789a97c50c5ba1e9a4b937858bd48a14561",
+    "track_number" : 9,
+    "type" : "track",
+    "uri" : "spotify:track:1H9rGpQ1Xqh45Y13mzfJvU"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/4kM0fZvLy5LjTE9tKKUPZK"
+      },
+      "href" : "https://api.spotify.com/v1/albums/4kM0fZvLy5LjTE9tKKUPZK",
+      "id" : "4kM0fZvLy5LjTE9tKKUPZK",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/bab1d441ecd6b6ba2a6dc4a81416dd5d5c79b096",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8bea14fd1e525bcd9547a84ceebc71599321a4a5",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ced458beb3a7cbb19031f9559484bfcc39066aa8",
+        "width" : 64
+      } ],
+      "name" : "The Renegade EP",
+      "type" : "album",
+      "uri" : "spotify:album:4kM0fZvLy5LjTE9tKKUPZK"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4FJPplt1JOVw8Q7NiwFmLv"
+      },
+      "href" : "https://api.spotify.com/v1/artists/4FJPplt1JOVw8Q7NiwFmLv",
+      "id" : "4FJPplt1JOVw8Q7NiwFmLv",
+      "name" : "Friend Within",
+      "type" : "artist",
+      "uri" : "spotify:artist:4FJPplt1JOVw8Q7NiwFmLv"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 394901,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "GBCEN1300307"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/4BNUJM7oEYNPtXDzvZjcRQ"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/4BNUJM7oEYNPtXDzvZjcRQ",
+    "id" : "4BNUJM7oEYNPtXDzvZjcRQ",
+    "is_playable" : true,
+    "name" : "The Scene",
+    "popularity" : 23,
+    "preview_url" : "https://p.scdn.co/mp3-preview/c683dbc3ba0d0d8136b409bdc2ac6e2fb9c1c91d",
+    "track_number" : 2,
+    "type" : "track",
+    "uri" : "spotify:track:4BNUJM7oEYNPtXDzvZjcRQ"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/6ZjNI6my7T7lPW6Ch7zaWS"
+      },
+      "href" : "https://api.spotify.com/v1/albums/6ZjNI6my7T7lPW6Ch7zaWS",
+      "id" : "6ZjNI6my7T7lPW6Ch7zaWS",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/e2fcdebc2b30c45bd9a01b1fd4a3a79cca258cea",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8fd3fffa291db955e6d4988292e9820ebc62f955",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3b773bec01b0138203a39abfb438347875b0e2d9",
+        "width" : 64
+      } ],
+      "name" : "Borderline (Vanic Remix)",
+      "type" : "album",
+      "uri" : "spotify:album:6ZjNI6my7T7lPW6Ch7zaWS"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2QSPrJfYeRXaltEEiriXN9"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2QSPrJfYeRXaltEEiriXN9",
+      "id" : "2QSPrJfYeRXaltEEiriXN9",
+      "name" : "Tove Styrke",
+      "type" : "artist",
+      "uri" : "spotify:artist:2QSPrJfYeRXaltEEiriXN9"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 256500,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "SEBGA1500079"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/3lO38SiB2WAQRqTAHN7WTC"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/3lO38SiB2WAQRqTAHN7WTC",
+    "id" : "3lO38SiB2WAQRqTAHN7WTC",
+    "is_playable" : true,
+    "name" : "Borderline - Vanic Remix",
+    "popularity" : 67,
+    "preview_url" : "https://p.scdn.co/mp3-preview/9f9297c416d0aef6f37edf282243e333857f9601",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:3lO38SiB2WAQRqTAHN7WTC"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5Hqd8WanKZRnAca5XuaVtA"
+      },
+      "href" : "https://api.spotify.com/v1/albums/5Hqd8WanKZRnAca5XuaVtA",
+      "id" : "5Hqd8WanKZRnAca5XuaVtA",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/3f65c5400c7f24541bfd48e60f646e6af4d6c666",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ff347680d9e62ccc144926377d4769b02a1024dc",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/c836e14a8ceca89e18012cab295f58ceeba72594",
+        "width" : 64
+      } ],
+      "name" : "Emotion (Deluxe)",
+      "type" : "album",
+      "uri" : "spotify:album:5Hqd8WanKZRnAca5XuaVtA"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
+      },
+      "href" : "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
+      "id" : "6sFIWsNpZYqfjUpaCgueju",
+      "name" : "Carly Rae Jepsen",
+      "type" : "artist",
+      "uri" : "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 219892,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USUM71507035"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/6zzZPhrTwS84pOkuqCwI5B"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/6zzZPhrTwS84pOkuqCwI5B",
+    "id" : "6zzZPhrTwS84pOkuqCwI5B",
+    "is_playable" : true,
+    "linked_from" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/5PJKbLCiIkQgir60Sd8DQ5"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/5PJKbLCiIkQgir60Sd8DQ5",
+      "id" : "5PJKbLCiIkQgir60Sd8DQ5",
+      "type" : "track",
+      "uri" : "spotify:track:5PJKbLCiIkQgir60Sd8DQ5"
+    },
+    "name" : "I Didn’t Just Come Here To Dance",
+    "popularity" : 32,
+    "preview_url" : "https://p.scdn.co/mp3-preview/21789e86387657fd44012839cbd5bb8922fdabf4",
+    "track_number" : 14,
+    "type" : "track",
+    "uri" : "spotify:track:6zzZPhrTwS84pOkuqCwI5B"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/0Im5nUhAuNDSYVjfPh7RyS"
+      },
+      "href" : "https://api.spotify.com/v1/albums/0Im5nUhAuNDSYVjfPh7RyS",
+      "id" : "0Im5nUhAuNDSYVjfPh7RyS",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/6e8b8292dd62fb6daf174b5d02232c8700e445b2",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/fc49b48862697c750217ae16005b039e8e511f15",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/e0adc15531b4f3035b67e7956a68a70e6e21070e",
+        "width" : 64
+      } ],
+      "name" : "The Foundation",
+      "type" : "album",
+      "uri" : "spotify:album:0Im5nUhAuNDSYVjfPh7RyS"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6yJCxee7QumYr820xdIsjo"
+      },
+      "href" : "https://api.spotify.com/v1/artists/6yJCxee7QumYr820xdIsjo",
+      "id" : "6yJCxee7QumYr820xdIsjo",
+      "name" : "Zac Brown Band",
+      "type" : "artist",
+      "uri" : "spotify:artist:6yJCxee7QumYr820xdIsjo"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 238146,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USAT20804178"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/4dGJf1SER1T6ooX46vwzRB"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/4dGJf1SER1T6ooX46vwzRB",
+    "id" : "4dGJf1SER1T6ooX46vwzRB",
+    "is_playable" : true,
+    "name" : "Chicken Fried",
+    "popularity" : 74,
+    "preview_url" : "https://p.scdn.co/mp3-preview/55a49554cd2a46602b15a0ba15477073d938c915",
+    "track_number" : 6,
+    "type" : "track",
+    "uri" : "spotify:track:4dGJf1SER1T6ooX46vwzRB"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5Z5O36p7BivXzkucc0PAfw"
+      },
+      "href" : "https://api.spotify.com/v1/albums/5Z5O36p7BivXzkucc0PAfw",
+      "id" : "5Z5O36p7BivXzkucc0PAfw",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/7e9bae0ae734885351bbf0ea571610c3d6dea9d4",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/6208f8ecb93d6bd436666c42d7aea57832570518",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/1676d7633bdb51d1be5f001095ae8a2763e13cb2",
+        "width" : 64
+      } ],
+      "name" : "Queen Of The Clouds",
+      "type" : "album",
+      "uri" : "spotify:album:5Z5O36p7BivXzkucc0PAfw"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4NHQUGzhtTLFvgF5SZesLK"
+      },
+      "href" : "https://api.spotify.com/v1/artists/4NHQUGzhtTLFvgF5SZesLK",
+      "id" : "4NHQUGzhtTLFvgF5SZesLK",
+      "name" : "Tove Lo",
+      "type" : "artist",
+      "uri" : "spotify:artist:4NHQUGzhtTLFvgF5SZesLK"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 214866,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "SEUM71401542"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/25I4pBnup7EeerWd61G61i"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/25I4pBnup7EeerWd61G61i",
+    "id" : "25I4pBnup7EeerWd61G61i",
+    "is_playable" : true,
+    "name" : "Timebomb",
+    "popularity" : 48,
+    "preview_url" : "https://p.scdn.co/mp3-preview/d404d59b4ef0b84a811829fa272ea8b0f28da83b",
+    "track_number" : 5,
+    "type" : "track",
+    "uri" : "spotify:track:25I4pBnup7EeerWd61G61i"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/6HTApVGuu1fLH9QBbB3vEQ"
+      },
+      "href" : "https://api.spotify.com/v1/albums/6HTApVGuu1fLH9QBbB3vEQ",
+      "id" : "6HTApVGuu1fLH9QBbB3vEQ",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/6a00e075a31bff0d6b50650e2a20d1d4e471375e",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8c30d19bdc118795a8e058f7c79006117c915885",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/bf05e846a0376ef0fa238016ea51f2e5a7fe2cfd",
+        "width" : 64
+      } ],
+      "name" : "Copland Conducts Copland - Expanded Edition (Fanfare for the Common Man, Appalachian Spring, Old American Songs (Complete), Rodeo: Four Dance Episodes)",
+      "type" : "album",
+      "uri" : "spotify:album:6HTApVGuu1fLH9QBbB3vEQ"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/0nJvyjVTb8sAULPYyA1bqU"
+      },
+      "href" : "https://api.spotify.com/v1/artists/0nJvyjVTb8sAULPYyA1bqU",
+      "id" : "0nJvyjVTb8sAULPYyA1bqU",
+      "name" : "Aaron Copland",
+      "type" : "artist",
+      "uri" : "spotify:artist:0nJvyjVTb8sAULPYyA1bqU"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5yxyJsFanEAuwSM5kOuZKc"
+      },
+      "href" : "https://api.spotify.com/v1/artists/5yxyJsFanEAuwSM5kOuZKc",
+      "id" : "5yxyJsFanEAuwSM5kOuZKc",
+      "name" : "London Symphony Orchestra",
+      "type" : "artist",
+      "uri" : "spotify:artist:5yxyJsFanEAuwSM5kOuZKc"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 205533,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USSM17000963"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/2URjwQulkDiDmFdjSPrcSc"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/2URjwQulkDiDmFdjSPrcSc",
+    "id" : "2URjwQulkDiDmFdjSPrcSc",
+    "is_playable" : true,
+    "name" : "Appalachian Spring: Moderato - Coda",
+    "popularity" : 27,
+    "preview_url" : "https://p.scdn.co/mp3-preview/7c88d67dbd39c35e1aac847401b56e290b32f57d",
+    "track_number" : 9,
+    "type" : "track",
+    "uri" : "spotify:track:2URjwQulkDiDmFdjSPrcSc"
+  } ],
+  "seeds" : [ {
+    "initialPoolSize" : 250,
+    "afterFilteringSize" : 250,
+    "afterRelinkingSize" : 249,
+    "id" : "4NHQUGzhtTLFvgF5SZesLK",
+    "type" : "ARTIST",
+    "href" : "https://api.spotify.com/v1/artists/4NHQUGzhtTLFvgF5SZesLK"
+  }, {
+    "initialPoolSize" : 250,
+    "afterFilteringSize" : 250,
+    "afterRelinkingSize" : 207,
+    "id" : "0c6xIDDpzE81m2q797ordA",
+    "type" : "TRACK",
+    "href" : "https://api.spotify.com/v1/tracks/0c6xIDDpzE81m2q797ordA"
+  }, {
+    "initialPoolSize" : 517,
+    "afterFilteringSize" : 313,
+    "afterRelinkingSize" : 310,
+    "id" : "classical",
+    "type" : "GENRE",
+    "href" : null
+  }, {
+    "initialPoolSize" : 1000,
+    "afterFilteringSize" : 313,
+    "afterRelinkingSize" : 293,
+    "id" : "country",
+    "type" : "GENRE",
+    "href" : null
+  } ]
+}
