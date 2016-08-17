@@ -105,25 +105,28 @@ const (
 
 // GetAudioFeatures queries the Spotify Web API for various
 // high-level acoustic attributes of audio tracks.
-// Objects are returned in the order requested.  If an object
-// is not found, a nil value is returned in the appropriate position.
+// Objects are returned in the order requested. If an object
+// is not found an error is thrown.
 // This call requires authorization.
 func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
-	url := baseAddress + "audio-features"
-	resp, err := c.http.Get(url)
-	if err != nil {
-		return nil, err
+	url := baseAddress + "audio-features/"
+	var audioFeatures []*AudioFeatures
+	for _, id := range ids {
+		tempUrl := url + string(id)
+		resp, err := c.http.Get(tempUrl)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			return nil, decodeError(resp.Body)
+		}
+		temp := AudioFeatures{}
+		err = json.NewDecoder(resp.Body).Decode(&temp)
+		if err != nil {
+			return nil, err
+		}
+		audioFeatures = append(audioFeatures, &temp)
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-	temp := struct {
-		F []*AudioFeatures `json:"audio_features"`
-	}{}
-	err = json.NewDecoder(resp.Body).Decode(&temp)
-	if err != nil {
-		return nil, err
-	}
-	return temp.F, nil
+	return audioFeatures, nil
 }
