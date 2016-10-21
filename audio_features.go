@@ -2,7 +2,9 @@ package spotify
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 )
 
 // AudioFeatures contains various high-level acoustic attributes
@@ -109,7 +111,7 @@ const (
 // is not found, a nil value is returned in the appropriate position.
 // This call requires authorization.
 func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
-	url := baseAddress + "audio-features"
+	url := fmt.Sprintf("%saudio-features?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
 	resp, err := c.http.Get(url)
 	if err != nil {
 		return nil, err
