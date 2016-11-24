@@ -30,7 +30,7 @@ type AudioFeatures struct {
 	// and noisy.
 	Energy float32 `json:"energy"`
 	// The Spotify ID for the track.
-	ID ID `json:id`
+	ID ID `json:"id"`
 	// Predicts whether a track contains no vocals.  "Ooh" and "aah" sounds are
 	// treated as instrumental in this context.  Rap or spoken words are clearly
 	// "vocal".  The closer the Instrumentalness value is to 1.0, the greater

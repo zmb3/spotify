@@ -89,6 +89,6 @@ func TestAudioFeatures(t *testing.T) {
 		t.Errorf("Want nil result, got #%v\n", features[2])
 	}
 	if Key(features[0].Key) != G {
-		t.Errorf("Want key G, got %s\n", features[0].Key)
+		t.Errorf("Want key G, got %v\n", features[0].Key)
 	}
 }

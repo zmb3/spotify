@@ -78,10 +78,7 @@ func (i Image) Download(dst io.Writer) error {
 		return errors.New("Couldn't download image - HTTP" + strconv.Itoa(resp.StatusCode))
 	}
 	_, err = io.Copy(dst, resp.Body)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 // Error represents an error returned by the Spotify Web API.
