@@ -379,7 +379,8 @@ func TestReplacePlaylistTracksForbidden(t *testing.T) {
 
 func TestReorderPlaylistRequest(t *testing.T) {
 	client := testClientString(http.StatusNotFound, "")
-	client.ReorderPlaylistTracks("user", "playlist", PlaylistReorderOptions{
+	userID := "user"
+	client.ReorderPlaylistTracks(userID, "playlist", PlaylistReorderOptions{
 		RangeStart:   3,
 		InsertBefore: 8,
 	})

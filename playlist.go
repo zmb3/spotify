@@ -634,7 +634,7 @@ type PlaylistReorderOptions struct {
 // public playlist requires ScopePlaylistModifyPublic.  Reordering tracks in
 // the user's private playlists (including collaborative playlists) requires
 // ScopePlaylistModifyPrivate.
-func (c *Client) ReorderPlaylistTracks(userID, playlistID ID, opt PlaylistReorderOptions) (snapshotID string, err error) {
+func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt PlaylistReorderOptions) (snapshotID string, err error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)
 	j, err := json.Marshal(opt)
 	if err != nil {
