@@ -89,13 +89,31 @@ func TestFollowUsersMissingScope(t *testing.T) {
 	client := testClientString(http.StatusForbidden, json)
 	addDummyAuth(client)
 
-	err := client.Follow(ID("exampleuser01"))
+	err := client.FollowUser(ID("exampleuser01"))
 	if serr, ok := err.(Error); !ok {
 		t.Error("Expected insufficient client scope error")
 	} else {
 		if serr.Status != http.StatusForbidden {
 			t.Error("Expected HTTP 403")
 		}
+	}
+
+	if req := getLastRequest(client); req.URL.Query().Get("type") != "user" {
+		t.Error("Request made with the wrong type parameter")
+	}
+
+}
+
+func TestFollowArtist(t *testing.T) {
+	client := testClientString(http.StatusNoContent, "")
+	addDummyAuth(client)
+	err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if req := getLastRequest(client); req.URL.Query().Get("type") != "artist" {
+		t.Error("Request made with the wrong type parameter")
 	}
 }
 
@@ -109,13 +127,16 @@ func TestFollowUsersInvalidToken(t *testing.T) {
 	client := testClientString(http.StatusUnauthorized, json)
 	addDummyAuth(client)
 
-	err := client.Follow(ID("dummyID"))
+	err := client.FollowUser(ID("dummyID"))
 	if serr, ok := err.(Error); !ok {
 		t.Error("Expected invalid token error")
 	} else {
 		if serr.Status != http.StatusUnauthorized {
 			t.Error("Expected HTTP 401")
 		}
+	}
+	if req := getLastRequest(client); req.URL.Query().Get("type") != "user" {
+		t.Error("Request made with the wrong type parameter")
 	}
 }
 
