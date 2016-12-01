@@ -222,11 +222,11 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	return result, nil
 }
 
-func (c *Client) modifyFollowers(usertype string,follow bool, ids ...ID) error {
+func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error {
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
-	spotifyURL := baseAddress + "me/following?type="+ usertype +"&ids=" + strings.Join(toStringSlice(ids), ",")
+	spotifyURL := baseAddress + "me/following?type=" + usertype + "&ids=" + strings.Join(toStringSlice(ids), ",")
 	method := "PUT"
 	if !follow {
 		method = "DELETE"
