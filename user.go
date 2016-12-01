@@ -226,7 +226,10 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
-	spotifyURL := baseAddress + "me/following?type=" + usertype + "&ids=" + strings.Join(toStringSlice(ids), ",")
+	v := url.Values{}
+	v.Add("type", usertype)
+	v.Add("ids", strings.Join(toStringSlice(ids), ","))
+	spotifyURL := baseAddress + "me/following?" + v.Encode()
 	method := "PUT"
 	if !follow {
 		method = "DELETE"
