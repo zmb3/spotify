@@ -89,7 +89,7 @@ func TestFollowUsersMissingScope(t *testing.T) {
 	client := testClientString(http.StatusForbidden, json)
 	addDummyAuth(client)
 
-	err := client.Follow(ID("exampleuser01"))
+	err := client.FollowUser(ID("exampleuser01"))
 	if serr, ok := err.(Error); !ok {
 		t.Error("Expected insufficient client scope error")
 	} else {
@@ -109,7 +109,7 @@ func TestFollowUsersInvalidToken(t *testing.T) {
 	client := testClientString(http.StatusUnauthorized, json)
 	addDummyAuth(client)
 
-	err := client.Follow(ID("dummyID"))
+	err := client.FollowUser(ID("dummyID"))
 	if serr, ok := err.(Error); !ok {
 		t.Error("Expected invalid token error")
 	} else {
