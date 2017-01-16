@@ -1,10 +1,12 @@
 package spotify
 
 import (
+	"crypto/tls"
 	"errors"
 	"net/http"
 	"os"
 
+	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
 
@@ -69,6 +71,13 @@ type Authenticator struct {
 	config *oauth2.Config
 }
 
+var (
+	tr = &http.Transport{
+		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
+	}
+	ctx = context.WithValue(context.TODO(), oauth2.HTTPClient, &http.Client{Transport: tr})
+)
+
 // NewAuthenticator creates an authenticator which is used to implement the
 // OAuth2 authorization flow.  The redirectURL must exactly match one of the
 // URLs specified in your Spotify developer account.
@@ -125,18 +134,19 @@ func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, erro
 	if actualState != state {
 		return nil, errors.New("spotify: redirect state parameter doesn't match")
 	}
-	return a.config.Exchange(oauth2.NoContext, code)
+	return a.config.Exchange(ctx, code)
 }
 
 // Exchange is like Token, except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
 func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
-	return a.config.Exchange(oauth2.NoContext, code)
+	return a.config.Exchange(ctx, code)
 }
 
 // NewClient creates a Client that will use the specified access token for its API requests.
 func (a Authenticator) NewClient(token *oauth2.Token) Client {
+	client := a.config.Client(ctx, token)
 	return Client{
-		http: a.config.Client(oauth2.NoContext, token),
+		http: client,
 	}
 }
