@@ -99,7 +99,7 @@ func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
 	tr := &http.Transport{
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}
-	ctx := context.WithValue(context.TODO(), oauth2.HTTPClient, &http.Client{Transport: tr})
+	ctx := context.WithValue(context.Background(), oauth2.HTTPClient, &http.Client{Transport: tr})
 	return Authenticator{
 		config:  cfg,
 		context: ctx,
