@@ -1,10 +1,12 @@
 package spotify
 
 import (
+	"crypto/tls"
 	"errors"
 	"net/http"
 	"os"
 
+	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
 
@@ -66,7 +68,8 @@ const (
 //     client := a.NewClient(token)
 //
 type Authenticator struct {
-	config *oauth2.Config
+	config  *oauth2.Config
+	context context.Context
 }
 
 // NewAuthenticator creates an authenticator which is used to implement the
@@ -88,8 +91,18 @@ func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
 			TokenURL: TokenURL,
 		},
 	}
+
+	// The default http.Transport should be overriden giving a non nil value to TLSNextProto
+	// to force HTTP/1, as discussed in https://github.com/zmb3/spotify/issues/20.
+	// According to the documentation, this is the only way it can be done
+	// (https://golang.org/src/net/http/transport.go, line 195)
+	tr := &http.Transport{
+		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
+	}
+	ctx := context.WithValue(context.Background(), oauth2.HTTPClient, &http.Client{Transport: tr})
 	return Authenticator{
-		config: cfg,
+		config:  cfg,
+		context: ctx,
 	}
 }
 
@@ -125,18 +138,19 @@ func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, erro
 	if actualState != state {
 		return nil, errors.New("spotify: redirect state parameter doesn't match")
 	}
-	return a.config.Exchange(oauth2.NoContext, code)
+	return a.config.Exchange(a.context, code)
 }
 
 // Exchange is like Token, except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
 func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
-	return a.config.Exchange(oauth2.NoContext, code)
+	return a.config.Exchange(a.context, code)
 }
 
 // NewClient creates a Client that will use the specified access token for its API requests.
 func (a Authenticator) NewClient(token *oauth2.Token) Client {
+	client := a.config.Client(a.context, token)
 	return Client{
-		http: a.config.Client(oauth2.NoContext, token),
+		http: client,
 	}
 }
