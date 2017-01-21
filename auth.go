@@ -92,10 +92,7 @@ func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
 		},
 	}
 
-	// The default http.Transport should be overriden giving a non nil value to TLSNextProto
-	// to force HTTP/1, as discussed in https://github.com/zmb3/spotify/issues/20.
-	// According to the documentation, this is the only way it can be done
-	// (https://golang.org/src/net/http/transport.go, line 195)
+	// disable HTTP/2 for DefaultClient, see: https://github.com/zmb3/spotify/issues/20
 	tr := &http.Transport{
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}

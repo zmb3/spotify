@@ -12,6 +12,9 @@ import (
 	"strconv"
 )
 
+// Version is the version of this library.
+const Version = "1.0.0"
+
 const (
 	// DateLayout can be used with time.Parse to create time.Time values
 	// from Spotify date strings.  For example, PrivateUser.Birthdate
@@ -44,10 +47,7 @@ type URI string
 type ID string
 
 func init() {
-	// The default http.Transport should be overriden giving a non nil value to TLSNextProto
-	// to force HTTP/1, as discussed in https://github.com/zmb3/spotify/issues/20.
-	// According to the documentation, this is the only way it can be done
-	// (https://golang.org/src/net/http/transport.go, line 195)
+	// disable HTTP/2 for DefaultClient, see: https://github.com/zmb3/spotify/issues/20
 	tr := &http.Transport{
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}
