@@ -263,8 +263,9 @@ func (c *Client) CurrentUsersFollowedArtists() (*FullArtistCursorPage, error) {
 // wish to specify either of the parameters, use -1 for limit and the empty
 // string for after.
 func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullArtistCursorPage, error) {
-	spotifyURL := baseAddress + "me/following?type=artist"
+	spotifyURL := baseAddress + "me/following"
 	v := url.Values{}
+	v.Set("type", "artist")
 	if limit != -1 {
 		v.Set("limit", strconv.Itoa(limit))
 	}

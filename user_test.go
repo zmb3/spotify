@@ -320,3 +320,14 @@ func TestUsersFollowedArtists(t *testing.T) {
 		t.Error("Got wrong artist name")
 	}
 }
+
+func TestCurrentUsersFollowedArtistsOpt(t *testing.T) {
+	client := testClientString(http.StatusOK, "{}")
+	addDummyAuth(client)
+	client.CurrentUsersFollowedArtistsOpt(50, "0aV6DOiouImYTqrR5YlIqx")
+	requestURL := getLastRequest(client).URL.String()
+	exp := baseAddress + "me/following?after=0aV6DOiouImYTqrR5YlIqx&limit=50&type=artist"
+	if requestURL != exp {
+		t.Errorf("Expected requested URL to be %s, got %s ", exp, requestURL)
+	}
+}
