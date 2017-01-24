@@ -114,3 +114,24 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 	}
 	return &recommendations, err
 }
+
+// GetAvailableGenreSeeds retrieves a list of available genres seed parameter values for
+// recommendations.
+func (c *Client) GetAvailableGenreSeeds() ([]string, error) {
+	spotifyURL := baseAddress + "recommendations/available-genre-seeds"
+	resp, err := c.http.Get(spotifyURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, decodeError(resp.Body)
+	}
+	genreSeeds := make(map[string][]string)
+	err = json.NewDecoder(resp.Body).Decode(&genreSeeds)
+	if err != nil {
+		return nil, err
+	}
+	return genreSeeds["genres"], nil
+}
