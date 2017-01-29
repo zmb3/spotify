@@ -57,7 +57,7 @@ func TestFindAlbums(t *testing.T) {
 		return
 	}
 	if len(res) != 4 {
-		t.Errorf("Expected 3 albums, got %d", len(res))
+		t.Errorf("Expected 4 albums, got %d", len(res))
 		return
 	}
 	expectedAlbums := []string{
