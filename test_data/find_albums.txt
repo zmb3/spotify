@@ -1822,5 +1822,338 @@
     },
     "type" : "album",
     "uri" : "spotify:album:6UXCm6bOO4gFlDQZV5yL37"
+  }, {
+    "album_type" : "album",
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+      },
+      "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+      "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+      "name" : "Battles",
+      "type" : "artist",
+      "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+    } ],
+    "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+    "copyrights" : [ {
+      "text" : "2007 Warp Records Limited",
+      "type" : "C"
+    }, {
+      "text" : "2007 Warp Records Limited",
+      "type" : "P"
+    } ],
+    "external_ids" : {
+      "upc" : "0801061015633"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/album/0X8vBD8h1Ga9eLT8jx9VCC"
+    },
+    "genres" : [ ],
+    "href" : "https://api.spotify.com/v1/albums/0X8vBD8h1Ga9eLT8jx9VCC",
+    "id" : "0X8vBD8h1Ga9eLT8jx9VCC",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/2d76f48bdf22a82816cdc0900fc696056b473e9b",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/4d278b031bf4a0547e5536913ab452641bfb1a5e",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/514827dfae5b3e54f48ec955233d662386ecd633",
+      "width" : 64
+    } ],
+    "label" : "Warp Records",
+    "name" : "Mirrored",
+    "popularity" : 45,
+    "release_date" : "2007-03",
+    "release_date_precision" : "month",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/albums/0X8vBD8h1Ga9eLT8jx9VCC/tracks?offset=0&limit=50",
+      "items" : [ {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 290786,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/5MPiHZimJ4urU9cvR2rUAn"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5MPiHZimJ4urU9cvR2rUAn",
+        "id" : "5MPiHZimJ4urU9cvR2rUAn",
+        "name" : "Race : In",
+        "preview_url" : "https://p.scdn.co/mp3-preview/14c42595cba5d0548199452b9bb5bc4f02bc29bb?cid=null",
+        "track_number" : 1,
+        "type" : "track",
+        "uri" : "spotify:track:5MPiHZimJ4urU9cvR2rUAn"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 427200,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/0RUpgzacb8DwZB5B3IPO23"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/0RUpgzacb8DwZB5B3IPO23",
+        "id" : "0RUpgzacb8DwZB5B3IPO23",
+        "name" : "Atlas",
+        "preview_url" : "https://p.scdn.co/mp3-preview/effbf5ee75e09c832852dd2b6d180002641637a0?cid=null",
+        "track_number" : 2,
+        "type" : "track",
+        "uri" : "spotify:track:0RUpgzacb8DwZB5B3IPO23"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 153840,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/6I5TrlHsY108HpSoYyXNsQ"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/6I5TrlHsY108HpSoYyXNsQ",
+        "id" : "6I5TrlHsY108HpSoYyXNsQ",
+        "name" : "Ddiamondd",
+        "preview_url" : "https://p.scdn.co/mp3-preview/eaebb7bb1262148c8d9da0780e33f4a8ece56dd5?cid=null",
+        "track_number" : 3,
+        "type" : "track",
+        "uri" : "spotify:track:6I5TrlHsY108HpSoYyXNsQ"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 463146,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/1wlvLwSy8jXzCUsWFJf8wc"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/1wlvLwSy8jXzCUsWFJf8wc",
+        "id" : "1wlvLwSy8jXzCUsWFJf8wc",
+        "name" : "Tonto",
+        "preview_url" : "https://p.scdn.co/mp3-preview/d8f4aea095eb9e42e3549ae2955616c87a7838b0?cid=null",
+        "track_number" : 4,
+        "type" : "track",
+        "uri" : "spotify:track:1wlvLwSy8jXzCUsWFJf8wc"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 168213,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/0k9Bz6pdjy3i8TQM4iCxpS"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/0k9Bz6pdjy3i8TQM4iCxpS",
+        "id" : "0k9Bz6pdjy3i8TQM4iCxpS",
+        "name" : "Leyendecker",
+        "preview_url" : "https://p.scdn.co/mp3-preview/5f85b4b75a7d009b227bc51ccfa6a347203308d0?cid=null",
+        "track_number" : 5,
+        "type" : "track",
+        "uri" : "spotify:track:0k9Bz6pdjy3i8TQM4iCxpS"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 491053,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/6wRSFdxXTPeM7uMWaWrIVX"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/6wRSFdxXTPeM7uMWaWrIVX",
+        "id" : "6wRSFdxXTPeM7uMWaWrIVX",
+        "name" : "Rainbow",
+        "preview_url" : "https://p.scdn.co/mp3-preview/a9be48f0d9b8251c7ecc22a607188c29d82bbd84?cid=null",
+        "track_number" : 6,
+        "type" : "track",
+        "uri" : "spotify:track:6wRSFdxXTPeM7uMWaWrIVX"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 318213,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/7IzrVHRczVExyJRHbnirCp"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/7IzrVHRczVExyJRHbnirCp",
+        "id" : "7IzrVHRczVExyJRHbnirCp",
+        "name" : "Bad Trails",
+        "preview_url" : "https://p.scdn.co/mp3-preview/179b649697f817104c5b54e916791e0951395666?cid=null",
+        "track_number" : 7,
+        "type" : "track",
+        "uri" : "spotify:track:7IzrVHRczVExyJRHbnirCp"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 52453,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/04z8PefziPyTXfGsSEDrHq"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/04z8PefziPyTXfGsSEDrHq",
+        "id" : "04z8PefziPyTXfGsSEDrHq",
+        "name" : "Prismism",
+        "preview_url" : "https://p.scdn.co/mp3-preview/6d99258ea4db30e4f0fe7e312b6e15c7509d2e86?cid=null",
+        "track_number" : 8,
+        "type" : "track",
+        "uri" : "spotify:track:04z8PefziPyTXfGsSEDrHq"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 118853,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/3YYO94wNxI4vbBO4i6eVUy"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3YYO94wNxI4vbBO4i6eVUy",
+        "id" : "3YYO94wNxI4vbBO4i6eVUy",
+        "name" : "Snare Hangar",
+        "preview_url" : "https://p.scdn.co/mp3-preview/7a99969ce994d4297fd73a4ab90c18921b051e85?cid=null",
+        "track_number" : 9,
+        "type" : "track",
+        "uri" : "spotify:track:3YYO94wNxI4vbBO4i6eVUy"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 423906,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/28kZe5Nyf2xM7bc34swh6c"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/28kZe5Nyf2xM7bc34swh6c",
+        "id" : "28kZe5Nyf2xM7bc34swh6c",
+        "name" : "Tij",
+        "preview_url" : "https://p.scdn.co/mp3-preview/204c28361f5c8d033e7be13bceb633ef41f5acd4?cid=null",
+        "track_number" : 10,
+        "type" : "track",
+        "uri" : "spotify:track:28kZe5Nyf2xM7bc34swh6c"
+      }, {
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EMSpwRtkvUTxfB4aS5xnA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3EMSpwRtkvUTxfB4aS5xnA",
+          "id" : "3EMSpwRtkvUTxfB4aS5xnA",
+          "name" : "Battles",
+          "type" : "artist",
+          "uri" : "spotify:artist:3EMSpwRtkvUTxfB4aS5xnA"
+        } ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "US", "UY" ],
+        "disc_number" : 1,
+        "duration_ms" : 209520,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/5WTRxDonKjcAcq12oTViPv"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5WTRxDonKjcAcq12oTViPv",
+        "id" : "5WTRxDonKjcAcq12oTViPv",
+        "name" : "Race : Out",
+        "preview_url" : "https://p.scdn.co/mp3-preview/aa08ad717413a332be55aa0645c6651f8e59659d?cid=null",
+        "track_number" : 11,
+        "type" : "track",
+        "uri" : "spotify:track:5WTRxDonKjcAcq12oTViPv"
+      } ],
+      "limit" : 50,
+      "next" : null,
+      "offset" : 0,
+      "previous" : null,
+      "total" : 11
+    },
+    "type" : "album",
+    "uri" : "spotify:album:0X8vBD8h1Ga9eLT8jx9VCC"
   } ]
 }

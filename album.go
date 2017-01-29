@@ -87,7 +87,7 @@ func (f *FullAlbum) ReleaseDateTime() time.Time {
 		return result
 	}
 	if f.ReleaseDatePrecision == "month" {
-		ym := strings.Split("-", f.ReleaseDate)
+		ym := strings.Split(f.ReleaseDate, "-")
 		year, _ := strconv.Atoi(ym[0])
 		month, _ := strconv.Atoi(ym[1])
 		return time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
