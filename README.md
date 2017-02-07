@@ -9,27 +9,6 @@ Spotify
 This is a Go wrapper for working with Spotify's
 [Web API](https://developer.spotify.com/web-api/).
 
-<div style="margin: 25px;">
-<a href="https://rapidapi.com/package/SpotifyPublicAPI/functions?utm_source=SpotifyGitHub&utm_medium=button&utm_content=Vendor_GitHub" style="
-    all: initial;
-    background-color: #498FE1;
-    border-width: 0;
-    border-radius: 5px;
-    padding: 10px 20px;
-    color: white;
-    font-family: 'Helvetica';
-    font-size: 12pt;
-    background-image: url(https://scdn.rapidapi.com/logo-small.png);
-    background-size: 25px;
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 10px;
-    padding-left: 44px;
-    cursor: pointer;">
-  Test on <b>RapidAPI</b>
-</a>
-</div>
-
 It aims to support every task listed in the Web API Endpoint Reference,
 located [here](https://developer.spotify.com/web-api/endpoint-reference/).
 
@@ -123,3 +102,5 @@ to indicate that it accepts some optional parameters.
 ## API Examples
 
 Examples of the API can be found in the [examples](examples) directory.
+
+You may find tools such as [Spotify's Web API Console](https://developer.spotify.com/web-api/console/) or [Rapid API](https://rapidapi.com/package/SpotifyPublicAPI/functions?utm_source=SpotifyGitHub&utm_medium=button&utm_content=Vendor_GitHub) valuable for experimenting with the API.
