@@ -102,3 +102,5 @@ to indicate that it accepts some optional parameters.
 ## API Examples
 
 Examples of the API can be found in the [examples](examples) directory.
+
+You may find tools such as [Spotify's Web API Console](https://developer.spotify.com/web-api/console/) or [Rapid API](https://rapidapi.com/package/SpotifyPublicAPI/functions?utm_source=SpotifyGitHub&utm_medium=button&utm_content=Vendor_GitHub) valuable for experimenting with the API.
