@@ -59,7 +59,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client, err := auth.NewClient(tok)
+	client := auth.NewClient(tok)
 	if err != nil {
 		log.Fatalf("Cannot retrieve new client: %v", err)
 	}

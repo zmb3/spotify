@@ -145,14 +145,19 @@ func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
 }
 
 // NewClient creates a Client that will use the specified access token for its API requests.
-func (a Authenticator) NewClient(token *oauth2.Token) (Client, error) {
+func (a Authenticator) NewClient(token *oauth2.Token) Client {
 	client := a.config.Client(a.context, token)
-	t, err := client.Transport.(*oauth2.Transport).Source.Token()
-	*token = *t
-	if err != nil {
-		return Client{}, err
-	}
 	return Client{
 		http: client,
-	}, nil
+	}
+}
+
+// Token return the current client token
+func (c *Client) Token() (*oauth2.Token, error) {
+	t, err := c.http.Transport.(*oauth2.Transport).Source.Token()
+	if err != nil {
+		return nil, err
+	}
+
+	return t, nil
 }
