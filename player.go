@@ -11,23 +11,18 @@ import (
 // PlayerDevice contains information about a device that a user can play music on
 type PlayerDevice struct {
 	// ID of the device. This may be empty.
-	ID string `json:"id"`
-	// IsActive If this device is the currently active device.
-	IsActive bool `json:"is_active"`
-	// IsRestricted Whether controlling this device is restricted. At present if
+	ID ID `json:"id"`
+	// Active If this device is the currently active device.
+	Active bool `json:"is_active"`
+	// Restricted Whether controlling this device is restricted. At present if
 	// this is "true" then no Web API commands will be accepted by this device.
-	IsRestricted bool `json:"is_restricted"`
+	Restricted bool `json:"is_restricted"`
 	// Name The name of the device.
 	Name string `json:"name"`
-	// Type Device type, such as "Computer", "Smartphone" or "Speaker".
+	// Type of device, such as "Computer", "Smartphone" or "Speaker".
 	Type string `json:"type"`
 	// Volume The current volume in percent.
 	Volume int `json:"volume_percent"`
-}
-
-// PlayerDeviceList is a list of devices
-type PlayerDeviceList struct {
-	PlayerDevices []PlayerDevice `json:"devices"`
 }
 
 // PlayerState contains information about the current playback.
@@ -41,15 +36,15 @@ type PlayerState struct {
 	RepeatState string `json:"repeat_state"`
 }
 
-// Context is the playback context
-type Context struct {
+// PlaybackContext is the playback context
+type PlaybackContext struct {
 	// ExternalURLs of the context, or null if not available.
 	ExternalURLs map[string]string `json:"external_urls"`
 	// Endpoint of the context, or null if not available.
 	Endpoint string `json:"href"`
 	// Type of the item's context. Can be one of album, artist or playlist.
 	Type string `json:"type"`
-	// URI of the context.
+	// URI is the Spotify URI for the context.
 	URI URI `json:"uri"`
 }
 
@@ -57,18 +52,21 @@ type Context struct {
 type CurrentlyPlaying struct {
 	// Timestamp when data was fetched
 	Timestamp int `json:"timestamp"`
-	// Context current context
-	Context Context `json:"context"`
+	// PlaybackContext current context
+	PlaybackContext PlaybackContext `json:"context"`
 	// Progress into the currently playing track.
 	Progress int `json:"progress_ms"`
-	// IsPlaying If something is currently playing.
-	IsPlaying bool `json:"is_playing"`
+	// Playing If something is currently playing.
+	Playing bool `json:"is_playing"`
 	// The currently playing track. Can be null.
 	Item *FullTrack `json:"Item"`
 }
 
-type Offset struct {
-	//Position is zero based and can’t be negative.
+// PlaybackOffset can be specified either by track URI OR Position. If both are present the
+// request will return 400 BAD REQUEST. If incorrect values are provided for position or uri,
+// the request may be accepted but with an unpredictable resulting action on playback.
+type PlaybackOffset struct {
+	// Position is zero based and can’t be negative.
 	Position int `json:"position,omitempty"`
 	// URI is a string representing the uri of the item to start at.
 	URI URI `json:"uri,omitempty"`
@@ -77,23 +75,23 @@ type Offset struct {
 type PlayOptions struct {
 	// DeviceID The id of the device this command is targeting. If not
 	// supplied, the user's currently active device is the target.
-	DeviceID *string `json:"-"`
-	// Context Spotify URI of the context to play.
+	DeviceID *ID `json:"-"`
+	// PlaybackContext Spotify URI of the context to play.
 	// Valid contexts are albums, artists & playlists.
-	Context URI `json:"context_uri,omitempty"`
+	PlaybackContext *URI `json:"context_uri,omitempty"`
 	// URIs Array of the Spotify track URIs to play
 	URIs []URI `json:"uris,omitempty"`
-	// Offset Indicates from where in the context playback should start.
+	// PlaybackOffset Indicates from where in the context playback should start.
 	// Only available when context corresponds to an album or playlist
 	// object, or when the URIs parameter is used.
-	Offset Offset `json:"offset,omitempty"`
+	PlaybackOffset *PlaybackOffset `json:"offset,omitempty"`
 }
 
 // PlayerDevices information about available devices for the current user.
 // This call requires authorization.
 //
 // Requires the ScopeUserReadPlaybackState scope in order to read information
-func (c *Client) PlayerDevices() (*PlayerDeviceList, error) {
+func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
 	resp, err := c.http.Get(baseAddress + "me/player/devices")
 	if err != nil {
 		return nil, err
@@ -102,12 +100,15 @@ func (c *Client) PlayerDevices() (*PlayerDeviceList, error) {
 	if resp.StatusCode != http.StatusOK {
 		return nil, decodeError(resp.Body)
 	}
-	var result PlayerDeviceList
+	var result struct {
+		PlayerDevices []PlayerDevice `json:"devices"`
+	}
 	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err
 	}
-	return &result, nil
+
+	return result.PlayerDevices, nil
 }
 
 // PlayerState gets information about the playing state for the current user
@@ -194,12 +195,12 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 // active device before transferring to the new device_id.
 //
 // Requires the ScopeUserModifyPlaybackState in order to modify the player state
-func (c *Client) TransferPlayback(device_ids []string, play bool) error {
+func (c *Client) TransferPlayback(deviceIDs []ID, play bool) error {
 	reqData := struct {
-		DeviceIDs []string `json:"device_ids"`
-		Play      bool     `json:"play"`
+		DeviceIDs []ID `json:"device_ids"`
+		Play      bool `json:"play"`
 	}{
-		DeviceIDs: device_ids,
+		DeviceIDs: deviceIDs,
 		Play:      play,
 	}
 
@@ -230,7 +231,7 @@ func (c *Client) Play() error {
 	return c.PlayOpt(nil)
 }
 
-// PlayOpt Like Play but with more options
+// PlayOpt is like Play but with more options
 func (c *Client) PlayOpt(opt *PlayOptions) error {
 	spotifyURL := baseAddress + "me/player/play"
 	buf := new(bytes.Buffer)
@@ -238,7 +239,7 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 	if opt != nil {
 		v := url.Values{}
 		if opt.DeviceID != nil {
-			v.Set("device_id", *opt.DeviceID)
+			v.Set("device_id", opt.DeviceID.String())
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -271,7 +272,7 @@ func (c *Client) Pause() error {
 	return c.PauseOpt(nil)
 }
 
-// PauseOpt Like Pause but with more options
+// PauseOpt is like Pause but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) PauseOpt(opt *PlayOptions) error {
@@ -280,7 +281,7 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	if opt != nil {
 		v := url.Values{}
 		if opt.DeviceID != nil {
-			v.Set("device_id", *opt.DeviceID)
+			v.Set("device_id", opt.DeviceID.String())
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -308,7 +309,7 @@ func (c *Client) Next() error {
 	return c.NextOpt(nil)
 }
 
-// NextOpt Like Next but with more options
+// NextOpt is like Next but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) NextOpt(opt *PlayOptions) error {
@@ -317,7 +318,7 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 	if opt != nil {
 		v := url.Values{}
 		if opt.DeviceID != nil {
-			v.Set("device_id", *opt.DeviceID)
+			v.Set("device_id", opt.DeviceID.String())
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -345,7 +346,7 @@ func (c *Client) Previous() error {
 	return c.NextOpt(nil)
 }
 
-// PreviousOpt Like Previous but with more options
+// PreviousOpt is like Previous but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) PreviousOpt(opt *PlayOptions) error {
@@ -354,7 +355,7 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 	if opt != nil {
 		v := url.Values{}
 		if opt.DeviceID != nil {
-			v.Set("device_id", *opt.DeviceID)
+			v.Set("device_id", opt.DeviceID.String())
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -386,7 +387,7 @@ func (c *Client) Seek(position int) error {
 	return c.SeekOpt(position, nil)
 }
 
-// SeekOpt Like Seek but with more options
+// SeekOpt is like Seek but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) SeekOpt(position int, opt *PlayOptions) error {
@@ -409,7 +410,7 @@ func (c *Client) Repeat(state string) error {
 	return c.RepeatOpt(state, nil)
 }
 
-// RepeatOpt Like Repeat but with more options
+// RepeatOpt is like Repeat but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) RepeatOpt(state string, opt *PlayOptions) error {
@@ -432,7 +433,7 @@ func (c *Client) Volume(percent int) error {
 	return c.VolumeOpt(percent, nil)
 }
 
-// VolumeOpt Like Volume but with more options
+// VolumeOpt is like Volume but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) VolumeOpt(percent int, opt *PlayOptions) error {
@@ -452,7 +453,7 @@ func (c *Client) Shuffle(shuffle bool) error {
 	return c.ShuffleOpt(shuffle, nil)
 }
 
-// ShuffleOpt Like Shuffle but with more options
+// ShuffleOpt is like Shuffle but with more options
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) ShuffleOpt(shuffle bool, opt *PlayOptions) error {
@@ -470,7 +471,7 @@ func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *Pla
 
 	if opt != nil {
 		if opt.DeviceID != nil {
-			values.Set("device_id", *opt.DeviceID)
+			values.Set("device_id", opt.DeviceID.String())
 		}
 	}
 

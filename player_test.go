@@ -13,14 +13,14 @@ func TestPlayerDevices(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	if len(list.PlayerDevices) != 2 {
+	if len(list) != 2 {
 		t.Error("Expected two devices")
 	}
 
-	if list.PlayerDevices[0].Volume != 100 {
+	if list[0].Volume != 100 {
 		t.Error("Expected volume to be 100%")
 	}
-	if list.PlayerDevices[1].Volume != 0 {
+	if list[1].Volume != 0 {
 		t.Error("Expected null becomes 0")
 	}
 }
@@ -34,7 +34,7 @@ func TestPlayerState(t *testing.T) {
 		return
 	}
 
-	if len(state.Context.ExternalURLs) != 1 {
+	if len(state.PlaybackContext.ExternalURLs) != 1 {
 		t.Error("Expected one external url")
 	}
 
@@ -50,7 +50,7 @@ func TestPlayerState(t *testing.T) {
 		t.Error("Expected progress to be 102509")
 	}
 
-	if state.IsPlaying {
+	if state.Playing {
 		t.Error("Expected not to be playing")
 	}
 }
@@ -64,7 +64,7 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 		return
 	}
 
-	if len(state.Context.ExternalURLs) != 1 {
+	if len(state.PlaybackContext.ExternalURLs) != 1 {
 		t.Error("Expected one external url")
 	}
 
@@ -80,7 +80,7 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 		t.Error("Expected progress to be 102509")
 	}
 
-	if state.IsPlaying {
+	if state.Playing {
 		t.Error("Expected not to be playing")
 	}
 }
