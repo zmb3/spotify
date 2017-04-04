@@ -1,0 +1,17 @@
+{
+  "devices" : [ {
+    "id" : "a4b8e95634dce797c7ff4743fa0b7a4b5787d6ab",
+    "is_active" : false,
+    "is_restricted" : false,
+    "name" : "YOUR-LAPTOP",
+    "type" : "Computer",
+    "volume_percent" : 100
+  }, {
+    "id" : "75169ece5815c496c340421ad09cf94e8ddc1497",
+    "is_active" : true,
+    "is_restricted" : false,
+    "name" : "Pixel",
+    "type" : "Smartphone",
+    "volume_percent" : null
+  } ]
+}

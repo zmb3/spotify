@@ -3,23 +3,9 @@ package spotify
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"net/http"
 	"net/url"
 	"strconv"
-)
-
-var (
-	// ErrTemporarilyUnavailable When the device is temporarily unavailable the request will
-	// return this error the client should retry the request after 5 seconds,
-	// but no more than at most 5 retries.
-	ErrTemporarilyUnavailable = errors.New("Device is temporarily unavailable")
-
-	// ErrDeviceNotFound The requested device is not found
-	ErrDeviceNotFound = errors.New("Device is not found")
-
-	// ErrNotPremium The user making the request is non-premium
-	ErrNotPremium = errors.New("User is not premium")
 )
 
 // PlayerDevice contains information about a device that a user can play music on
@@ -48,7 +34,7 @@ type PlayerDeviceList struct {
 type PlayerState struct {
 	CurrentlyPlaying
 	// Device The device that is currently active
-	Device string `json:"device"`
+	Device PlayerDevice `json:"device"`
 	// ShuffleState Shuffle is on or off
 	ShuffleState bool `json:"shuffle_state"`
 	// RepeatState off, track, context
@@ -74,7 +60,7 @@ type CurrentlyPlaying struct {
 	// Context current context
 	Context Context `json:"context"`
 	// Progress into the currently playing track.
-	Progress string `json:"progress_ms"`
+	Progress int `json:"progress_ms"`
 	// IsPlaying If something is currently playing.
 	IsPlaying bool `json:"is_playing"`
 	// The currently playing track. Can be null.
@@ -94,27 +80,13 @@ type PlayOptions struct {
 	DeviceID *string `json:"-"`
 	// Context Spotify URI of the context to play.
 	// Valid contexts are albums, artists & playlists.
-	Context URI `json:"context,omitempty"`
+	Context URI `json:"context_uri,omitempty"`
 	// URIs Array of the Spotify track URIs to play
 	URIs []URI `json:"uris,omitempty"`
 	// Offset Indicates from where in the context playback should start.
 	// Only available when context corresponds to an album or playlist
 	// object, or when the URIs parameter is used.
 	Offset Offset `json:"offset,omitempty"`
-}
-
-func decodeStatusError(resp *http.Response) error {
-	switch resp.StatusCode {
-	case http.StatusNoContent:
-		return nil
-	case http.StatusAccepted:
-		return ErrTemporarilyUnavailable
-	case http.StatusNotFound:
-		return ErrDeviceNotFound
-	case http.StatusForbidden:
-		return ErrNotPremium
-	}
-	return decodeError(resp.Body)
 }
 
 // PlayerDevices information about available devices for the current user.
@@ -244,7 +216,10 @@ func (c *Client) TransferPlayback(device_ids []string, play bool) error {
 	if err != nil {
 		return err
 	}
-	return decodeStatusError(resp)
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
 
 // Play Start a new context or resume current playback on the user's active
@@ -282,7 +257,10 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	return decodeStatusError(resp)
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
 
 // Pause Playback on the user's currently active device.
@@ -316,7 +294,10 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	return decodeStatusError(resp)
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
 
 // Next skips to the next track in the user's queue in the user's
@@ -350,7 +331,10 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	return decodeStatusError(resp)
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
 
 // Previous skips to the Previous track in the user's queue in the user's
@@ -384,7 +368,10 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	return decodeStatusError(resp)
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
 
 // Seek to the given position in the user’s currently playing track.
@@ -499,5 +486,8 @@ func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *Pla
 	if err != nil {
 		return err
 	}
-	return decodeStatusError(resp)
+	if resp.StatusCode != http.StatusNoContent {
+		return decodeError(resp.Body)
+	}
+	return nil
 }
