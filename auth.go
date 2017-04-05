@@ -151,3 +151,17 @@ func (a Authenticator) NewClient(token *oauth2.Token) Client {
 		http: client,
 	}
 }
+
+// Token gets the client's current token.
+func (c *Client) Token() (*oauth2.Token, error) {
+	transport, ok := c.http.Transport.(*oauth2.Transport)
+	if !ok {
+		return nil, errors.New("spotify: oauth2 transport type not correct")
+	}
+	t, err := transport.Source.Token()
+	if err != nil {
+		return nil, err
+	}
+
+	return t, nil
+}
