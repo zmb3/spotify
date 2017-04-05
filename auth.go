@@ -40,7 +40,7 @@ const (
 	// ScopeUserFollowRead seeks read access to the list of
 	// artists and other users that a user follows.
 	ScopeUserFollowRead = "user-follow-read"
-	// ScopeUserLibraryModify seeks write/delete acess to a
+	// ScopeUserLibraryModify seeks write/delete access to a
 	// user's "Your Music" library.
 	ScopeUserLibraryModify = "user-library-modify"
 	// ScopeUserLibraryRead seeks read access to a user's "Your Music" library.
@@ -52,6 +52,12 @@ const (
 	ScopeUserReadEmail = "user-read-email"
 	// ScopeUserReadBirthdate seeks read access to a user's birthdate.
 	ScopeUserReadBirthdate = "user-read-birthdate"
+	// ScopeUserReadCurrentlyPlaying seeks read access to a user's currently playing track
+	ScopeUserReadCurrentlyPlaying = "user-read-currently-playing"
+	// ScopeUserReadPlaybackState seeks read access to the user's current playback state
+	ScopeUserReadPlaybackState = "user-read-playback-state"
+	// ScopeUserModifyPlaybackState seeks write access to the user's current playback state
+	ScopeUserModifyPlaybackState = "user-modify-playback-state"
 )
 
 // Authenticator provides convenience functions for implementing the OAuth2 flow.

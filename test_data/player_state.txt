@@ -1,0 +1,88 @@
+{
+  "timestamp" : 1491302708055,
+  "progress_ms" : 102509,
+  "is_playing" : false,
+  "item" : {
+    "album" : {
+      "album_type" : "album",
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/6aZyMrc4doVtZyKNilOmwu"
+        },
+        "href" : "https://api.spotify.com/v1/artists/6aZyMrc4doVtZyKNilOmwu",
+        "id" : "6aZyMrc4doVtZyKNilOmwu",
+        "name" : "Colbie Caillat",
+        "type" : "artist",
+        "uri" : "spotify:artist:6aZyMrc4doVtZyKNilOmwu"
+      } ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "UY" ],
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7a8mrq83VEf0PoFh6pvtsb"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7a8mrq83VEf0PoFh6pvtsb",
+      "id" : "7a8mrq83VEf0PoFh6pvtsb",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1c9fed75791a6be303dc72a19f9f66e710bfffb9",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/cd07bbff2490cbd66aa01a7eec6262a1ac5da02c",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3a68c984e06358485209a3b39ae2fc285d69e6aa",
+        "width" : 64
+      } ],
+      "name" : "Coco",
+      "type" : "album",
+      "uri" : "spotify:album:7a8mrq83VEf0PoFh6pvtsb"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6aZyMrc4doVtZyKNilOmwu"
+      },
+      "href" : "https://api.spotify.com/v1/artists/6aZyMrc4doVtZyKNilOmwu",
+      "id" : "6aZyMrc4doVtZyKNilOmwu",
+      "name" : "Colbie Caillat",
+      "type" : "artist",
+      "uri" : "spotify:artist:6aZyMrc4doVtZyKNilOmwu"
+    } ],
+    "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "UY" ],
+    "disc_number" : 1,
+    "duration_ms" : 196226,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USUM70736197"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/1lkvpmrCaXK8QtliFDcHBO"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/1lkvpmrCaXK8QtliFDcHBO",
+    "id" : "1lkvpmrCaXK8QtliFDcHBO",
+    "name" : "Bubbly",
+    "popularity" : 68,
+    "preview_url" : "https://p.scdn.co/mp3-preview/d20224f874e01ed75fce3f501777940f72255c33?cid=8897482848704f2a8f8d7c79726a70d4",
+    "track_number" : 4,
+    "type" : "track",
+    "uri" : "spotify:track:1lkvpmrCaXK8QtliFDcHBO"
+  },
+  "context" : {
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/george/playlist/6ng86CP3XZrCRfOYyBaJXQ"
+    },
+    "href" : "https://api.spotify.com/v1/users/george/playlists/6ng86CP3XZrCRfOYyBaJXQ",
+    "type" : "playlist",
+    "uri" : "spotify:user:george:playlist:6ng86CP3XZrCRfOYyBaJXQ"
+  },
+  "device" : {
+    "id" : "75169ece5815c496c340421ad09cf94e8ddc1497",
+    "is_active" : false,
+    "is_restricted" : false,
+    "name" : "Pixel",
+    "type" : "Smartphone",
+    "volume_percent" : null
+  },
+  "repeat_state" : "off",
+  "shuffle_state" : true
+}
