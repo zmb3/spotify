@@ -195,13 +195,13 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 // active device before transferring to the new device_id.
 //
 // Requires the ScopeUserModifyPlaybackState in order to modify the player state
-func (c *Client) TransferPlayback(deviceIDs []ID, play bool) error {
+func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 	reqData := struct {
-		DeviceIDs []ID `json:"device_ids"`
-		Play      bool `json:"play"`
+		DeviceID []ID `json:"device_ids"`
+		Play     bool `json:"play"`
 	}{
-		DeviceIDs: deviceIDs,
-		Play:      play,
+		DeviceID: []ID{deviceID},
+		Play:     play,
 	}
 
 	buf := new(bytes.Buffer)
