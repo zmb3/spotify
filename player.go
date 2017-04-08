@@ -343,7 +343,7 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 //
 // Requires the ScopeUserModifyPlaybackState in order to modify the player state
 func (c *Client) Previous() error {
-	return c.NextOpt(nil)
+	return c.PreviousOpt(nil)
 }
 
 // PreviousOpt is like Previous but with more options
