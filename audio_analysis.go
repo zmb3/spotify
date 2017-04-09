@@ -8,29 +8,24 @@ import (
 
 // AudioAnalysis contains a detailed audio analysis for a single track identified by its unique Spotify ID.
 // See https://developer.spotify.com/web-api/get-audio-analysis/
-//
-// Spotify's documentation is currently missing the object model for the AudioAnalysis.
-// See https://github.com/spotify/web-api/issues/317
-//
-// Also see The Echo Nest documentation
-// https://web.archive.org/web/20160528174915/http://developer.echonest.com/docs/v4/_static/AnalyzeDocumentation.pdf
 type AudioAnalysis struct {
-	Bars     []Measure          `json:"bars"`
-	Beats    []Measure          `json:"beats"`
+	Bars     []Marker           `json:"bars"`
+	Beats    []Marker           `json:"beats"`
 	Meta     AudioAnalysisMeta  `json:"meta"`
 	Sections []Section          `json:"sections"`
 	Segments []Segment          `json:"segments"`
-	Tatums   []Measure          `json:"tatums"`
+	Tatums   []Marker           `json:"tatums"`
 	Track    AudioAnalysisTrack `json:"track"`
 }
 
-// Measure represents beats, bars, tatums and are used in segments and sections descriptions.
-type Measure struct {
+// Marker represents beats, bars, tatums and are used in segment and section descriptions.
+type Marker struct {
 	Start      float64 `json:"start"`
 	Duration   float64 `json:"duration"`
 	Confidence float64 `json:"confidence"`
 }
 
+// AudioAnalysisMeta describes details about Spotify's analysis of the track
 type AudioAnalysisMeta struct {
 	AnalyzerVersion string  `json:"analyzer_version"`
 	Platform        string  `json:"platform"`
@@ -41,21 +36,24 @@ type AudioAnalysisMeta struct {
 	InputProcess    string  `json:"input_process"`
 }
 
+// A Section represents a large variation in rhythm or timbre, e.g. chorus, verse, bridge, guitar solo, etc.
+// Each section contains its own descriptions of tempo, key, mode, time_signature, and loudness.
 type Section struct {
-	Measure
+	Marker
 	Loudness                float64 `json:"loudness"`
 	Tempo                   float64 `json:"tempo"`
 	TempoConfidence         float64 `json:"tempo_confidence"`
-	Key                     int     `json:"key"`
+	Key                     Key     `json:"key"`
 	KeyConfidence           float64 `json:"key_confidence"`
-	Mode                    int     `json:"mode"`
+	Mode                    Mode    `json:"mode"`
 	ModeConfidence          float64 `json:"mode_confidence"`
 	TimeSignature           int     `json:"time_signature"`
 	TimeSignatureConfidence float64 `json:"time_signature_confidence"`
 }
 
+// A Segment is characterized by it's perceptual onset and duration in seconds, loudness (dB), pitch and timbral content.
 type Segment struct {
-	Measure
+	Marker
 	LoudnessStart   float64   `json:"loudness_start"`
 	LoudnessMaxTime float64   `json:"loudness_max_time"`
 	LoudnessMax     float64   `json:"loudness_max"`
@@ -64,6 +62,7 @@ type Segment struct {
 	Timbre          []float64 `json:"timbre"`
 }
 
+// AudioAnalysisTrack contains data about the track as a whole
 type AudioAnalysisTrack struct {
 	NumSamples              int64   `json:"num_samples"`
 	Duration                float64 `json:"duration"`
@@ -94,7 +93,6 @@ type AudioAnalysisTrack struct {
 }
 
 // GetAudioAnalysis queries the Spotify web API for an audio analysis of a single track
-// If an object is not found, a nil value is returned in the appropriate position.
 // This call requires authorization.
 func (c *Client) GetAudioAnalysis(id ID) (*AudioAnalysis, error) {
 	url := fmt.Sprintf("%saudio-analysis/%s", baseAddress, id)
