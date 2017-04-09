@@ -6,17 +6,17 @@ import (
 	"testing"
 )
 
-const FIELDS_DIFFER_TEMPLATE = "Actual response is not the same as expected response on field %s"
+const fieldsDifferTemplate = "Actual response is not the same as expected response on field %s"
 
 var expected = AudioAnalysis{
-	Bars: []Measure{
+	Bars: []Marker{
 		{
 			Start:      251.98282,
 			Duration:   0.29765,
 			Confidence: 0.652,
 		},
 	},
-	Beats: []Measure{
+	Beats: []Marker{
 		{
 			Start:      251.98282,
 			Duration:   0.29765,
@@ -34,7 +34,7 @@ var expected = AudioAnalysis{
 	},
 	Sections: []Section{
 		{
-			Measure: Measure{
+			Marker: Marker{
 				Start:      237.02356,
 				Duration:   18.32542,
 				Confidence: 1,
@@ -52,7 +52,7 @@ var expected = AudioAnalysis{
 	},
 	Segments: []Segment{
 		{
-			Measure: Measure{
+			Marker: Marker{
 				Start:      252.15601,
 				Duration:   3.19297,
 				Confidence: 0.522,
@@ -65,7 +65,7 @@ var expected = AudioAnalysis{
 			Timbre:          []float64{23.312, -7.374, -45.719, 294.874, 51.869, -79.384, -89.048, 143.322, -4.676, -51.303, -33.274, -19.037},
 		},
 	},
-	Tatums: []Measure{
+	Tatums: []Marker{
 		{
 			Start:      251.98282,
 			Duration:   0.29765,
@@ -103,7 +103,6 @@ var expected = AudioAnalysis{
 }
 
 func TestAudioAnalysis(t *testing.T) {
-
 	c := testClientFile(http.StatusOK, "test_data/get_audio_analysis.txt")
 	addDummyAuth(c)
 
@@ -113,30 +112,30 @@ func TestAudioAnalysis(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(analysis.Bars, expected.Bars) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Bars")
+		t.Errorf(fieldsDifferTemplate, "Bars")
 	}
 
 	if !reflect.DeepEqual(analysis.Beats, expected.Beats) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Beats")
+		t.Errorf(fieldsDifferTemplate, "Beats")
 	}
 
 	if !reflect.DeepEqual(analysis.Meta, expected.Meta) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Meta")
+		t.Errorf(fieldsDifferTemplate, "Meta")
 	}
 
 	if !reflect.DeepEqual(analysis.Sections, expected.Sections) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Sections")
+		t.Errorf(fieldsDifferTemplate, "Sections")
 	}
 
 	if !reflect.DeepEqual(analysis.Segments, expected.Segments) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Segments")
+		t.Errorf(fieldsDifferTemplate, "Segments")
 	}
 
 	if !reflect.DeepEqual(analysis.Track, expected.Track) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Track")
+		t.Errorf(fieldsDifferTemplate, "Track")
 	}
 
 	if !reflect.DeepEqual(analysis.Tatums, expected.Tatums) {
-		t.Errorf(FIELDS_DIFFER_TEMPLATE, "Tatums")
+		t.Errorf(fieldsDifferTemplate, "Tatums")
 	}
 }
