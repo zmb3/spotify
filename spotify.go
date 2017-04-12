@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"bytes"
 )
 
 // Version is the version of this library.
@@ -168,8 +169,19 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	if resp.StatusCode != http.StatusOK {
 		return nil, decodeError(resp.Body)
 	}
+	buf := bytes.NewBuffer(make([]byte, 0, resp.ContentLength+1))
+	_, err = buf.ReadFrom(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	body := buf.Bytes()
+	var objmap map[string]*json.RawMessage
+	err = json.Unmarshal(body, &objmap)
+	if err != nil {
+		return nil, err
+	}
 	var result SimpleAlbumPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+	err = json.Unmarshal(*objmap["albums"], &result)
 	if err != nil {
 		return nil, err
 	}
