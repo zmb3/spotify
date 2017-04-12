@@ -106,9 +106,14 @@ func addDummyAuth(c *Client) {
 func TestNewReleases(t *testing.T) {
 	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
 	addDummyAuth(c)
-	_, err := c.NewReleases()
+	r, err := c.NewReleases()
 	if err != nil {
 		t.Error(err)
+		return
+	}
+	var r1 *SimpleAlbumPage
+	if r == r1 {
+		t.Error("Empty SimpleAlbumPage")
 		return
 	}
 }
