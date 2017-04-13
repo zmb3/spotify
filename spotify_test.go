@@ -106,9 +106,17 @@ func addDummyAuth(c *Client) {
 func TestNewReleases(t *testing.T) {
 	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
 	addDummyAuth(c)
-	_, err := c.NewReleases()
+	r, err := c.NewReleases()
 	if err != nil {
 		t.Error(err)
+		return
+	}
+	if r.Albums[0].ID != "60mvULtYiNSRmpVvoa3RE4" {
+		t.Error("Invalid data: ", r.Albums[0].ID)
+		return
+	}
+	if r.Albums[0].Name != "We Are One (Ole Ola) [The Official 2014 FIFA World Cup Song]" {
+		t.Error("Invalid data", r.Albums[0].Name)
 		return
 	}
 }
