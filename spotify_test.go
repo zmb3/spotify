@@ -111,9 +111,12 @@ func TestNewReleases(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	var r1 *SimpleAlbumPage
-	if r == r1 {
-		t.Error("Empty SimpleAlbumPage")
+	if r.Albums[0].ID != "60mvULtYiNSRmpVvoa3RE4" {
+		t.Error("Invalid data: ", r.Albums[0].ID)
+		return
+	}
+	if r.Albums[0].Name != "We Are One (Ole Ola) [The Official 2014 FIFA World Cup Song]" {
+		t.Error("Invalid data", r.Albums[0].Name)
 		return
 	}
 }
