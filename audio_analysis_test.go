@@ -23,7 +23,7 @@ var expected = AudioAnalysis{
 			Confidence: 0.652,
 		},
 	},
-	Meta: AudioAnalysisMeta{
+	Meta: AnalysisMeta{
 		AnalyzerVersion: "4.0.0",
 		Platform:        "Linux",
 		DetailedStatus:  "OK",
@@ -72,7 +72,7 @@ var expected = AudioAnalysis{
 			Confidence: 0.652,
 		},
 	},
-	Track: AudioAnalysisTrack{
+	Track: AnalysisTrack{
 		NumSamples:              100,
 		Duration:                255.34898,
 		SampleMD5:               "",
