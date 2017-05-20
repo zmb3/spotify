@@ -99,22 +99,17 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return "", nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return "", nil, decodeError(resp.Body)
-	}
+	
 	var result struct {
 		Playlists SimplePlaylistPage `json:"playlists"`
 		Message   string             `json:"message"`
 	}
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.Get(spotifyURL, &result)
 	if err != nil {
 		return "", nil, err
 	}
+
 	return result.Message, &result.Playlists, nil
 }
 
@@ -140,13 +135,9 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -161,13 +152,9 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -206,16 +193,14 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
+	
+	var result SimplePlaylistPage
+
+	err := c.Get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-	var result SimplePlaylistPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
 	return &result, err
 }
 
@@ -249,16 +234,14 @@ func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*F
 	if fields != "" {
 		spotifyURL += "?fields=" + url.QueryEscape(fields)
 	}
-	resp, err := c.http.Get(spotifyURL)
+	
+	var playlist FullPlaylist
+
+	err := c.Get(spotifyURL, &playlist)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-	var playlist FullPlaylist
-	err = json.NewDecoder(resp.Body).Decode(&playlist)
+
 	return &playlist, err
 }
 
@@ -306,16 +289,14 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
-	resp, err := c.http.Get(spotifyURL)
+	
+	var result PlaylistTrackPage
+
+	err := c.Get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-	var result PlaylistTrackPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
 	return &result, err
 }
 
@@ -348,16 +329,13 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
+
+	var p FullPlaylist
+	err = c.ExecuteOpt(req, http.StatusCreated, &p)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
-		return nil, decodeError(resp.Body)
-	}
-	var p FullPlaylist
-	err = json.NewDecoder(resp.Body).Decode(&p)
+
 	return &p, err
 }
 
@@ -403,13 +381,9 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -432,22 +406,15 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	if err != nil {
 		return "", err
 	}
-	resp, err := c.http.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusCreated {
-		return "", decodeError(resp.Body)
-	}
+
 	body := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = json.NewDecoder(resp.Body).Decode(&body)
+	err = c.ExecuteOpt(req, http.StatusCreated, &body)
 	if err != nil {
-		// the response code indicates success..
 		return "", err
 	}
+
 	return body.SnapshotID, nil
 }
 
@@ -526,18 +493,16 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 		return "", nil
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
-	if err != nil {
-		return "", nil
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return "", decodeError(resp.Body)
-	}
+
 	result := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err = c.ExecuteOpt(req, 0, &result)
+	if err != nil {
+		return "", nil
+	}
+
 	return result.SnapshotID, err
 }
 
@@ -562,14 +527,11 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusCreated {
-		return decodeError(resp.Body)
-	}
+
 	return nil
 }
 
@@ -583,16 +545,14 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 func (c *Client) UserFollowsPlaylist(ownerID string, playlistID ID, userIDs ...string) ([]bool, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/followers/contains?ids=%s",
 		baseAddress, ownerID, playlistID, strings.Join(userIDs, ","))
-	resp, err := c.http.Get(spotifyURL)
+	
+	follows := make([]bool, len(userIDs))
+
+	err := c.Get(spotifyURL, &follows)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-	follows := make([]bool, len(userIDs))
-	err = json.NewDecoder(resp.Body).Decode(&follows)
+
 	return follows, err
 }
 
@@ -645,17 +605,14 @@ func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt Playlis
 		return "", err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	resp, err := c.http.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return "", decodeError(resp.Body)
-	}
+
 	result := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = json.NewDecoder(resp.Body).Decode(&result)
+	err = c.ExecuteOpt(req, 0, &result)
+	if err != nil {
+		return "", err
+	}
+
 	return result.SnapshotID, err
 }

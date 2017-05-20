@@ -1,8 +1,6 @@
 package spotify
 
 import (
-	"encoding/json"
-	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -142,22 +140,16 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 			v.Set("offset", strconv.Itoa(*opt.Offset))
 		}
 	}
-	spotifyURL := baseAddress + "search?" + v.Encode()
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+	spotifyURL := baseAddress + "search?" + v.Encode()
 
 	var result SearchResult
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.Get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, err
 }
 

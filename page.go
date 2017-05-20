@@ -1,7 +1,6 @@
 package spotify
 
 import (
-	"encoding/json"
 	"errors"
 )
 
@@ -89,10 +88,10 @@ type CategoryPage struct {
 
 // getPage GETs the data at the specified URL and unmarshals it into page.
 func (c *Client) getPage(url string, page interface{}) error {
-	resp, err := c.http.Get(url)
+	err := c.Get(url, page)
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
-	return json.NewDecoder(resp.Body).Decode(page)
+
+	return nil
 }

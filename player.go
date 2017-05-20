@@ -92,18 +92,11 @@ type PlayOptions struct {
 //
 // Requires the ScopeUserReadPlaybackState scope in order to read information
 func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
-	resp, err := c.http.Get(baseAddress + "me/player/devices")
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
 	var result struct {
 		PlayerDevices []PlayerDevice `json:"devices"`
 	}
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.Get(baseAddress + "me/player/devices", &result)
 	if err != nil {
 		return nil, err
 	}
@@ -132,19 +125,14 @@ func (c *Client) PlayerStateOpt(opt *Options) (*PlayerState, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+	
 	var result PlayerState
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.Get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 
@@ -170,19 +158,14 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+	
 	var result CurrentlyPlaying
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.Get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 
@@ -213,13 +196,11 @@ func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
-	}
+
 	return nil
 }
 
@@ -254,12 +235,9 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -291,12 +269,9 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -328,12 +303,9 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -365,12 +337,9 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -483,12 +452,9 @@ func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *Pla
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.Execute(req)
 	if err != nil {
 		return err
-	}
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
 	}
 	return nil
 }

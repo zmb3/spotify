@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"strconv"
 	"bytes"
+	"fmt"
 )
 
 // Version is the version of this library.
@@ -107,11 +108,21 @@ func (e Error) Error() string {
 }
 
 // decodeError decodes an Error from an io.Reader.
-func decodeError(r io.Reader) error {
+func decodeError(c *Client, resp *http.Response) error {
+	retrySecondsRaw := resp.Header.Get("Retry-After")
+	if retrySecondsRaw != "" {
+		retrySeconds, err := strconv.ParseInt(retrySecondsRaw, 10, 32)
+		if err != nil {
+			return fmt.Errorf("could not parse retry seconds: %s", retrySecondsRaw)
+		}
+
+		c.retrySeconds = int(retrySeconds)
+	}
+
 	var e struct {
 		E Error `json:"error"`
 	}
-	err := json.NewDecoder(r).Decode(&e)
+	err := json.NewDecoder(resp.Body).Decode(&e)
 	if err != nil {
 		return errors.New("spotify: couldn't decode error")
 	}
@@ -124,6 +135,47 @@ func decodeError(r io.Reader) error {
 // authenticate, you can use `DefaultClient`.
 type Client struct {
 	http *http.Client
+	retrySeconds int
+}
+
+func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface{}) (err error) {
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
+		return decodeError(c, resp)
+	}
+
+	if result != nil {
+		if err := json.NewDecoder(resp.Body).Decode(result); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (c *Client) Execute(req *http.Request) (err error) {
+	return c.ExecuteOpt(req, 0, nil)
+}
+
+func (c *Client) Get(url string, result interface{}) (err error) {
+	resp, err := c.http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return decodeError(c, resp)
+	}
+	err = json.NewDecoder(resp.Body).Decode(result)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Options contains optional parameters that can be provided
@@ -167,7 +219,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
+		return nil, decodeError(c, resp)
 	}
 	buf := bytes.NewBuffer(make([]byte, 0, resp.ContentLength+1))
 	_, err = buf.ReadFrom(resp.Body)
