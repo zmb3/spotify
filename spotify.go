@@ -7,11 +7,13 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
 	"bytes"
 	"fmt"
+	"time"
 )
 
 // Version is the version of this library.
@@ -27,6 +29,14 @@ const (
 	// with a zero offset.  For example, PlaylistTrack's AddedAt field uses
 	// this format.
 	TimestampLayout = "2006-01-02T15:04:05Z"
+
+	// rateLimitExceededErrorMessage is the message we'll receive if we were 
+	// told to wait a bit until our next request.
+	rateLimitExceededErrorMessage = "API rate limit exceeded"
+
+	// defaultRetryDurationS helps us fix an apparent server bug whereby we will 
+	// be told to retry but not be given a wait-interval.
+	defaultRetryDuration = time.Second * 5
 )
 
 var (
@@ -38,6 +48,8 @@ var (
 	DefaultClient = &Client{
 		http: new(http.Client),
 	}
+
+	autoRetry = false
 )
 
 // URI identifies an artist, album, track, or category.  For example,
@@ -54,6 +66,10 @@ func init() {
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}
 	DefaultClient.http.Transport = tr
+}
+
+func SetAutoRetry(flag bool) {
+	autoRetry = flag
 }
 
 func (id *ID) String() string {
@@ -109,23 +125,47 @@ func (e Error) Error() string {
 
 // decodeError decodes an Error from an io.Reader.
 func decodeError(c *Client, resp *http.Response) error {
-	retrySecondsRaw := resp.Header.Get("Retry-After")
-	if retrySecondsRaw != "" {
-		retrySeconds, err := strconv.ParseInt(retrySecondsRaw, 10, 32)
-		if err != nil {
-			return fmt.Errorf("could not parse retry seconds: %s", retrySecondsRaw)
-		}
-
-		c.retrySeconds = int(retrySeconds)
+	responseBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
 	}
+
+	buf := bytes.NewBuffer(responseBody)
 
 	var e struct {
 		E Error `json:"error"`
 	}
-	err := json.NewDecoder(resp.Body).Decode(&e)
+	err = json.NewDecoder(buf).Decode(&e)
 	if err != nil {
-		return errors.New("spotify: couldn't decode error")
+		if len(responseBody) == 0 {
+			errors.New("spotify: could not decode empty body")
+		} else {
+			return fmt.Errorf("spotify: couldn't decode error: (%d) [%s]", len(responseBody), responseBody)
+		}
 	}
+
+	if e.E.Error() == rateLimitExceededErrorMessage {
+		retrySecondsRaw := resp.Header.Get("Retry-After")
+		if retrySecondsRaw != "" {
+			retrySeconds, err := strconv.ParseInt(retrySecondsRaw, 10, 32)
+			if err != nil {
+				return fmt.Errorf("could not parse retry seconds: %s", retrySecondsRaw)
+			} else if retrySeconds == 0 {
+				c.retryDuration = defaultRetryDuration
+			} else {
+				c.retryDuration = time.Second * time.Duration(retrySeconds)
+			}
+		}
+	} else if e.E.Error() == "" {
+		// Some errors will result in there being a useful status-code but an 
+		// empty message, which will confuse the user (who only has access to 
+		// the message and not the code). An example of this is when we send 
+		// some of the arguments directly in the HTTP query and the URL ends-up 
+		// being too long.
+
+		e.E.Message = "http: " + http.StatusText(resp.StatusCode)
+	}
+
 	return e.E
 }
 
@@ -135,23 +175,36 @@ func decodeError(c *Client, resp *http.Response) error {
 // authenticate, you can use `DefaultClient`.
 type Client struct {
 	http *http.Client
-	retrySeconds int
+	retryDuration time.Duration
 }
 
 func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface{}) (err error) {
-	resp, err := c.http.Do(req)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
-		return decodeError(c, resp)
-	}
-
-	if result != nil {
-		if err := json.NewDecoder(resp.Body).Decode(result); err != nil {
+	for {
+		resp, err := c.http.Do(req)
+		if err != nil {
 			return err
 		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
+			errorMessage := decodeError(c, resp)
+
+			if errorMessage.Error() == rateLimitExceededErrorMessage && autoRetry {
+				time.Sleep(c.retryDuration)
+				continue
+			}
+
+			return errorMessage
+		}
+
+		if result != nil {
+			if err := json.NewDecoder(resp.Body).Decode(result); err != nil {
+				return err
+			}
+		}
+
+		break
 	}
 
 	return nil
@@ -162,17 +215,31 @@ func (c *Client) Execute(req *http.Request) (err error) {
 }
 
 func (c *Client) Get(url string, result interface{}) (err error) {
-	resp, err := c.http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return decodeError(c, resp)
-	}
-	err = json.NewDecoder(resp.Body).Decode(result)
-	if err != nil {
-		return err
+	for {
+		resp, err := c.http.Get(url)
+		if err != nil {
+			return err
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK {
+			errorMessage := decodeError(c, resp)
+
+			if errorMessage.Error() == rateLimitExceededErrorMessage && autoRetry {
+				time.Sleep(c.retryDuration)
+				continue
+			}
+
+			return errorMessage
+		}
+
+		err = json.NewDecoder(resp.Body).Decode(result)
+		if err != nil {
+			return err
+		}
+
+		break
 	}
 
 	return nil
@@ -213,6 +280,9 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			spotifyURL += "?" + params
 		}
 	}
+
+// TODO(dustin): Doesn't currently support retrying because this is more complicate than all of the other Get() references that we've already replaced with our standard calls. This would require us to duplicate the functionality out of the Get() function. However, we suspect that this can be simplified, though we'll need a second opinion before we make any changes.
+
 	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
@@ -221,17 +291,12 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	if resp.StatusCode != http.StatusOK {
 		return nil, decodeError(c, resp)
 	}
-	buf := bytes.NewBuffer(make([]byte, 0, resp.ContentLength+1))
-	_, err = buf.ReadFrom(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	body := buf.Bytes()
 	var objmap map[string]*json.RawMessage
-	err = json.Unmarshal(body, &objmap)
+	err = json.NewDecoder(resp.Body).Decode(&objmap)
 	if err != nil {
 		return nil, err
 	}
+
 	var result SimpleAlbumPage
 	err = json.Unmarshal(*objmap["albums"], &result)
 	if err != nil {
