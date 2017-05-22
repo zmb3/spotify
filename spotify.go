@@ -276,16 +276,9 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, c.decodeError(resp)
-	}
+
 	var objmap map[string]*json.RawMessage
-	err = json.NewDecoder(resp.Body).Decode(&objmap)
+	err = c.get(spotifyURL, &objmap)
 	if err != nil {
 		return nil, err
 	}
@@ -295,6 +288,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 
