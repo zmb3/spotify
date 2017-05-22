@@ -118,7 +118,7 @@ func (e Error) Error() string {
 }
 
 // decodeError decodes an Error from an io.Reader.
-func decodeError(c *Client, resp *http.Response) error {
+func (c *Client) decodeError(resp *http.Response) error {
 	responseBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
@@ -197,7 +197,7 @@ func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface
 			time.Sleep(c.retryDuration)
 			continue
 		} else if resp.StatusCode != http.StatusOK && (needsStatus == 0 || resp.StatusCode != needsStatus) {
-			errorMessage := decodeError(c, resp)
+			errorMessage := c.decodeError(resp)
 			return errorMessage
 		}
 
@@ -230,7 +230,7 @@ func (c *Client) get(url string, result interface{}) error {
 			time.Sleep(c.retryDuration)
 			continue
 		} else if resp.StatusCode != http.StatusOK {
-			errorMessage := decodeError(c, resp)
+			errorMessage := c.decodeError(resp)
 			return errorMessage
 		}
 
@@ -286,7 +286,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(c, resp)
+		return nil, c.decodeError(resp)
 	}
 	var objmap map[string]*json.RawMessage
 	err = json.NewDecoder(resp.Body).Decode(&objmap)

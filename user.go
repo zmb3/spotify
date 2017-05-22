@@ -217,13 +217,9 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(c, resp)
 	}
 	return nil
 }
