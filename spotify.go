@@ -172,12 +172,8 @@ func (c *Client) decodeError(resp *http.Response) error {
 type Client struct {
 	http *http.Client
 
-	autoRetry     bool
+	AutoRetry     bool
 	retryDuration time.Duration
-}
-
-func (c *Client) SetAutoRetry(flag bool) {
-	c.autoRetry = flag
 }
 
 // executeOpt executes a non-GET request. `needsStatus` describes another code
@@ -193,7 +189,7 @@ func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
 			time.Sleep(c.retryDuration)
 			continue
 		} else if resp.StatusCode != http.StatusOK && (needsStatus == 0 || resp.StatusCode != needsStatus) {
@@ -226,7 +222,7 @@ func (c *Client) get(url string, result interface{}) error {
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
 			time.Sleep(c.retryDuration)
 			continue
 		} else if resp.StatusCode != http.StatusOK {
