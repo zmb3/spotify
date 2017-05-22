@@ -30,13 +30,13 @@ const (
 	// this format.
 	TimestampLayout = "2006-01-02T15:04:05Z"
 
-	// rateLimitExceededErrorMessage is the message we'll receive if we were
-	// told to wait a bit until our next request.
-	rateLimitExceededErrorMessage = "API rate limit exceeded"
-
 	// defaultRetryDurationS helps us fix an apparent server bug whereby we will
 	// be told to retry but not be given a wait-interval.
 	defaultRetryDuration = time.Second * 5
+
+	// rateLimitExceededStatusCode is the code that the server returns when our
+	// request frequency is too high.
+	rateLimitExceededStatusCode = 429
 )
 
 var (
@@ -124,6 +124,10 @@ func decodeError(c *Client, resp *http.Response) error {
 		return err
 	}
 
+	if len(responseBody) == 0 {
+		return fmt.Errorf("spotify: there was an HTTP error (%d '%s') but the body was empty", resp.StatusCode, http.StatusText(resp.StatusCode))
+	}
+
 	buf := bytes.NewBuffer(responseBody)
 
 	var e struct {
@@ -131,20 +135,18 @@ func decodeError(c *Client, resp *http.Response) error {
 	}
 	err = json.NewDecoder(buf).Decode(&e)
 	if err != nil {
-		if len(responseBody) == 0 {
-			errors.New("spotify: could not decode empty body")
-		} else {
-			return fmt.Errorf("spotify: couldn't decode error: (%d) [%s]", len(responseBody), responseBody)
-		}
+		return fmt.Errorf("spotify: couldn't decode error: (%d) [%s]", len(responseBody), responseBody)
 	}
 
-	if e.E.Error() == rateLimitExceededErrorMessage {
+	if resp.StatusCode == rateLimitExceededStatusCode {
 		retrySecondsRaw := resp.Header.Get("Retry-After")
 		if retrySecondsRaw != "" {
 			retrySeconds, err := strconv.ParseInt(retrySecondsRaw, 10, 32)
 			if err != nil {
 				return fmt.Errorf("could not parse retry seconds: %s", retrySecondsRaw)
-			} else if retrySeconds == 0 {
+			}
+
+			if retrySeconds == 0 {
 				c.retryDuration = defaultRetryDuration
 			} else {
 				c.retryDuration = time.Second * time.Duration(retrySeconds)
@@ -157,7 +159,7 @@ func decodeError(c *Client, resp *http.Response) error {
 		// some of the arguments directly in the HTTP query and the URL ends-up
 		// being too long.
 
-		e.E.Message = "http: " + http.StatusText(resp.StatusCode)
+		e.E.Message = fmt.Sprintf("spotify: there was an HTTP error (%d '%s') but we received an empty error", resp.StatusCode, http.StatusText(resp.StatusCode))
 	}
 
 	return e.E
@@ -178,7 +180,7 @@ func (c *Client) SetAutoRetry(flag bool) {
 	c.autoRetry = flag
 }
 
-func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface{}) (err error) {
+func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface{}) error {
 	for {
 		resp, err := c.http.Do(req)
 		if err != nil {
@@ -187,14 +189,11 @@ func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+			time.Sleep(c.retryDuration)
+			continue
+		} else if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
 			errorMessage := decodeError(c, resp)
-
-			if errorMessage.Error() == rateLimitExceededErrorMessage && c.autoRetry {
-				time.Sleep(c.retryDuration)
-				continue
-			}
-
 			return errorMessage
 		}
 
@@ -210,11 +209,11 @@ func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface
 	return nil
 }
 
-func (c *Client) Execute(req *http.Request) (err error) {
+func (c *Client) Execute(req *http.Request) error {
 	return c.ExecuteOpt(req, 0, nil)
 }
 
-func (c *Client) Get(url string, result interface{}) (err error) {
+func (c *Client) Get(url string, result interface{}) error {
 	for {
 		resp, err := c.http.Get(url)
 		if err != nil {
@@ -223,14 +222,11 @@ func (c *Client) Get(url string, result interface{}) (err error) {
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.StatusOK {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+			time.Sleep(c.retryDuration)
+			continue
+		} else if resp.StatusCode != http.StatusOK {
 			errorMessage := decodeError(c, resp)
-
-			if errorMessage.Error() == rateLimitExceededErrorMessage && c.autoRetry {
-				time.Sleep(c.retryDuration)
-				continue
-			}
-
 			return errorMessage
 		}
 

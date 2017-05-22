@@ -101,7 +101,7 @@ to indicate that it accepts some optional parameters.
 
 ### Automatic Retries
 
-The API will throttle your requests if you are sending them too rapidly. This client can automatically wait and reattempt the request, but this does not happen automatically. To enable this, call `spotify.SetAutoRetry(true)`.
+The API will throttle your requests if you are sending them too rapidly. This client can automatically wait and reattempt the request, but this does not happen automatically. To enable this, call `SetAutoRetry(true)` on the `*Client` struct.
 
 For more information, see Spotify [rate-limits](https://developer.spotify.com/web-api/user-guide/#rate-limiting).
 
