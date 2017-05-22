@@ -3,16 +3,16 @@
 package spotify
 
 import (
+	"bytes"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
-	"bytes"
-	"fmt"
 	"time"
 )
 
@@ -30,11 +30,11 @@ const (
 	// this format.
 	TimestampLayout = "2006-01-02T15:04:05Z"
 
-	// rateLimitExceededErrorMessage is the message we'll receive if we were 
+	// rateLimitExceededErrorMessage is the message we'll receive if we were
 	// told to wait a bit until our next request.
 	rateLimitExceededErrorMessage = "API rate limit exceeded"
 
-	// defaultRetryDurationS helps us fix an apparent server bug whereby we will 
+	// defaultRetryDurationS helps us fix an apparent server bug whereby we will
 	// be told to retry but not be given a wait-interval.
 	defaultRetryDuration = time.Second * 5
 )
@@ -157,10 +157,10 @@ func decodeError(c *Client, resp *http.Response) error {
 			}
 		}
 	} else if e.E.Error() == "" {
-		// Some errors will result in there being a useful status-code but an 
-		// empty message, which will confuse the user (who only has access to 
-		// the message and not the code). An example of this is when we send 
-		// some of the arguments directly in the HTTP query and the URL ends-up 
+		// Some errors will result in there being a useful status-code but an
+		// empty message, which will confuse the user (who only has access to
+		// the message and not the code). An example of this is when we send
+		// some of the arguments directly in the HTTP query and the URL ends-up
 		// being too long.
 
 		e.E.Message = "http: " + http.StatusText(resp.StatusCode)
@@ -174,7 +174,7 @@ func decodeError(c *Client, resp *http.Response) error {
 // `Authenticator.NewClient` method.  If you don't need to
 // authenticate, you can use `DefaultClient`.
 type Client struct {
-	http *http.Client
+	http          *http.Client
 	retryDuration time.Duration
 }
 
@@ -280,9 +280,6 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			spotifyURL += "?" + params
 		}
 	}
-
-// TODO(dustin): Doesn't currently support retrying because this is more complicate than all of the other Get() references that we've already replaced with our standard calls. This would require us to duplicate the functionality out of the Get() function. However, we suspect that this can be simplified, though we'll need a second opinion before we make any changes.
-
 	resp, err := c.http.Get(spotifyURL)
 	if err != nil {
 		return nil, err
