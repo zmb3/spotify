@@ -85,13 +85,3 @@ type CategoryPage struct {
 	basePage
 	Categories []Category `json:"items"`
 }
-
-// getPage GETs the data at the specified URL and unmarshals it into page.
-func (c *Client) getPage(url string, page interface{}) error {
-	err := c.get(url, page)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
