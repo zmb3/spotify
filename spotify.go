@@ -48,8 +48,6 @@ var (
 	DefaultClient = &Client{
 		http: new(http.Client),
 	}
-
-	autoRetry = false
 )
 
 // URI identifies an artist, album, track, or category.  For example,
@@ -66,10 +64,6 @@ func init() {
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}
 	DefaultClient.http.Transport = tr
-}
-
-func SetAutoRetry(flag bool) {
-	autoRetry = flag
 }
 
 func (id *ID) String() string {
@@ -174,8 +168,14 @@ func decodeError(c *Client, resp *http.Response) error {
 // `Authenticator.NewClient` method.  If you don't need to
 // authenticate, you can use `DefaultClient`.
 type Client struct {
-	http          *http.Client
+	http *http.Client
+
+	autoRetry     bool
 	retryDuration time.Duration
+}
+
+func (c *Client) SetAutoRetry(flag bool) {
+	c.autoRetry = flag
 }
 
 func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface{}) (err error) {
@@ -190,7 +190,7 @@ func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface
 		if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
 			errorMessage := decodeError(c, resp)
 
-			if errorMessage.Error() == rateLimitExceededErrorMessage && autoRetry {
+			if errorMessage.Error() == rateLimitExceededErrorMessage && c.autoRetry {
 				time.Sleep(c.retryDuration)
 				continue
 			}
@@ -226,7 +226,7 @@ func (c *Client) Get(url string, result interface{}) (err error) {
 		if resp.StatusCode != http.StatusOK {
 			errorMessage := decodeError(c, resp)
 
-			if errorMessage.Error() == rateLimitExceededErrorMessage && autoRetry {
+			if errorMessage.Error() == rateLimitExceededErrorMessage && c.autoRetry {
 				time.Sleep(c.retryDuration)
 				continue
 			}
