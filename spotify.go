@@ -180,6 +180,10 @@ func (c *Client) SetAutoRetry(flag bool) {
 	c.autoRetry = flag
 }
 
+// executeOpt executes a non-GET request. `needsStatus` describes another code
+// that can represent success. Note that in all current usages of this function,
+// we need to still allow a 200 even if we'd also like to check for a second
+// success code.
 func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface{}) error {
 	for {
 		resp, err := c.http.Do(req)
@@ -192,7 +196,7 @@ func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface
 		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
 			time.Sleep(c.retryDuration)
 			continue
-		} else if resp.StatusCode != http.StatusOK || needsStatus != 0 && resp.StatusCode != needsStatus {
+		} else if resp.StatusCode != http.StatusOK && (needsStatus == 0 || resp.StatusCode != needsStatus) {
 			errorMessage := decodeError(c, resp)
 			return errorMessage
 		}

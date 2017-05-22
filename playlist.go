@@ -527,7 +527,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.executeOpt(req, http.StatusCreated, nil)
 	if err != nil {
 		return err
 	}
