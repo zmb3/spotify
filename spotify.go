@@ -125,7 +125,7 @@ func (c *Client) decodeError(resp *http.Response) error {
 	}
 
 	if len(responseBody) == 0 {
-		return fmt.Errorf("spotify: there was an HTTP error (%d '%s') but the body was empty", resp.StatusCode, http.StatusText(resp.StatusCode))
+		return fmt.Errorf("spotify: HTTP %d: %s (body empty)", resp.StatusCode, http.StatusText(resp.StatusCode))
 	}
 
 	buf := bytes.NewBuffer(responseBody)
@@ -143,7 +143,7 @@ func (c *Client) decodeError(resp *http.Response) error {
 		if retrySecondsRaw != "" {
 			retrySeconds, err := strconv.ParseInt(retrySecondsRaw, 10, 32)
 			if err != nil {
-				return fmt.Errorf("could not parse retry seconds: %s", retrySecondsRaw)
+				return fmt.Errorf("spotify: could not parse retry seconds: %s", retrySecondsRaw)
 			}
 
 			if retrySeconds == 0 {
@@ -159,7 +159,7 @@ func (c *Client) decodeError(resp *http.Response) error {
 		// some of the arguments directly in the HTTP query and the URL ends-up
 		// being too long.
 
-		e.E.Message = fmt.Sprintf("spotify: there was an HTTP error (%d '%s') but we received an empty error", resp.StatusCode, http.StatusText(resp.StatusCode))
+		e.E.Message = fmt.Sprintf("spotify: unexpected HTTP %d: %s (empty error)", resp.StatusCode, http.StatusText(resp.StatusCode))
 	}
 
 	return e.E
