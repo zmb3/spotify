@@ -97,10 +97,10 @@ func (f *FullAlbum) ReleaseDateTime() time.Time {
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
 func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", baseAddress, id)
-	
+
 	var a FullAlbum
 
-	err := c.Get(spotifyURL, &a)
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 		Albums []*FullAlbum `json:"albums"`
 	}
 
-	err := c.Get(spotifyURL, &a)
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, 
 	}
 
 	var result SimpleTrackPage
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}

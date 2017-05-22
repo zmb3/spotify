@@ -115,7 +115,7 @@ func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
 		F []*AudioFeatures `json:"audio_features"`
 	}{}
 
-	err := c.Get(url, &temp)
+	err := c.get(url, &temp)
 	if err != nil {
 		return nil, err
 	}

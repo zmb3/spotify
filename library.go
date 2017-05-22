@@ -14,10 +14,10 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
 	}
 	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	
+
 	var result []bool
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}

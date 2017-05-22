@@ -66,7 +66,7 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 
 	var user User
 
-	err := c.Get(spotifyURL, &user)
+	err := c.get(spotifyURL, &user)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 func (c *Client) CurrentUser() (*PrivateUser, error) {
 	var result PrivateUser
 
-	err := c.Get(baseAddress + "me", &result)
+	err := c.get(baseAddress+"me", &result)
 	if err != nil {
 		return nil, err
 	}
@@ -122,10 +122,10 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result SavedTrackPage
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 
 	var result []bool
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -254,12 +254,12 @@ func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullA
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
-	
+
 	var result struct {
 		A FullArtistCursorPage `json:"artists"`
 	}
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -292,10 +292,10 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result SavedAlbumPage
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -329,10 +329,10 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result SimplePlaylistPage
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}

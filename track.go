@@ -85,10 +85,10 @@ func GetTrack(id ID) (*FullTrack, error) {
 // a single track identified by its unique Spotify ID.
 func (c *Client) GetTrack(id ID) (*FullTrack, error) {
 	spotifyURL := baseAddress + "tracks/" + string(id)
-	
+
 	var t FullTrack
 
-	err := c.Get(spotifyURL, &t)
+	err := c.get(spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}
@@ -111,12 +111,12 @@ func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}
 	spotifyURL := baseAddress + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
-	
+
 	var t struct {
 		Tracks []*FullTrack `jsosn:"tracks"`
 	}
 
-	err := c.Get(spotifyURL, &t)
+	err := c.get(spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}

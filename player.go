@@ -96,7 +96,7 @@ func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
 		PlayerDevices []PlayerDevice `json:"devices"`
 	}
 
-	err := c.Get(baseAddress + "me/player/devices", &result)
+	err := c.get(baseAddress+"me/player/devices", &result)
 	if err != nil {
 		return nil, err
 	}
@@ -125,10 +125,10 @@ func (c *Client) PlayerStateOpt(opt *Options) (*PlayerState, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result PlayerState
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -158,10 +158,10 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result CurrentlyPlaying
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -235,7 +235,7 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -269,7 +269,7 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -303,7 +303,7 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -337,7 +337,7 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -452,7 +452,7 @@ func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *Pla
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}

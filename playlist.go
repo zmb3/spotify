@@ -99,13 +99,13 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result struct {
 		Playlists SimplePlaylistPage `json:"playlists"`
 		Message   string             `json:"message"`
 	}
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return "", nil, err
 	}
@@ -135,7 +135,7 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -152,7 +152,7 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -193,10 +193,10 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 			spotifyURL += "?" + params
 		}
 	}
-	
+
 	var result SimplePlaylistPage
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -234,10 +234,10 @@ func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*F
 	if fields != "" {
 		spotifyURL += "?fields=" + url.QueryEscape(fields)
 	}
-	
+
 	var playlist FullPlaylist
 
-	err := c.Get(spotifyURL, &playlist)
+	err := c.get(spotifyURL, &playlist)
 	if err != nil {
 		return nil, err
 	}
@@ -289,10 +289,10 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
-	
+
 	var result PlaylistTrackPage
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +331,7 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 	req.Header.Set("Content-Type", "application/json")
 
 	var p FullPlaylist
-	err = c.ExecuteOpt(req, http.StatusCreated, &p)
+	err = c.executeOpt(req, http.StatusCreated, &p)
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +381,7 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -410,7 +410,7 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	body := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = c.ExecuteOpt(req, http.StatusCreated, &body)
+	err = c.executeOpt(req, http.StatusCreated, &body)
 	if err != nil {
 		return "", err
 	}
@@ -498,7 +498,7 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 		SnapshotID string `json:"snapshot_id"`
 	}{}
 
-	err = c.ExecuteOpt(req, 0, &result)
+	err = c.executeOpt(req, 0, &result)
 	if err != nil {
 		return "", nil
 	}
@@ -527,7 +527,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 	if err != nil {
 		return err
 	}
-	err = c.Execute(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
 	}
@@ -545,10 +545,10 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 func (c *Client) UserFollowsPlaylist(ownerID string, playlistID ID, userIDs ...string) ([]bool, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/followers/contains?ids=%s",
 		baseAddress, ownerID, playlistID, strings.Join(userIDs, ","))
-	
+
 	follows := make([]bool, len(userIDs))
 
-	err := c.Get(spotifyURL, &follows)
+	err := c.get(spotifyURL, &follows)
 	if err != nil {
 		return nil, err
 	}
@@ -609,7 +609,7 @@ func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt Playlis
 	result := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = c.ExecuteOpt(req, 0, &result)
+	err = c.executeOpt(req, 0, &result)
 	if err != nil {
 		return "", err
 	}

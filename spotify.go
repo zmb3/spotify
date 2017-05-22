@@ -180,7 +180,7 @@ func (c *Client) SetAutoRetry(flag bool) {
 	c.autoRetry = flag
 }
 
-func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface{}) error {
+func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface{}) error {
 	for {
 		resp, err := c.http.Do(req)
 		if err != nil {
@@ -209,11 +209,11 @@ func (c *Client) ExecuteOpt(req *http.Request, needsStatus int, result interface
 	return nil
 }
 
-func (c *Client) Execute(req *http.Request) error {
-	return c.ExecuteOpt(req, 0, nil)
+func (c *Client) execute(req *http.Request) error {
+	return c.executeOpt(req, 0, nil)
 }
 
-func (c *Client) Get(url string, result interface{}) error {
+func (c *Client) get(url string, result interface{}) error {
 	for {
 		resp, err := c.http.Get(url)
 		if err != nil {

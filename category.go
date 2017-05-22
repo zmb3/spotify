@@ -42,8 +42,8 @@ func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
-	
-	err := c.Get(spotifyURL, &cat)
+
+	err := c.get(spotifyURL, &cat)
 	if err != nil {
 		return cat, err
 	}
@@ -83,12 +83,12 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 			spotifyURL += "?" + query
 		}
 	}
-	
+
 	wrapper := struct {
 		Playlists SimplePlaylistPage `json:"playlists"`
 	}{}
 
-	err := c.Get(spotifyURL, &wrapper)
+	err := c.get(spotifyURL, &wrapper)
 	if err != nil {
 		return nil, err
 	}
@@ -130,12 +130,12 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
-	
+
 	wrapper := struct {
 		Categories CategoryPage `json:"categories"`
 	}{}
 
-	err := c.Get(spotifyURL, &wrapper)
+	err := c.get(spotifyURL, &wrapper)
 	if err != nil {
 		return nil, err
 	}

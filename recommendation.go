@@ -95,9 +95,9 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 	}
 
 	spotifyURL := baseAddress + "recommendations?" + v.Encode()
-	
+
 	var recommendations Recommendations
-	err := c.Get(spotifyURL, &recommendations)
+	err := c.get(spotifyURL, &recommendations)
 	if err != nil {
 		return nil, err
 	}
@@ -109,10 +109,10 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 // recommendations.
 func (c *Client) GetAvailableGenreSeeds() ([]string, error) {
 	spotifyURL := baseAddress + "recommendations/available-genre-seeds"
-	
+
 	genreSeeds := make(map[string][]string)
 
-	err := c.Get(spotifyURL, &genreSeeds)
+	err := c.get(spotifyURL, &genreSeeds)
 	if err != nil {
 		return nil, err
 	}

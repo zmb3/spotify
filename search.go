@@ -145,7 +145,7 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 
 	var result SearchResult
 
-	err := c.Get(spotifyURL, &result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}

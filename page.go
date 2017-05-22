@@ -88,7 +88,7 @@ type CategoryPage struct {
 
 // getPage GETs the data at the specified URL and unmarshals it into page.
 func (c *Client) getPage(url string, page interface{}) error {
-	err := c.Get(url, page)
+	err := c.get(url, page)
 	if err != nil {
 		return err
 	}

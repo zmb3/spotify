@@ -101,7 +101,7 @@ func (c *Client) GetAudioAnalysis(id ID) (*AudioAnalysis, error) {
 
 	temp := AudioAnalysis{}
 
-	err := c.Get(url, &temp)
+	err := c.get(url, &temp)
 	if err != nil {
 		return nil, err
 	}

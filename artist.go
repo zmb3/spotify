@@ -42,7 +42,7 @@ func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s", baseAddress, id)
 
 	var a FullArtist
-	err := c.Get(spotifyURL, &a)
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -62,12 +62,12 @@ func GetArtists(ids ...ID) ([]*FullArtist, error) {
 // in the result.
 func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	
+
 	var a struct {
 		Artists []*FullArtist
 	}
 
-	err := c.Get(spotifyURL, &a)
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, 
 		Tracks []FullTrack `json:"tracks"`
 	}
 
-	err := c.Get(spotifyURL, &t)
+	err := c.get(spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}
@@ -109,12 +109,12 @@ func GetRelatedArtists(id ID) ([]FullArtist, error) {
 // related to the specified artist.
 func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", baseAddress, id)
-	
+
 	var a struct {
 		Artists []FullArtist `json:"artists"`
 	}
 
-	err := c.Get(spotifyURL, &a)
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -170,10 +170,10 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
-	
+
 	var p SimpleAlbumPage
 
-	err := c.Get(spotifyURL, &p)
+	err := c.get(spotifyURL, &p)
 	if err != nil {
 		return nil, err
 	}
