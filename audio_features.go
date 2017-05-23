@@ -1,9 +1,7 @@
 package spotify
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
 	"strings"
 )
 
@@ -112,20 +110,15 @@ const (
 // This call requires authorization.
 func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
 	url := fmt.Sprintf("%saudio-features?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	temp := struct {
 		F []*AudioFeatures `json:"audio_features"`
 	}{}
-	err = json.NewDecoder(resp.Body).Decode(&temp)
+
+	err := c.get(url, &temp)
 	if err != nil {
 		return nil, err
 	}
+
 	return temp.F, nil
 }

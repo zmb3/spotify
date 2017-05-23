@@ -3,13 +3,17 @@
 package spotify
 
 import (
+	"bytes"
 	"crypto/tls"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 // Version is the version of this library.
@@ -25,6 +29,14 @@ const (
 	// with a zero offset.  For example, PlaylistTrack's AddedAt field uses
 	// this format.
 	TimestampLayout = "2006-01-02T15:04:05Z"
+
+	// defaultRetryDurationS helps us fix an apparent server bug whereby we will
+	// be told to retry but not be given a wait-interval.
+	defaultRetryDuration = time.Second * 5
+
+	// rateLimitExceededStatusCode is the code that the server returns when our
+	// request frequency is too high.
+	rateLimitExceededStatusCode = 429
 )
 
 var (
@@ -106,14 +118,50 @@ func (e Error) Error() string {
 }
 
 // decodeError decodes an Error from an io.Reader.
-func decodeError(r io.Reader) error {
+func (c *Client) decodeError(resp *http.Response) error {
+	responseBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	if len(responseBody) == 0 {
+		return fmt.Errorf("spotify: HTTP %d: %s (body empty)", resp.StatusCode, http.StatusText(resp.StatusCode))
+	}
+
+	buf := bytes.NewBuffer(responseBody)
+
 	var e struct {
 		E Error `json:"error"`
 	}
-	err := json.NewDecoder(r).Decode(&e)
+	err = json.NewDecoder(buf).Decode(&e)
 	if err != nil {
-		return errors.New("spotify: couldn't decode error")
+		return fmt.Errorf("spotify: couldn't decode error: (%d) [%s]", len(responseBody), responseBody)
 	}
+
+	if resp.StatusCode == rateLimitExceededStatusCode {
+		retrySecondsRaw := resp.Header.Get("Retry-After")
+		if retrySecondsRaw != "" {
+			retrySeconds, err := strconv.ParseInt(retrySecondsRaw, 10, 32)
+			if err != nil {
+				return fmt.Errorf("spotify: could not parse retry seconds: %s", retrySecondsRaw)
+			}
+
+			if retrySeconds == 0 {
+				c.retryDuration = defaultRetryDuration
+			} else {
+				c.retryDuration = time.Second * time.Duration(retrySeconds)
+			}
+		}
+	} else if e.E.Error() == "" {
+		// Some errors will result in there being a useful status-code but an
+		// empty message, which will confuse the user (who only has access to
+		// the message and not the code). An example of this is when we send
+		// some of the arguments directly in the HTTP query and the URL ends-up
+		// being too long.
+
+		e.E.Message = fmt.Sprintf("spotify: unexpected HTTP %d: %s (empty error)", resp.StatusCode, http.StatusText(resp.StatusCode))
+	}
+
 	return e.E
 }
 
@@ -123,6 +171,74 @@ func decodeError(r io.Reader) error {
 // authenticate, you can use `DefaultClient`.
 type Client struct {
 	http *http.Client
+
+	AutoRetry     bool
+	retryDuration time.Duration
+}
+
+// executeOpt executes a non-GET request. `needsStatus` describes another code
+// that can represent success. Note that in all current usages of this function,
+// we need to still allow a 200 even if we'd also like to check for a second
+// success code.
+func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface{}) error {
+	for {
+		resp, err := c.http.Do(req)
+		if err != nil {
+			return err
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
+			time.Sleep(c.retryDuration)
+			continue
+		} else if resp.StatusCode != http.StatusOK && (needsStatus == 0 || resp.StatusCode != needsStatus) {
+			errorMessage := c.decodeError(resp)
+			return errorMessage
+		}
+
+		if result != nil {
+			if err := json.NewDecoder(resp.Body).Decode(result); err != nil {
+				return err
+			}
+		}
+
+		break
+	}
+
+	return nil
+}
+
+func (c *Client) execute(req *http.Request) error {
+	return c.executeOpt(req, 0, nil)
+}
+
+func (c *Client) get(url string, result interface{}) error {
+	for {
+		resp, err := c.http.Get(url)
+		if err != nil {
+			return err
+		}
+
+		defer resp.Body.Close()
+
+		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
+			time.Sleep(c.retryDuration)
+			continue
+		} else if resp.StatusCode != http.StatusOK {
+			errorMessage := c.decodeError(resp)
+			return errorMessage
+		}
+
+		err = json.NewDecoder(resp.Body).Decode(result)
+		if err != nil {
+			return err
+		}
+
+		break
+	}
+
+	return nil
 }
 
 // Options contains optional parameters that can be provided
@@ -160,16 +276,9 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var objmap map[string]*json.RawMessage
-	err = json.NewDecoder(resp.Body).Decode(&objmap)
+	err = c.get(spotifyURL, &objmap)
 	if err != nil {
 		return nil, err
 	}
@@ -179,6 +288,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 

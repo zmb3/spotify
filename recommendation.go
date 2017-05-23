@@ -1,9 +1,7 @@
 package spotify
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -97,21 +95,13 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 	}
 
 	spotifyURL := baseAddress + "recommendations?" + v.Encode()
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
 
 	var recommendations Recommendations
-	err = json.NewDecoder(resp.Body).Decode(&recommendations)
+	err := c.get(spotifyURL, &recommendations)
 	if err != nil {
 		return nil, err
 	}
+
 	return &recommendations, err
 }
 
@@ -119,19 +109,13 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 // recommendations.
 func (c *Client) GetAvailableGenreSeeds() ([]string, error) {
 	spotifyURL := baseAddress + "recommendations/available-genre-seeds"
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
 	genreSeeds := make(map[string][]string)
-	err = json.NewDecoder(resp.Body).Decode(&genreSeeds)
+
+	err := c.get(spotifyURL, &genreSeeds)
 	if err != nil {
 		return nil, err
 	}
+
 	return genreSeeds["genres"], nil
 }

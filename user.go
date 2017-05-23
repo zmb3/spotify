@@ -1,7 +1,6 @@
 package spotify
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -64,18 +63,14 @@ func GetUsersPublicProfile(userID ID) (*User, error) {
 // Spotify User.  It does not require authentication.
 func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 	spotifyURL := baseAddress + "users/" + string(userID)
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var user User
-	err = json.NewDecoder(resp.Body).Decode(&user)
+
+	err := c.get(spotifyURL, &user)
 	if err != nil {
 		return nil, err
 	}
+
 	return &user, nil
 }
 
@@ -92,19 +87,13 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 // This email address is unverified - do not assume that Spotify has
 // checked that the email address actually belongs to the user.
 func (c *Client) CurrentUser() (*PrivateUser, error) {
-	resp, err := c.http.Get(baseAddress + "me")
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
 	var result PrivateUser
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.get(baseAddress+"me", &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 
@@ -133,19 +122,14 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var result SavedTrackPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 
@@ -206,19 +190,14 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	}
 	spotifyURL := fmt.Sprintf("%sme/following/contains?type=%s&ids=%s",
 		baseAddress, t, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var result []bool
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return result, nil
 }
 
@@ -238,13 +217,9 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.executeOpt(req, http.StatusNoContent, nil)
 	if err != nil {
 		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusNoContent {
-		return decodeError(resp.Body)
 	}
 	return nil
 }
@@ -275,21 +250,16 @@ func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullA
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var result struct {
 		A FullArtistCursorPage `json:"artists"`
 	}
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result.A, nil
 }
 
@@ -318,19 +288,14 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var result SavedAlbumPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }
 
@@ -360,18 +325,13 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 			spotifyURL += "?" + params
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var result SimplePlaylistPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }

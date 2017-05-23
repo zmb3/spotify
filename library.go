@@ -1,7 +1,6 @@
 package spotify
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -15,16 +14,14 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
 	}
 	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(spotifyURL)
+
+	var result []bool
+
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-	var result []bool
-	err = json.NewDecoder(resp.Body).Decode(&result)
+
 	return result, err
 }
 
@@ -57,13 +54,9 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	resp, err := c.http.Do(req)
+	err = c.execute(req)
 	if err != nil {
 		return err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return decodeError(resp.Body)
 	}
 	return nil
 }

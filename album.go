@@ -1,10 +1,8 @@
 package spotify
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -99,19 +97,14 @@ func (f *FullAlbum) ReleaseDateTime() time.Time {
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
 func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", baseAddress, id)
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var a FullAlbum
-	err = json.NewDecoder(resp.Body).Decode(&a)
+
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
+
 	return &a, nil
 }
 
@@ -137,21 +130,16 @@ func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
 	spotifyURL := fmt.Sprintf("%salbums?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var a struct {
 		Albums []*FullAlbum `json:"albums"`
 	}
-	err = json.NewDecoder(resp.Body).Decode(&a)
+
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
+
 	return a.Albums, nil
 }
 
@@ -221,16 +209,12 @@ func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, 
 	if optional != "" {
 		spotifyURL = spotifyURL + "?" + optional
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
 
 	var result SimpleTrackPage
-	err = json.NewDecoder(resp.Body).Decode(&result)
+	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
+
 	return &result, nil
 }

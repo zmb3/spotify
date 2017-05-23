@@ -1,9 +1,7 @@
 package spotify
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -42,19 +40,13 @@ func GetArtist(id ID) (*FullArtist, error) {
 // GetArtist gets Spotify catalog information for a single artist, given its Spotify ID.
 func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s", baseAddress, id)
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var a FullArtist
-	err = json.NewDecoder(resp.Body).Decode(&a)
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
+
 	return &a, nil
 }
 
@@ -70,21 +62,16 @@ func GetArtists(ids ...ID) ([]*FullArtist, error) {
 // in the result.
 func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var a struct {
 		Artists []*FullArtist
 	}
-	err = json.NewDecoder(resp.Body).Decode(&a)
+
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
+
 	return a.Artists, nil
 }
 
@@ -98,22 +85,16 @@ func GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
 // country is specified as an ISO 3166-1 alpha-2 country code.
 func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", baseAddress, artistID, country)
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var t struct {
 		Tracks []FullTrack `json:"tracks"`
 	}
 
-	err = json.NewDecoder(resp.Body).Decode(&t)
+	err := c.get(spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}
+
 	return t.Tracks, nil
 }
 
@@ -128,21 +109,16 @@ func GetRelatedArtists(id ID) ([]FullArtist, error) {
 // related to the specified artist.
 func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", baseAddress, id)
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	var a struct {
 		Artists []FullArtist `json:"artists"`
 	}
-	err = json.NewDecoder(resp.Body).Decode(&a)
+
+	err := c.get(spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
+
 	return a.Artists, nil
 }
 
@@ -194,19 +170,13 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
 	var p SimpleAlbumPage
-	err = json.NewDecoder(resp.Body).Decode(&p)
+
+	err := c.get(spotifyURL, &p)
 	if err != nil {
 		return nil, err
 	}
+
 	return &p, nil
 }

@@ -1,9 +1,7 @@
 package spotify
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
 )
 
 // AudioAnalysis contains a detailed audio analysis for a single track
@@ -101,18 +99,9 @@ type AnalysisTrack struct {
 func (c *Client) GetAudioAnalysis(id ID) (*AudioAnalysis, error) {
 	url := fmt.Sprintf("%saudio-analysis/%s", baseAddress, id)
 
-	resp, err := c.http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
-
 	temp := AudioAnalysis{}
-	err = json.NewDecoder(resp.Body).Decode(&temp)
+
+	err := c.get(url, &temp)
 	if err != nil {
 		return nil, err
 	}

@@ -1,9 +1,7 @@
 package spotify
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 	"strconv"
 )
@@ -44,15 +42,12 @@ func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
-	resp, err := c.http.Get(spotifyURL)
+
+	err := c.get(spotifyURL, &cat)
 	if err != nil {
 		return cat, err
 	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return cat, decodeError(resp.Body)
-	}
-	err = json.NewDecoder(resp.Body).Decode(&cat)
+
 	return cat, err
 }
 
@@ -88,21 +83,16 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 			spotifyURL += "?" + query
 		}
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	wrapper := struct {
 		Playlists SimplePlaylistPage `json:"playlists"`
 	}{}
-	err = json.NewDecoder(resp.Body).Decode(&wrapper)
+
+	err := c.get(spotifyURL, &wrapper)
 	if err != nil {
 		return nil, err
 	}
+
 	return &wrapper.Playlists, nil
 }
 
@@ -140,20 +130,15 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
-	resp, err := c.http.Get(spotifyURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, decodeError(resp.Body)
-	}
+
 	wrapper := struct {
 		Categories CategoryPage `json:"categories"`
 	}{}
-	err = json.NewDecoder(resp.Body).Decode(&wrapper)
+
+	err := c.get(spotifyURL, &wrapper)
 	if err != nil {
 		return nil, err
 	}
+
 	return &wrapper.Categories, nil
 }
