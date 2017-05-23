@@ -1,11 +1,14 @@
 package spotify
 
 import (
+	"bytes"
 	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 type stringRoundTripper struct {
@@ -118,5 +121,66 @@ func TestNewReleases(t *testing.T) {
 	if r.Albums[0].Name != "We Are One (Ole Ola) [The Official 2014 FIFA World Cup Song]" {
 		t.Error("Invalid data", r.Albums[0].Name)
 		return
+	}
+}
+
+type testResponseBuffer struct {
+	*bytes.Buffer
+}
+
+func (trb *testResponseBuffer) Close() error {
+	return nil
+}
+
+func TestClientDecodeErrorRetry(t *testing.T) {
+	errorMessage := "error message"
+
+	initialBuffer := bytes.NewBufferString(fmt.Sprintf("{ \"error\": { \"message\": \"%s\", \"status\": 999 } }", errorMessage))
+	body := &testResponseBuffer{initialBuffer}
+
+	headers := map[string][]string{
+		"Retry-After": []string{"123"},
+	}
+
+	resp := &http.Response{
+		Body:       body,
+		StatusCode: rateLimitExceededStatusCode,
+		Header:     http.Header(headers),
+	}
+
+	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
+	err := c.decodeError(resp)
+	if err == nil {
+		t.Fatal("expected error")
+	} else if err.Error() != errorMessage {
+		t.Fatal("error message not expected")
+	}
+
+	if c.retryDuration == time.Duration(0) {
+		t.Fatal("retry-interval not set")
+	} else if c.retryDuration != (time.Second * time.Duration(123)) {
+		t.Fatal("retry-interval set but not expected")
+	}
+}
+
+func TestClientDecodeErrorNoRetry(t *testing.T) {
+	errorMessage := "error message"
+
+	initialBuffer := bytes.NewBufferString(fmt.Sprintf("{ \"error\": { \"message\": \"%s\", \"status\": 999 } }", errorMessage))
+	body := &testResponseBuffer{initialBuffer}
+
+	resp := &http.Response{
+		Body:       body,
+		StatusCode: 400,
+	}
+
+	c := testClientFile(http.StatusOK, "test_data/new_releases.txt")
+	err := c.decodeError(resp)
+	if err == nil {
+		t.Fatal("expected error")
+	}
+
+	if c.retryDuration != time.Duration(0) {
+		t.Fatal("retry-interval should not have been set")
 	}
 }
