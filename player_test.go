@@ -85,6 +85,20 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 	}
 }
 
+func TestPlayerRecentlyPlayed(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/player_recently_played.txt")
+	addDummyAuth(client)
+	items, err := client.PlayerRecentlyPlayed()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(items) != 20 {
+		t.Error("Too few or too many items were returned")
+	}
+}
+
 func TestPlayArgsError(t *testing.T) {
 	json := `{
 		"error" : {
