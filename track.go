@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 	"time"
 )
@@ -23,6 +24,7 @@ type SimpleTrack struct {
 	ExternalURLs map[string]string `json:"external_urls"`
 	// A link to the Web API endpoint providing full details for this track.
 	Endpoint string `json:"href"`
+	Href     string `json:"href"`
 	ID       ID     `json:"id"`
 	Name     string `json:"name"`
 	// A URL to a 30 second preview (MP3) of the track.
@@ -32,6 +34,10 @@ type SimpleTrack struct {
 	// DiscNumber.
 	TrackNumber int `json:"track_number"`
 	URI         URI `json:"uri"`
+}
+
+func (st SimpleTrack) String() string {
+	return fmt.Sprintf("TRACK<[%s] [%s]>", st.ID, st.Name)
 }
 
 // FullTrack provides extra track data in addition to what is provided by SimpleTrack.
