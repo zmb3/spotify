@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 // PlayerDevice contains information about a device that a user can play music on
@@ -62,6 +63,21 @@ type CurrentlyPlaying struct {
 	Item *FullTrack `json:"Item"`
 }
 
+type RecentlyPlayedItem struct {
+	// Track is the track information
+	Track SimpleTrack `json:"track"`
+
+	// PlayedAt is the time that this song was played
+	PlayedAt time.Time `json:"played_at"`
+
+	// PlaybackContext is the current playback context
+	PlaybackContext PlaybackContext `json:"context"`
+}
+
+type RecentlyPlayedResult struct {
+	Items []RecentlyPlayedItem `json:"items"`
+}
+
 // PlaybackOffset can be specified either by track URI OR Position. If both are present the
 // request will return 400 BAD REQUEST. If incorrect values are provided for position or uri,
 // the request may be accepted but with an unpredictable resulting action on playback.
@@ -85,6 +101,19 @@ type PlayOptions struct {
 	// Only available when context corresponds to an album or playlist
 	// object, or when the URIs parameter is used.
 	PlaybackOffset *PlaybackOffset `json:"offset,omitempty"`
+}
+
+type RecentlyPlayedOptions struct {
+	// Limit is the maximum number of items to return.
+	Limit int
+
+	// AfterEpochMs is a Unix epoch in milliseconds that describes a time after
+	// which to return songs.
+	AfterEpochMs int
+
+	// BeforeEpochMs is a Unix epoch in milliseconds that describes a time
+	// before which to return songs.
+	BeforeEpochMs int
 }
 
 // PlayerDevices information about available devices for the current user.
@@ -145,8 +174,8 @@ func (c *Client) PlayerCurrentlyPlaying() (*CurrentlyPlaying, error) {
 	return c.PlayerCurrentlyPlayingOpt(nil)
 }
 
-// PlayerCurrentlyPlaying is like PlayerCurrentlyPlaying, but it accepts additional
-// options for sorting and filtering the results.
+// PlayerCurrentlyPlayingOpt is like PlayerCurrentlyPlaying, but it accepts
+// additional options for sorting and filtering the results.
 func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, error) {
 	spotifyURL := baseAddress + "me/player/currently-playing"
 	if opt != nil {
@@ -167,6 +196,43 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 	}
 
 	return &result, nil
+}
+
+// PlayerRecentlyPlayed gets a list of recently-played tracks for the current
+// user. This call requires authorization.
+//
+// Requires the ScopeUserReadRecentlyPlayed.
+func (c *Client) PlayerRecentlyPlayed() ([]RecentlyPlayedItem, error) {
+	return c.PlayerRecentlyPlayedOpt(nil)
+}
+
+// PlayerRecentlyPlayedOpt is like PlayerRecentlyPlayed, but it accepts
+// additional options for sorting and filtering the results.
+func (c *Client) PlayerRecentlyPlayedOpt(opt *RecentlyPlayedOptions) ([]RecentlyPlayedItem, error) {
+	spotifyURL := baseAddress + "me/player/recently-played"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.FormatInt(int64(opt.Limit), 10))
+		}
+		if opt.BeforeEpochMs != 0 {
+			v.Set("before", strconv.FormatInt(int64(opt.BeforeEpochMs), 10))
+		}
+		if opt.AfterEpochMs != 0 {
+			v.Set("after", strconv.FormatInt(int64(opt.AfterEpochMs), 10))
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+
+	result := RecentlyPlayedResult{}
+	err := c.get(spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return result.Items, nil
 }
 
 // TransferPlayback transfers playback to a new device and determine if
