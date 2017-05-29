@@ -85,6 +85,27 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 	}
 }
 
+func TestPlayerRecentlyPlayed(t *testing.T) {
+	client := testClientFile(http.StatusOK, "test_data/player_recently_played.txt")
+	addDummyAuth(client)
+	items, err := client.PlayerRecentlyPlayed()
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(items) != 20 {
+		t.Error("Too few or too many items were returned")
+	}
+
+	actualTimePhrase := items[0].PlayedAt.Format("2006-01-02T15:04:05.999Z")
+	expectedTimePhrase := "2017-05-27T20:07:54.721Z"
+
+	if actualTimePhrase != expectedTimePhrase {
+		t.Errorf("Time of first track was not parsed correctly: [%s] != [%s]", actualTimePhrase, expectedTimePhrase)
+	}
+}
+
 func TestPlayArgsError(t *testing.T) {
 	json := `{
 		"error" : {
