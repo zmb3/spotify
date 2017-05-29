@@ -103,8 +103,13 @@ type PlayOptions struct {
 	PlaybackOffset *PlaybackOffset `json:"offset,omitempty"`
 }
 
+// RecentlyPlayedOptions describes options for the recently-played request. All
+// fields are optional. Only one of `AfterEpochMs` and `BeforeEpochMs` may be
+// given. Note that it seems as if Spotify only remembers the fifty most-recent
+// tracks as of right now.
 type RecentlyPlayedOptions struct {
-	// Limit is the maximum number of items to return.
+	// Limit is the maximum number of items to return. Must be no greater than
+	// fifty.
 	Limit int
 
 	// AfterEpochMs is a Unix epoch in milliseconds that describes a time after
