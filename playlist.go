@@ -135,7 +135,7 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.execute(req)
+	err = c.execute(req, nil)
 	if err != nil {
 		return err
 	}
@@ -152,7 +152,7 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil)
 	if err != nil {
 		return err
 	}
@@ -331,7 +331,7 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 	req.Header.Set("Content-Type", "application/json")
 
 	var p FullPlaylist
-	err = c.executeOpt(req, http.StatusCreated, &p)
+	err = c.execute(req, &p, http.StatusCreated)
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +381,7 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusCreated)
 	if err != nil {
 		return err
 	}
@@ -410,7 +410,7 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	body := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = c.executeOpt(req, http.StatusCreated, &body)
+	err = c.execute(req, &body, http.StatusCreated)
 	if err != nil {
 		return "", err
 	}
@@ -498,7 +498,7 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 		SnapshotID string `json:"snapshot_id"`
 	}{}
 
-	err = c.executeOpt(req, 0, &result)
+	err = c.execute(req, &result)
 	if err != nil {
 		return "", nil
 	}
@@ -527,7 +527,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 	if err != nil {
 		return err
 	}
-	err = c.executeOpt(req, http.StatusCreated, nil)
+	err = c.execute(req, nil, http.StatusCreated)
 	if err != nil {
 		return err
 	}
@@ -609,7 +609,7 @@ func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt Playlis
 	result := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = c.executeOpt(req, 0, &result)
+	err = c.execute(req, &result)
 	if err != nil {
 		return "", err
 	}

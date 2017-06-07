@@ -50,6 +50,12 @@ var (
 	}
 )
 
+// shouldRetry determines whether the status code indicates that the
+// previous operation should be retried at a later time
+func shouldRetry(status int) bool {
+	return status == http.StatusAccepted || status == http.StatusTooManyRequests
+}
+
 // URI identifies an artist, album, track, or category.  For example,
 // spotify:track:6rqhFgbbKwnb9MLmUQDhG6
 type URI string
@@ -176,11 +182,21 @@ type Client struct {
 	retryDuration time.Duration
 }
 
-// executeOpt executes a non-GET request. `needsStatus` describes another code
+// isFailure determines whether the code indicates failure
+func isFailure(code int, validCodes []int) bool {
+	for _, item := range validCodes {
+		if item == code {
+			return false
+		}
+	}
+	return true
+}
+
+// execute executes a non-GET request. `needsStatus` describes other HTTP status codes
 // that can represent success. Note that in all current usages of this function,
-// we need to still allow a 200 even if we'd also like to check for a second
-// success code.
-func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface{}) error {
+// we need to still allow a 200 even if we'd also like to check for additional
+// success codes.
+func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...int) error {
 	for {
 		resp, err := c.http.Do(req)
 		if err != nil {
@@ -189,10 +205,10 @@ func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
+		if c.AutoRetry && shouldRetry(resp.StatusCode) {
 			time.Sleep(c.retryDuration)
 			continue
-		} else if resp.StatusCode != http.StatusOK && (needsStatus == 0 || resp.StatusCode != needsStatus) {
+		} else if resp.StatusCode != http.StatusOK && isFailure(resp.StatusCode, needsStatus) {
 			errorMessage := c.decodeError(resp)
 			return errorMessage
 		}
@@ -207,10 +223,6 @@ func (c *Client) executeOpt(req *http.Request, needsStatus int, result interface
 	}
 
 	return nil
-}
-
-func (c *Client) execute(req *http.Request) error {
-	return c.executeOpt(req, 0, nil)
 }
 
 func (c *Client) get(url string, result interface{}) error {

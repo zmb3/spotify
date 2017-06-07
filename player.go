@@ -267,7 +267,7 @@ func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}
@@ -306,7 +306,7 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}
@@ -340,7 +340,7 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}
@@ -374,7 +374,7 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}
@@ -408,7 +408,7 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}
@@ -523,7 +523,7 @@ func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *Pla
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}

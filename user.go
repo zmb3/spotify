@@ -217,7 +217,7 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 	if err != nil {
 		return err
 	}
-	err = c.executeOpt(req, http.StatusNoContent, nil)
+	err = c.execute(req, nil, http.StatusNoContent)
 	if err != nil {
 		return err
 	}

@@ -5,6 +5,33 @@ import (
 	"testing"
 )
 
+func TestTransferPlaybackDeviceUnavailable(t *testing.T) {
+	client := testClientString(http.StatusAccepted, "")
+	err := client.TransferPlayback("newdevice", false)
+	if err == nil {
+		t.Error("expected error since auto retry is disabled")
+	}
+}
+
+func TestTransferPlayback(t *testing.T) {
+	client := testClientString(http.StatusNoContent, "")
+	addDummyAuth(client)
+	err := client.TransferPlayback("newdevice", true)
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestVolume(t *testing.T) {
+	client := testClientString(http.StatusNoContent, "")
+	addDummyAuth(client)
+
+	err := client.Volume(50)
+	if err != nil {
+		t.Error(err)
+	}
+}
+
 func TestPlayerDevices(t *testing.T) {
 	client := testClientFile(http.StatusOK, "test_data/player_available_devices.txt")
 	addDummyAuth(client)

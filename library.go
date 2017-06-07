@@ -54,7 +54,7 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req)
+	err = c.execute(req, nil)
 	if err != nil {
 		return err
 	}
