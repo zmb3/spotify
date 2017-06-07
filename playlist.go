@@ -400,22 +400,31 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	for i, id := range trackIDs {
 		uris[i] = fmt.Sprintf("spotify:track:%s", id)
 	}
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?uris=%s",
-		baseAddress, userID, string(playlistID), strings.Join(uris, ","))
-	req, err := http.NewRequest("POST", spotifyURL, nil)
+	m := make(map[string]interface{})
+	m["uris"] = uris
+
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks",
+		baseAddress, userID, string(playlistID))
+	body, err := json.Marshal(m)
 	if err != nil {
 		return "", err
 	}
+	req, err := http.NewRequest("POST", spotifyURL, bytes.NewReader(body))
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", "application/json")
 
-	body := struct {
+	result := struct {
 		SnapshotID string `json:"snapshot_id"`
 	}{}
-	err = c.execute(req, &body, http.StatusCreated)
+
+	err = c.execute(req, &result, http.StatusCreated)
 	if err != nil {
 		return "", err
 	}
 
-	return body.SnapshotID, nil
+	return result.SnapshotID, nil
 }
 
 // RemoveTracksFromPlaylist removes one or more tracks from a user's playlist.
