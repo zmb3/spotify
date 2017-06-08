@@ -128,3 +128,24 @@ func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
 
 	return t.Tracks, nil
 }
+
+//SaveTracks save one or more tracks to the current user’s “Your Music” library.
+// This call requires bearer authorization.
+func (c *Client) SaveTracks(ids ...ID) error {
+	if len(ids) > 50 {
+		return errors.New("spotify: SaveTracks supports up to 50 tracks")
+	}
+	spotifyURL := baseAddress + "me/tracks?ids=" + strings.Join(toStringSlice(ids), ",")
+	request, err := http.NewRequest("PUT", spotifyURL, nil)
+	resp, err := c.http.Do(request)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+
+		return decodeError(resp.Body)
+	}
+
+	return nil
+}
