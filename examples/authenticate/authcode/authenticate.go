@@ -1,4 +1,4 @@
-// This example demonstrates how to authenticate with Spotify.
+// This example demonstrates how to authenticate with Spotify using the authorization code flow.
 // In order to run this example yourself, you'll need to:
 //
 //  1. Register an application at: https://developer.spotify.com/my-applications/
