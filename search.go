@@ -54,16 +54,6 @@ type SearchResult struct {
 	Tracks    *FullTrackPage      `json:"tracks"`
 }
 
-// Search is a wrapper around DefaultClient.Search.
-func Search(query string, t SearchType) (*SearchResult, error) {
-	return DefaultClient.Search(query, t)
-}
-
-// SearchOpt is a wrapper around DefaultClient.SearchOpt
-func SearchOpt(query string, t SearchType, opt *Options) (*SearchResult, error) {
-	return DefaultClient.SearchOpt(query, t, opt)
-}
-
 // Search gets Spotify catalog information about artists, albums, tracks,
 // or playlists that match a keyword string.  t is a mask containing one or more
 // search types.  For example, `Search(query, SearchTypeArtist|SearchTypeAlbum)`

@@ -122,7 +122,6 @@ type RecentlyPlayedOptions struct {
 }
 
 // PlayerDevices information about available devices for the current user.
-// This call requires authorization.
 //
 // Requires the ScopeUserReadPlaybackState scope in order to read information
 func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
@@ -139,7 +138,6 @@ func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
 }
 
 // PlayerState gets information about the playing state for the current user
-// This call requires authorization.
 //
 // Requires the ScopeUserReadPlaybackState scope in order to read information
 func (c *Client) PlayerState() (*PlayerState, error) {
@@ -171,10 +169,10 @@ func (c *Client) PlayerStateOpt(opt *Options) (*PlayerState, error) {
 }
 
 // PlayerCurrentlyPlaying gets information about the currently playing status
-// for the current user.  This call requires authorization.
+// for the current user.
 //
-// Requires the ScopeUserReadCurrentlyPlaying scope or the ScopeUserReadPlaybackState scope
-// in order to read information
+// Requires the ScopeUserReadCurrentlyPlaying scope or the ScopeUserReadPlaybackState
+// scope in order to read information
 func (c *Client) PlayerCurrentlyPlaying() (*CurrentlyPlaying, error) {
 	return c.PlayerCurrentlyPlayingOpt(nil)
 }
@@ -194,7 +192,6 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 	}
 
 	var result CurrentlyPlaying
-
 	err := c.get(spotifyURL, &result)
 	if err != nil {
 		return nil, err
@@ -204,9 +201,7 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 }
 
 // PlayerRecentlyPlayed gets a list of recently-played tracks for the current
-// user. This call requires authorization.
-//
-// Requires the ScopeUserReadRecentlyPlayed.
+// user. This call requires ScopeUserReadRecentlyPlayed.
 func (c *Client) PlayerRecentlyPlayed() ([]RecentlyPlayedItem, error) {
 	return c.PlayerRecentlyPlayedOpt(nil)
 }
@@ -241,7 +236,7 @@ func (c *Client) PlayerRecentlyPlayedOpt(opt *RecentlyPlayedOptions) ([]Recently
 }
 
 // TransferPlayback transfers playback to a new device and determine if
-// it should start playing. This call requires authorization.
+// it should start playing.
 //
 // Note that a value of false for the play parameter when also transferring
 // to another device_id will not pause playback. To ensure that playback is
@@ -276,9 +271,7 @@ func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 }
 
 // Play Start a new context or resume current playback on the user's active
-// device. This call requires authorization.
-//
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// device. This call requires ScopeUserModifyPlaybackState in order to modify the player state.
 func (c *Client) Play() error {
 	return c.PlayOpt(nil)
 }
@@ -314,7 +307,6 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 }
 
 // Pause Playback on the user's currently active device.
-// This call requires authorization.
 //
 // Requires the ScopeUserModifyPlaybackState in order to modify the player state
 func (c *Client) Pause() error {
@@ -348,9 +340,8 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 }
 
 // Next skips to the next track in the user's queue in the user's
-// currently active device. This call requires authorization.
-//
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// currently active device. This call requires ScopeUserModifyPlaybackState
+// in order to modify the player state
 func (c *Client) Next() error {
 	return c.NextOpt(nil)
 }
@@ -382,9 +373,8 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 }
 
 // Previous skips to the Previous track in the user's queue in the user's
-// currently active device. This call requires authorization.
-//
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// currently active device. This call requires ScopeUserModifyPlaybackState
+// in order to modify the player state
 func (c *Client) Previous() error {
 	return c.PreviousOpt(nil)
 }
@@ -416,7 +406,6 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 }
 
 // Seek to the given position in the user’s currently playing track.
-// This call requires authorization.
 //
 // The position in milliseconds to seek to. Must be a positive number.
 // Passing in a position that is greater than the length of the track
@@ -441,18 +430,17 @@ func (c *Client) SeekOpt(position int, opt *PlayOptions) error {
 }
 
 // Repeat Set the repeat mode for the user's playback.
-// This call requires authorization.
 //
 // Options are repeat-track, repeat-context, and off.
 //
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// Requires the ScopeUserModifyPlaybackState in order to modify the player state.
 func (c *Client) Repeat(state string) error {
 	return c.RepeatOpt(state, nil)
 }
 
 // RepeatOpt is like Repeat but with more options
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects PlayOptions.DeviceID, all other options will be ignored.
 func (c *Client) RepeatOpt(state string, opt *PlayOptions) error {
 	return c.playerFuncWithOpt(
 		"me/player/repeat",
@@ -464,7 +452,6 @@ func (c *Client) RepeatOpt(state string, opt *PlayOptions) error {
 }
 
 // Volume set the volume for the user's current playback device.
-// This call requires authorization.
 //
 // Percent is must be a value from 0 to 100 inclusive.
 //

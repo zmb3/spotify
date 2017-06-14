@@ -32,11 +32,6 @@ type FullArtist struct {
 	Images []Image `json:"images"`
 }
 
-// GetArtist is a wrapper around DefaultClient.GetArtist.
-func GetArtist(id ID) (*FullArtist, error) {
-	return DefaultClient.GetArtist(id)
-}
-
 // GetArtist gets Spotify catalog information for a single artist, given its Spotify ID.
 func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s", baseAddress, id)
@@ -48,11 +43,6 @@ func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 	}
 
 	return &a, nil
-}
-
-// GetArtists is a wrapper around DefaultClient.GetArtists.
-func GetArtists(ids ...ID) ([]*FullArtist, error) {
-	return DefaultClient.GetArtists(ids...)
 }
 
 // GetArtists gets spotify catalog information for several artists based on their
@@ -75,11 +65,6 @@ func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 	return a.Artists, nil
 }
 
-// GetArtistsTopTracks is a wrapper around DefaultClient.GetArtistsTopTracks.
-func GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
-	return DefaultClient.GetArtistsTopTracks(artistID, country)
-}
-
 // GetArtistsTopTracks gets Spotify catalog information about an artist's top
 // tracks in a particular country.  It returns a maximum of 10 tracks.  The
 // country is specified as an ISO 3166-1 alpha-2 country code.
@@ -96,11 +81,6 @@ func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, 
 	}
 
 	return t.Tracks, nil
-}
-
-// GetRelatedArtists is a wrapper around DefaultClient.GetRelatedArtists.
-func GetRelatedArtists(id ID) ([]FullArtist, error) {
-	return DefaultClient.GetRelatedArtists(id)
 }
 
 // GetRelatedArtists gets Spotify catalog information about artists similar to a
@@ -122,20 +102,10 @@ func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 	return a.Artists, nil
 }
 
-// GetArtistAlbums is a wrapper around DefaultClient.GetArtistAlbums.
-func GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
-	return DefaultClient.GetArtistAlbums(artistID)
-}
-
 // GetArtistAlbums gets Spotify catalog information about an artist's albums.
 // It is equivalent to GetArtistAlbumsOpt(artistID, nil).
 func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 	return c.GetArtistAlbumsOpt(artistID, nil, nil)
-}
-
-// GetArtistAlbumsOpt is a wrapper around DefaultClient.GetArtistAlbumsOpt
-func GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
-	return DefaultClient.GetArtistAlbumsOpt(artistID, options, t)
 }
 
 // GetArtistAlbumsOpt is just like GetArtistAlbums, but it accepts optional

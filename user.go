@@ -54,11 +54,6 @@ type PrivateUser struct {
 	Birthdate string `json:"birthdate"`
 }
 
-// GetUsersPublicProfile is a wrapper around DefaultClient.GetUsersPublicProfile.
-func GetUsersPublicProfile(userID ID) (*User, error) {
-	return DefaultClient.GetUsersPublicProfile(userID)
-}
-
 // GetUsersPublicProfile gets public profile information about a
 // Spotify User.  It does not require authentication.
 func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
@@ -75,7 +70,7 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 }
 
 // CurrentUser gets detailed profile information about the
-// current user.  This call requires authorization.
+// current user.
 //
 // Reading the user's email address requires that the application
 // has the ScopeUserReadEmail scope.  Reading the country, display
@@ -135,7 +130,6 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 
 // FollowUser adds the current user as a follower of one or more
 // spotify users, identified by their Spotify IDs.
-// This call requires authorization.
 //
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
@@ -145,7 +139,6 @@ func (c *Client) FollowUser(ids ...ID) error {
 
 // FollowArtist adds the current user as a follower of one or more
 // spotify artists, identified by their Spotify IDs.
-// This call requires authorization.
 //
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
@@ -154,7 +147,7 @@ func (c *Client) FollowArtist(ids ...ID) error {
 }
 
 // UnfollowUser removes the current user as a follower of one or more
-// Spotify users.  This call requires authorization.
+// Spotify users.
 //
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
@@ -163,7 +156,7 @@ func (c *Client) UnfollowUser(ids ...ID) error {
 }
 
 // UnfollowArtist removes the current user as a follower of one or more
-// Spotify artists.  This call requires authorization.
+// Spotify artists.
 //
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
@@ -173,8 +166,7 @@ func (c *Client) UnfollowArtist(ids ...ID) error {
 
 // CurrentUserFollows checks to see if the current user is following
 // one or more artists or other Spotify Users.  This call requires
-// authorization, and that the application has the ScopeUserFollowRead
-// scope.
+// ScopeUserFollowRead.
 //
 // The t argument indicates the type of the IDs, and must be either
 // "user" or "artist".
@@ -225,8 +217,7 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 }
 
 // CurrentUsersFollowedArtists gets the current user's followed artists.
-// This call requires authorization, and that the user has granted the
-// ScopeUserFollowRead scope.
+// This call requires that the user has granted the ScopeUserFollowRead scope.
 func (c *Client) CurrentUsersFollowedArtists() (*FullArtistCursorPage, error) {
 	return c.CurrentUsersFollowedArtistsOpt(-1, "")
 }
@@ -300,7 +291,8 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 }
 
 // CurrentUsersPlaylists gets a list of the playlists owned or followed by
-// the current spotify user.  This call requires authorization.
+// the current spotify user.
+//
 // Private playlists require the ScopePlaylistReadPrivate scope.  Note that
 // this scope alone will not return collaborative playlists, even though
 // they are always private.  In order to retrieve collaborative playlists

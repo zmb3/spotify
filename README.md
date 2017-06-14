@@ -23,12 +23,7 @@ To install the library, simply
 
 ## Authentication
 
-Most of the Web API functionality is available without authenticating.
-However, authenticated users benefit from increased rate limits.
-
-Features that access a user's private data require authorization.
-All functions requiring authorization are explicitly marked as
-such in the godoc.
+As of May 29, 2017 _all_ Web API endpoints require an access token.
 
 Spotify uses OAuth2 for authentication, which typically requires the user to login
 via a web browser.  This package includes an `Authenticator` type to handle the details for you.
@@ -83,14 +78,6 @@ https://godoc.org/golang.org/x/oauth2/google
 
 ## Helpful Hints
 
-### Default Client
-
-For API calls that require authorization, you should create your own
-`spotify.Client` using an `Authenticator`.  For calls that don't require authorization,
-package level wrapper functions are provided (see `spotify.Search` for example)
-
-These functions just proxy through `spotify.DefaultClient`, similar to the way
-the `net/http` package works.
 
 ### Optional Parameters
 
@@ -101,7 +88,9 @@ to indicate that it accepts some optional parameters.
 
 ### Automatic Retries
 
-The API will throttle your requests if you are sending them too rapidly. This client can automatically wait and reattempt the request, but this does not happen automatically. To enable this, set the `AutoRetry` field on the `Client` struct to `true`.
+The API will throttle your requests if you are sending them too rapidly.
+The client can be configured to wait and re-attempt the request.
+To enable this, set the `AutoRetry` field on the `Client` struct to `true`.
 
 For more information, see Spotify [rate-limits](https://developer.spotify.com/web-api/user-guide/#rate-limiting).
 
@@ -109,4 +98,6 @@ For more information, see Spotify [rate-limits](https://developer.spotify.com/we
 
 Examples of the API can be found in the [examples](examples) directory.
 
-You may find tools such as [Spotify's Web API Console](https://developer.spotify.com/web-api/console/) or [Rapid API](https://rapidapi.com/package/SpotifyPublicAPI/functions?utm_source=SpotifyGitHub&utm_medium=button&utm_content=Vendor_GitHub) valuable for experimenting with the API.
+You may find tools such as [Spotify's Web API Console](https://developer.spotify.com/web-api/console/)
+or [Rapid API](https://rapidapi.com/package/SpotifyPublicAPI/functions?utm_source=SpotifyGitHub&utm_medium=button&utm_content=Vendor_GitHub)
+valuable for experimenting with the API.

@@ -53,19 +53,17 @@ func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 
 // GetCategory gets a single category used to tag items in Spotify
 // (on, for example, the Spotify player's Browse tab).
-// This call requires authorization.
 func (c *Client) GetCategory(id string) (Category, error) {
 	return c.GetCategoryOpt(id, "", "")
 }
 
 // GetCategoryPlaylists gets a list of Spotify playlists tagged with a paricular category.
-// This call requires authorization.
 func (c *Client) GetCategoryPlaylists(catID string) (*SimplePlaylistPage, error) {
 	return c.GetCategoryPlaylistsOpt(catID, nil)
 }
 
 // GetCategoryPlaylistsOpt is like GetCategoryPlaylists, but it accepts optional
-// arguments.  This call requires authorization.
+// arguments.
 func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePlaylistPage, error) {
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", baseAddress, catID)
 	if opt != nil {
@@ -98,13 +96,11 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 
 // GetCategories gets a list of categories used to tag items in Spotify
 // (on, for example, the Spotify player's "Browse" tab).
-// This call requires authorization.
 func (c *Client) GetCategories() (*CategoryPage, error) {
 	return c.GetCategoriesOpt(nil, "")
 }
 
 // GetCategoriesOpt is like GetCategories, but it accepts optional parameters.
-// This call requires authorization.
 //
 // The locale option can be used to get the results in a particular language.
 // It consists of an ISO 639 language code and an ISO 3166-1 alpha-2 country

@@ -4,7 +4,6 @@ package spotify
 
 import (
 	"bytes"
-	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -41,13 +40,6 @@ const (
 
 var (
 	baseAddress = "https://api.spotify.com/v1/"
-
-	// DefaultClient is the default client that is used by the wrapper functions
-	// that don't require authorization.  If you need to authenticate, create
-	// your own client with `Authenticator.NewClient`.
-	DefaultClient = &Client{
-		http: new(http.Client),
-	}
 )
 
 // shouldRetry determines whether the status code indicates that the
@@ -63,14 +55,6 @@ type URI string
 // ID is a base-62 identifier for an artist, track, album, etc.
 // It can be found at the end of a spotify.URI.
 type ID string
-
-func init() {
-	// disable HTTP/2 for DefaultClient, see: https://github.com/zmb3/spotify/issues/20
-	tr := &http.Transport{
-		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
-	}
-	DefaultClient.http.Transport = tr
-}
 
 func (id *ID) String() string {
 	return string(*id)

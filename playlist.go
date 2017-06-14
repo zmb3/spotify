@@ -75,7 +75,6 @@ type PlaylistOptions struct {
 
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
 // It accepts a number of optional parameters via the opt argument.
-// This call requires authorization.
 func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *SimplePlaylistPage, e error) {
 	spotifyURL := baseAddress + "browse/featured-playlists"
 	if opt != nil {
@@ -143,9 +142,8 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 }
 
 // UnfollowPlaylist removes the current user as a follower of a playlist.
-// This call requires authorization.  Unfollowing a publicly followed playlist
-// requires the ScopePlaylistModifyPublic scope.  Unfolowing a privately followed,
-// playlist requies the ScopePlaylistModifyPrivate scope.
+// Unfollowing a publicly followed playlist requires ScopePlaylistModifyPublic.
+// Unfolowing a privately followed playlist requies ScopePlaylistModifyPrivate.
 func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	spotifyURL := buildFollowURI(owner, playlist)
 	req, err := http.NewRequest("DELETE", spotifyURL, nil)
@@ -165,7 +163,7 @@ func buildFollowURI(owner, playlist ID) string {
 }
 
 // GetPlaylistsForUser gets a list of the playlists owned or followed by a
-// particular Spotify user.  This call requires authorization.
+// particular Spotify user.
 //
 // Private playlists and collaborative playlists are only retrievable for the
 // current user.  In order to read private playlists, the user must have granted
@@ -204,8 +202,8 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 	return &result, err
 }
 
-// GetPlaylist gets a playlist owned by a Spotify user. This call requires
-// authorization.  Both public and private playlists belonging to any user
+// GetPlaylist gets a playlist owned by a Spotify user.
+// Both public and private playlists belonging to any user
 // are retrievable with a valid access token.
 func (c *Client) GetPlaylist(userID string, playlistID ID) (*FullPlaylist, error) {
 	return c.GetPlaylistOpt(userID, playlistID, "")
@@ -247,13 +245,12 @@ func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*F
 
 // GetPlaylistTracks gets full details of the tracks in a playlist, given the
 // owner of the playlist and the playlist's Spotify ID.
-// This call requires authorization.
 func (c *Client) GetPlaylistTracks(userID string, playlistID ID) (*PlaylistTrackPage, error) {
 	return c.GetPlaylistTracksOpt(userID, playlistID, nil, "")
 }
 
 // GetPlaylistTracksOpt is like GetPlaylistTracks, but it accepts optional parameters
-// for sorting and filtering the results.  This call requrles authorization.
+// for sorting and filtering the results.
 //
 // The field parameter is a comma-separated list of the fields to return.  See the
 // JSON struct tags for the PlaylistTrackPage type for valid field names.
@@ -305,10 +302,8 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 // The playlistName does not need to be unique - a user can have
 // several playlists with the same name.
 //
-// This call requires authorization.  Creating a public playlist
-// for a user requires the ScopePlaylistModifyPublic scope;
-// creating a private playlist requires the ScopePlaylistModifyPrivate
-// scope.
+// Creating a public playlist for a user requires ScopePlaylistModifyPublic;
+// creating a private playlist requires ScopePlaylistModifyPrivate.
 //
 // On success, the newly created playlist is returned.
 func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool) (*FullPlaylist, error) {
@@ -388,8 +383,8 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 	return nil
 }
 
-// AddTracksToPlaylist adds one or more tracks to a user's playlist.  This call
-// requires authorization (ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate).
+// AddTracksToPlaylist adds one or more tracks to a user's playlist.
+// This call requires ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate.
 // A maximum of 100 tracks can be added per call.  It returns a snapshot ID that
 // can be used to identify this version (the new version) of the playlist in
 // future requests.
@@ -517,7 +512,7 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 
 // ReplacePlaylistTracks replaces all of the tracks in a playlist, overwriting its
 // exising tracks  This can be useful for replacing or reordering tracks, or for
-// clearing a playlist.  This call requires authorization.
+// clearing a playlist.
 //
 // Modifying a public playlist requires that the user has authorized the
 // ScopePlaylistModifyPublic scope.  Modifying a private playlist requires the
@@ -545,8 +540,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 }
 
 // UserFollowsPlaylist checks if one or more (up to 5) Spotify users are following
-// a Spotify playlist, given the playlist's owner and ID.  This call requires
-// authorization.
+// a Spotify playlist, given the playlist's owner and ID.
 //
 // Checking if a user follows a playlist publicly doesn't require any scopes.
 // Checking if the user is privately following a playlist is only possible for the
@@ -599,9 +593,8 @@ type PlaylistReorderOptions struct {
 // See the docs for PlaylistReorderOptions for information on how the reordering
 // works.
 //
-// This call requires authorization.  Rordering tracks in the current user's
-// public playlist requires ScopePlaylistModifyPublic.  Reordering tracks in
-// the user's private playlists (including collaborative playlists) requires
+// Reordering tracks in the current user's public playlist requires ScopePlaylistModifyPublic.
+// Reordering tracks in the user's private playlists (including collaborative playlists) requires
 // ScopePlaylistModifyPrivate.
 func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt PlaylistReorderOptions) (snapshotID string, err error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)

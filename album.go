@@ -116,11 +116,6 @@ func toStringSlice(ids []ID) []string {
 	return result
 }
 
-// GetAlbums is a wrapper around DefaultClient.GetAlbums.
-func GetAlbums(ids ...ID) ([]*FullAlbum, error) {
-	return DefaultClient.GetAlbums(ids...)
-}
-
 // GetAlbums gets Spotify Catalog information for multiple albums, given their
 // Spotify IDs.  It supports up to 20 IDs in a single call.  Albums are returned
 // in the order requested.  If an album is not found, that position in the
@@ -174,21 +169,11 @@ func (at AlbumType) encode() string {
 	return strings.Join(types, ",")
 }
 
-// GetAlbumTracks is a wrapper around DefaultClient.GetAlbumTracks.
-func GetAlbumTracks(id ID) (*SimpleTrackPage, error) {
-	return DefaultClient.GetAlbumTracks(id)
-}
-
 // GetAlbumTracks gets the tracks for a particular album.
 // If you only care about the tracks, this call is more efficient
 // than GetAlbum.
 func (c *Client) GetAlbumTracks(id ID) (*SimpleTrackPage, error) {
 	return c.GetAlbumTracksOpt(id, -1, -1)
-}
-
-// GetAlbumTracksOpt is a wrapper around DefaultClient.GetAlbumTracksOpt.
-func GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, error) {
-	return DefaultClient.GetAlbumTracksOpt(id, limit, offset)
 }
 
 // GetAlbumTracksOpt behaves like GetAlbumTracks, with the exception that it

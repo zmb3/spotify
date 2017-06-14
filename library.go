@@ -8,7 +8,7 @@ import (
 )
 
 // UserHasTracks checks if one or more tracks are saved to the current user's
-// "Your Music" library.  This call requires authorization.
+// "Your Music" library.
 func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 	if l := len(ids); l == 0 || l > 50 {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
@@ -26,16 +26,15 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 }
 
 // AddTracksToLibrary saves one or more tracks to the current user's
-// "Your Music" library.  This call requires authorization (the
-// ScopeUserLibraryModify scope).
+// "Your Music" library.  This call requires the ScopeUserLibraryModify scope.
 // A track can only be saved once; duplicate IDs are ignored.
 func (c *Client) AddTracksToLibrary(ids ...ID) error {
 	return c.modifyLibraryTracks(true, ids...)
 }
 
 // RemoveTracksFromLibrary removes one or more tracks from the current user's
-// "Your Music" library.  This call requires authorization (the ScopeUserModifyLibrary
-// scope).  Trying to remove a track when you do not have the user's authorization
+// "Your Music" library.  This call requires the ScopeUserModifyLibrary scope.
+// Trying to remove a track when you do not have the user's authorization
 // results in a `spotify.Error` with the status code set to http.StatusUnauthorized.
 func (c *Client) RemoveTracksFromLibrary(ids ...ID) error {
 	return c.modifyLibraryTracks(false, ids...)
