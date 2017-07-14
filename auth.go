@@ -146,6 +146,13 @@ func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, erro
 	return a.config.Exchange(a.context, code)
 }
 
+// TokenwithoutRequest pulls an authorization code from an HTTP request and attempts to exchange
+// it for an access token.  The standard use case is to call TokenwithoutRequest from the handler
+// that handles requests to your application's redirect URL.
+func (a Authenticator) TokenwithoutRequest(code string) (*oauth2.Token, error) {
+	return a.config.Exchange(a.context, code)
+}
+
 // Exchange is like Token, except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
 func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
