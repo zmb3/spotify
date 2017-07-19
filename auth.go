@@ -160,6 +160,16 @@ func (a Authenticator) NewClient(token *oauth2.Token) Client {
 	}
 }
 
+func (a Authenticator) RefreshToken(refreshToken string) (*oauth2.Token, error) {
+	token := &oauth2.Token{RefreshToken: refreshToken}
+	ts := a.config.TokenSource(a.context, token)
+	newToken, err := ts.Token()
+	if err != nil {
+		return nil, err
+	}
+	return newToken, err
+}
+
 // Token gets the client's current token.
 func (c *Client) Token() (*oauth2.Token, error) {
 	transport, ok := c.http.Transport.(*oauth2.Transport)
