@@ -167,7 +167,7 @@ func (a Authenticator) RefreshToken(refreshToken string) (*oauth2.Token, error) 
 	if err != nil {
 		return nil, err
 	}
-	return newToken, err
+	return newToken, nil
 }
 
 // Token gets the client's current token.
