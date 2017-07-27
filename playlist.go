@@ -2,8 +2,10 @@ package spotify
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -617,4 +619,28 @@ func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt Playlis
 	}
 
 	return result.SnapshotID, err
+}
+
+// SetPlaylistImage replaces the image used to represent a playlist.
+// This action can only be performed by the owner of the playlist,
+// and requires ScopeImageUpload as well as ScopeModifyPlaylist{Public|Private}..
+func (c *Client) SetPlaylistImage(userID string, playlistID ID, img io.Reader) error {
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/images", baseAddress, userID, playlistID)
+	// data flow:
+	// img (reader) -> copy into base64 encoder (writer) -> pipe (write end)
+	// pipe (read end) -> request body
+	r, w := io.Pipe()
+	go func() {
+		enc := base64.NewEncoder(base64.StdEncoding, w)
+		_, err := io.Copy(enc, img)
+		enc.Close()
+		w.CloseWithError(err)
+	}()
+
+	req, err := http.NewRequest("PUT", spotifyURL, r)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "image/jpeg")
+	return c.execute(req, nil, http.StatusAccepted)
 }

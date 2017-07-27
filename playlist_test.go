@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -417,5 +418,28 @@ func TestReorderPlaylistRequest(t *testing.T) {
 	}
 	if _, ok := body["snapshot_id"]; ok {
 		t.Error("Parameter snapshot_id shouldn't have been in body")
+	}
+}
+
+func TestSetPlaylistImage(t *testing.T) {
+	client := testClientString(http.StatusAccepted, "")
+	err := client.SetPlaylistImage("user", "playlist", bytes.NewReader([]byte("foo")))
+	if err != nil {
+		t.Fatal(err)
+	}
+	req := getLastRequest(client)
+	if ct := req.Header.Get("Content-Type"); ct != "image/jpeg" {
+		t.Errorf("wrong content type, got %s, want image/jpeg", ct)
+	}
+	if req.Method != "PUT" {
+		t.Errorf("expected a PUT, got a %s\n", req.Method)
+	}
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(body, []byte("Zm9v")) {
+		t.Errorf("invalid request body: want Zm9v, got %s", string(body))
 	}
 }
