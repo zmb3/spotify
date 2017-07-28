@@ -6,7 +6,9 @@ import (
 )
 
 func TestGetCategories(t *testing.T) {
-	client := testClientString(http.StatusOK, getCategories)
+	client, server := testClientString(http.StatusOK, getCategories)
+	defer server.Close()
+
 	page, err := client.GetCategories()
 	if err != nil {
 		t.Fatal(err)
@@ -20,7 +22,9 @@ func TestGetCategories(t *testing.T) {
 }
 
 func TestGetCategory(t *testing.T) {
-	client := testClientString(http.StatusOK, getCategory)
+	client, server := testClientString(http.StatusOK, getCategory)
+	defer server.Close()
+
 	cat, err := client.GetCategory("dinner")
 	if err != nil {
 		t.Fatal(err)
@@ -31,7 +35,9 @@ func TestGetCategory(t *testing.T) {
 }
 
 func TestGetCategoryPlaylists(t *testing.T) {
-	client := testClientString(http.StatusOK, getCategoryPlaylists)
+	client, server := testClientString(http.StatusOK, getCategoryPlaylists)
+	defer server.Close()
+
 	page, err := client.GetCategoryPlaylists("dinner")
 	if err != nil {
 		t.Fatal(err)
@@ -51,43 +57,51 @@ func TestGetCategoryPlaylists(t *testing.T) {
 }
 
 func TestGetCategoryOpt(t *testing.T) {
-	client := testClientString(http.StatusNotFound, "")
-	client.GetCategoryOpt("id", CountryBrazil, "es_MX")
+	client, server := testClientString(http.StatusNotFound, "", func(r *http.Request) {
+		// verify that the optional parameters were included in the request
+		values := r.URL.Query()
+		if c := values.Get("country"); c != CountryBrazil {
+			t.Errorf("Expected country '%s', got '%s'\n", CountryBrazil, c)
+		}
+		if l := values.Get("locale"); l != "es_MX" {
+			t.Errorf("Expected locale 'es_MX', got '%s'\n", l)
+		}
+	})
+	defer server.Close()
 
-	// verify that the optional parameters were included in the request
-	req := getLastRequest(client)
-	values := req.URL.Query()
-	if c := values.Get("country"); c != CountryBrazil {
-		t.Errorf("Expected country '%s', got '%s'\n", CountryBrazil, c)
-	}
-	if l := values.Get("locale"); l != "es_MX" {
-		t.Errorf("Expected locale 'es_MX', got '%s'\n", l)
+	_, err := client.GetCategoryOpt("id", CountryBrazil, "es_MX")
+	if err == nil {
+		t.Fatal("Expected error")
 	}
 }
 
 func TestGetCategoryPlaylistsOpt(t *testing.T) {
-	client := testClientString(http.StatusNotFound, "")
+	client, server := testClientString(http.StatusNotFound, "", func(r *http.Request) {
+		values := r.URL.Query()
+		if c := values.Get("country"); c != "" {
+			t.Errorf("Country should not have been set, got %s\n", c)
+		}
+		if l := values.Get("limit"); l != "5" {
+			t.Errorf("Expected limit 5, got %s\n", l)
+		}
+		if o := values.Get("offset"); o != "10" {
+			t.Errorf("Expected offset 10, got %s\n", o)
+		}
+	})
+	defer server.Close()
+
 	opt := &Options{}
 	opt.Limit = new(int)
 	opt.Offset = new(int)
 	*opt.Limit = 5
 	*opt.Offset = 10
 	client.GetCategoryPlaylistsOpt("id", opt)
-	req := getLastRequest(client)
-	values := req.URL.Query()
-	if c := values.Get("country"); c != "" {
-		t.Errorf("Country should not have been set, got %s\n", c)
-	}
-	if l := values.Get("limit"); l != "5" {
-		t.Errorf("Expected limit 5, got %s\n", l)
-	}
-	if o := values.Get("offset"); o != "10" {
-		t.Errorf("Expected offset 10, got %s\n", o)
-	}
 }
 
 func TestGetCategoriesInvalidToken(t *testing.T) {
-	client := testClientString(http.StatusUnauthorized, invalidToken)
+	client, server := testClientString(http.StatusUnauthorized, invalidToken)
+	defer server.Close()
+
 	_, err := client.GetCategories()
 	if err == nil {
 		t.Fatal("Expected error but didn't get one")

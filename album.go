@@ -96,7 +96,7 @@ func (f *FullAlbum) ReleaseDateTime() time.Time {
 
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
 func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
-	spotifyURL := fmt.Sprintf("%salbums/%s", baseAddress, id)
+	spotifyURL := fmt.Sprintf("%salbums/%s", c.baseURL, id)
 
 	var a FullAlbum
 
@@ -124,7 +124,7 @@ func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
-	spotifyURL := fmt.Sprintf("%salbums?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	spotifyURL := fmt.Sprintf("%salbums?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	var a struct {
 		Albums []*FullAlbum `json:"albums"`
@@ -182,7 +182,7 @@ func (c *Client) GetAlbumTracks(id ID) (*SimpleTrackPage, error) {
 // The offset argument can be used to specify the index of the first track to return.
 // It can be used along with limit to reqeust the next set of results.
 func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, error) {
-	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", baseAddress, id)
+	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", c.baseURL, id)
 	v := url.Values{}
 	if limit != -1 {
 		v.Set("limit", strconv.Itoa(limit))

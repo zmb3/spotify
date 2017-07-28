@@ -7,7 +7,9 @@ import (
 
 func TestGetRecommendations(t *testing.T) {
 	// test data corresponding to Spotify Console web API sample
-	client := testClientFile(200, "test_data/recommendations.txt")
+	client, server := testClientFile(200, "test_data/recommendations.txt")
+	defer server.Close()
+
 	seeds := Seeds{
 		Artists: []ID{"4NHQUGzhtTLFvgF5SZesLK"},
 		Tracks:  []ID{"0c6xIDDpzE81m2q797ordA"},
@@ -21,8 +23,7 @@ func TestGetRecommendations(t *testing.T) {
 	}
 	recommendations, err := client.GetRecommendations(seeds, nil, &opts)
 	if err != nil {
-		t.Error(err)
-		return
+		t.Fatal(err)
 	}
 	if len(recommendations.Tracks) != 10 {
 		t.Error("Expected 10 recommended tracks")

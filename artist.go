@@ -34,7 +34,7 @@ type FullArtist struct {
 
 // GetArtist gets Spotify catalog information for a single artist, given its Spotify ID.
 func (c *Client) GetArtist(id ID) (*FullArtist, error) {
-	spotifyURL := fmt.Sprintf("%sartists/%s", baseAddress, id)
+	spotifyURL := fmt.Sprintf("%sartists/%s", c.baseURL, id)
 
 	var a FullArtist
 	err := c.get(spotifyURL, &a)
@@ -51,7 +51,7 @@ func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 // in the result will be nil.  Duplicate IDs will result in duplicate artists
 // in the result.
 func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
-	spotifyURL := fmt.Sprintf("%sartists?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	spotifyURL := fmt.Sprintf("%sartists?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	var a struct {
 		Artists []*FullArtist
@@ -69,7 +69,7 @@ func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 // tracks in a particular country.  It returns a maximum of 10 tracks.  The
 // country is specified as an ISO 3166-1 alpha-2 country code.
 func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
-	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", baseAddress, artistID, country)
+	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", c.baseURL, artistID, country)
 
 	var t struct {
 		Tracks []FullTrack `json:"tracks"`
@@ -88,7 +88,7 @@ func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, 
 // listening history.  This function returns up to 20 artists that are considered
 // related to the specified artist.
 func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
-	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", baseAddress, id)
+	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", c.baseURL, id)
 
 	var a struct {
 		Artists []FullArtist `json:"artists"`
@@ -114,7 +114,7 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 // The AlbumType argument can be used to find a particular type of album.  Search
 // for multiple types by OR-ing the types together.
 func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
-	spotifyURL := fmt.Sprintf("%sartists/%s/albums", baseAddress, artistID)
+	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified
 	values := url.Values{}
 	if t != nil {

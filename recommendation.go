@@ -94,7 +94,7 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 		}
 	}
 
-	spotifyURL := baseAddress + "recommendations?" + v.Encode()
+	spotifyURL := c.baseURL + "recommendations?" + v.Encode()
 
 	var recommendations Recommendations
 	err := c.get(spotifyURL, &recommendations)
@@ -108,7 +108,7 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 // GetAvailableGenreSeeds retrieves a list of available genres seed parameter values for
 // recommendations.
 func (c *Client) GetAvailableGenreSeeds() ([]string, error) {
-	spotifyURL := baseAddress + "recommendations/available-genre-seeds"
+	spotifyURL := c.baseURL + "recommendations/available-genre-seeds"
 
 	genreSeeds := make(map[string][]string)
 

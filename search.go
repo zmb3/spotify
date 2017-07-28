@@ -131,7 +131,7 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 		}
 	}
 
-	spotifyURL := baseAddress + "search?" + v.Encode()
+	spotifyURL := c.baseURL + "search?" + v.Encode()
 
 	var result SearchResult
 

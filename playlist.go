@@ -78,7 +78,7 @@ type PlaylistOptions struct {
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
 // It accepts a number of optional parameters via the opt argument.
 func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, playlists *SimplePlaylistPage, e error) {
-	spotifyURL := baseAddress + "browse/featured-playlists"
+	spotifyURL := c.baseURL + "browse/featured-playlists"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Locale != nil {
@@ -129,7 +129,7 @@ func (c *Client) FeaturedPlaylists() (message string, playlists *SimplePlaylistP
 // must have granted the ScopePlaylistModifyPrivate scope.  The
 // ScopePlaylistModifyPublic scope is required to follow playlists publicly.
 func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
-	spotifyURL := buildFollowURI(owner, playlist)
+	spotifyURL := buildFollowURI(c.baseURL, owner, playlist)
 	body := strings.NewReader(strconv.FormatBool(public))
 	req, err := http.NewRequest("PUT", spotifyURL, body)
 	if err != nil {
@@ -147,7 +147,7 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 // Unfollowing a publicly followed playlist requires ScopePlaylistModifyPublic.
 // Unfolowing a privately followed playlist requies ScopePlaylistModifyPrivate.
 func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
-	spotifyURL := buildFollowURI(owner, playlist)
+	spotifyURL := buildFollowURI(c.baseURL, owner, playlist)
 	req, err := http.NewRequest("DELETE", spotifyURL, nil)
 	if err != nil {
 		return err
@@ -159,9 +159,9 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	return nil
 }
 
-func buildFollowURI(owner, playlist ID) string {
+func buildFollowURI(url string, owner, playlist ID) string {
 	return fmt.Sprintf("%susers/%s/playlists/%s/followers",
-		baseAddress, string(owner), string(playlist))
+		url, string(owner), string(playlist))
 }
 
 // GetPlaylistsForUser gets a list of the playlists owned or followed by a
@@ -180,7 +180,7 @@ func (c *Client) GetPlaylistsForUser(userID string) (*SimplePlaylistPage, error)
 // GetPlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional paramters
 // for filtering the results.
 func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePlaylistPage, error) {
-	spotifyURL := baseAddress + "users/" + userID + "/playlists"
+	spotifyURL := c.baseURL + "users/" + userID + "/playlists"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Limit != nil {
@@ -230,7 +230,7 @@ func (c *Client) GetPlaylist(userID string, playlistID ID) (*FullPlaylist, error
 // Fields can be excluded by prefixing them with an exclamation mark, for example;
 //    fields = "tracks.items(track(name,href,album(!name,href)))"
 func (c *Client) GetPlaylistOpt(userID string, playlistID ID, fields string) (*FullPlaylist, error) {
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s", baseAddress, userID, playlistID)
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s", c.baseURL, userID, playlistID)
 	if fields != "" {
 		spotifyURL += "?fields=" + url.QueryEscape(fields)
 	}
@@ -272,7 +272,7 @@ func (c *Client) GetPlaylistTracks(userID string, playlistID ID) (*PlaylistTrack
 func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 	opt *Options, fields string) (*PlaylistTrackPage, error) {
 
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", c.baseURL, userID, playlistID)
 	v := url.Values{}
 	if fields != "" {
 		v.Set("fields", fields)
@@ -309,7 +309,7 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 //
 // On success, the newly created playlist is returned.
 func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool) (*FullPlaylist, error) {
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists", baseAddress, userID)
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists", c.baseURL, userID)
 	body := struct {
 		Name   string `json:"name"`
 		Public bool   `json:"public"`
@@ -372,7 +372,7 @@ func (c *Client) modifyPlaylist(userID string, playlistID ID, newName string, pu
 	if err != nil {
 		return err
 	}
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s", baseAddress, userID, string(playlistID))
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s", c.baseURL, userID, string(playlistID))
 	req, err := http.NewRequest("PUT", spotifyURL, bytes.NewReader(bodyJSON))
 	if err != nil {
 		return err
@@ -401,7 +401,7 @@ func (c *Client) AddTracksToPlaylist(userID string, playlistID ID,
 	m["uris"] = uris
 
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks",
-		baseAddress, userID, string(playlistID))
+		c.baseURL, userID, string(playlistID))
 	body, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -489,7 +489,7 @@ func (c *Client) removeTracksFromPlaylist(userID string, playlistID ID,
 	}
 
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks",
-		baseAddress, userID, string(playlistID))
+		c.baseURL, userID, string(playlistID))
 	body, err := json.Marshal(m)
 	if err != nil {
 		return "", err
@@ -528,7 +528,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 		trackURIs[i] = fmt.Sprintf("spotify:track:%s", u)
 	}
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks?uris=%s",
-		baseAddress, userID, playlistID, strings.Join(trackURIs, ","))
+		c.baseURL, userID, playlistID, strings.Join(trackURIs, ","))
 	req, err := http.NewRequest("PUT", spotifyURL, nil)
 	if err != nil {
 		return err
@@ -549,7 +549,7 @@ func (c *Client) ReplacePlaylistTracks(userID string, playlistID ID, trackIDs ..
 // current user when that user has granted access to the ScopePlaylistReadPrivate scope.
 func (c *Client) UserFollowsPlaylist(ownerID string, playlistID ID, userIDs ...string) ([]bool, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/followers/contains?ids=%s",
-		baseAddress, ownerID, playlistID, strings.Join(userIDs, ","))
+		c.baseURL, ownerID, playlistID, strings.Join(userIDs, ","))
 
 	follows := make([]bool, len(userIDs))
 
@@ -599,7 +599,7 @@ type PlaylistReorderOptions struct {
 // Reordering tracks in the user's private playlists (including collaborative playlists) requires
 // ScopePlaylistModifyPrivate.
 func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt PlaylistReorderOptions) (snapshotID string, err error) {
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", baseAddress, userID, playlistID)
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/tracks", c.baseURL, userID, playlistID)
 	j, err := json.Marshal(opt)
 	if err != nil {
 		return "", err
@@ -625,7 +625,7 @@ func (c *Client) ReorderPlaylistTracks(userID string, playlistID ID, opt Playlis
 // This action can only be performed by the owner of the playlist,
 // and requires ScopeImageUpload as well as ScopeModifyPlaylist{Public|Private}..
 func (c *Client) SetPlaylistImage(userID string, playlistID ID, img io.Reader) error {
-	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/images", baseAddress, userID, playlistID)
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists/%s/images", c.baseURL, userID, playlistID)
 	// data flow:
 	// img (reader) -> copy into base64 encoder (writer) -> pipe (write end)
 	// pipe (read end) -> request body

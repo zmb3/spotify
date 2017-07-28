@@ -57,7 +57,7 @@ type PrivateUser struct {
 // GetUsersPublicProfile gets public profile information about a
 // Spotify User.  It does not require authentication.
 func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
-	spotifyURL := baseAddress + "users/" + string(userID)
+	spotifyURL := c.baseURL + "users/" + string(userID)
 
 	var user User
 
@@ -84,7 +84,7 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 func (c *Client) CurrentUser() (*PrivateUser, error) {
 	var result PrivateUser
 
-	err := c.get(baseAddress+"me", &result)
+	err := c.get(c.baseURL+"me", &result)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func (c *Client) CurrentUsersTracks() (*SavedTrackPage, error) {
 // CurrentUsersTracksOpt is like CurrentUsersTracks, but it accepts additional
 // options for sorting and filtering the results.
 func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
-	spotifyURL := baseAddress + "me/tracks"
+	spotifyURL := c.baseURL + "me/tracks"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Country != nil {
@@ -181,7 +181,7 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 		return nil, errors.New("spotify: t must be 'artist' or 'user'")
 	}
 	spotifyURL := fmt.Sprintf("%sme/following/contains?type=%s&ids=%s",
-		baseAddress, t, strings.Join(toStringSlice(ids), ","))
+		c.baseURL, t, strings.Join(toStringSlice(ids), ","))
 
 	var result []bool
 
@@ -200,7 +200,7 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 	v := url.Values{}
 	v.Add("type", usertype)
 	v.Add("ids", strings.Join(toStringSlice(ids), ","))
-	spotifyURL := baseAddress + "me/following?" + v.Encode()
+	spotifyURL := c.baseURL + "me/following?" + v.Encode()
 	method := "PUT"
 	if !follow {
 		method = "DELETE"
@@ -229,7 +229,7 @@ func (c *Client) CurrentUsersFollowedArtists() (*FullArtistCursorPage, error) {
 // wish to specify either of the parameters, use -1 for limit and the empty
 // string for after.
 func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullArtistCursorPage, error) {
-	spotifyURL := baseAddress + "me/following"
+	spotifyURL := c.baseURL + "me/following"
 	v := url.Values{}
 	v.Set("type", "artist")
 	if limit != -1 {
@@ -263,7 +263,7 @@ func (c *Client) CurrentUsersAlbums() (*SavedAlbumPage, error) {
 // CurrentUsersAlbumsOpt is like CurrentUsersAlbums, but it accepts additional
 // options for sorting and filtering the results.
 func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
-	spotifyURL := baseAddress + "me/albums"
+	spotifyURL := c.baseURL + "me/albums"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Country != nil {
@@ -304,7 +304,7 @@ func (c *Client) CurrentUsersPlaylists() (*SimplePlaylistPage, error) {
 // CurrentUsersPlaylistsOpt is like CurrentUsersPlaylists, but it accepts
 // additional options for sorting and filtering the results.
 func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, error) {
-	spotifyURL := baseAddress + "me/playlists"
+	spotifyURL := c.baseURL + "me/playlists"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Limit != nil {

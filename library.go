@@ -13,7 +13,7 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 	if l := len(ids); l == 0 || l > 50 {
 		return nil, errors.New("spotify: UserHasTracks supports 1 to 50 IDs per call")
 	}
-	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	var result []bool
 
@@ -44,7 +44,7 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: this call supports 1 to 50 IDs per call")
 	}
-	spotifyURL := fmt.Sprintf("%sme/tracks?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	spotifyURL := fmt.Sprintf("%sme/tracks?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 	method := "DELETE"
 	if add {
 		method = "PUT"

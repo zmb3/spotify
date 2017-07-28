@@ -6,8 +6,9 @@ import (
 )
 
 func TestUserHasTracks(t *testing.T) {
-	client := testClientString(http.StatusOK, `[ false, true ]`)
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusOK, `[ false, true ]`)
+	defer server.Close()
+
 	contains, err := client.UserHasTracks("0udZHhCi7p1YzMlvI4fXoK", "55nlbqqFVnSsArIeYSQlqx")
 	if err != nil {
 		t.Error(err)
@@ -21,8 +22,9 @@ func TestUserHasTracks(t *testing.T) {
 }
 
 func TestAddTracksToLibrary(t *testing.T) {
-	client := testClientString(http.StatusOK, "")
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusOK, "")
+	defer server.Close()
+
 	err := client.AddTracksToLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err != nil {
 		t.Error(err)
@@ -30,14 +32,14 @@ func TestAddTracksToLibrary(t *testing.T) {
 }
 
 func TestAddTracksToLibraryFailure(t *testing.T) {
-	client := testClientString(http.StatusUnauthorized, `
+	client, server := testClientString(http.StatusUnauthorized, `
 {
   "error": {
     "status": 401,
     "message": "Invalid access token"
   }
 }`)
-	addDummyAuth(client)
+	defer server.Close()
 	err := client.AddTracksToLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err == nil {
 		t.Error("Expected error and didn't get one")
@@ -45,8 +47,9 @@ func TestAddTracksToLibraryFailure(t *testing.T) {
 }
 
 func TestRemoveTracksFromLibrary(t *testing.T) {
-	client := testClientString(http.StatusOK, "")
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusOK, "")
+	defer server.Close()
+
 	err := client.RemoveTracksFromLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err != nil {
 		t.Error(err)

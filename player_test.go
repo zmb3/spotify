@@ -6,7 +6,8 @@ import (
 )
 
 func TestTransferPlaybackDeviceUnavailable(t *testing.T) {
-	client := testClientString(http.StatusAccepted, "")
+	client, server := testClientString(http.StatusAccepted, "")
+	defer server.Close()
 	err := client.TransferPlayback("newdevice", false)
 	if err == nil {
 		t.Error("expected error since auto retry is disabled")
@@ -14,8 +15,9 @@ func TestTransferPlaybackDeviceUnavailable(t *testing.T) {
 }
 
 func TestTransferPlayback(t *testing.T) {
-	client := testClientString(http.StatusNoContent, "")
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusNoContent, "")
+	defer server.Close()
+
 	err := client.TransferPlayback("newdevice", true)
 	if err != nil {
 		t.Error(err)
@@ -23,8 +25,8 @@ func TestTransferPlayback(t *testing.T) {
 }
 
 func TestVolume(t *testing.T) {
-	client := testClientString(http.StatusNoContent, "")
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusNoContent, "")
+	defer server.Close()
 
 	err := client.Volume(50)
 	if err != nil {
@@ -33,8 +35,9 @@ func TestVolume(t *testing.T) {
 }
 
 func TestPlayerDevices(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/player_available_devices.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/player_available_devices.txt")
+	defer server.Close()
+
 	list, err := client.PlayerDevices()
 	if err != nil {
 		t.Error(err)
@@ -53,8 +56,9 @@ func TestPlayerDevices(t *testing.T) {
 }
 
 func TestPlayerState(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/player_state.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/player_state.txt")
+	defer server.Close()
+
 	state, err := client.PlayerState()
 	if err != nil {
 		t.Error(err)
@@ -83,8 +87,9 @@ func TestPlayerState(t *testing.T) {
 }
 
 func TestPlayerCurrentlyPlaying(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/player_currently_playing.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/player_currently_playing.txt")
+	defer server.Close()
+
 	state, err := client.PlayerCurrentlyPlaying()
 	if err != nil {
 		t.Error(err)
@@ -113,12 +118,12 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 }
 
 func TestPlayerRecentlyPlayed(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/player_recently_played.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/player_recently_played.txt")
+	defer server.Close()
+
 	items, err := client.PlayerRecentlyPlayed()
 	if err != nil {
-		t.Error(err)
-		return
+		t.Fatal(err)
 	}
 
 	if len(items) != 20 {
@@ -140,12 +145,11 @@ func TestPlayArgsError(t *testing.T) {
 			"message" : "Only one of either \"context_uri\" or \"uris\" can be specified"
 		}
 	}`
-	client := testClientString(http.StatusUnauthorized, json)
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusUnauthorized, json)
+	defer server.Close()
 
 	err := client.Play()
 	if err == nil {
 		t.Error("Expected an error")
-		return
 	}
 }

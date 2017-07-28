@@ -158,7 +158,8 @@ func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
 func (a Authenticator) NewClient(token *oauth2.Token) Client {
 	client := a.config.Client(a.context, token)
 	return Client{
-		http: client,
+		http:    client,
+		baseURL: baseAddress,
 	}
 }
 

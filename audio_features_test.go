@@ -69,8 +69,8 @@ var response = `
 `
 
 func TestAudioFeatures(t *testing.T) {
-	c := testClientString(http.StatusOK, response)
-	addDummyAuth(c)
+	c, s := testClientString(http.StatusOK, response)
+	defer s.Close()
 
 	ids := []ID{
 		"4JpKVNYnVcJ8tuMKjAj50A",

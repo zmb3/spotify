@@ -79,15 +79,15 @@ const albumsResponse = `
 }`
 
 func TestFindArtist(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/find_artist.txt")
+	client, server := testClientFile(http.StatusOK, "test_data/find_artist.txt")
+	defer server.Close()
+
 	artist, err := client.GetArtist(ID("0TnOYISbd1XYRBk9myaseg"))
 	if err != nil {
-		t.Error(err)
-		return
+		t.Fatal(err)
 	}
 	if followers := artist.Followers.Count; followers != 2265279 {
 		t.Errorf("Got %d followers, want 2265279\n", followers)
-		return
 	}
 	if artist.Name != "Pitbull" {
 		t.Error("Got ", artist.Name, ", wanted Pitbull")
@@ -95,15 +95,16 @@ func TestFindArtist(t *testing.T) {
 }
 
 func TestArtistTopTracks(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/artist_top_tracks.txt")
+	client, server := testClientFile(http.StatusOK, "test_data/artist_top_tracks.txt")
+	defer server.Close()
+
 	tracks, err := client.GetArtistsTopTracks(ID("43ZHCT0cAZBISjO8DG9PnE"), "SE")
 	if err != nil {
-		t.Error(err)
-		return
+		t.Fatal(err)
 	}
-	l := len(tracks)
-	if l != 10 {
-		t.Errorf("Got %d tracks, expected 10\n", l)
+
+	if l := len(tracks); l != 10 {
+		t.Fatalf("Got %d tracks, expected 10\n", l)
 	}
 	track := tracks[9]
 	if track.Name != "(You're The) Devil in Disguise" {
@@ -115,15 +116,15 @@ func TestArtistTopTracks(t *testing.T) {
 }
 
 func TestRelatedArtists(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/related_artists.txt")
+	client, server := testClientFile(http.StatusOK, "test_data/related_artists.txt")
+	defer server.Close()
+
 	artists, err := client.GetRelatedArtists(ID("43ZHCT0cAZBISjO8DG9PnE"))
 	if err != nil {
-		t.Error(err)
-		return
+		t.Fatal(err)
 	}
 	if count := len(artists); count != 20 {
-		t.Errorf("Got %d artists, wanted 20\n", count)
-		return
+		t.Fatalf("Got %d artists, wanted 20\n", count)
 	}
 	a2 := artists[2]
 	if a2.Name != "Carl Perkins" {
@@ -135,7 +136,8 @@ func TestRelatedArtists(t *testing.T) {
 }
 
 func TestArtistAlbumsFiltered(t *testing.T) {
-	client := testClientString(http.StatusOK, albumsResponse)
+	client, server := testClientString(http.StatusOK, albumsResponse)
+	defer server.Close()
 
 	l := 2
 	var typ AlbumType = AlbumTypeSingle
@@ -145,18 +147,15 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 
 	albums, err := client.GetArtistAlbumsOpt(ID("1vCWHaC5f2uS3yhpwWbIA6"), &options, &typ)
 	if err != nil {
-		t.Error(err)
-		return
+		t.Fatal(err)
 	}
 	if albums == nil {
-		t.Error("Result is nil")
-		return
+		t.Fatal("Result is nil")
 	}
 	// since we didn't specify a country, we got duplicate albums
 	// (the album has a different ID in different regions)
 	if l = len(albums.Albums); l != 2 {
-		t.Errorf("Expected 2 albums, got %d\n", l)
-		return
+		t.Fatalf("Expected 2 albums, got %d\n", l)
 	}
 	if albums.Albums[0].Name != "The Days / Nights" {
 		t.Error("Expected 'The Days / Nights', got ", albums.Albums[0].Name)

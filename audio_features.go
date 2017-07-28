@@ -108,7 +108,7 @@ const (
 // Objects are returned in the order requested.  If an object
 // is not found, a nil value is returned in the appropriate position.
 func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
-	url := fmt.Sprintf("%saudio-features?ids=%s", baseAddress, strings.Join(toStringSlice(ids), ","))
+	url := fmt.Sprintf("%saudio-features?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	temp := struct {
 		F []*AudioFeatures `json:"audio_features"`

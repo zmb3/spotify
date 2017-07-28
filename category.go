@@ -31,7 +31,7 @@ type Category struct {
 // This call requries authorization.
 func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 	cat := Category{}
-	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s", baseAddress, id)
+	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s", c.baseURL, id)
 	values := url.Values{}
 	if country != "" {
 		values.Set("country", country)
@@ -65,7 +65,7 @@ func (c *Client) GetCategoryPlaylists(catID string) (*SimplePlaylistPage, error)
 // GetCategoryPlaylistsOpt is like GetCategoryPlaylists, but it accepts optional
 // arguments.
 func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePlaylistPage, error) {
-	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", baseAddress, catID)
+	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", c.baseURL, catID)
 	if opt != nil {
 		values := url.Values{}
 		if opt.Country != nil {
@@ -107,7 +107,7 @@ func (c *Client) GetCategories() (*CategoryPage, error) {
 // code, separated by an underscore.  Specify the empty string to have results
 // returned in the Spotify default language (American English).
 func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, error) {
-	spotifyURL := baseAddress + "browse/categories"
+	spotifyURL := c.baseURL + "browse/categories"
 	values := url.Values{}
 	if locale != "" {
 		values.Set("locale", locale)

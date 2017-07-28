@@ -84,7 +84,7 @@ func (t *SimpleTrack) TimeDuration() time.Duration {
 // GetTrack gets Spotify catalog information for
 // a single track identified by its unique Spotify ID.
 func (c *Client) GetTrack(id ID) (*FullTrack, error) {
-	spotifyURL := baseAddress + "tracks/" + string(id)
+	spotifyURL := c.baseURL + "tracks/" + string(id)
 
 	var t FullTrack
 
@@ -105,7 +105,7 @@ func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
 	if len(ids) > 50 {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}
-	spotifyURL := baseAddress + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
+	spotifyURL := c.baseURL + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
 
 	var t struct {
 		Tracks []*FullTrack `jsosn:"tracks"`

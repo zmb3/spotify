@@ -129,7 +129,7 @@ func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
 		PlayerDevices []PlayerDevice `json:"devices"`
 	}
 
-	err := c.get(baseAddress+"me/player/devices", &result)
+	err := c.get(c.baseURL+"me/player/devices", &result)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ func (c *Client) PlayerState() (*PlayerState, error) {
 // PlayerStateOpt is like PlayerState, but it accepts additional
 // options for sorting and filtering the results.
 func (c *Client) PlayerStateOpt(opt *Options) (*PlayerState, error) {
-	spotifyURL := baseAddress + "me/player"
+	spotifyURL := c.baseURL + "me/player"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Country != nil {
@@ -180,7 +180,7 @@ func (c *Client) PlayerCurrentlyPlaying() (*CurrentlyPlaying, error) {
 // PlayerCurrentlyPlayingOpt is like PlayerCurrentlyPlaying, but it accepts
 // additional options for sorting and filtering the results.
 func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, error) {
-	spotifyURL := baseAddress + "me/player/currently-playing"
+	spotifyURL := c.baseURL + "me/player/currently-playing"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Country != nil {
@@ -209,7 +209,7 @@ func (c *Client) PlayerRecentlyPlayed() ([]RecentlyPlayedItem, error) {
 // PlayerRecentlyPlayedOpt is like PlayerRecentlyPlayed, but it accepts
 // additional options for sorting and filtering the results.
 func (c *Client) PlayerRecentlyPlayedOpt(opt *RecentlyPlayedOptions) ([]RecentlyPlayedItem, error) {
-	spotifyURL := baseAddress + "me/player/recently-played"
+	spotifyURL := c.baseURL + "me/player/recently-played"
 	if opt != nil {
 		v := url.Values{}
 		if opt.Limit != 0 {
@@ -258,7 +258,7 @@ func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest(http.MethodPut, baseAddress+"me/player", buf)
+	req, err := http.NewRequest(http.MethodPut, c.baseURL+"me/player", buf)
 	if err != nil {
 		return err
 	}
@@ -278,7 +278,7 @@ func (c *Client) Play() error {
 
 // PlayOpt is like Play but with more options
 func (c *Client) PlayOpt(opt *PlayOptions) error {
-	spotifyURL := baseAddress + "me/player/play"
+	spotifyURL := c.baseURL + "me/player/play"
 	buf := new(bytes.Buffer)
 
 	if opt != nil {
@@ -317,7 +317,7 @@ func (c *Client) Pause() error {
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) PauseOpt(opt *PlayOptions) error {
-	spotifyURL := baseAddress + "me/player/pause"
+	spotifyURL := c.baseURL + "me/player/pause"
 
 	if opt != nil {
 		v := url.Values{}
@@ -350,7 +350,7 @@ func (c *Client) Next() error {
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) NextOpt(opt *PlayOptions) error {
-	spotifyURL := baseAddress + "me/player/next"
+	spotifyURL := c.baseURL + "me/player/next"
 
 	if opt != nil {
 		v := url.Values{}
@@ -383,7 +383,7 @@ func (c *Client) Previous() error {
 //
 // Only expects PlayOptions.DeviceID, all other options will be ignored
 func (c *Client) PreviousOpt(opt *PlayOptions) error {
-	spotifyURL := baseAddress + "me/player/previous"
+	spotifyURL := c.baseURL + "me/player/previous"
 
 	if opt != nil {
 		v := url.Values{}
@@ -494,7 +494,7 @@ func (c *Client) ShuffleOpt(shuffle bool, opt *PlayOptions) error {
 }
 
 func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *PlayOptions) error {
-	spotifyURL := baseAddress + urlSuffix
+	spotifyURL := c.baseURL + urlSuffix
 
 	if opt != nil {
 		if opt.DeviceID != nil {

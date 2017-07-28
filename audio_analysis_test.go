@@ -103,8 +103,8 @@ var expected = AudioAnalysis{
 }
 
 func TestAudioAnalysis(t *testing.T) {
-	c := testClientFile(http.StatusOK, "test_data/get_audio_analysis.txt")
-	addDummyAuth(c)
+	c, s := testClientFile(http.StatusOK, "test_data/get_audio_analysis.txt")
+	defer s.Close()
 
 	analysis, err := c.GetAudioAnalysis("foo")
 	if err != nil {

@@ -2,7 +2,10 @@ package spotify
 
 import (
 	"fmt"
+	"io"
 	"net/http"
+	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -28,7 +31,9 @@ const userResponse = `
 }`
 
 func TestUserProfile(t *testing.T) {
-	client := testClientString(http.StatusOK, userResponse)
+	client, server := testClientString(http.StatusOK, userResponse)
+	defer server.Close()
+
 	user, err := client.GetUsersPublicProfile("wizzler")
 	if err != nil {
 		t.Error(err)
@@ -62,7 +67,8 @@ func TestCurrentUser(t *testing.T) {
 		"uri" : "spotify:user:username",
 		"birthdate" : "1985-05-01"
 	}`
-	client := testClientString(http.StatusOK, json)
+	client, server := testClientString(http.StatusOK, json)
+	defer server.Close()
 
 	me, err := client.CurrentUser()
 	if err != nil {
@@ -86,34 +92,61 @@ func TestFollowUsersMissingScope(t *testing.T) {
 			"message": "Insufficient client scope"
 		}
 	}`
-	client := testClientString(http.StatusForbidden, json)
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusForbidden, json, func(req *http.Request) {
+		if req.URL.Query().Get("type") != "user" {
+			t.Error("Request made with the wrong type parameter")
+		}
+	})
+	defer server.Close()
 
 	err := client.FollowUser(ID("exampleuser01"))
-	if serr, ok := err.(Error); !ok {
-		t.Error("Expected insufficient client scope error")
-	} else {
-		if serr.Status != http.StatusForbidden {
-			t.Error("Expected HTTP 403")
-		}
+	serr, ok := err.(Error)
+	if !ok {
+		t.Fatal("Expected insufficient client scope error")
 	}
-
-	if req := getLastRequest(client); req.URL.Query().Get("type") != "user" {
-		t.Error("Request made with the wrong type parameter")
+	if serr.Status != http.StatusForbidden {
+		t.Error("Expected HTTP 403")
 	}
-
 }
 
 func TestFollowArtist(t *testing.T) {
-	client := testClientString(http.StatusNoContent, "")
-	addDummyAuth(client)
-	err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov")
-	if err != nil {
+	client, server := testClientString(http.StatusNoContent, "", func(req *http.Request) {
+		if req.URL.Query().Get("type") != "artist" {
+			t.Error("Request made with the wrong type parameter")
+		}
+	})
+	defer server.Close()
+
+	if err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov"); err != nil {
 		t.Error(err)
-		return
 	}
-	if req := getLastRequest(client); req.URL.Query().Get("type") != "artist" {
-		t.Error("Request made with the wrong type parameter")
+}
+
+func TestFollowArtistAutoRetry(t *testing.T) {
+	t.Parallel()
+	handlers := []http.HandlerFunc{
+		// first attempt fails
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Retry-After", "2")
+			w.WriteHeader(rateLimitExceededStatusCode)
+			io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+		}),
+		// next attempt succeeds
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusNoContent)
+		}),
+	}
+
+	i := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handlers[i](w, r)
+		i++
+	}))
+	defer server.Close()
+
+	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
+	if err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov"); err != nil {
+		t.Error(err)
 	}
 }
 
@@ -124,26 +157,28 @@ func TestFollowUsersInvalidToken(t *testing.T) {
 			"message": "Invalid access token"
 		}
 	}`
-	client := testClientString(http.StatusUnauthorized, json)
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusUnauthorized, json, func(req *http.Request) {
+		if req.URL.Query().Get("type") != "user" {
+			t.Error("Request made with the wrong type parameter")
+		}
+	})
+	defer server.Close()
 
 	err := client.FollowUser(ID("dummyID"))
-	if serr, ok := err.(Error); !ok {
-		t.Error("Expected invalid token error")
-	} else {
-		if serr.Status != http.StatusUnauthorized {
-			t.Error("Expected HTTP 401")
-		}
+	serr, ok := err.(Error)
+	if !ok {
+		t.Fatal("Expected invalid token error")
 	}
-	if req := getLastRequest(client); req.URL.Query().Get("type") != "user" {
-		t.Error("Request made with the wrong type parameter")
+	if serr.Status != http.StatusUnauthorized {
+		t.Error("Expected HTTP 401")
 	}
 }
 
 func TestUserFollows(t *testing.T) {
 	json := "[ false, true ]"
-	client := testClientString(http.StatusOK, json)
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusOK, json)
+	defer server.Close()
+
 	follows, err := client.CurrentUserFollows("artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
 	if err != nil {
 		t.Error(err)
@@ -155,8 +190,9 @@ func TestUserFollows(t *testing.T) {
 }
 
 func TestCurrentUsersTracks(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/current_users_tracks.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/current_users_tracks.txt")
+	defer server.Close()
+
 	tracks, err := client.CurrentUsersTracks()
 	if err != nil {
 		t.Error(err)
@@ -184,8 +220,9 @@ func TestCurrentUsersTracks(t *testing.T) {
 }
 
 func TestCurrentUsersAlbums(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/current_users_albums.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/current_users_albums.txt")
+	defer server.Close()
+
 	albums, err := client.CurrentUsersAlbums()
 	if err != nil {
 		t.Error(err)
@@ -222,8 +259,9 @@ func TestCurrentUsersAlbums(t *testing.T) {
 }
 
 func TestCurrentUsersPlaylists(t *testing.T) {
-	client := testClientFile(http.StatusOK, "test_data/current_users_playlists.txt")
-	addDummyAuth(client)
+	client, server := testClientFile(http.StatusOK, "test_data/current_users_playlists.txt")
+	defer server.Close()
+
 	playlists, err := client.CurrentUsersPlaylists()
 	if err != nil {
 		t.Error(err)
@@ -300,8 +338,9 @@ func TestUsersFollowedArtists(t *testing.T) {
    "href" : "https://api.spotify.com/v1/users/thelinmichael/following?type=artist&limit=20"
   }
 }`
-	client := testClientString(http.StatusOK, json)
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusOK, json)
+	defer server.Close()
+
 	artists, err := client.CurrentUsersFollowedArtists()
 	if err != nil {
 		t.Fatal(err)
@@ -322,12 +361,12 @@ func TestUsersFollowedArtists(t *testing.T) {
 }
 
 func TestCurrentUsersFollowedArtistsOpt(t *testing.T) {
-	client := testClientString(http.StatusOK, "{}")
-	addDummyAuth(client)
+	client, server := testClientString(http.StatusOK, "{}", func(req *http.Request) {
+		if url := req.URL.String(); !strings.HasSuffix(url, "me/following?after=0aV6DOiouImYTqrR5YlIqx&limit=50&type=artist") {
+			t.Error("invalid request url")
+		}
+	})
+	defer server.Close()
+
 	client.CurrentUsersFollowedArtistsOpt(50, "0aV6DOiouImYTqrR5YlIqx")
-	requestURL := getLastRequest(client).URL.String()
-	exp := baseAddress + "me/following?after=0aV6DOiouImYTqrR5YlIqx&limit=50&type=artist"
-	if requestURL != exp {
-		t.Errorf("Expected requested URL to be %s, got %s ", exp, requestURL)
-	}
 }
