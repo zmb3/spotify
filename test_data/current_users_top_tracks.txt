@@ -1,0 +1,1159 @@
+{
+  "items" : [ {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 358410,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764466"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/20gqLrsHXhsucGWXMtoc4Y"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/20gqLrsHXhsucGWXMtoc4Y",
+    "id" : "20gqLrsHXhsucGWXMtoc4Y",
+    "is_playable" : true,
+    "name" : "Adventure Awaits! (Alola Region Theme)",
+    "popularity" : 32,
+    "preview_url" : "https://p.scdn.co/mp3-preview/d81b7fe39a6d8d5756805b758193f1779ea7e5f0",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:20gqLrsHXhsucGWXMtoc4Y"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/30QoUTsSdpQuZunPNFsLnm"
+      },
+      "href" : "https://api.spotify.com/v1/albums/30QoUTsSdpQuZunPNFsLnm",
+      "id" : "30QoUTsSdpQuZunPNFsLnm",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/caa8a134bb7757aa56dd965aac02554861b6768c",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8eea0dd856fda2d20d00ada8d038003621b108ad",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/994f30d7142b8c611bfd1c315243035e601a36e1",
+        "width" : 64
+      } ],
+      "name" : "digital druglord",
+      "type" : "album",
+      "uri" : "spotify:album:30QoUTsSdpQuZunPNFsLnm"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+      "id" : "2cFrymmkijnjDg9SS92EPM",
+      "name" : "Blackbear",
+      "type" : "artist",
+      "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 212027,
+    "explicit" : true,
+    "external_ids" : {
+      "isrc" : "USLD91700850"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/3Q3myFA7q4Op95DOpHplaY"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/3Q3myFA7q4Op95DOpHplaY",
+    "id" : "3Q3myFA7q4Op95DOpHplaY",
+    "is_playable" : true,
+    "linked_from" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/6CUBgX8bXC5YQCkdgRHqyg"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/6CUBgX8bXC5YQCkdgRHqyg",
+      "id" : "6CUBgX8bXC5YQCkdgRHqyg",
+      "type" : "track",
+      "uri" : "spotify:track:6CUBgX8bXC5YQCkdgRHqyg"
+    },
+    "name" : "do re mi",
+    "popularity" : 82,
+    "preview_url" : "https://p.scdn.co/mp3-preview/1ce0e53114fae23bbc98374daf13b91d29ee4433",
+    "track_number" : 4,
+    "type" : "track",
+    "uri" : "spotify:track:3Q3myFA7q4Op95DOpHplaY"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5rzpKZRMorXtWgLOazx3IC"
+      },
+      "href" : "https://api.spotify.com/v1/artists/5rzpKZRMorXtWgLOazx3IC",
+      "id" : "5rzpKZRMorXtWgLOazx3IC",
+      "name" : "Justin Peterkin",
+      "type" : "artist",
+      "uri" : "spotify:artist:5rzpKZRMorXtWgLOazx3IC"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 340414,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764468"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/7y7MBp46SA3Yyspct5slVN"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/7y7MBp46SA3Yyspct5slVN",
+    "id" : "7y7MBp46SA3Yyspct5slVN",
+    "is_playable" : true,
+    "name" : "Gladion's Groove (Battle! Gladion) [feat. Justin Peterkin]",
+    "popularity" : 30,
+    "preview_url" : "https://p.scdn.co/mp3-preview/62402c454208937d456f7d6bf533e46917879468",
+    "track_number" : 3,
+    "type" : "track",
+    "uri" : "spotify:track:7y7MBp46SA3Yyspct5slVN"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 349041,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764467"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/67LsJABgVj7ef41pTtVMR2"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/67LsJABgVj7ef41pTtVMR2",
+    "id" : "67LsJABgVj7ef41pTtVMR2",
+    "is_playable" : true,
+    "name" : "Cityscape (Hau'oli City)",
+    "popularity" : 29,
+    "preview_url" : "https://p.scdn.co/mp3-preview/b73f5f40bfe14d4ab87adb7477ccca68fca58bfa",
+    "track_number" : 2,
+    "type" : "track",
+    "uri" : "spotify:track:67LsJABgVj7ef41pTtVMR2"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/30QoUTsSdpQuZunPNFsLnm"
+      },
+      "href" : "https://api.spotify.com/v1/albums/30QoUTsSdpQuZunPNFsLnm",
+      "id" : "30QoUTsSdpQuZunPNFsLnm",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/caa8a134bb7757aa56dd965aac02554861b6768c",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8eea0dd856fda2d20d00ada8d038003621b108ad",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/994f30d7142b8c611bfd1c315243035e601a36e1",
+        "width" : 64
+      } ],
+      "name" : "digital druglord",
+      "type" : "album",
+      "uri" : "spotify:album:30QoUTsSdpQuZunPNFsLnm"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+      "id" : "2cFrymmkijnjDg9SS92EPM",
+      "name" : "Blackbear",
+      "type" : "artist",
+      "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 211127,
+    "explicit" : true,
+    "external_ids" : {
+      "isrc" : "USLD91700849"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/1nMYtxDrONcoGnKRvxTwPv"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/1nMYtxDrONcoGnKRvxTwPv",
+    "id" : "1nMYtxDrONcoGnKRvxTwPv",
+    "is_playable" : true,
+    "linked_from" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/2gcXmU5DXukm8pdVbM2gEt"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/2gcXmU5DXukm8pdVbM2gEt",
+      "id" : "2gcXmU5DXukm8pdVbM2gEt",
+      "type" : "track",
+      "uri" : "spotify:track:2gcXmU5DXukm8pdVbM2gEt"
+    },
+    "name" : "i miss the old u",
+    "popularity" : 72,
+    "preview_url" : "https://p.scdn.co/mp3-preview/8705a352788cf0b8844354efdbf2ac590448305d",
+    "track_number" : 3,
+    "type" : "track",
+    "uri" : "spotify:track:1nMYtxDrONcoGnKRvxTwPv"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 301074,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764470"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/3ZUqsf6Ls92TuWkUFEzIvx"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/3ZUqsf6Ls92TuWkUFEzIvx",
+    "id" : "3ZUqsf6Ls92TuWkUFEzIvx",
+    "is_playable" : true,
+    "name" : "Stupid Blues (Battle! Guzma)",
+    "popularity" : 31,
+    "preview_url" : "https://p.scdn.co/mp3-preview/5a9e8e13d7c802d9568037c2b04611311855c25c",
+    "track_number" : 5,
+    "type" : "track",
+    "uri" : "spotify:track:3ZUqsf6Ls92TuWkUFEzIvx"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/73jBBaNUsHtsnqdoaemgbL"
+      },
+      "href" : "https://api.spotify.com/v1/artists/73jBBaNUsHtsnqdoaemgbL",
+      "id" : "73jBBaNUsHtsnqdoaemgbL",
+      "name" : "SwigglesRP",
+      "type" : "artist",
+      "uri" : "spotify:artist:73jBBaNUsHtsnqdoaemgbL"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 293440,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764472"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/6QI8MlarfCgr3dd8G0UGXk"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/6QI8MlarfCgr3dd8G0UGXk",
+    "id" : "6QI8MlarfCgr3dd8G0UGXk",
+    "is_playable" : true,
+    "name" : "Rise to the Challenge (Vast Poni Canyon) [feat. Swigglesrp]",
+    "popularity" : 28,
+    "preview_url" : "https://p.scdn.co/mp3-preview/ca570deb9e52d03c6bc0e52c0f3f4764bd05bd3b",
+    "track_number" : 7,
+    "type" : "track",
+    "uri" : "spotify:track:6QI8MlarfCgr3dd8G0UGXk"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 333184,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764469"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/4DWQAn9zOOotUDhHpu3ESG"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/4DWQAn9zOOotUDhHpu3ESG",
+    "id" : "4DWQAn9zOOotUDhHpu3ESG",
+    "is_playable" : true,
+    "name" : "Oriental Hues (Malie City)",
+    "popularity" : 28,
+    "preview_url" : "https://p.scdn.co/mp3-preview/9554dabff289690fd212c629146e115719f679cd",
+    "track_number" : 4,
+    "type" : "track",
+    "uri" : "spotify:track:4DWQAn9zOOotUDhHpu3ESG"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/13YpZQmKhwLldJYk1UXX5V"
+      },
+      "href" : "https://api.spotify.com/v1/artists/13YpZQmKhwLldJYk1UXX5V",
+      "id" : "13YpZQmKhwLldJYk1UXX5V",
+      "name" : "Auden Durant",
+      "type" : "artist",
+      "uri" : "spotify:artist:13YpZQmKhwLldJYk1UXX5V"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 371314,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764471"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/6f9QtZfpexXK2NFIcGlgfd"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/6f9QtZfpexXK2NFIcGlgfd",
+    "id" : "6f9QtZfpexXK2NFIcGlgfd",
+    "is_playable" : true,
+    "name" : "Tranquil Waters (Seafolk Village) [feat. Auden Durant]",
+    "popularity" : 27,
+    "preview_url" : "https://p.scdn.co/mp3-preview/6fd8cce542111db84de1577a8bd8ce729af3a854",
+    "track_number" : 6,
+    "type" : "track",
+    "uri" : "spotify:track:6f9QtZfpexXK2NFIcGlgfd"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7siyLyX5HmMdU0HJl700eV"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7siyLyX5HmMdU0HJl700eV",
+      "id" : "7siyLyX5HmMdU0HJl700eV",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9f72a344594607fb1d480765ae7a298de3f0e0f3",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f12224a6262275ced2000a968ffb46be26496831",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/97e6f963bfac2f39748d1317f755fe401a2066a6",
+        "width" : 64
+      } ],
+      "name" : "Alola That Jazz",
+      "type" : "album",
+      "uri" : "spotify:album:7siyLyX5HmMdU0HJl700eV"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 293127,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QZ4JJ1764473"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/7bvODB17gMyklwncdscI9n"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/7bvODB17gMyklwncdscI9n",
+    "id" : "7bvODB17gMyklwncdscI9n",
+    "is_playable" : true,
+    "name" : "A Battle for Beasts (Battle! Lusamine)",
+    "popularity" : 28,
+    "preview_url" : "https://p.scdn.co/mp3-preview/1c6592a362883e93c07d0843a32381bc258fc816",
+    "track_number" : 8,
+    "type" : "track",
+    "uri" : "spotify:track:7bvODB17gMyklwncdscI9n"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5T9b8wL8bySZrESW3K1cQg"
+      },
+      "href" : "https://api.spotify.com/v1/albums/5T9b8wL8bySZrESW3K1cQg",
+      "id" : "5T9b8wL8bySZrESW3K1cQg",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/e5e4112e147df5e5f956d8c35814fbb57a570111",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/adfaf56881f488486d0ffc200312dc13ba4f761f",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/dba11bc7b37c865255b50eababf182d3795258ab",
+        "width" : 64
+      } ],
+      "name" : "Pokémon Reorchestrated: Kanto Symphony",
+      "type" : "album",
+      "uri" : "spotify:album:5T9b8wL8bySZrESW3K1cQg"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/1U2GH2NLt30RW9bnJEvcgM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/1U2GH2NLt30RW9bnJEvcgM",
+      "id" : "1U2GH2NLt30RW9bnJEvcgM",
+      "name" : "Braxton Burks",
+      "type" : "artist",
+      "uri" : "spotify:artist:1U2GH2NLt30RW9bnJEvcgM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 77570,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USE830903264"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/23Pm7V7zQUyCPptmqDAreU"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/23Pm7V7zQUyCPptmqDAreU",
+    "id" : "23Pm7V7zQUyCPptmqDAreU",
+    "is_playable" : true,
+    "name" : "Shelf of Memories (Prelude)",
+    "popularity" : 30,
+    "preview_url" : "https://p.scdn.co/mp3-preview/6ed715a33160dc585a091ce2007edbdb891743cc",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:23Pm7V7zQUyCPptmqDAreU"
+  }, {
+    "album" : {
+      "album_type" : "SINGLE",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/18pR217SWwBjODSRWFBw0I"
+      },
+      "href" : "https://api.spotify.com/v1/albums/18pR217SWwBjODSRWFBw0I",
+      "id" : "18pR217SWwBjODSRWFBw0I",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/200c574b96d791d66064fc85d214db50c345a264",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/9ea0ff3ebfa8832c8f61570f1c4d6b5b54842a47",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/2f58c7516d2b48ef6cd12f3bed22268fbcfe22db",
+        "width" : 64
+      } ],
+      "name" : "Starving",
+      "type" : "album",
+      "uri" : "spotify:album:18pR217SWwBjODSRWFBw0I"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5p7f24Rk5HkUZsaS3BLG5F"
+      },
+      "href" : "https://api.spotify.com/v1/artists/5p7f24Rk5HkUZsaS3BLG5F",
+      "id" : "5p7f24Rk5HkUZsaS3BLG5F",
+      "name" : "Hailee Steinfeld",
+      "type" : "artist",
+      "uri" : "spotify:artist:5p7f24Rk5HkUZsaS3BLG5F"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4lDBihdpMlOalxy1jkUbPl"
+      },
+      "href" : "https://api.spotify.com/v1/artists/4lDBihdpMlOalxy1jkUbPl",
+      "id" : "4lDBihdpMlOalxy1jkUbPl",
+      "name" : "Grey",
+      "type" : "artist",
+      "uri" : "spotify:artist:4lDBihdpMlOalxy1jkUbPl"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2qxJFvFYMEDqd7ui6kSAcq"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2qxJFvFYMEDqd7ui6kSAcq",
+      "id" : "2qxJFvFYMEDqd7ui6kSAcq",
+      "name" : "Zedd",
+      "type" : "artist",
+      "uri" : "spotify:artist:2qxJFvFYMEDqd7ui6kSAcq"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 181880,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USUM71606370"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/4Ce37cRWvM1vIGGynKcs22"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/4Ce37cRWvM1vIGGynKcs22",
+    "id" : "4Ce37cRWvM1vIGGynKcs22",
+    "is_playable" : true,
+    "name" : "Starving",
+    "popularity" : 81,
+    "preview_url" : "https://p.scdn.co/mp3-preview/5f6717f0f5c1b6c42ff20224efb211571dcd8474",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:4Ce37cRWvM1vIGGynKcs22"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/30QoUTsSdpQuZunPNFsLnm"
+      },
+      "href" : "https://api.spotify.com/v1/albums/30QoUTsSdpQuZunPNFsLnm",
+      "id" : "30QoUTsSdpQuZunPNFsLnm",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/caa8a134bb7757aa56dd965aac02554861b6768c",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8eea0dd856fda2d20d00ada8d038003621b108ad",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/994f30d7142b8c611bfd1c315243035e601a36e1",
+        "width" : 64
+      } ],
+      "name" : "digital druglord",
+      "type" : "album",
+      "uri" : "spotify:album:30QoUTsSdpQuZunPNFsLnm"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+      "id" : "2cFrymmkijnjDg9SS92EPM",
+      "name" : "Blackbear",
+      "type" : "artist",
+      "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 212027,
+    "explicit" : true,
+    "external_ids" : {
+      "isrc" : "USLD91700850"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/3Q3myFA7q4Op95DOpHplaY"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/3Q3myFA7q4Op95DOpHplaY",
+    "id" : "3Q3myFA7q4Op95DOpHplaY",
+    "is_playable" : true,
+    "linked_from" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/3sTCfUmYXSVWDacTd6uMbQ"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/3sTCfUmYXSVWDacTd6uMbQ",
+      "id" : "3sTCfUmYXSVWDacTd6uMbQ",
+      "type" : "track",
+      "uri" : "spotify:track:3sTCfUmYXSVWDacTd6uMbQ"
+    },
+    "name" : "do re mi",
+    "popularity" : 82,
+    "preview_url" : "https://p.scdn.co/mp3-preview/1ce0e53114fae23bbc98374daf13b91d29ee4433",
+    "track_number" : 4,
+    "type" : "track",
+    "uri" : "spotify:track:3Q3myFA7q4Op95DOpHplaY"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5T9b8wL8bySZrESW3K1cQg"
+      },
+      "href" : "https://api.spotify.com/v1/albums/5T9b8wL8bySZrESW3K1cQg",
+      "id" : "5T9b8wL8bySZrESW3K1cQg",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/e5e4112e147df5e5f956d8c35814fbb57a570111",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/adfaf56881f488486d0ffc200312dc13ba4f761f",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/dba11bc7b37c865255b50eababf182d3795258ab",
+        "width" : 64
+      } ],
+      "name" : "Pokémon Reorchestrated: Kanto Symphony",
+      "type" : "album",
+      "uri" : "spotify:album:5T9b8wL8bySZrESW3K1cQg"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/1U2GH2NLt30RW9bnJEvcgM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/1U2GH2NLt30RW9bnJEvcgM",
+      "id" : "1U2GH2NLt30RW9bnJEvcgM",
+      "name" : "Braxton Burks",
+      "type" : "artist",
+      "uri" : "spotify:artist:1U2GH2NLt30RW9bnJEvcgM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 100681,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USE830903266"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/4wUFz5KeriO3jyDrZorvJy"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/4wUFz5KeriO3jyDrZorvJy",
+    "id" : "4wUFz5KeriO3jyDrZorvJy",
+    "is_playable" : true,
+    "name" : "Dreams and Adventures (Oak's Opening Speech)",
+    "popularity" : 34,
+    "preview_url" : "https://p.scdn.co/mp3-preview/8cefbc5cab40251fad33cd776f6a925f8225fa71",
+    "track_number" : 3,
+    "type" : "track",
+    "uri" : "spotify:track:4wUFz5KeriO3jyDrZorvJy"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/7us4WRnwvqCE3cppHVNjIu"
+      },
+      "href" : "https://api.spotify.com/v1/albums/7us4WRnwvqCE3cppHVNjIu",
+      "id" : "7us4WRnwvqCE3cppHVNjIu",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/9e818e3b7ed5c003ecb4ef348e9c86c8fcbde43b",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/895ef36838814e54fff4ad52b5d33d6a801e9a22",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/65af064267c1d4f7947f35d157931f4c8f75bed2",
+        "width" : 64
+      } ],
+      "name" : "Ftl: Faster Than Light - Original Soundtrack",
+      "type" : "album",
+      "uri" : "spotify:album:7us4WRnwvqCE3cppHVNjIu"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/546MXGKJRNfO5to1oqkfqe"
+      },
+      "href" : "https://api.spotify.com/v1/artists/546MXGKJRNfO5to1oqkfqe",
+      "id" : "546MXGKJRNfO5to1oqkfqe",
+      "name" : "Ben Prunty",
+      "type" : "artist",
+      "uri" : "spotify:artist:546MXGKJRNfO5to1oqkfqe"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 240000,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "TCABO1395913"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/2Q92Yg7c28T7EFoLZSPtzh"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/2Q92Yg7c28T7EFoLZSPtzh",
+    "id" : "2Q92Yg7c28T7EFoLZSPtzh",
+    "is_playable" : true,
+    "name" : "Space Cruise (Title)",
+    "popularity" : 42,
+    "preview_url" : "https://p.scdn.co/mp3-preview/b04e3f742dfb98f9fad30f1f3c6d582348b13c16",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:2Q92Yg7c28T7EFoLZSPtzh"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/4nXtqtaVW7MmYM9L8fxXqh"
+      },
+      "href" : "https://api.spotify.com/v1/albums/4nXtqtaVW7MmYM9L8fxXqh",
+      "id" : "4nXtqtaVW7MmYM9L8fxXqh",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/a345f5a6d56f33e8063ed05f9e04eae64a4a4e6b",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/5ff2d1e2232f169b9252f09432828a6e704f3668",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/77e2c9504ff5ceb71c32a21590e2e763966512fa",
+        "width" : 64
+      } ],
+      "name" : "The Afterglow",
+      "type" : "album",
+      "uri" : "spotify:album:4nXtqtaVW7MmYM9L8fxXqh"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+      "id" : "2cFrymmkijnjDg9SS92EPM",
+      "name" : "Blackbear",
+      "type" : "artist",
+      "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 60108,
+    "explicit" : true,
+    "external_ids" : {
+      "isrc" : "USLD91703116"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/07rY51Seh2RjQkgSVICDrL"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/07rY51Seh2RjQkgSVICDrL",
+    "id" : "07rY51Seh2RjQkgSVICDrL",
+    "is_playable" : true,
+    "linked_from" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/5XRKeolkcRLXGtQwuCgWt2"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/5XRKeolkcRLXGtQwuCgWt2",
+      "id" : "5XRKeolkcRLXGtQwuCgWt2",
+      "type" : "track",
+      "uri" : "spotify:track:5XRKeolkcRLXGtQwuCgWt2"
+    },
+    "name" : "The Lobby",
+    "popularity" : 48,
+    "preview_url" : "https://p.scdn.co/mp3-preview/d3d322c3341f38751e99ce8a76a6c02b84ad78fb",
+    "track_number" : 5,
+    "type" : "track",
+    "uri" : "spotify:track:07rY51Seh2RjQkgSVICDrL"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/73noZpfh0GBKKQ80gtbjYg"
+      },
+      "href" : "https://api.spotify.com/v1/albums/73noZpfh0GBKKQ80gtbjYg",
+      "id" : "73noZpfh0GBKKQ80gtbjYg",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/075ad8588f30d96bad814f51f365ffada08c7d33",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/26104c6538f06b8585302a6b42f3ecb168550221",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/64d2cbe5cedc31d8d17f49f6e3360b2aefbf93fd",
+        "width" : 64
+      } ],
+      "name" : "Cashmere Noose (Deluxe)",
+      "type" : "album",
+      "uri" : "spotify:album:73noZpfh0GBKKQ80gtbjYg"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+      "id" : "2cFrymmkijnjDg9SS92EPM",
+      "name" : "Blackbear",
+      "type" : "artist",
+      "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 162717,
+    "explicit" : true,
+    "external_ids" : {
+      "isrc" : "USLD90819296"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/0t3cTfGlTl1XaH5YdjIFHN"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/0t3cTfGlTl1XaH5YdjIFHN",
+    "id" : "0t3cTfGlTl1XaH5YdjIFHN",
+    "is_playable" : true,
+    "name" : "Sometimes I Want 2 Die",
+    "popularity" : 59,
+    "preview_url" : "https://p.scdn.co/mp3-preview/e184bd92fe604e9b9aa3fabb3a6ab099bb4e6d16",
+    "track_number" : 3,
+    "type" : "track",
+    "uri" : "spotify:track:0t3cTfGlTl1XaH5YdjIFHN"
+  }, {
+    "album" : {
+      "album_type" : "SINGLE",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/75MyVMMe7vJBHkMDydb0Ok"
+      },
+      "href" : "https://api.spotify.com/v1/albums/75MyVMMe7vJBHkMDydb0Ok",
+      "id" : "75MyVMMe7vJBHkMDydb0Ok",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/0d1a6ca22046da0b4c5a7bbea9baf0fd5f6dc228",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/69a8b5f378f571a4883b74b72f5e8017eb3c12c9",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3122a4677f39b98fcbf1ca2485e4ab9ec71e8959",
+        "width" : 64
+      } ],
+      "name" : "Simple and Clean",
+      "type" : "album",
+      "uri" : "spotify:album:75MyVMMe7vJBHkMDydb0Ok"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+      },
+      "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+      "id" : "62GoYifV4njTdvS8lD2yYT",
+      "name" : "insaneintherainmusic",
+      "type" : "artist",
+      "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 398612,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "QMPKX1758601"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/2FbdSdg3YTxjnogh0e1L3B"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/2FbdSdg3YTxjnogh0e1L3B",
+    "id" : "2FbdSdg3YTxjnogh0e1L3B",
+    "is_playable" : true,
+    "name" : "Simple and Clean",
+    "popularity" : 36,
+    "preview_url" : "https://p.scdn.co/mp3-preview/700c4706ad16e17208cbdef87820e2bf518939cf",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:2FbdSdg3YTxjnogh0e1L3B"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/5T9b8wL8bySZrESW3K1cQg"
+      },
+      "href" : "https://api.spotify.com/v1/albums/5T9b8wL8bySZrESW3K1cQg",
+      "id" : "5T9b8wL8bySZrESW3K1cQg",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/e5e4112e147df5e5f956d8c35814fbb57a570111",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/adfaf56881f488486d0ffc200312dc13ba4f761f",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/dba11bc7b37c865255b50eababf182d3795258ab",
+        "width" : 64
+      } ],
+      "name" : "Pokémon Reorchestrated: Kanto Symphony",
+      "type" : "album",
+      "uri" : "spotify:album:5T9b8wL8bySZrESW3K1cQg"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/1U2GH2NLt30RW9bnJEvcgM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/1U2GH2NLt30RW9bnJEvcgM",
+      "id" : "1U2GH2NLt30RW9bnJEvcgM",
+      "name" : "Braxton Burks",
+      "type" : "artist",
+      "uri" : "spotify:artist:1U2GH2NLt30RW9bnJEvcgM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 193563,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USE830903267"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/2hnKgoeBNy72R9jR5DDnCw"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/2hnKgoeBNy72R9jR5DDnCw",
+    "id" : "2hnKgoeBNy72R9jR5DDnCw",
+    "is_playable" : true,
+    "name" : "Pallet Town",
+    "popularity" : 30,
+    "preview_url" : "https://p.scdn.co/mp3-preview/c811aa0e7785cb9faf9d7472e01e84792a31ebd7",
+    "track_number" : 4,
+    "type" : "track",
+    "uri" : "spotify:track:2hnKgoeBNy72R9jR5DDnCw"
+  }, {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/4nXtqtaVW7MmYM9L8fxXqh"
+      },
+      "href" : "https://api.spotify.com/v1/albums/4nXtqtaVW7MmYM9L8fxXqh",
+      "id" : "4nXtqtaVW7MmYM9L8fxXqh",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/a345f5a6d56f33e8063ed05f9e04eae64a4a4e6b",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/5ff2d1e2232f169b9252f09432828a6e704f3668",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/77e2c9504ff5ceb71c32a21590e2e763966512fa",
+        "width" : 64
+      } ],
+      "name" : "The Afterglow",
+      "type" : "album",
+      "uri" : "spotify:album:4nXtqtaVW7MmYM9L8fxXqh"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+      },
+      "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+      "id" : "2cFrymmkijnjDg9SS92EPM",
+      "name" : "Blackbear",
+      "type" : "artist",
+      "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 169431,
+    "explicit" : true,
+    "external_ids" : {
+      "isrc" : "USLD91703112"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/1L1UEIyGtc5qrJUfiloqTZ"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/1L1UEIyGtc5qrJUfiloqTZ",
+    "id" : "1L1UEIyGtc5qrJUfiloqTZ",
+    "is_playable" : true,
+    "linked_from" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/4vJyxsXnqp1kmYLJS9fGU8"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/4vJyxsXnqp1kmYLJS9fGU8",
+      "id" : "4vJyxsXnqp1kmYLJS9fGU8",
+      "type" : "track",
+      "uri" : "spotify:track:4vJyxsXnqp1kmYLJS9fGU8"
+    },
+    "name" : "N.Y.E.",
+    "popularity" : 56,
+    "preview_url" : "https://p.scdn.co/mp3-preview/49491e97c17be2e6890bc226d42a4e08bd5daac2",
+    "track_number" : 1,
+    "type" : "track",
+    "uri" : "spotify:track:1L1UEIyGtc5qrJUfiloqTZ"
+  } ],
+  "total" : 380,
+  "limit" : 20,
+  "offset" : 0,
+  "href" : "https://api.spotify.com/v1/me/top/tracks",
+  "previous" : null,
+  "next" : "https://api.spotify.com/v1/me/top/tracks?limit=20&offset=20"
+}
