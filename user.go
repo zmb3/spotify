@@ -328,10 +328,10 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 	return &result, nil
 }
 
-// CurrentUserTopArtists gets a list of the top played artists in a given time
+// CurrentUsersTopArtists gets a list of the top played artists in a given time
 // range of the current Spotify user. It supports up to 50 artists in a single
 // call. This call requires ScopeUserTopRead.
-func (c *Client) CurrentUserTopArtists(opt *Options) (*FullArtistPage, error) {
+func (c *Client) CurrentUsersTopArtists(opt *Options) (*FullArtistPage, error) {
 	spotifyURL := c.baseURL + "me/top/artists"
 	if opt != nil {
 		v := url.Values{}
@@ -356,10 +356,10 @@ func (c *Client) CurrentUserTopArtists(opt *Options) (*FullArtistPage, error) {
 	return &result, nil
 }
 
-// CurrentUserTopTracks gets a list of the top played tracks in a given time
+// CurrentUsersTopTracks gets a list of the top played tracks in a given time
 // range of the current Spotify user. It supports up to 50 tracks in a single
 // call. This call requires ScopeUserTopRead.
-func (c *Client) CurrentUserTopTracks(opt *Options) (*FullTrackPage, error) {
+func (c *Client) CurrentUsersTopTracks(opt *Options) (*FullTrackPage, error) {
 	spotifyURL := c.baseURL + "me/top/tracks"
 	if opt != nil {
 		v := url.Values{}
