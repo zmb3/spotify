@@ -1,0 +1,289 @@
+{
+  "items" : [ {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/62GoYifV4njTdvS8lD2yYT"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 8437
+    },
+    "genres" : [ "deep chiptune", "otacore", "scorecore", "video game music" ],
+    "href" : "https://api.spotify.com/v1/artists/62GoYifV4njTdvS8lD2yYT",
+    "id" : "62GoYifV4njTdvS8lD2yYT",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/f9c8d51fbe3643da80ed235861b0477724ab7810",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/1867d5f0e3d2c88ed68fd3ebbb9c0f13f33a787a",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/fe0a31f203859df9911c6e9df57da3d8aecf5c57",
+      "width" : 64
+    } ],
+    "name" : "insaneintherainmusic",
+    "popularity" : 49,
+    "type" : "artist",
+    "uri" : "spotify:artist:62GoYifV4njTdvS8lD2yYT"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/2cFrymmkijnjDg9SS92EPM"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 659507
+    },
+    "genres" : [ "pop" ],
+    "href" : "https://api.spotify.com/v1/artists/2cFrymmkijnjDg9SS92EPM",
+    "id" : "2cFrymmkijnjDg9SS92EPM",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/92c55f8da5e3bafafef2192ebfcb027d1711a5c9",
+      "width" : 640
+    }, {
+      "height" : 320,
+      "url" : "https://i.scdn.co/image/d41fb76af249a3eeb5951ab618d4aabf3aca5c8c",
+      "width" : 320
+    }, {
+      "height" : 160,
+      "url" : "https://i.scdn.co/image/240871dcd7857a6d6f834866799056f01d2f5a67",
+      "width" : 160
+    } ],
+    "name" : "Blackbear",
+    "popularity" : 86,
+    "type" : "artist",
+    "uri" : "spotify:artist:2cFrymmkijnjDg9SS92EPM"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/1U2GH2NLt30RW9bnJEvcgM"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 4474
+    },
+    "genres" : [ "otacore", "scorecore", "video game music" ],
+    "href" : "https://api.spotify.com/v1/artists/1U2GH2NLt30RW9bnJEvcgM",
+    "id" : "1U2GH2NLt30RW9bnJEvcgM",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ed292b05c628235ce1cf7e70993ee0072ee3037a",
+      "width" : 640
+    }, {
+      "height" : 320,
+      "url" : "https://i.scdn.co/image/e8294251a95fe21ce8d8b66578f936fdab224cad",
+      "width" : 320
+    }, {
+      "height" : 160,
+      "url" : "https://i.scdn.co/image/510ec51b1a1e8ad3277e7aea135b0bd63bff5f4f",
+      "width" : 160
+    } ],
+    "name" : "Braxton Burks",
+    "popularity" : 46,
+    "type" : "artist",
+    "uri" : "spotify:artist:1U2GH2NLt30RW9bnJEvcgM"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/546MXGKJRNfO5to1oqkfqe"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 5414
+    },
+    "genres" : [ "deep chiptune", "scorecore", "video game music" ],
+    "href" : "https://api.spotify.com/v1/artists/546MXGKJRNfO5to1oqkfqe",
+    "id" : "546MXGKJRNfO5to1oqkfqe",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/7e369f17f3d7a26129d20badd620804c2f917501",
+      "width" : 640
+    }, {
+      "height" : 320,
+      "url" : "https://i.scdn.co/image/1c21abf9f0684124899ae07a0637b5fc5f7119b6",
+      "width" : 320
+    }, {
+      "height" : 160,
+      "url" : "https://i.scdn.co/image/1d448af876879c07d317e2a2ddd912db43e3caaa",
+      "width" : 160
+    } ],
+    "name" : "Ben Prunty",
+    "popularity" : 46,
+    "type" : "artist",
+    "uri" : "spotify:artist:546MXGKJRNfO5to1oqkfqe"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/4ZrCpw3hfGJyukG3aRRvPq"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 431
+    },
+    "genres" : [ "scorecore" ],
+    "href" : "https://api.spotify.com/v1/artists/4ZrCpw3hfGJyukG3aRRvPq",
+    "id" : "4ZrCpw3hfGJyukG3aRRvPq",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/6791f91525682dba52ac5569becdbc93b60e66cf",
+      "width" : 640
+    }, {
+      "height" : 320,
+      "url" : "https://i.scdn.co/image/70aaa282a8a7bdd2f437513bde99519daa5e3025",
+      "width" : 320
+    }, {
+      "height" : 160,
+      "url" : "https://i.scdn.co/image/71356c8390cae58f0fd563a243be4ed7aa4fa9d5",
+      "width" : 160
+    } ],
+    "name" : "Eric Buchholz",
+    "popularity" : 38,
+    "type" : "artist",
+    "uri" : "spotify:artist:4ZrCpw3hfGJyukG3aRRvPq"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/69GGBxA162lTqCwzJG5jLp"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 3299600
+    },
+    "genres" : [ "pop", "tropical house" ],
+    "href" : "https://api.spotify.com/v1/artists/69GGBxA162lTqCwzJG5jLp",
+    "id" : "69GGBxA162lTqCwzJG5jLp",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/6735a98c7cf7c5b9622e10a1ea9390dd67cbd509",
+      "width" : 640
+    }, {
+      "height" : 320,
+      "url" : "https://i.scdn.co/image/098f5d6b1560d8c4d6f7a00ff7029ed3ea33ab64",
+      "width" : 320
+    }, {
+      "height" : 160,
+      "url" : "https://i.scdn.co/image/24c37ccd6e7ffcb6b58d42e2b152eed61050fb08",
+      "width" : 160
+    } ],
+    "name" : "The Chainsmokers",
+    "popularity" : 92,
+    "type" : "artist",
+    "uri" : "spotify:artist:69GGBxA162lTqCwzJG5jLp"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/0ZMWrgLff357yxLyEU77a1"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 30027
+    },
+    "genres" : [ "deep chiptune", "otacore", "scorecore", "video game music" ],
+    "href" : "https://api.spotify.com/v1/artists/0ZMWrgLff357yxLyEU77a1",
+    "id" : "0ZMWrgLff357yxLyEU77a1",
+    "images" : [ {
+      "height" : 600,
+      "url" : "https://i.scdn.co/image/7921a9c834b6094e81cdabd2e6bfbe459c1ec9a5",
+      "width" : 400
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/1ed996a8c2c93c0dea7536af0bf70d372981752d",
+      "width" : 200
+    }, {
+      "height" : 96,
+      "url" : "https://i.scdn.co/image/1e7295062dc3e7b95dac55bdb7658eecac89dd33",
+      "width" : 64
+    } ],
+    "name" : "Darren Korb",
+    "popularity" : 58,
+    "type" : "artist",
+    "uri" : "spotify:artist:0ZMWrgLff357yxLyEU77a1"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/3ApUX1o6oSz321MMECyIYd"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 79781
+    },
+    "genres" : [ "indie poptimism" ],
+    "href" : "https://api.spotify.com/v1/artists/3ApUX1o6oSz321MMECyIYd",
+    "id" : "3ApUX1o6oSz321MMECyIYd",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/938bcfbfc6fbb86f83eda389b4d7f6d0d6a9af02",
+      "width" : 640
+    }, {
+      "height" : 320,
+      "url" : "https://i.scdn.co/image/28048cb1d538c4c781fa531ff4a62573eab81ae6",
+      "width" : 320
+    }, {
+      "height" : 160,
+      "url" : "https://i.scdn.co/image/804776456d339f9328760102c12544d8ea814d15",
+      "width" : 160
+    } ],
+    "name" : "Quinn XCII",
+    "popularity" : 75,
+    "type" : "artist",
+    "uri" : "spotify:artist:3ApUX1o6oSz321MMECyIYd"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/57DlMWmbVIf2ssJ8QBpBau"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 43420
+    },
+    "genres" : [ "deep chiptune", "otacore", "video game music" ],
+    "href" : "https://api.spotify.com/v1/artists/57DlMWmbVIf2ssJ8QBpBau",
+    "id" : "57DlMWmbVIf2ssJ8QBpBau",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/8880f91c165aad68d64e5d750d7c01d6574a6de2",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/f8329c26262ae3149cd93d2d534da2f3c7b901d0",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/9054899eef93cedb8857fb053e970878edc044de",
+      "width" : 64
+    } ],
+    "name" : "Toby Fox",
+    "popularity" : 67,
+    "type" : "artist",
+    "uri" : "spotify:artist:57DlMWmbVIf2ssJ8QBpBau"
+  }, {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/37aR5PqATWZwKvh9nkebho"
+    },
+    "followers" : {
+      "href" : null,
+      "total" : 26060
+    },
+    "genres" : [ "antiviral pop", "otacore", "scorecore", "tracestep", "video game music" ],
+    "href" : "https://api.spotify.com/v1/artists/37aR5PqATWZwKvh9nkebho",
+    "id" : "37aR5PqATWZwKvh9nkebho",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/55a662808ff65734bd4926ef33a0023cd5b155b4",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/ef7bb9818d4b8cbb4cdb00c3066e9c2601da8ea1",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/762359485577cd52bb53725d2a6b3a3647b0014c",
+      "width" : 64
+    } ],
+    "name" : "dj-Jo",
+    "popularity" : 57,
+    "type" : "artist",
+    "uri" : "spotify:artist:37aR5PqATWZwKvh9nkebho"
+  } ],
+  "total" : 10,
+  "limit" : 20,
+  "offset" : 0,
+  "href" : "https://api.spotify.com/v1/me/top/artists",
+  "previous" : null,
+  "next" : null
+}
