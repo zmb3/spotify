@@ -62,6 +62,8 @@ const (
 	ScopeUserModifyPlaybackState = "user-modify-playback-state"
 	// ScopeUserReadRecentlyPlayed allows access to a user's recently-played songs
 	ScopeUserReadRecentlyPlayed = "user-read-recently-played"
+	// ScopeUserTopRead seeks read access to a user's top tracks and artists
+	ScopeUserTopRead = "user-top-read"
 )
 
 // Authenticator provides convenience functions for implementing the OAuth2 flow.
