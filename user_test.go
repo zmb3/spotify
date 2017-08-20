@@ -370,3 +370,35 @@ func TestCurrentUsersFollowedArtistsOpt(t *testing.T) {
 
 	client.CurrentUsersFollowedArtistsOpt(50, "0aV6DOiouImYTqrR5YlIqx")
 }
+
+func TestCurrentUsersTopArtists(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/current_users_top_artists.txt")
+	defer server.Close()
+
+	artists, err := client.CurrentUsersTopArtists()
+	if err != nil {
+		t.Error(err)
+	}
+	if artists.Endpoint != "https://api.spotify.com/v1/me/top/artists" {
+		t.Error("Endpoint incorrect")
+	}
+	if artists.Limit != 20 {
+		t.Errorf("Expected limit 20, got %d\n", artists.Limit)
+	}
+	if artists.Total != 10 {
+		t.Errorf("Expected total 10, got %d\n", artists.Total)
+		return
+	}
+	if len(artists.Artists) != artists.Total {
+		t.Error("Didn't get expected number of results")
+		return
+	}
+	if artists.Artists[0].Followers.Count != 8437 {
+		t.Errorf("Expected follower count of 8437, got %d\n", artists.Artists[0].Followers.Count)
+	}
+	name := "insaneintherainmusic"
+	if artists.Artists[0].Name != name {
+		t.Errorf("Expected '%s', got '%s'\n", name, artists.Artists[0].Name)
+		fmt.Printf("\n%#v\n", artists.Artists[0])
+	}
+}
