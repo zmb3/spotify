@@ -13,7 +13,7 @@ import (
 type SimpleAlbum struct {
 	// The name of the album.
 	Name string `json:"name"`
-	// An array of SimpleArtists
+	// A slice of SimpleArtists
 	Artists []SimpleArtist `json:"artists"`
 	// The type of the album: one of "album",
 	// "single", or "compilation".
