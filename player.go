@@ -52,7 +52,7 @@ type PlaybackContext struct {
 // CurrentlyPlaying contains the information about currently playing items
 type CurrentlyPlaying struct {
 	// Timestamp when data was fetched
-	Timestamp int `json:"timestamp"`
+	Timestamp int64 `json:"timestamp"`
 	// PlaybackContext current context
 	PlaybackContext PlaybackContext `json:"context"`
 	// Progress into the currently playing track.
