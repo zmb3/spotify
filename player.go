@@ -191,8 +191,13 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 		}
 	}
 
+	req, err := http.NewRequest("GET", spotifyURL, nil)
+	if err != nil {
+		return nil, err
+	}
+
 	var result CurrentlyPlaying
-	err := c.get(spotifyURL, &result)
+	err = c.execute(req, &result, http.StatusNoContent)
 	if err != nil {
 		return nil, err
 	}
