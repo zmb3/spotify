@@ -48,7 +48,7 @@ func TestPlayerDevices(t *testing.T) {
 	}
 
 	if list[0].Volume != 100 {
-		t.Error("Expected volume to be 100%")
+		t.Error("Expected volume to be 100 percent")
 	}
 	if list[1].Volume != 0 {
 		t.Error("Expected null becomes 0")

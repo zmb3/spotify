@@ -52,7 +52,7 @@ type PlaybackContext struct {
 // CurrentlyPlaying contains the information about currently playing items
 type CurrentlyPlaying struct {
 	// Timestamp when data was fetched
-	Timestamp int `json:"timestamp"`
+	Timestamp int64 `json:"timestamp"`
 	// PlaybackContext current context
 	PlaybackContext PlaybackContext `json:"context"`
 	// Progress into the currently playing track.
@@ -114,11 +114,11 @@ type RecentlyPlayedOptions struct {
 
 	// AfterEpochMs is a Unix epoch in milliseconds that describes a time after
 	// which to return songs.
-	AfterEpochMs int
+	AfterEpochMs int64
 
 	// BeforeEpochMs is a Unix epoch in milliseconds that describes a time
 	// before which to return songs.
-	BeforeEpochMs int
+	BeforeEpochMs int64
 }
 
 // PlayerDevices information about available devices for the current user.
