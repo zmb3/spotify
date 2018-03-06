@@ -68,14 +68,14 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", c.baseURL, catID)
 	if opt != nil {
 		values := url.Values{}
-		if opt.Country != nil {
-			values.Set("country", *opt.Country)
+		if opt.Country != "" {
+			values.Set("country", opt.Country)
 		}
-		if opt.Limit != nil {
-			values.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			values.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			values.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			values.Set("offset", strconv.Itoa(opt.Offset))
 		}
 		if query := values.Encode(); query != "" {
 			spotifyURL += "?" + query
@@ -113,14 +113,14 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 		values.Set("locale", locale)
 	}
 	if opt != nil {
-		if opt.Country != nil {
-			values.Set("country", *opt.Country)
+		if opt.Country != "" {
+			values.Set("country", opt.Country)
 		}
-		if opt.Limit != nil {
-			values.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			values.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			values.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			values.Set("offset", strconv.Itoa(opt.Offset))
 		}
 	}
 	if query := values.Encode(); query != "" {

@@ -14,9 +14,8 @@ func TestFeaturedPlaylists(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/featured_playlists.txt")
 	defer server.Close()
 
-	country := "SE"
 	opt := PlaylistOptions{}
-	opt.Country = &country
+	opt.Country = "SE"
 
 	msg, p, err := client.FeaturedPlaylistsOpt(&opt)
 	if err != nil {

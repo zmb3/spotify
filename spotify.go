@@ -237,55 +237,55 @@ type Options struct {
 	// this parameter if you want the list of returned items to
 	// be relevant to a particular country.  If omitted, the
 	// results will be relevant to all countries.
-	Country *string
+	Country string
 	// Limit is the maximum number of items to return.
-	Limit *int
+	Limit int
 	// Offset is the index of the first item to return.  Use it
 	// with Limit to get the next set of items.
-	Offset *int
+	Offset int
 	// Timerange is the period of time from which to return results
 	// in certain API calls. The three options are the following string
 	// literals: "short", "medium", and "long"
-	Timerange *string
+	Timerange string
 }
 
 // NewReleasesOpt is like NewReleases, but it accepts optional parameters
 // for filtering the results.
 func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err error) {
-	spotifyURL := c.baseURL + "browse/new-releases"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("country", *opt.Country)
-		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	spotifyUrl := c.baseURL + "brows/new-releases"
+
+	v := url.Values{}
+
+	if opt.Country != "" {
+		v.Set("country", opt.Country)
+	}
+	if opt.Limit != 0 {
+		v.Set("limit", strconv.Itoa(opt.Limit))
+	}
+	if opt.Offset != 0 {
+		v.Set("offset", strconv.Itoa(opt.Offset))
+	}
+	if params := v.Encode(); params != "" {
+		spotifyUrl += "?" + params
 	}
 
-	var objmap map[string]*json.RawMessage
-	err = c.get(spotifyURL, &objmap)
-	if err != nil {
+	objmap := make(map[string]*json.RawMessage)
+
+	if err := c.get(spotifyUrl, &objmap); err != nil {
 		return nil, err
 	}
 
-	var result SimpleAlbumPage
-	err = json.Unmarshal(*objmap["albums"], &result)
-	if err != nil {
+	result := new(SimpleAlbumPage)
+
+	if err := json.Unmarshal(*objmap["albums"], &result); err != nil {
 		return nil, err
 	}
 
-	return &result, nil
+	return result, err
 }
 
 // NewReleases gets a list of new album releases featured in Spotify.
 // This call requires bearer authorization.
 func (c *Client) NewReleases() (albums *SimpleAlbumPage, err error) {
-	return c.NewReleasesOpt(nil)
+	return c.NewReleasesOpt(&Options{})
 }

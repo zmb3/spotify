@@ -121,8 +121,8 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 		values.Set("album_type", t.encode())
 	}
 	if options != nil {
-		if options.Country != nil {
-			values.Set("market", *options.Country)
+		if options.Country != "" {
+			values.Set("market", options.Country)
 		} else {
 			// if the market is not specified, Spotify will likely return a lot
 			// of duplicates (one for each market in which the album is available)
@@ -130,11 +130,11 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 			// TODO: would this ever be the desired behavior?
 			values.Set("market", CountryUSA)
 		}
-		if options.Limit != nil {
-			values.Set("limit", strconv.Itoa(*options.Limit))
+		if options.Limit != 0 {
+			values.Set("limit", strconv.Itoa(options.Limit))
 		}
-		if options.Offset != nil {
-			values.Set("offset", strconv.Itoa(*options.Offset))
+		if options.Offset != 0 {
+			values.Set("offset", strconv.Itoa(options.Offset))
 		}
 	}
 	if query := values.Encode(); query != "" {

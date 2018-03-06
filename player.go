@@ -150,8 +150,8 @@ func (c *Client) PlayerStateOpt(opt *Options) (*PlayerState, error) {
 	spotifyURL := c.baseURL + "me/player"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
+		if opt.Country != "" {
+			v.Set("market", opt.Country)
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -183,8 +183,8 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 	spotifyURL := c.baseURL + "me/player/currently-playing"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
+		if opt.Country != "" {
+			v.Set("market", opt.Country)
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params

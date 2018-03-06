@@ -15,11 +15,9 @@ func TestGetRecommendations(t *testing.T) {
 		Tracks:  []ID{"0c6xIDDpzE81m2q797ordA"},
 		Genres:  []string{"classical", "country"},
 	}
-	country := "ES"
-	limit := 10
 	opts := Options{
-		Country: &country,
-		Limit:   &limit,
+		Country: "ES",
+		Limit:   10,
 	}
 	recommendations, err := client.GetRecommendations(seeds, nil, &opts)
 	if err != nil {

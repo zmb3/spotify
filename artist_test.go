@@ -140,10 +140,11 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 	defer server.Close()
 
 	l := 2
+
 	var typ AlbumType = AlbumTypeSingle
 
 	options := Options{}
-	options.Limit = &l
+	options.Limit = l
 
 	albums, err := client.GetArtistAlbumsOpt(ID("1vCWHaC5f2uS3yhpwWbIA6"), &options, &typ)
 	if err != nil {
