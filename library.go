@@ -59,3 +59,39 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	}
 	return nil
 }
+
+// AddAlbumsToLibrary saves one or more albums to the current user's
+// "Your Music" library.  This call requires the ScopeUserLibraryModify scope.
+// An album can only be saved once; duplicate IDs are ignored.
+func (c *Client) AddAlbumsToLibrary(ids ...ID) error {
+	return c.modifyLibraryAlbums(true, ids...)
+}
+
+// RemoveAlbumsFromLibrary removes one or more albums from the current user's
+// "Your Music" library.  This call requires the ScopeUserModifyLibrary scope.
+// Trying to remove an album when you do not have the user's authorization
+// results in a `spotify.Error` with the status code set to http.StatusUnauthorized.
+func (c *Client) RemoveAlbumsFromLibrary(ids ...ID) error {
+	return c.modifyLibraryAlbums(false, ids...)
+}
+
+func (c *Client) modifyLibraryAlbums(add bool, ids ...ID) error {
+	if l := len(ids); l == 0 || l > 50 {
+		return errors.New("spotify: this call supports 1 to 50 IDs per call")
+	}
+	spotifyURL := fmt.Sprintf("%sme/albums?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
+	method := "DELETE"
+	if add {
+		method = "PUT"
+	}
+	req, err := http.NewRequest(method, spotifyURL, nil)
+	if err != nil {
+		return err
+	}
+	err = c.execute(req, nil)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
