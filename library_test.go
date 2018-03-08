@@ -55,7 +55,6 @@ func TestRemoveTracksFromLibrary(t *testing.T) {
 		t.Error(err)
 	}
 }
-/////
 
 func TestUserHasAlbums(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `[ false, true ]`)
