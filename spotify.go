@@ -275,13 +275,13 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 		return nil, err
 	}
 
-	result := new(SimpleAlbumPage)
+	result := SimpleAlbumPage{}
 
 	if err := json.Unmarshal(*objmap["albums"], &result); err != nil {
 		return nil, err
 	}
 
-	return result, err
+	return &result, err
 }
 
 // NewReleases gets a list of new album releases featured in Spotify.
