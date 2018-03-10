@@ -16,12 +16,7 @@ func (c *Client) UserHasTracks(ids ...ID) ([]bool, error) {
 	spotifyURL := fmt.Sprintf("%sme/tracks/contains?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	var result []bool
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
 	return result, err
 }
 
@@ -53,11 +48,7 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
 
 // UserHasAlbums checks if one or more albums are saved to the current user's
@@ -69,12 +60,7 @@ func (c *Client) UserHasAlbums(ids ...ID) ([]bool, error) {
 	spotifyURL := fmt.Sprintf("%sme/albums/contains?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	var result []bool
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
 	return result, err
 }
 
@@ -106,10 +92,6 @@ func (c *Client) modifyLibraryAlbums(add bool, ids ...ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
 
