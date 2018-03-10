@@ -128,13 +128,8 @@ func (c *Client) PlayerDevices() ([]PlayerDevice, error) {
 	var result struct {
 		PlayerDevices []PlayerDevice `json:"devices"`
 	}
-
 	err := c.get(c.baseURL+"me/player/devices", &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return result.PlayerDevices, nil
+	return result.PlayerDevices, err
 }
 
 // PlayerState gets information about the playing state for the current user
@@ -159,13 +154,8 @@ func (c *Client) PlayerStateOpt(opt *Options) (*PlayerState, error) {
 	}
 
 	var result PlayerState
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // PlayerCurrentlyPlaying gets information about the currently playing status
@@ -198,11 +188,7 @@ func (c *Client) PlayerCurrentlyPlayingOpt(opt *Options) (*CurrentlyPlaying, err
 
 	var result CurrentlyPlaying
 	err = c.execute(req, &result, http.StatusNoContent)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // PlayerRecentlyPlayed gets a list of recently-played tracks for the current
@@ -233,11 +219,7 @@ func (c *Client) PlayerRecentlyPlayedOpt(opt *RecentlyPlayedOptions) ([]Recently
 
 	result := RecentlyPlayedResult{}
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return result.Items, nil
+	return result.Items, err
 }
 
 // TransferPlayback transfers playback to a new device and determine if
@@ -267,12 +249,7 @@ func (c *Client) TransferPlayback(deviceID ID, play bool) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
 // Play Start a new context or resume current playback on the user's active
@@ -304,11 +281,7 @@ func (c *Client) PlayOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
 // Pause Playback on the user's currently active device.
@@ -337,11 +310,7 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
 // Next skips to the next track in the user's queue in the user's
@@ -370,11 +339,7 @@ func (c *Client) NextOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
 // Previous skips to the Previous track in the user's queue in the user's
@@ -403,11 +368,7 @@ func (c *Client) PreviousOpt(opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
 // Seek to the given position in the user’s currently playing track.
@@ -515,9 +476,5 @@ func (c *Client) playerFuncWithOpt(urlSuffix string, values url.Values, opt *Pla
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }

@@ -87,13 +87,8 @@ func (c *Client) GetTrack(id ID) (*FullTrack, error) {
 	spotifyURL := c.baseURL + "tracks/" + string(id)
 
 	var t FullTrack
-
 	err := c.get(spotifyURL, &t)
-	if err != nil {
-		return nil, err
-	}
-
-	return &t, nil
+	return &t, err
 }
 
 // GetTracks gets Spotify catalog information for multiple tracks based on their
@@ -112,9 +107,5 @@ func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
 	}
 
 	err := c.get(spotifyURL, &t)
-	if err != nil {
-		return nil, err
-	}
-
-	return t.Tracks, nil
+	return t.Tracks, err
 }

@@ -115,9 +115,5 @@ func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
 	}{}
 
 	err := c.get(url, &temp)
-	if err != nil {
-		return nil, err
-	}
-
-	return temp.F, nil
+	return temp.F, err
 }

@@ -30,10 +30,8 @@ func TestFindAlbumBadID(t *testing.T) {
 	client, server := testClientString(http.StatusNotFound, `{ "error": { "status": 404, "message": "non existing id" } }`)
 	defer server.Close()
 
-	album, err := client.GetAlbum(ID("asdf"))
-	if album != nil {
-		t.Fatal("Expected nil album, got", album.Name)
-	}
+	_, err := client.GetAlbum(ID("asdf"))
+
 	se, ok := err.(Error)
 	if !ok {
 		t.Error("Expected spotify error, got", err)

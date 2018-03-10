@@ -171,10 +171,5 @@ func (c *Client) Token() (*oauth2.Token, error) {
 	if !ok {
 		return nil, errors.New("spotify: oauth2 transport type not correct")
 	}
-	t, err := transport.Source.Token()
-	if err != nil {
-		return nil, err
-	}
-
-	return t, nil
+	return transport.Source.Token()
 }

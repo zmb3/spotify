@@ -38,11 +38,7 @@ func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 
 	var a FullArtist
 	err := c.get(spotifyURL, &a)
-	if err != nil {
-		return nil, err
-	}
-
-	return &a, nil
+	return &a, err
 }
 
 // GetArtists gets spotify catalog information for several artists based on their
@@ -58,11 +54,7 @@ func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 	}
 
 	err := c.get(spotifyURL, &a)
-	if err != nil {
-		return nil, err
-	}
-
-	return a.Artists, nil
+	return a.Artists, err
 }
 
 // GetArtistsTopTracks gets Spotify catalog information about an artist's top
@@ -76,11 +68,7 @@ func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, 
 	}
 
 	err := c.get(spotifyURL, &t)
-	if err != nil {
-		return nil, err
-	}
-
-	return t.Tracks, nil
+	return t.Tracks, err
 }
 
 // GetRelatedArtists gets Spotify catalog information about artists similar to a
@@ -95,11 +83,7 @@ func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 	}
 
 	err := c.get(spotifyURL, &a)
-	if err != nil {
-		return nil, err
-	}
-
-	return a.Artists, nil
+	return a.Artists, err
 }
 
 // GetArtistAlbums gets Spotify catalog information about an artist's albums.
@@ -142,11 +126,6 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 	}
 
 	var p SimpleAlbumPage
-
 	err := c.get(spotifyURL, &p)
-	if err != nil {
-		return nil, err
-	}
-
-	return &p, nil
+	return &p, err
 }

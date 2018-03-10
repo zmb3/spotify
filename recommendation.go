@@ -98,10 +98,6 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 
 	var recommendations Recommendations
 	err := c.get(spotifyURL, &recommendations)
-	if err != nil {
-		return nil, err
-	}
-
 	return &recommendations, err
 }
 
@@ -113,9 +109,5 @@ func (c *Client) GetAvailableGenreSeeds() ([]string, error) {
 	genreSeeds := make(map[string][]string)
 
 	err := c.get(spotifyURL, &genreSeeds)
-	if err != nil {
-		return nil, err
-	}
-
-	return genreSeeds["genres"], nil
+	return genreSeeds["genres"], err
 }

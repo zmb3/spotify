@@ -100,11 +100,6 @@ func (c *Client) GetAudioAnalysis(id ID) (*AudioAnalysis, error) {
 	url := fmt.Sprintf("%saudio-analysis/%s", c.baseURL, id)
 
 	temp := AudioAnalysis{}
-
 	err := c.get(url, &temp)
-	if err != nil {
-		return nil, err
-	}
-
-	return &temp, nil
+	return &temp, err
 }

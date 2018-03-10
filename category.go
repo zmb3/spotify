@@ -44,10 +44,6 @@ func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 	}
 
 	err := c.get(spotifyURL, &cat)
-	if err != nil {
-		return cat, err
-	}
-
 	return cat, err
 }
 
@@ -87,11 +83,7 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 	}{}
 
 	err := c.get(spotifyURL, &wrapper)
-	if err != nil {
-		return nil, err
-	}
-
-	return &wrapper.Playlists, nil
+	return &wrapper.Playlists, err
 }
 
 // GetCategories gets a list of categories used to tag items in Spotify
@@ -130,11 +122,6 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 	wrapper := struct {
 		Categories CategoryPage `json:"categories"`
 	}{}
-
 	err := c.get(spotifyURL, &wrapper)
-	if err != nil {
-		return nil, err
-	}
-
-	return &wrapper.Categories, nil
+	return &wrapper.Categories, err
 }

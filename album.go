@@ -101,13 +101,8 @@ func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", c.baseURL, id)
 
 	var a FullAlbum
-
 	err := c.get(spotifyURL, &a)
-	if err != nil {
-		return nil, err
-	}
-
-	return &a, nil
+	return &a, err
 }
 
 func toStringSlice(ids []ID) []string {
