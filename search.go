@@ -120,14 +120,14 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 	v.Set("q", query)
 	v.Set("type", t.encode())
 	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
+		if opt.Country != "" {
+			v.Set("market", opt.Country)
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 	}
 

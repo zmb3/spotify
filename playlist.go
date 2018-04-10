@@ -66,13 +66,13 @@ type PlaylistOptions struct {
 	// parameter if you want the results returned in a particular
 	// language.  If not specified, the result will be returned
 	// in the Spotify default language (American English).
-	Locale *string
+	Locale string
 	// A timestamp in ISO 8601 format (yyyy-MM-ddTHH:mm:ss).
 	// use this paramter to specify the user's local time to
 	// get results tailored for that specific date and time
 	// in the day.  If not provided, the response defaults to
 	// the current UTC time.
-	Timestamp *string
+	Timestamp string
 }
 
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
@@ -81,20 +81,20 @@ func (c *Client) FeaturedPlaylistsOpt(opt *PlaylistOptions) (message string, pla
 	spotifyURL := c.baseURL + "browse/featured-playlists"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Locale != nil {
-			v.Set("locale", *opt.Locale)
+		if opt.Locale != "" {
+			v.Set("locale", opt.Locale)
 		}
-		if opt.Country != nil {
-			v.Set("country", *opt.Country)
+		if opt.Country != "" {
+			v.Set("country", opt.Country)
 		}
-		if opt.Timestamp != nil {
-			v.Set("timestamp", *opt.Timestamp)
+		if opt.Timestamp != "" {
+			v.Set("timestamp", opt.Timestamp)
 		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -183,11 +183,11 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 	spotifyURL := c.baseURL + "users/" + userID + "/playlists"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -278,11 +278,11 @@ func (c *Client) GetPlaylistTracksOpt(userID string, playlistID ID,
 		v.Set("fields", fields)
 	}
 	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 	}
 	if params := v.Encode(); params != "" {

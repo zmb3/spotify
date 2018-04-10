@@ -104,14 +104,14 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 	spotifyURL := c.baseURL + "me/tracks"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("country", *opt.Country)
+		if opt.Country != "" {
+			v.Set("country", opt.Country)
 		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -266,14 +266,14 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 	spotifyURL := c.baseURL + "me/albums"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
+		if opt.Country != "" {
+			v.Set("market", opt.Country)
 		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -307,11 +307,11 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 	spotifyURL := c.baseURL + "me/playlists"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
+		if opt.Offset != 0 {
+			v.Set("offset", strconv.Itoa(opt.Offset))
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -335,11 +335,11 @@ func (c *Client) CurrentUsersTopArtistsOpt(opt *Options) (*FullArtistPage, error
 	spotifyURL := c.baseURL + "me/top/artists"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Timerange != nil {
-			v.Set("time_range", *opt.Timerange+"_term")
+		if opt.Timerange != "" {
+			v.Set("time_range", opt.Timerange+"_term")
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
@@ -370,11 +370,11 @@ func (c *Client) CurrentUsersTopTracksOpt(opt *Options) (*FullTrackPage, error) 
 	spotifyURL := c.baseURL + "me/top/tracks"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Timerange != nil {
-			v.Set("time_range", *opt.Timerange+"_term")
+		if opt.Timerange != "" {
+			v.Set("time_range", opt.Timerange+"_term")
 		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params

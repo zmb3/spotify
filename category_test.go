@@ -91,10 +91,8 @@ func TestGetCategoryPlaylistsOpt(t *testing.T) {
 	defer server.Close()
 
 	opt := &Options{}
-	opt.Limit = new(int)
-	opt.Offset = new(int)
-	*opt.Limit = 5
-	*opt.Offset = 10
+	opt.Limit = 5
+	opt.Offset = 10
 	client.GetCategoryPlaylistsOpt("id", opt)
 }
 

@@ -86,11 +86,11 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 	setTrackAttributesValues(trackAttributes, v)
 
 	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
+		if opt.Limit != 0 {
+			v.Set("limit", strconv.Itoa(opt.Limit))
 		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
+		if opt.Country != "" {
+			v.Set("market", opt.Country)
 		}
 	}
 
