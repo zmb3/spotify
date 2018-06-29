@@ -376,6 +376,9 @@ func (c *Client) CurrentUsersTopTracksOpt(opt *Options) (*FullTrackPage, error) 
 		if opt.Timerange != nil {
 			v.Set("time_range", *opt.Timerange+"_term")
 		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
 		if params := v.Encode(); params != "" {
 			spotifyURL += "?" + params
 		}
