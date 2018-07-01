@@ -128,7 +128,7 @@ func (c *Client) FeaturedPlaylists() (message string, playlists *SimplePlaylistP
 // user's public playlists.  To be able to follow playlists privately, the user
 // must have granted the ScopePlaylistModifyPrivate scope.  The
 // ScopePlaylistModifyPublic scope is required to follow playlists publicly.
-func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
+func (c *Client) FollowPlaylist(owner string, playlist ID, public bool) error {
 	spotifyURL := buildFollowURI(c.baseURL, owner, playlist)
 	body := strings.NewReader(strconv.FormatBool(public))
 	req, err := http.NewRequest("PUT", spotifyURL, body)
@@ -146,7 +146,7 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 // UnfollowPlaylist removes the current user as a follower of a playlist.
 // Unfollowing a publicly followed playlist requires ScopePlaylistModifyPublic.
 // Unfolowing a privately followed playlist requies ScopePlaylistModifyPrivate.
-func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
+func (c *Client) UnfollowPlaylist(owner string, playlist ID) error {
 	spotifyURL := buildFollowURI(c.baseURL, owner, playlist)
 	req, err := http.NewRequest("DELETE", spotifyURL, nil)
 	if err != nil {
@@ -159,7 +159,7 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	return nil
 }
 
-func buildFollowURI(url string, owner, playlist ID) string {
+func buildFollowURI(url string, owner string, playlist ID) string {
 	return fmt.Sprintf("%susers/%s/playlists/%s/followers",
 		url, string(owner), string(playlist))
 }
