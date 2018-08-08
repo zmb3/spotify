@@ -15,6 +15,12 @@ type SimpleAlbum struct {
 	Name string `json:"name"`
 	// A slice of SimpleArtists
 	Artists []SimpleArtist `json:"artists"`
+	// The field is present when getting an artist’s
+	// albums. Possible values are “album”, “single”,
+	// “compilation”, “appears_on”. Compare to album_type
+	// this field represents relationship between the artist
+	// and the album.
+	AlbumGroup string `json:"album_group"`
 	// The type of the album: one of "album",
 	// "single", or "compilation".
 	AlbumType string `json:"album_type"`
@@ -36,6 +42,13 @@ type SimpleAlbum struct {
 	Images []Image `json:"images"`
 	// Known external URLs for this album.
 	ExternalURLs map[string]string `json:"external_urls"`
+	// The date the album was first released.  For example, "1981-12-15".
+	// Depending on the ReleaseDatePrecision, it might be shown as
+	// "1981" or "1981-12". You can use ReleaseDateTime to convert this
+	// to a time.Time value.
+	ReleaseDate string `json:"release_date"`
+	// The precision with which ReleaseDate value is known: "year", "month", or "day"
+	ReleaseDatePrecision string `json:"release_date_precision"`
 }
 
 // Copyright contains the copyright statement associated with an album.
