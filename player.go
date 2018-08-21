@@ -101,6 +101,11 @@ type PlayOptions struct {
 	// Only available when context corresponds to an album or playlist
 	// object, or when the URIs parameter is used.
 	PlaybackOffset *PlaybackOffset `json:"offset,omitempty"`
+	// PositionMs Indicates from what position to start playback.
+	// Must be a positive number. Passing in a position that is greater
+	// than the length of the track will cause the player to start playing the next song.
+	// Defaults to 0, starting a track from the beginning.
+	PositionMs int `json:"position_ms,omitempty"`
 }
 
 // RecentlyPlayedOptions describes options for the recently-played request. All
