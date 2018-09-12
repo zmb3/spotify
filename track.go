@@ -108,7 +108,7 @@ func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
 	spotifyURL := c.baseURL + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
 
 	var t struct {
-		Tracks []*FullTrack `jsosn:"tracks"`
+		Tracks []*FullTrack `json:"tracks"`
 	}
 
 	err := c.get(spotifyURL, &t)
