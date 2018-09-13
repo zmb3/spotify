@@ -83,7 +83,7 @@ func TestGetPlaylistOpt(t *testing.T) {
 	defer server.Close()
 
 	fields := "href,name,owner(!href,external_urls),tracks.items(added_by.id,track(name,href,album(name,href)))"
-	p, err := client.GetPlaylistOpt("spotify", "59ZbFPES4DQwEjBpWHzrtC", fields)
+	p, err := client.GetPlaylistOpt("59ZbFPES4DQwEjBpWHzrtC", fields)
 	if err != nil {
 		t.Error(err)
 	}
@@ -116,7 +116,7 @@ func TestGetPlaylistTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/playlist_tracks.txt")
 	defer server.Close()
 
-	tracks, err := client.GetPlaylistTracks("user", "playlistID")
+	tracks, err := client.GetPlaylistTracks("playlistID")
 	if err != nil {
 		t.Error(err)
 	}
@@ -145,7 +145,7 @@ func TestUserFollowsPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `[ true, false ]`)
 	defer server.Close()
 
-	follows, err := client.UserFollowsPlaylist("jmperezperez", ID("2v3iNvBS8Ay1Gt2uXtUKUT"), "possan", "elogain")
+	follows, err := client.UserFollowsPlaylist(ID("2v3iNvBS8Ay1Gt2uXtUKUT"), "possan", "elogain")
 	if err != nil {
 		t.Error(err)
 	}
@@ -216,7 +216,7 @@ func TestRenamePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	if err := client.ChangePlaylistName("user", ID("playlist-id"), "new name"); err != nil {
+	if err := client.ChangePlaylistName(ID("playlist-id"), "new name"); err != nil {
 		t.Error(err)
 	}
 }
@@ -225,7 +225,7 @@ func TestChangePlaylistAccess(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	if err := client.ChangePlaylistAccess("user", ID("playlist-id"), true); err != nil {
+	if err := client.ChangePlaylistAccess(ID("playlist-id"), true); err != nil {
 		t.Error(err)
 	}
 }
@@ -234,7 +234,7 @@ func TestChangePlaylistNamdAndAccess(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	if err := client.ChangePlaylistNameAndAccess("user", ID("playlist-id"), "new_name", true); err != nil {
+	if err := client.ChangePlaylistNameAndAccess(ID("playlist-id"), "new_name", true); err != nil {
 		t.Error(err)
 	}
 }
@@ -243,7 +243,7 @@ func TestChangePlaylistNameFailure(t *testing.T) {
 	client, server := testClientString(http.StatusForbidden, "")
 	defer server.Close()
 
-	if err := client.ChangePlaylistName("user", ID("playlist-id"), "new_name"); err == nil {
+	if err := client.ChangePlaylistName(ID("playlist-id"), "new_name"); err == nil {
 		t.Error("Expected error but didn't get one")
 	}
 }
@@ -252,7 +252,7 @@ func TestAddTracksToPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`)
 	defer server.Close()
 
-	snapshot, err := client.AddTracksToPlaylist("user", ID("playlist_id"), ID("track1"), ID("track2"))
+	snapshot, err := client.AddTracksToPlaylist(ID("playlist_id"), ID("track1"), ID("track2"))
 	if err != nil {
 		t.Error(err)
 	}
@@ -289,7 +289,7 @@ func TestRemoveTracksFromPlaylist(t *testing.T) {
 	})
 	defer server.Close()
 
-	snapshotID, err := client.RemoveTracksFromPlaylist("userID", "playlistID", "track1", "track2")
+	snapshotID, err := client.RemoveTracksFromPlaylist("playlistID", "track1", "track2")
 	if err != nil {
 		t.Error(err)
 	}
@@ -337,7 +337,7 @@ func TestRemoveTracksFromPlaylistOpt(t *testing.T) {
 		NewTrackToRemove("track2", []int{8}),
 	}
 	// intentionally not passing a snapshot ID here
-	snapshotID, err := client.RemoveTracksFromPlaylistOpt("userID", "playlistID", tracks, "")
+	snapshotID, err := client.RemoveTracksFromPlaylistOpt("playlistID", tracks, "")
 	if err != nil || snapshotID != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
 		t.Fatal("Remove call failed. err=", err)
 	}
@@ -347,7 +347,7 @@ func TestReplacePlaylistTracks(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, "")
 	defer server.Close()
 
-	err := client.ReplacePlaylistTracks("userID", "playlistID", "track1", "track2")
+	err := client.ReplacePlaylistTracks("playlistID", "track1", "track2")
 	if err != nil {
 		t.Error(err)
 	}
@@ -357,7 +357,7 @@ func TestReplacePlaylistTracksForbidden(t *testing.T) {
 	client, server := testClientString(http.StatusForbidden, "")
 	defer server.Close()
 
-	err := client.ReplacePlaylistTracks("userID", "playlistID", "track1", "track2")
+	err := client.ReplacePlaylistTracks("playlistID", "track1", "track2")
 	if err == nil {
 		t.Error("Replace succeeded but shouldn't have")
 	}
@@ -401,7 +401,7 @@ func TestReorderPlaylistRequest(t *testing.T) {
 	})
 	defer server.Close()
 
-	client.ReorderPlaylistTracks("user", "playlist", PlaylistReorderOptions{
+	client.ReorderPlaylistTracks("playlist", PlaylistReorderOptions{
 		RangeStart:   3,
 		InsertBefore: 8,
 	})
@@ -426,7 +426,7 @@ func TestSetPlaylistImage(t *testing.T) {
 	})
 	defer server.Close()
 
-	err := client.SetPlaylistImage("user", "playlist", bytes.NewReader([]byte("foo")))
+	err := client.SetPlaylistImage("playlist", bytes.NewReader([]byte("foo")))
 	if err != nil {
 		t.Fatal(err)
 	}
