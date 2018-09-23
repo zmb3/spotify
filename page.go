@@ -38,10 +38,74 @@ type FullArtistPage struct {
 	Artists []FullArtist `json:"items"`
 }
 
+// NextPage sets the page content to the next page if availabe
+func (p *FullArtistPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &FullArtistPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *FullArtistPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &FullArtistPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
 // SimpleAlbumPage contains SimpleAlbums returned by the Web API.
 type SimpleAlbumPage struct {
 	basePage
 	Albums []SimpleAlbum `json:"items"`
+}
+
+// NextPage sets the page content to the next page if availabe
+func (p *SimpleAlbumPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SimpleAlbumPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *SimpleAlbumPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SimpleAlbumPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
 }
 
 // SavedAlbumPage contains SavedAlbums returned by the Web API.
@@ -50,10 +114,74 @@ type SavedAlbumPage struct {
 	Albums []SavedAlbum `json:"items"`
 }
 
+// NextPage sets the page content to the next page if availabe
+func (p *SavedAlbumPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SavedAlbumPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *SavedAlbumPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SavedAlbumPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
 // SimplePlaylistPage contains SimplePlaylists returned by the Web API.
 type SimplePlaylistPage struct {
 	basePage
 	Playlists []SimplePlaylist `json:"items"`
+}
+
+// NextPage sets the page content to the next page if availabe
+func (p *SimplePlaylistPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SimplePlaylistPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *SimplePlaylistPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SimplePlaylistPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
 }
 
 // SimpleTrackPage contains SimpleTracks returned by the Web API.
@@ -62,10 +190,74 @@ type SimpleTrackPage struct {
 	Tracks []SimpleTrack `json:"items"`
 }
 
+// NextPage sets the page content to the next page if availabe
+func (p *SimpleTrackPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SimpleTrackPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *SimpleTrackPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SimpleTrackPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
 // FullTrackPage contains FullTracks returned by the Web API.
 type FullTrackPage struct {
 	basePage
 	Tracks []FullTrack `json:"items"`
+}
+
+// NextPage sets the page content to the next page if availabe
+func (p *FullTrackPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &FullTrackPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *FullTrackPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &FullTrackPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
 }
 
 // SavedTrackPage contains SavedTracks return by the Web API.
@@ -74,14 +266,110 @@ type SavedTrackPage struct {
 	Tracks []SavedTrack `json:"items"`
 }
 
+// NextPage sets the page content to the next page if availabe
+func (p *SavedTrackPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SavedTrackPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *SavedTrackPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &SavedTrackPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
 // PlaylistTrackPage contains information about tracks in a playlist.
 type PlaylistTrackPage struct {
 	basePage
 	Tracks []PlaylistTrack `json:"items"`
 }
 
+// NextPage sets the page content to the next page if availabe
+func (p *PlaylistTrackPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &PlaylistTrackPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *PlaylistTrackPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &PlaylistTrackPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
 // CategoryPage contains Category objects returned by the Web API.
 type CategoryPage struct {
 	basePage
 	Categories []Category `json:"items"`
+}
+
+// NextPage sets the page content to the next page if availabe
+func (p *CategoryPage) NextPage(c *Client) error {
+	if p.Next == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &CategoryPage{}
+	err := c.get(p.Next, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
+}
+
+// PreviousPage sets the page content to the previous page if available
+func (p *CategoryPage) PreviousPage(c *Client) error {
+	if p.Previous == "" {
+		return ErrNoMorePages
+	}
+
+	newP := &CategoryPage{}
+	err := c.get(p.Previous, newP)
+	if err != nil {
+		return err
+	}
+	*p = *newP
+
+	return nil
 }

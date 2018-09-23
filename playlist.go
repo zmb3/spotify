@@ -249,6 +249,11 @@ func (c *Client) GetPlaylistTracks(playlistID ID) (*PlaylistTrackPage, error) {
 	return c.GetPlaylistTracksOpt(playlistID, nil, "")
 }
 
+// GetPlaylistTracksAll is a convenience method that returns PlaylistTrack from all pages
+func (c *Client) GetPlaylistTracksAll(playlistID ID) ([]PlaylistTrack, error) {
+	return c.GetPlaylistTracksOptsAll(playlistID, nil, "")
+}
+
 // GetPlaylistTracksOpt is like GetPlaylistTracks, but it accepts optional parameters
 // for sorting and filtering the results.
 //
@@ -295,6 +300,29 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 	}
 
 	return &result, err
+}
+
+// GetPlaylistTracksOptsAll is a convenience method that returns PlaylistTrack from all pages
+func (c *Client) GetPlaylistTracksOptsAll(playlistID ID, opt *Options, fields string) ([]PlaylistTrack, error) {
+	r, err := c.GetPlaylistTracksOpt(playlistID, opt, fields)
+	if err != nil {
+		return nil, err
+	}
+
+	tracks := make([]PlaylistTrack, len(r.Tracks))
+	copy(tracks, r.Tracks)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		tracks = append(tracks, r.Tracks...)
+	}
+
+	return tracks, nil
 }
 
 // CreatePlaylistForUser creates a playlist for a Spotify user.
