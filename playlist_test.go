@@ -157,7 +157,7 @@ func TestUserFollowsPlaylist(t *testing.T) {
 var newPlaylist = `
 {
 "collaborative": false,
-"description": null,
+"description": "Test Description",
 "external_urls": {
 	"spotify": "http://open.spotify.com/user/thelinmichael/playlist/7d2D2S200NyUE5KYs80PwO"
 },
@@ -197,7 +197,7 @@ func TestCreatePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, newPlaylist)
 	defer server.Close()
 
-	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", false)
+	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", "Test Description", false)
 	if err != nil {
 		t.Error(err)
 	}
@@ -206,6 +206,9 @@ func TestCreatePlaylist(t *testing.T) {
 	}
 	if p.Name != "A New Playlist" {
 		t.Errorf("Expected 'A New Playlist', got '%s'\n", p.Name)
+	}
+	if p.Description != "Test Description" {
+		t.Errorf("Expected 'Test Description', got '%s'\n", p.Description)
 	}
 	if p.Tracks.Total != 0 {
 		t.Error("Expected new playlist to be empty")
@@ -230,11 +233,29 @@ func TestChangePlaylistAccess(t *testing.T) {
 	}
 }
 
+func TestChangePlaylistDescription(t *testing.T) {
+	client, server := testClientString(http.StatusOK, "")
+	defer server.Close()
+
+	if err := client.ChangePlaylistDescription(ID("playlist-id"), "new description"); err != nil {
+		t.Error(err)
+	}
+}
+
 func TestChangePlaylistNamdAndAccess(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
 	if err := client.ChangePlaylistNameAndAccess(ID("playlist-id"), "new_name", true); err != nil {
+		t.Error(err)
+	}
+}
+
+func TestChangePlaylistNamdAccessAndDescription(t *testing.T) {
+	client, server := testClientString(http.StatusOK, "")
+	defer server.Close()
+
+	if err := client.ChangePlaylistNameAccessAndDescription(ID("playlist-id"), "new_name", "new description", true); err != nil {
 		t.Error(err)
 	}
 }
