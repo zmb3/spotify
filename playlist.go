@@ -306,14 +306,16 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 // creating a private playlist requires ScopePlaylistModifyPrivate.
 //
 // On success, the newly created playlist is returned.
-func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool) (*FullPlaylist, error) {
+func (c *Client) CreatePlaylistForUser(userID, playlistName, description string, public bool) (*FullPlaylist, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists", c.baseURL, userID)
 	body := struct {
-		Name   string `json:"name"`
-		Public bool   `json:"public"`
+		Name        string `json:"name"`
+		Public      bool   `json:"public"`
+		Description string `json:"description"`
 	}{
 		playlistName,
 		public,
+		description,
 	}
 	bodyJSON, err := json.Marshal(body)
 	if err != nil {
@@ -339,7 +341,7 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName string, public bool)
 // scopes (depending on whether the playlist is public or private).
 // The current user must own the playlist in order to modify it.
 func (c *Client) ChangePlaylistName(playlistID ID, newName string) error {
-	return c.modifyPlaylist(playlistID, newName, nil)
+	return c.modifyPlaylist(playlistID, newName, "", nil)
 }
 
 // ChangePlaylistAccess modifies the public/private status of a playlist.  This call
@@ -347,7 +349,15 @@ func (c *Client) ChangePlaylistName(playlistID ID, newName string) error {
 // ScopePlaylistModifyPrivate scopes (depending on whether the playlist is
 // currently public or private).  The current user must own the playlist in order to modify it.
 func (c *Client) ChangePlaylistAccess(playlistID ID, public bool) error {
-	return c.modifyPlaylist(playlistID, "", &public)
+	return c.modifyPlaylist(playlistID, "", "", &public)
+}
+
+// ChangePlaylistDescription modifies the description of a playlist.  This call
+// requires that the user has authorized the ScopePlaylistModifyPublic or
+// ScopePlaylistModifyPrivate scopes (depending on whether the playlist is
+// currently public or private).  The current user must own the playlist in order to modify it.
+func (c *Client) ChangePlaylistDescription(playlistID ID, newDescription string) error {
+	return c.modifyPlaylist(playlistID, "", newDescription, nil)
 }
 
 // ChangePlaylistNameAndAccess combines ChangePlaylistName and ChangePlaylistAccess into
@@ -355,16 +365,26 @@ func (c *Client) ChangePlaylistAccess(playlistID ID, public bool) error {
 // or ScopePlaylistModifyPrivate scopes (depending on whether the playlist is currently
 // public or private).  The current user must own the playlist in order to modify it.
 func (c *Client) ChangePlaylistNameAndAccess(playlistID ID, newName string, public bool) error {
-	return c.modifyPlaylist(playlistID, newName, &public)
+	return c.modifyPlaylist(playlistID, newName, "", &public)
 }
 
-func (c *Client) modifyPlaylist(playlistID ID, newName string, public *bool) error {
+// ChangePlaylistNameAccessAndDescription combines ChangePlaylistName, ChangePlaylistAccess, and
+// ChangePlaylistDescription into a single Web API call.  It requires that the user has authorized
+// the ScopePlaylistModifyPublic or ScopePlaylistModifyPrivate scopes (depending on whether the
+// playlist is currently public or private).  The current user must own the playlist in order to modify it.
+func (c *Client) ChangePlaylistNameAccessAndDescription(playlistID ID, newName, newDescription string, public bool) error {
+	return c.modifyPlaylist(playlistID, newName, newDescription, &public)
+}
+
+func (c *Client) modifyPlaylist(playlistID ID, newName, newDescription string, public *bool) error {
 	body := struct {
-		Name   string `json:"name,omitempty"`
-		Public *bool  `json:"public,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Public      *bool  `json:"public,omitempty"`
+		Description string `json:"description,omitempty"`
 	}{
 		newName,
 		public,
+		newDescription,
 	}
 	bodyJSON, err := json.Marshal(body)
 	if err != nil {
