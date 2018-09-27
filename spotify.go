@@ -179,7 +179,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 			return c.decodeError(resp)
 		}
 
-		if result != nil {
+		if result != nil && resp.StatusCode != http.StatusNoContent {
 			if err := json.NewDecoder(resp.Body).Decode(result); err != nil {
 				return err
 			}
