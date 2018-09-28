@@ -328,6 +328,19 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 	return &result, nil
 }
 
+// CurrentUsersTopArtists is like CurrentUsersTopArtistsOpt but with
+// sensible defaults. The default limit is 20 and the default timerange
+// is medium_term.
+func (c *Client) CurrentUsersTopArtists() (*FullArtistPage, error) {
+	return c.CurrentUsersTopArtistsOpt(nil)
+}
+
+// CurrentUsersTopArtistsAll is a convenience methode that
+// returns a list of FullArtists from all FullArtistPages
+func (c *Client) CurrentUsersTopArtistsAll() ([]FullArtist, error) {
+	return c.CurrentUsersTopArtistsAllOpt(nil)
+}
+
 // CurrentUsersTopArtistsOpt gets a list of the top played artists in a given time
 // range of the current Spotify user. It supports up to 50 artists in a single
 // call. This call requires ScopeUserTopRead.
@@ -356,11 +369,35 @@ func (c *Client) CurrentUsersTopArtistsOpt(opt *Options) (*FullArtistPage, error
 	return &result, nil
 }
 
-// CurrentUsersTopArtists is like CurrentUsersTopArtistsOpt but with
+// CurrentUsersTopArtistsAllOpt is a convenience methode that
+// returns a list of FullArtists from all FullArtistPages with options
+func (c *Client) CurrentUsersTopArtistsAllOpt(opt *Options) ([]FullArtist, error) {
+	r, err := c.CurrentUsersTopArtistsOpt(opt)
+	if err != nil {
+		return nil, err
+	}
+
+	artists := make([]FullArtist, len(r.Artists))
+	copy(artists, r.Artists)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		artists = append(artists, r.Artists...)
+	}
+
+	return artists, nil
+}
+
+// CurrentUsersTopTracks is like CurrentUsersTopTracksOpt but with
 // sensible defaults. The default limit is 20 and the default timerange
 // is medium_term.
-func (c *Client) CurrentUsersTopArtists() (*FullArtistPage, error) {
-	return c.CurrentUsersTopArtistsOpt(nil)
+func (c *Client) CurrentUsersTopTracks() (*FullTrackPage, error) {
+	return c.CurrentUsersTopTracksOpt(nil)
 }
 
 // CurrentUsersTopTracksOpt gets a list of the top played tracks in a given time
@@ -392,11 +429,4 @@ func (c *Client) CurrentUsersTopTracksOpt(opt *Options) (*FullTrackPage, error) 
 	}
 
 	return &result, nil
-}
-
-// CurrentUsersTopTracks is like CurrentUsersTopTracksOpt but with
-// sensible defaults. The default limit is 20 and the default timerange
-// is medium_term.
-func (c *Client) CurrentUsersTopTracks() (*FullTrackPage, error) {
-	return c.CurrentUsersTopTracksOpt(nil)
 }
