@@ -182,7 +182,7 @@ func (c *Client) Token() (*oauth2.Token, error) {
 
 // Creates a new client that uses the "client credentials" flow, described here:
 // https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
-func NewClientWithClientCreds(ctx context.Context, clientID, secretKey string) Client {
+func NewClientWithCredentials(ctx context.Context, clientID, secretKey string) Client {
 	config := &clientcredentials.Config{
 		ClientID:     clientID,
 		ClientSecret: secretKey,
