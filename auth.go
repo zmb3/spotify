@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/clientcredentials"
 )
 
 const (
@@ -177,4 +178,19 @@ func (c *Client) Token() (*oauth2.Token, error) {
 	}
 
 	return t, nil
+}
+
+// Creates a new client that uses the "client credentials" flow, described here:
+// https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+func NewClientWithCredentials(ctx context.Context, clientID, secretKey string) Client {
+	config := &clientcredentials.Config{
+		ClientID:     clientID,
+		ClientSecret: secretKey,
+		TokenURL:     TokenURL,
+	}
+
+	return Client{
+		http:    config.Client(ctx),
+		baseURL: baseAddress,
+	}
 }
