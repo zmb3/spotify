@@ -57,9 +57,15 @@ func (c *Client) GetCategory(id string) (Category, error) {
 	return c.GetCategoryOpt(id, "", "")
 }
 
-// GetCategoryPlaylists gets a list of Spotify playlists tagged with a paricular category.
+// GetCategoryPlaylists gets a list of Spotify playlists tagged with a particular category.
 func (c *Client) GetCategoryPlaylists(catID string) (*SimplePlaylistPage, error) {
 	return c.GetCategoryPlaylistsOpt(catID, nil)
+}
+
+// GetCategoryPlaylistsAll is a convenience method of GetCategoryPlaylists that
+// returns a SimplePlaylist slice from all SimplePlaylistPages
+func (c *Client) GetCategoryPlaylistsAll(catID string) ([]SimplePlaylist, error) {
+	return c.GetCategoryPlaylistsAllOpt(catID, nil)
 }
 
 // GetCategoryPlaylistsOpt is like GetCategoryPlaylists, but it accepts optional
@@ -92,6 +98,30 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 	}
 
 	return &wrapper.Playlists, nil
+}
+
+// GetCategoryPlaylistsAllOpt is a convenience method for GetCategoryPlaylistsOpt that
+// returns a SimplePlaylist slice from all SimplePlaylistPages GetCategoryPlaylists returns with options
+func (c *Client) GetCategoryPlaylistsAllOpt(catID string, opt *Options) ([]SimplePlaylist, error) {
+	r, err := c.GetCategoryPlaylistsOpt(catID, opt)
+	if err != nil {
+		return nil, err
+	}
+
+	playlists := make([]SimplePlaylist, len(r.Playlists))
+	copy(playlists, r.Playlists)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		playlists = append(playlists, r.Playlists...)
+	}
+
+	return playlists, nil
 }
 
 // GetCategories gets a list of categories used to tag items in Spotify

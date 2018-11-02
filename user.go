@@ -330,6 +330,12 @@ func (c *Client) CurrentUsersPlaylists() (*SimplePlaylistPage, error) {
 	return c.CurrentUsersPlaylistsOpt(nil)
 }
 
+// CurrentUsersPlaylistsAll is a convenience method for CurrentUsersPlaylists that
+// returns a SimplePlaylist slice from all SimplePlaylistPages
+func (c *Client) CurrentUsersPlaylistsAll() ([]SimplePlaylist, error) {
+	return c.CurrentUsersPlaylistsAllOpt(nil)
+}
+
 // CurrentUsersPlaylistsOpt is like CurrentUsersPlaylists, but it accepts
 // additional options for sorting and filtering the results.
 func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, error) {
@@ -355,6 +361,30 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 	}
 
 	return &result, nil
+}
+
+// CurrentUsersPlaylistsAllOpt is a convenience method for CurrentUsersPlaylistsOpts that
+// returns a SimplePlaylist slice from all SimplePlaylistPages GetCategoryPlaylists returns with options
+func (c *Client) CurrentUsersPlaylistsAllOpt(opt *Options) ([]SimplePlaylist, error) {
+	r, err := c.CurrentUsersPlaylistsOpt(opt)
+	if err != nil {
+		return nil, err
+	}
+
+	playlists := make([]SimplePlaylist, len(r.Playlists))
+	copy(playlists, r.Playlists)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		playlists = append(playlists, r.Playlists...)
+	}
+
+	return playlists, nil
 }
 
 // CurrentUsersTopArtists is like CurrentUsersTopArtistsOpt but with

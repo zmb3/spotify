@@ -177,6 +177,12 @@ func (c *Client) GetPlaylistsForUser(userID string) (*SimplePlaylistPage, error)
 	return c.GetPlaylistsForUserOpt(userID, nil)
 }
 
+// GetPlaylistsForUserAll is a convenience method for GetPlaylistsForUser that
+// returns a SimplePlaylist slice from all SimplePlaylistPages
+func (c *Client) GetPlaylistsForUserAll(userID string) ([]SimplePlaylist, error) {
+	return c.GetPlaylistsForUserAllOpt(userID, nil)
+}
+
 // GetPlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional paramters
 // for filtering the results.
 func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePlaylistPage, error) {
@@ -202,6 +208,30 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 	}
 
 	return &result, err
+}
+
+// GetPlaylistsForUserAllOpt is a convenience method for GetPlaylistsForUserOpt that
+// returns a SimplePlaylist slice from all SimplePlaylistPages GetCategoryPlaylists returns with options
+func (c *Client) GetPlaylistsForUserAllOpt(userID string, opt *Options) ([]SimplePlaylist, error) {
+	r, err := c.GetPlaylistsForUserOpt(userID, opt)
+	if err != nil {
+		return nil, err
+	}
+
+	playlists := make([]SimplePlaylist, len(r.Playlists))
+	copy(playlists, r.Playlists)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		playlists = append(playlists, r.Playlists...)
+	}
+
+	return playlists, nil
 }
 
 // GetPlaylist gets a playlist
