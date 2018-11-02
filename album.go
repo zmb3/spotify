@@ -191,6 +191,12 @@ func (c *Client) GetAlbumTracks(id ID) (*SimpleTrackPage, error) {
 	return c.GetAlbumTracksOpt(id, -1, -1)
 }
 
+// GetAlbumTracksAll is a convenice method for GetAlbumTracks
+// that returns a SimpleTrack slice for all SimpleTrackPages
+func (c *Client) GetAlbumTracksAll(id ID) ([]SimpleTrack, error) {
+	return c.GetAlbumTracksAllOpt(id, -1, -1)
+}
+
 // GetAlbumTracksOpt behaves like GetAlbumTracks, with the exception that it
 // allows you to specify extra parameters that limit the number of results returned.
 // The maximum number of results to return is specified by limit.
@@ -217,4 +223,28 @@ func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, 
 	}
 
 	return &result, nil
+}
+
+// GetAlbumTracksAllOpt is a convenience method for GetAlbumTracksOpt that
+// returns a SimpleTrack slice from all SimpleTrackPages with options
+func (c *Client) GetAlbumTracksAllOpt(id ID, limit, offset int) ([]SimpleTrack, error) {
+	r, err := c.GetAlbumTracksOpt(id, limit, offset)
+	if err != nil {
+		return nil, err
+	}
+
+	tracks := make([]SimpleTrack, len(r.Tracks))
+	copy(tracks, r.Tracks)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		tracks = append(tracks, r.Tracks...)
+	}
+
+	return tracks, nil
 }
