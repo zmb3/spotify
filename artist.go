@@ -108,7 +108,7 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 	return c.GetArtistAlbumsOpt(artistID, nil, nil)
 }
 
-// GetArtistAlbumsAll is a convience method that returns a SimpleAlbum slice from all SimpleAlbumPages
+// GetArtistAlbumsAll is a convenience method that returns a SimpleAlbum slice from all SimpleAlbumPages
 func (c *Client) GetArtistAlbumsAll(artistID ID) ([]SimpleAlbum, error) {
 	return c.GetArtistAlbumsAllOpt(artistID, nil, nil)
 }
@@ -157,7 +157,7 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 }
 
 // GetArtistAlbumsAllOpt is a convenience methode that
-// returns a list of SimpleAlbumPage from all FullArtistPages with options
+// returns a list of SimpleAlbum from all SimpleAlbumPages with options
 func (c *Client) GetArtistAlbumsAllOpt(artistID ID, options *Options, albumType *AlbumType) ([]SimpleAlbum, error) {
 	r, err := c.GetArtistAlbumsOpt(artistID, options, albumType)
 	if err != nil {

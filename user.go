@@ -260,6 +260,11 @@ func (c *Client) CurrentUsersAlbums() (*SavedAlbumPage, error) {
 	return c.CurrentUsersAlbumsOpt(nil)
 }
 
+// CurrentUsersAlbumsAll is a convenience method that returns a SavedAlbum slice from all SavedAlbumPages
+func (c *Client) CurrentUsersAlbumsAll() ([]SavedAlbum, error) {
+	return c.CurrentUsersAlbumsAllOpt(nil)
+}
+
 // CurrentUsersAlbumsOpt is like CurrentUsersAlbums, but it accepts additional
 // options for sorting and filtering the results.
 func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
@@ -288,6 +293,30 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 	}
 
 	return &result, nil
+}
+
+// CurrentUsersAlbumsAllOpt is a convenience methode that
+// returns a list of SavedAlbum from all SavedAlbumPages with options
+func (c *Client) CurrentUsersAlbumsAllOpt(opt *Options) ([]SavedAlbum, error) {
+	r, err := c.CurrentUsersAlbumsOpt(opt)
+	if err != nil {
+		return nil, err
+	}
+
+	albums := make([]SavedAlbum, len(r.Albums))
+	copy(albums, r.Albums)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		albums = append(albums, r.Albums...)
+	}
+
+	return albums, nil
 }
 
 // CurrentUsersPlaylists gets a list of the playlists owned or followed by
