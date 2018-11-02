@@ -108,6 +108,11 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 	return c.GetArtistAlbumsOpt(artistID, nil, nil)
 }
 
+// GetArtistAlbumsAll is a convience method that returns a SimpleAlbum slice from all SimpleAlbumPages
+func (c *Client) GetArtistAlbumsAll(artistID ID) ([]SimpleAlbum, error) {
+	return c.GetArtistAlbumsAllOpt(artistID, nil, nil)
+}
+
 // GetArtistAlbumsOpt is just like GetArtistAlbums, but it accepts optional
 // parameters used to filter and sort the result.
 //
@@ -149,4 +154,28 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 	}
 
 	return &p, nil
+}
+
+// GetArtistAlbumsAllOpt is a convenience methode that
+// returns a list of SimpleAlbumPage from all FullArtistPages with options
+func (c *Client) GetArtistAlbumsAllOpt(artistID ID, options *Options, albumType *AlbumType) ([]SimpleAlbum, error) {
+	r, err := c.GetArtistAlbumsOpt(artistID, options, albumType)
+	if err != nil {
+		return nil, err
+	}
+
+	albums := make([]SimpleAlbum, len(r.Albums))
+	copy(albums, r.Albums)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		albums = append(albums, r.Albums...)
+	}
+
+	return albums, nil
 }
