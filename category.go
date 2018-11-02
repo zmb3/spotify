@@ -130,6 +130,12 @@ func (c *Client) GetCategories() (*CategoryPage, error) {
 	return c.GetCategoriesOpt(nil, "")
 }
 
+// GetCategoriesAll is a convenience method for GetCategories that
+// returns a Category slice for all CategoryPages
+func (c *Client) GetCategoriesAll() ([]Category, error) {
+	return c.GetCategoriesAllOpt(nil, "")
+}
+
 // GetCategoriesOpt is like GetCategories, but it accepts optional parameters.
 //
 // The locale option can be used to get the results in a particular language.
@@ -167,4 +173,28 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 	}
 
 	return &wrapper.Categories, nil
+}
+
+// GetCategoriesAllOpt is a convenience method for GetCategoriesOpt that
+// returns a Category slice for all CategoryPages with options
+func (c *Client) GetCategoriesAllOpt(opt *Options, locale string) ([]Category, error) {
+	r, err := c.GetCategoriesOpt(opt, locale)
+	if err != nil {
+		return nil, err
+	}
+
+	categories := make([]Category, len(r.Categories))
+	copy(categories, r.Categories)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		categories = append(categories, r.Categories...)
+	}
+
+	return categories, nil
 }
