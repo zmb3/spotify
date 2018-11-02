@@ -211,7 +211,7 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 }
 
 // GetPlaylistsForUserAllOpt is a convenience method for GetPlaylistsForUserOpt that
-// returns a SimplePlaylist slice from all SimplePlaylistPages GetCategoryPlaylists returns with options
+// returns a SimplePlaylist slice from all SimplePlaylistPages with options
 func (c *Client) GetPlaylistsForUserAllOpt(userID string, opt *Options) ([]SimplePlaylist, error) {
 	r, err := c.GetPlaylistsForUserOpt(userID, opt)
 	if err != nil {

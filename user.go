@@ -98,6 +98,12 @@ func (c *Client) CurrentUsersTracks() (*SavedTrackPage, error) {
 	return c.CurrentUsersTracksOpt(nil)
 }
 
+// CurrentUsersTracksAll is a convenience method for CurrentUsersTracks that
+// returns a SavedTrack slice from all SavedTrackPages
+func (c *Client) CurrentUsersTracksAll() ([]SavedTrack, error) {
+	return c.CurrentUsersTracksAllOpt(nil)
+}
+
 // CurrentUsersTracksOpt is like CurrentUsersTracks, but it accepts additional
 // options for sorting and filtering the results.
 func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
@@ -126,6 +132,30 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 	}
 
 	return &result, nil
+}
+
+// CurrentUsersTracksAllOpt is a convenice method for CurrentUsersTracksOpt that
+// returns a SavedTrack slice from all SavedTrackPages with options
+func (c *Client) CurrentUsersTracksAllOpt(opt *Options) ([]SavedTrack, error) {
+	r, err := c.CurrentUsersTracksOpt(opt)
+	if err != nil {
+		return nil, err
+	}
+
+	tracks := make([]SavedTrack, len(r.Tracks))
+	copy(tracks, r.Tracks)
+
+	for {
+		err = r.NextPage(c)
+		if err == ErrNoMorePages {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		tracks = append(tracks, r.Tracks...)
+	}
+
+	return tracks, nil
 }
 
 // FollowUser adds the current user as a follower of one or more
@@ -364,7 +394,7 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 }
 
 // CurrentUsersPlaylistsAllOpt is a convenience method for CurrentUsersPlaylistsOpts that
-// returns a SimplePlaylist slice from all SimplePlaylistPages GetCategoryPlaylists returns with options
+// returns a SimplePlaylist slice from all SimplePlaylistPages with options
 func (c *Client) CurrentUsersPlaylistsAllOpt(opt *Options) ([]SimplePlaylist, error) {
 	r, err := c.CurrentUsersPlaylistsOpt(opt)
 	if err != nil {
