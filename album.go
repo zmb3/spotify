@@ -191,8 +191,8 @@ func (c *Client) GetAlbumTracks(id ID) (*SimpleTrackPage, error) {
 	return c.GetAlbumTracksOpt(id, -1, -1)
 }
 
-// GetAlbumTracksAll is a convenice method for GetAlbumTracks
-// that returns a SimpleTrack slice for all SimpleTrackPages
+// GetAlbumTracksAll is a convenience method for GetAlbumTracks that
+// returns a SimpleTrack slice from all SimpleTrackPages
 func (c *Client) GetAlbumTracksAll(id ID) ([]SimpleTrack, error) {
 	return c.GetAlbumTracksAllOpt(id, -1, -1)
 }

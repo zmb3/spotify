@@ -290,7 +290,8 @@ func (c *Client) CurrentUsersAlbums() (*SavedAlbumPage, error) {
 	return c.CurrentUsersAlbumsOpt(nil)
 }
 
-// CurrentUsersAlbumsAll is a convenience method that returns a SavedAlbum slice from all SavedAlbumPages
+// CurrentUsersAlbumsAll is a convenience method for CurrentUsersAlbums that
+// returns a SavedAlbum slice from all SavedAlbumPages
 func (c *Client) CurrentUsersAlbumsAll() ([]SavedAlbum, error) {
 	return c.CurrentUsersAlbumsAllOpt(nil)
 }
@@ -325,8 +326,8 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 	return &result, nil
 }
 
-// CurrentUsersAlbumsAllOpt is a convenience methode that
-// returns a list of SavedAlbum from all SavedAlbumPages with options
+// CurrentUsersAlbumsAllOpt is a convenience method for CurrentUsersAlbumsOpt that
+// returns a SavedAlbum slice from all SavedAlbumPages with options
 func (c *Client) CurrentUsersAlbumsAllOpt(opt *Options) ([]SavedAlbum, error) {
 	r, err := c.CurrentUsersAlbumsOpt(opt)
 	if err != nil {
@@ -424,8 +425,8 @@ func (c *Client) CurrentUsersTopArtists() (*FullArtistPage, error) {
 	return c.CurrentUsersTopArtistsOpt(nil)
 }
 
-// CurrentUsersTopArtistsAll is a convenience methode that
-// returns a list of FullArtists from all FullArtistPages
+// CurrentUsersTopArtistsAll is a convenience method for CurrentUsersTopArtists that
+// returns a FullArtists slice from all FullArtistPages
 func (c *Client) CurrentUsersTopArtistsAll() ([]FullArtist, error) {
 	return c.CurrentUsersTopArtistsAllOpt(nil)
 }
@@ -458,8 +459,8 @@ func (c *Client) CurrentUsersTopArtistsOpt(opt *Options) (*FullArtistPage, error
 	return &result, nil
 }
 
-// CurrentUsersTopArtistsAllOpt is a convenience methode that
-// returns a list of FullArtists from all FullArtistPages with options
+// CurrentUsersTopArtistsAllOpt is a convenience method for CurrentUsersTopArtistsOpt that
+// returns FullArtists slice from all FullArtistPages with options
 func (c *Client) CurrentUsersTopArtistsAllOpt(opt *Options) ([]FullArtist, error) {
 	r, err := c.CurrentUsersTopArtistsOpt(opt)
 	if err != nil {

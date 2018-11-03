@@ -279,7 +279,8 @@ func (c *Client) GetPlaylistTracks(playlistID ID) (*PlaylistTrackPage, error) {
 	return c.GetPlaylistTracksOpt(playlistID, nil, "")
 }
 
-// GetPlaylistTracksAll is a convenience method that returns PlaylistTrack from all pages
+// GetPlaylistTracksAll is a convenience method for GetPlaylistTracks that
+// returns a PlaylistTrack slice from all PlaylistTrackPages
 func (c *Client) GetPlaylistTracksAll(playlistID ID) ([]PlaylistTrack, error) {
 	return c.GetPlaylistTracksAllOpts(playlistID, nil, "")
 }
@@ -332,7 +333,8 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 	return &result, err
 }
 
-// GetPlaylistTracksAllOpts is a convenience method that returns PlaylistTrack from all pages
+// GetPlaylistTracksAllOpts is a convenience method for GetPlaylistTracksOpt that
+// returns a PlaylistTrack slice from all PlaylistTrackPages
 func (c *Client) GetPlaylistTracksAllOpts(playlistID ID, opt *Options, fields string) ([]PlaylistTrack, error) {
 	r, err := c.GetPlaylistTracksOpt(playlistID, opt, fields)
 	if err != nil {

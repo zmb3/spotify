@@ -62,7 +62,7 @@ func (c *Client) GetCategoryPlaylists(catID string) (*SimplePlaylistPage, error)
 	return c.GetCategoryPlaylistsOpt(catID, nil)
 }
 
-// GetCategoryPlaylistsAll is a convenience method of GetCategoryPlaylists that
+// GetCategoryPlaylistsAll is a convenience method for GetCategoryPlaylists that
 // returns a SimplePlaylist slice from all SimplePlaylistPages
 func (c *Client) GetCategoryPlaylistsAll(catID string) ([]SimplePlaylist, error) {
 	return c.GetCategoryPlaylistsAllOpt(catID, nil)
@@ -101,7 +101,7 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 }
 
 // GetCategoryPlaylistsAllOpt is a convenience method for GetCategoryPlaylistsOpt that
-// returns a SimplePlaylist slice from all SimplePlaylistPages GetCategoryPlaylists returns with options
+// returns a SimplePlaylist slice from all SimplePlaylistPages with options
 func (c *Client) GetCategoryPlaylistsAllOpt(catID string, opt *Options) ([]SimplePlaylist, error) {
 	r, err := c.GetCategoryPlaylistsOpt(catID, opt)
 	if err != nil {
@@ -131,7 +131,7 @@ func (c *Client) GetCategories() (*CategoryPage, error) {
 }
 
 // GetCategoriesAll is a convenience method for GetCategories that
-// returns a Category slice for all CategoryPages
+// returns a Category slice from all CategoryPages
 func (c *Client) GetCategoriesAll() ([]Category, error) {
 	return c.GetCategoriesAllOpt(nil, "")
 }
@@ -176,7 +176,7 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 }
 
 // GetCategoriesAllOpt is a convenience method for GetCategoriesOpt that
-// returns a Category slice for all CategoryPages with options
+// returns a Category slice from all CategoryPages with options
 func (c *Client) GetCategoriesAllOpt(opt *Options, locale string) ([]Category, error) {
 	r, err := c.GetCategoriesOpt(opt, locale)
 	if err != nil {
