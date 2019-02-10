@@ -214,6 +214,9 @@ func (c *Client) get(url string, result interface{}) error {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
+		if resp.StatusCode == http.StatusNoContent {
+			return nil
+		}
 		if resp.StatusCode != http.StatusOK {
 			return c.decodeError(resp)
 		}
