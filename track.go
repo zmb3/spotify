@@ -62,6 +62,8 @@ type PlaylistTrack struct {
 	// The Spotify user who added the track to the playlist.
 	// Warning: vary old playlists may not populate this value.
 	AddedBy User `json:"added_by"`
+	// Whether this track is a local file or not.
+	IsLocal bool `json:"is_local"`
 	// Information about the track.
 	Track FullTrack `json:"track"`
 }
