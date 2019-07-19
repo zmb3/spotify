@@ -305,7 +305,7 @@ func TestRemoveTracksFromPlaylist(t *testing.T) {
 			t.Error("Track object doesn't contain 'uri' field")
 		}
 		if trackURI != "spotify:track:track1" {
-			t.Errorf("Expeced URI: 'spotify:track:track1', got '%s'\n", trackURI)
+			t.Errorf("Expected URI: 'spotify:track:track1', got '%s'\n", trackURI)
 		}
 	})
 	defer server.Close()
