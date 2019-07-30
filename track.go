@@ -33,9 +33,10 @@ type SimpleTrack struct {
 	// The number of the track.  If an album has several
 	// discs, the track number is the number on the specified
 	// DiscNumber.
-	TrackNumber int `json:"track_number"`
-	URI         URI `json:"uri"`
-	Popularity  int `json:"popularity"`
+	TrackNumber int               `json:"track_number"`
+	URI         URI               `json:"uri"`
+	Popularity  int               `json:"popularity"`
+	ExternalIDs map[string]string `json:"external_ids"`
 }
 
 func (st SimpleTrack) String() string {
