@@ -49,6 +49,8 @@ type SimpleAlbum struct {
 	ReleaseDate string `json:"release_date"`
 	// The precision with which ReleaseDate value is known: "year", "month", or "day"
 	ReleaseDatePrecision string `json:"release_date_precision"`
+
+	TotalTracks int `json:"total_tracks"`
 }
 
 // Copyright contains the copyright statement associated with an album.
