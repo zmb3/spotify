@@ -145,7 +145,12 @@ func (c *Client) decodeError(resp *http.Response) error {
 
 // shouldRetry determines whether the status code indicates that the
 // previous operation should be retried at a later time
-func shouldRetry(status int) bool {
+func shouldRetry(status int,ignoreStatus ...int) bool {
+	for _, s := range ignoreStatus {
+		if s == status {
+			return false
+		}
+	}
 	return status == http.StatusAccepted || status == http.StatusTooManyRequests
 }
 
@@ -171,7 +176,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.AutoRetry && shouldRetry(resp.StatusCode) {
+		if c.AutoRetry && shouldRetry(resp.StatusCode, needsStatus...) {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
