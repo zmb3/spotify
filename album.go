@@ -53,7 +53,7 @@ type SimpleAlbum struct {
 
 // ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
 // All of the fields in the result may not be valid.  For example, if
-// f.ReleaseDatePrecision is "month", then only the month and year
+// ReleaseDatePrecision is "month", then only the month and year
 // (but not the day) of the result are valid.
 func (s *SimpleAlbum) ReleaseDateTime() time.Time {
 	if s.ReleaseDatePrecision == "day" {
