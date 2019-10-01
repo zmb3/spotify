@@ -62,22 +62,14 @@ type Copyright struct {
 // FullAlbum provides extra album data in addition to the data provided by SimpleAlbum.
 type FullAlbum struct {
 	SimpleAlbum
-	Artists    []SimpleArtist `json:"artists"`
-	Copyrights []Copyright    `json:"copyrights"`
-	Genres     []string       `json:"genres"`
+	Copyrights []Copyright `json:"copyrights"`
+	Genres     []string    `json:"genres"`
 	// The popularity of the album, represented as an integer between 0 and 100,
 	// with 100 being the most popular.  Popularity of an album is calculated
 	// from the popularify of the album's individual tracks.
-	Popularity int `json:"popularity"`
-	// The date the album was first released.  For example, "1981-12-15".
-	// Depending on the ReleaseDatePrecision, it might be shown as
-	// "1981" or "1981-12". You can use ReleaseDateTime to convert this
-	// to a time.Time value.
-	ReleaseDate string `json:"release_date"`
-	// The precision with which ReleaseDate value is known: "year", "month", or "day"
-	ReleaseDatePrecision string            `json:"release_date_precision"`
-	Tracks               SimpleTrackPage   `json:"tracks"`
-	ExternalIDs          map[string]string `json:"external_ids"`
+	Popularity  int               `json:"popularity"`
+	Tracks      SimpleTrackPage   `json:"tracks"`
+	ExternalIDs map[string]string `json:"external_ids"`
 }
 
 // SavedAlbum provides info about an album saved to an user's account.
