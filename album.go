@@ -51,6 +51,25 @@ type SimpleAlbum struct {
 	ReleaseDatePrecision string `json:"release_date_precision"`
 }
 
+// ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
+// All of the fields in the result may not be valid.  For example, if
+// f.ReleaseDatePrecision is "month", then only the month and year
+// (but not the day) of the result are valid.
+func (s *SimpleAlbum) ReleaseDateTime() time.Time {
+	if s.ReleaseDatePrecision == "day" {
+		result, _ := time.Parse(DateLayout, s.ReleaseDate)
+		return result
+	}
+	if s.ReleaseDatePrecision == "month" {
+		ym := strings.Split(s.ReleaseDate, "-")
+		year, _ := strconv.Atoi(ym[0])
+		month, _ := strconv.Atoi(ym[1])
+		return time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
+	}
+	year, _ := strconv.Atoi(s.ReleaseDate)
+	return time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC)
+}
+
 // Copyright contains the copyright statement associated with an album.
 type Copyright struct {
 	// The copyright text for the album.
@@ -80,25 +99,6 @@ type SavedAlbum struct {
 	// a time.Time value.
 	AddedAt   string `json:"added_at"`
 	FullAlbum `json:"album"`
-}
-
-// ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
-// All of the fields in the result may not be valid.  For example, if
-// f.ReleaseDatePrecision is "month", then only the month and year
-// (but not the day) of the result are valid.
-func (f *FullAlbum) ReleaseDateTime() time.Time {
-	if f.ReleaseDatePrecision == "day" {
-		result, _ := time.Parse(DateLayout, f.ReleaseDate)
-		return result
-	}
-	if f.ReleaseDatePrecision == "month" {
-		ym := strings.Split(f.ReleaseDate, "-")
-		year, _ := strconv.Atoi(ym[0])
-		month, _ := strconv.Atoi(ym[1])
-		return time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
-	}
-	year, _ := strconv.Atoi(f.ReleaseDate)
-	return time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC)
 }
 
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
