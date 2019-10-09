@@ -6,7 +6,7 @@ import (
 )
 
 func TestTransferPlaybackDeviceUnavailable(t *testing.T) {
-	client, server := testClientString(http.StatusAccepted, "")
+	client, server := testClientString(http.StatusNotFound, "")
 	defer server.Close()
 	err := client.TransferPlayback("newdevice", false)
 	if err == nil {
