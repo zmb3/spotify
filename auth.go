@@ -52,8 +52,6 @@ const (
 	ScopeUserReadPrivate = "user-read-private"
 	// ScopeUserReadEmail seeks read access to a user's email address.
 	ScopeUserReadEmail = "user-read-email"
-	// ScopeUserReadBirthdate seeks read access to a user's birthdate.
-	ScopeUserReadBirthdate = "user-read-birthdate"
 	// ScopeUserReadCurrentlyPlaying seeks read access to a user's currently playing track
 	ScopeUserReadCurrentlyPlaying = "user-read-currently-playing"
 	// ScopeUserReadPlaybackState seeks read access to the user's current playback state
