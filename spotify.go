@@ -40,6 +40,18 @@ const (
 
 const baseAddress = "https://api.spotify.com/v1/"
 
+type ClientOptions struct {
+	HTTPClient *http.Client
+}
+
+type ClientOption func(*ClientOptions)
+
+func WithHTTPClient(client *http.Client) ClientOption {
+	return func(args *ClientOptions) {
+		args.HTTPClient = client
+	}
+}
+
 // Client is a client for working with the Spotify Web API.
 // To create an authenticated client, use the `Authenticator.NewClient` method.
 type Client struct {
@@ -47,6 +59,21 @@ type Client struct {
 	baseURL string
 
 	AutoRetry bool
+}
+
+// New returns a new Spotify client. It is recommended that you use
+// spotify.NewAuthenticator to create a client.
+func New(setters ...ClientOption) Client {
+	args := &ClientOptions{}
+
+	for _, setter := range setters {
+		setter(args)
+	}
+
+	return Client{
+		http:    args.HTTPClient,
+		baseURL: baseAddress,
+	}
 }
 
 // URI identifies an artist, album, track, or category.  For example,
