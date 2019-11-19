@@ -144,7 +144,7 @@ func TestFollowArtistAutoRetry(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
+	client := New(WithHTTPClient(http.DefaultClient), withBaseURL(server.URL+"/"), WithAutoRetry(true))
 	if err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov"); err != nil {
 		t.Error(err)
 	}

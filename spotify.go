@@ -40,39 +40,61 @@ const (
 
 const baseAddress = "https://api.spotify.com/v1/"
 
+// ClientOptions allow configuring the client.
 type ClientOptions struct {
-	HTTPClient *http.Client
+	AutoRetry  bool         // AutoRetry specifies whether the client should retry requests.
+	HTTPClient *http.Client // HTTPClient will be used to make API requests.
+
+	baseURL string
 }
 
+// ClientOption configures the client. These should be passed to New(...)
 type ClientOption func(*ClientOptions)
 
+// WithHTTPClient allows the caller to provide their own http client.
 func WithHTTPClient(client *http.Client) ClientOption {
 	return func(args *ClientOptions) {
 		args.HTTPClient = client
 	}
 }
 
+// WithAutoRetry allows the caller to configure retry behaviour for the client.
+func WithAutoRetry(autoRetry bool) ClientOption {
+	return func(args *ClientOptions) {
+		args.AutoRetry = autoRetry
+	}
+}
+
+func withBaseURL(baseURL string) ClientOption {
+	return func(args *ClientOptions) {
+		args.baseURL = baseURL
+	}
+}
+
 // Client is a client for working with the Spotify Web API.
 // To create an authenticated client, use the `Authenticator.NewClient` method.
 type Client struct {
-	http    *http.Client
-	baseURL string
-
-	AutoRetry bool
+	autoRetry bool
+	baseURL   string
+	http      *http.Client
 }
 
 // New returns a new Spotify client. It is recommended that you use
 // spotify.NewAuthenticator to create a client.
 func New(setters ...ClientOption) Client {
-	args := &ClientOptions{}
+	args := &ClientOptions{
+		baseURL:    baseAddress,
+		HTTPClient: http.DefaultClient,
+	}
 
 	for _, setter := range setters {
 		setter(args)
 	}
 
 	return Client{
-		http:    args.HTTPClient,
-		baseURL: baseAddress,
+		autoRetry: args.AutoRetry,
+		baseURL:   args.baseURL,
+		http:      args.HTTPClient,
 	}
 }
 
@@ -197,7 +219,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.AutoRetry && shouldRetry(resp.StatusCode) {
+		if c.autoRetry && shouldRetry(resp.StatusCode) {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
@@ -238,7 +260,7 @@ func (c *Client) get(url string, result interface{}) error {
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
 			time.Sleep(retryDuration(resp))
 			continue
 		}

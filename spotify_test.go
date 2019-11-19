@@ -21,11 +21,8 @@ func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*C
 			closer.Close()
 		}
 	}))
-	client := &Client{
-		http:    http.DefaultClient,
-		baseURL: server.URL + "/",
-	}
-	return client, server
+	client := New(WithHTTPClient(http.DefaultClient), withBaseURL(server.URL+"/"))
+	return &client, server
 }
 
 // Returns a client whose requests will always return
@@ -91,7 +88,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
+	client := New(WithHTTPClient(http.DefaultClient), WithAutoRetry(true), withBaseURL(server.URL+"/"))
 	releases, err := client.NewReleases()
 	if err != nil {
 		t.Fatal(err)
