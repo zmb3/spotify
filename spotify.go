@@ -174,6 +174,9 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 			time.Sleep(retryDuration(resp))
 			continue
 		}
+		if resp.StatusCode == http.StatusNoContent {
+			return nil
+		}
 		if (resp.StatusCode >= 300 ||
 			resp.StatusCode < 200) &&
 			isFailure(resp.StatusCode, needsStatus) {
