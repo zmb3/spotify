@@ -62,6 +62,8 @@ const (
 	ScopeUserReadRecentlyPlayed = "user-read-recently-played"
 	// ScopeUserTopRead seeks read access to a user's top tracks and artists
 	ScopeUserTopRead = "user-top-read"
+	// ScopeStreaming seeks permission to play music and control playback on your other devices.
+	ScopeStreaming = "streaming"
 )
 
 // Authenticator provides convenience functions for implementing the OAuth2 flow.
