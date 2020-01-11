@@ -282,6 +282,9 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 		if opt.Offset != nil {
 			v.Set("offset", strconv.Itoa(*opt.Offset))
 		}
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
+		}
 	}
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
