@@ -26,8 +26,8 @@ type FullArtist struct {
 	Popularity int `json:"popularity"`
 	// A list of genres the artist is associated with.  For example, "Prog Rock"
 	// or "Post-Grunge".  If not yet classified, the slice is empty.
-	Genres    []string `json:"genres"`
-	Followers Followers
+	Genres    []string  `json:"genres"`
+	Followers Followers `json:"followers"`
 	// Images of the artist in various sizes, widest first.
 	Images []Image `json:"images"`
 }
