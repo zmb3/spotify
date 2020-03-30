@@ -112,7 +112,9 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 // parameters used to filter and sort the result.
 //
 // The AlbumType argument can be used to find a particular type of album.  Search
-// for multiple types by OR-ing the types together.
+// for multiple types by OR-ing the types together. If the market (Options) is
+// not specified, Spotify will likely return a lot of duplicates (one for each
+// market in which the album is available)
 func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified
@@ -123,12 +125,6 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType)
 	if options != nil {
 		if options.Country != nil {
 			values.Set("market", *options.Country)
-		} else {
-			// if the market is not specified, Spotify will likely return a lot
-			// of duplicates (one for each market in which the album is available)
-			// - prevent this behavior by falling back to the US by default
-			// TODO: would this ever be the desired behavior?
-			values.Set("market", CountryUSA)
 		}
 		if options.Limit != nil {
 			values.Set("limit", strconv.Itoa(*options.Limit))
