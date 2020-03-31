@@ -111,16 +111,19 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 // GetArtistAlbumsOpt is just like GetArtistAlbums, but it accepts optional
 // parameters used to filter and sort the result.
 //
-// The AlbumType argument can be used to find a particular type of album.  Search
-// for multiple types by OR-ing the types together. If the market (Options) is
-// not specified, Spotify will likely return a lot of duplicates (one for each
-// market in which the album is available)
-func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, t *AlbumType) (*SimpleAlbumPage, error) {
+// The AlbumType argument can be used to find a particular types of album.
+// If the market (Options) is not specified, Spotify will likely return a lot
+// of duplicates (one for each market in which the album is available)
+func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, ts ...*AlbumType) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified
 	values := url.Values{}
-	if t != nil {
-		values.Set("album_type", t.encode())
+	if ts != nil {
+		types := make([]string, len(ts))
+		for i := range ts {
+			types[i] = ts[i].encode()
+		}
+		values.Set("album_type", strings.Join(types, ","))
 	}
 	if options != nil {
 		if options.Country != nil {
