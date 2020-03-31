@@ -123,7 +123,7 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, ts ...*AlbumT
 		for i := range ts {
 			types[i] = ts[i].encode()
 		}
-		values.Set("album_type", strings.Join(types, ","))
+		values.Set("include_groups", strings.Join(types, ","))
 	}
 	if options != nil {
 		if options.Country != nil {
