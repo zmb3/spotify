@@ -34,6 +34,16 @@ func TestVolume(t *testing.T) {
 	}
 }
 
+func TestQueue(t *testing.T) {
+	client, server := testClientString(http.StatusNoContent, "")
+	defer server.Close()
+
+	err := client.QueueSong("4JpKVNYnVcJ8tuMKjAj50A")
+	if err != nil {
+		t.Error(err)
+	}
+}
+
 func TestPlayerDevices(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/player_available_devices.txt")
 	defer server.Close()
