@@ -362,22 +362,21 @@ func (c *Client) QueueSong(trackID ID) error {
 func (c *Client) QueueSongOpt(trackID ID, opt *PlayOptions) error {
 	uri := "spotify:track:" + trackID
 	spotifyURL := c.baseURL + "me/player/queue"
+	v := url.Values{}
+
+	v.Set("uri", uri.String())
 
 	if opt != nil {
-		v := url.Values{}
 		if opt.DeviceID != nil {
 			v.Set("device_id", opt.DeviceID.String())
 		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
 	}
 
-	body, err := json.Marshal(uri)
-	if err != nil {
-		return err
+	if params := v.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
-	req, err := http.NewRequest(http.MethodPost, spotifyURL, bytes.NewReader(body))
+
+	req, err := http.NewRequest(http.MethodPost, spotifyURL, nil)
 	if err != nil {
 		return err
 	}
