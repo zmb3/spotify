@@ -349,6 +349,42 @@ func (c *Client) PauseOpt(opt *PlayOptions) error {
 	return nil
 }
 
+// QueueSong adds a song to the user's queue on the user's currently
+// active device. This call requires ScopeUserModifyPlaybackState
+// in order to modify the player state
+func (c *Client) QueueSong(trackID ID) error {
+	return c.QueueSongOpt(trackID, nil)
+}
+
+// QueueSongOpt is like QueueSong but with more options
+//
+// Only expects PlayOptions.DeviceID, all other options will be ignored
+func (c *Client) QueueSongOpt(trackID ID, opt *PlayOptions) error {
+	uri := "spotify:track:" + trackID
+	spotifyURL := c.baseURL + "me/player/queue"
+
+	if opt != nil {
+		v := url.Values{}
+		if opt.DeviceID != nil {
+			v.Set("device_id", opt.DeviceID.String())
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+
+	body, err := json.Marshal(uri)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest(http.MethodPost, spotifyURL, bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	return c.execute(req, nil, http.StatusNoContent)
+}
+
 // Next skips to the next track in the user's queue in the user's
 // currently active device. This call requires ScopeUserModifyPlaybackState
 // in order to modify the player state
