@@ -285,6 +285,9 @@ func TestAddTracksToPlaylist(t *testing.T) {
 func TestRemoveTracksFromPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`, func(req *http.Request) {
 		requestBody, err := ioutil.ReadAll(req.Body)
+		if err != nil {
+			t.Fatal("Could not read request body:", err)
+		}
 
 		var body map[string]interface{}
 		err = json.Unmarshal(requestBody, &body)
