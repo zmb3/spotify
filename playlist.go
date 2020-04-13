@@ -515,7 +515,7 @@ func (c *Client) removeTracksFromPlaylist(playlistID ID,
 	}
 	req, err := http.NewRequest("DELETE", spotifyURL, bytes.NewReader(body))
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 	req.Header.Set("Content-Type", "application/json")
 
@@ -525,7 +525,7 @@ func (c *Client) removeTracksFromPlaylist(playlistID ID,
 
 	err = c.execute(req, &result)
 	if err != nil {
-		return "", nil
+		return "", err
 	}
 
 	return result.SnapshotID, err
