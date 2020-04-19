@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	// MarketFromToken can be used in place of the Market parameter
+	// MarketFromToken can be used in place of the Options.Country parameter
 	// if the Client has a valid access token.  In this case, the
 	// results will be limited to content that is playable in the
 	// country associated with the user's account.  The user must have

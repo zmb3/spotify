@@ -153,10 +153,10 @@ type AlbumType int
 // searched for.  These are flags that can be bitwise OR'd together
 // to search for multiple types of albums simultaneously.
 const (
-	AlbumTypeAlbum       AlbumType = 1 << iota
-	AlbumTypeSingle                = 1 << iota
-	AlbummTypeAppearsOn            = 1 << iota
-	AlbumTypeCompilation           = 1 << iota
+	AlbumTypeAlbum AlbumType = 1 << iota
+	AlbumTypeSingle
+	AlbumTypeAppearsOn
+	AlbumTypeCompilation
 )
 
 func (at AlbumType) encode() string {
@@ -167,7 +167,7 @@ func (at AlbumType) encode() string {
 	if at&AlbumTypeSingle != 0 {
 		types = append(types, "single")
 	}
-	if at&AlbummTypeAppearsOn != 0 {
+	if at&AlbumTypeAppearsOn != 0 {
 		types = append(types, "appears_on")
 	}
 	if at&AlbumTypeCompilation != 0 {

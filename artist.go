@@ -105,7 +105,7 @@ func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 // GetArtistAlbums gets Spotify catalog information about an artist's albums.
 // It is equivalent to GetArtistAlbumsOpt(artistID, nil).
 func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
-	return c.GetArtistAlbumsOpt(artistID, nil, nil)
+	return c.GetArtistAlbumsOpt(artistID, nil)
 }
 
 // GetArtistAlbumsOpt is just like GetArtistAlbums, but it accepts optional
@@ -114,7 +114,7 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 // The AlbumType argument can be used to find a particular types of album.
 // If the market (Options) is not specified, Spotify will likely return a lot
 // of duplicates (one for each market in which the album is available)
-func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, ts ...*AlbumType) (*SimpleAlbumPage, error) {
+func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, ts ...AlbumType) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified
 	values := url.Values{}
