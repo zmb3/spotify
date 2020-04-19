@@ -4,10 +4,8 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
-	"net/http"
-	"os"
-
 	"golang.org/x/oauth2"
+	"net/http"
 )
 
 const (
@@ -87,15 +85,10 @@ type Authenticator struct {
 // NewAuthenticator creates an authenticator which is used to implement the
 // OAuth2 authorization flow.  The redirectURL must exactly match one of the
 // URLs specified in your Spotify developer account.
-//
-// By default, NewAuthenticator pulls your client ID and secret key from the
-// SPOTIFY_ID and SPOTIFY_SECRET environment variables.  If you'd like to provide
-// them from some other source, you can call `SetAuthInfo(id, key)` on the
-// returned authenticator.
-func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
+func NewAuthenticator(redirectURL, clientID, clientSecret string, scopes ...string) Authenticator {
 	cfg := &oauth2.Config{
-		ClientID:     os.Getenv("SPOTIFY_ID"),
-		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
 		RedirectURL:  redirectURL,
 		Scopes:       scopes,
 		Endpoint: oauth2.Endpoint{
@@ -118,8 +111,6 @@ func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
 // SetAuthInfo overwrites the client ID and secret key used by the authenticator.
 // You can use this if you don't want to store this information in environment variables.
 func (a *Authenticator) SetAuthInfo(clientID, secretKey string) {
-	a.config.ClientID = clientID
-	a.config.ClientSecret = secretKey
 }
 
 // AuthURL returns a URL to the the Spotify Accounts Service's OAuth2 endpoint.

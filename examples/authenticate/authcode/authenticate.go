@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/zmb3/spotify"
 )
@@ -21,7 +22,10 @@ import (
 const redirectURI = "http://localhost:8080/callback"
 
 var (
-	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	auth = spotify.NewAuthenticator(redirectURI,
+		os.Getenv("SPOTIFY_ID"),
+		os.Getenv("SPOTIFY_SECRET"),
+		spotify.ScopeUserReadPrivate)
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 )
