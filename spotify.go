@@ -41,12 +41,22 @@ const (
 const baseAddress = "https://api.spotify.com/v1/"
 
 // Client is a client for working with the Spotify Web API.
-// To create an authenticated client, use the `Authenticator.NewClient` method.
+// It is created by `NewClient` and `Authenticator.NewClient`.
 type Client struct {
 	http    *http.Client
 	baseURL string
 
 	AutoRetry bool
+}
+
+// NewClient returns a client for working with the Spotify Web API.
+// The provided HTTP client must include the user's access token in each request;
+// if you do not have such a client, use the `Authenticator.NewClient` method instead.
+func NewClient(client *http.Client) Client {
+	return Client{
+		http:    client,
+		baseURL: baseAddress,
+	}
 }
 
 // URI identifies an artist, album, track, or category.  For example,
