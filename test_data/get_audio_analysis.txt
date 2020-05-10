@@ -17,7 +17,7 @@
     "platform": "Linux",
     "detailed_status": "OK",
     "status_code": 0,
-    "timestamp": 1456010389,
+    "timestamp": "1456010389",
     "analysis_time": 9.1394,
     "input_process": "libvorbisfile L+R 44100->22050"
   },
@@ -84,12 +84,12 @@
     }
   ],
   "track": {
-    "num_samples": 100,
+    "num_samples": "100",
     "duration": 255.34898,
     "sample_md5": "",
     "offset_seconds": 0,
     "window_seconds": 0,
-    "analysis_sample_rate": 22050,
+    "analysis_sample_rate": 22050.0,
     "analysis_channels": 1,
     "end_of_fade_in": 0,
     "start_of_fade_out": 251.73333,
