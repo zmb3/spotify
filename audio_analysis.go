@@ -71,7 +71,7 @@ type AnalysisTrack struct {
 	SampleMD5               string  `json:"sample_md5"`
 	OffsetSeconds           int     `json:"offset_seconds"`
 	WindowSeconds           int     `json:"window_seconds"`
-	AnalysisSampleRate      int64   `json:"analysis_sample_rate"`
+	AnalysisSampleRate      float64 `json:"analysis_sample_rate"`
 	AnalysisChannels        int     `json:"analysis_channels"`
 	EndOfFadeIn             float64 `json:"end_of_fade_in"`
 	StartOfFadeOut          float64 `json:"start_of_fade_out"`
