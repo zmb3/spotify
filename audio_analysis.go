@@ -31,7 +31,7 @@ type AnalysisMeta struct {
 	Platform        string  `json:"platform"`
 	DetailedStatus  string  `json:"detailed_status"`
 	StatusCode      int     `json:"status"`
-	Timestamp       int64   `json:"timestamp"`
+	Timestamp       int64   `json:"timestamp,string"`
 	AnalysisTime    float64 `json:"analysis_time"`
 	InputProcess    string  `json:"input_process"`
 }
@@ -66,7 +66,7 @@ type Segment struct {
 
 // AnalysisTrack contains audio analysis data about the track as a whole
 type AnalysisTrack struct {
-	NumSamples              int64   `json:"num_samples"`
+	NumSamples              int64   `json:"num_samples,string"`
 	Duration                float64 `json:"duration"`
 	SampleMD5               string  `json:"sample_md5"`
 	OffsetSeconds           int     `json:"offset_seconds"`

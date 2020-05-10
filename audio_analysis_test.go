@@ -78,7 +78,7 @@ var expected = AudioAnalysis{
 		SampleMD5:               "",
 		OffsetSeconds:           0,
 		WindowSeconds:           0,
-		AnalysisSampleRate:      22050,
+		AnalysisSampleRate:      22050.0,
 		AnalysisChannels:        1,
 		EndOfFadeIn:             0,
 		StartOfFadeOut:          251.73333,
