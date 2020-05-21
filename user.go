@@ -92,6 +92,42 @@ func (c *Client) CurrentUser() (*PrivateUser, error) {
 	return &result, nil
 }
 
+// CurrentUsersShows gets a list of shows saved in the current
+// Spotify user's "Your Music" library.
+func (c *Client) CurrentUsersShows() (*SavedShowPage, error) {
+	return c.CurrentUsersShowsOpt(nil)
+}
+
+// CurrentUsersShowsOpt is like CurrentUsersShows, but it accepts additional
+// options for sorting and filtering the results.
+func (c *Client) CurrentUsersShowsOpt(opt *Options) (*SavedShowPage, error) {
+	spotifyURL := c.baseURL + "me/shows"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("country", *opt.Country)
+		}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+
+	var result SavedShowPage
+
+	err := c.get(spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
+
 // CurrentUsersTracks gets a list of songs saved in the current
 // Spotify user's "Your Music" library.
 func (c *Client) CurrentUsersTracks() (*SavedTrackPage, error) {
