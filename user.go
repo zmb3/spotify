@@ -229,32 +229,20 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	return result, nil
 }
 
-type userResourceType uint
-
 const (
-	followingResource userResourceType = iota
-	albumsResource
-	tracksResource
+	followingResource = "following"
+	albumsResource    = "albums"
+	tracksResource    = "tracks"
 )
 
-var userResourceTypeStrings = []string{
-	"following",
-	"albums",
-	"tracks",
-}
-
-func (urt userResourceType) encode() string {
-	return userResourceTypeStrings[urt]
-}
-
-func (c *Client) modifyResource(resource userResourceType, usertype string, follow bool, ids ...ID) error {
+func (c *Client) modifyResource(resourceType string, usertype string, follow bool, ids ...ID) error {
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
 	v := url.Values{}
 	v.Add("type", usertype)
 	v.Add("ids", strings.Join(toStringSlice(ids), ","))
-	spotifyURL := c.baseURL + "me/" + resource.encode() + "?" + v.Encode()
+	spotifyURL := c.baseURL + "me/" + resourceType + "?" + v.Encode()
 	method := "PUT"
 	if !follow {
 		method = "DELETE"
