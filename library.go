@@ -59,3 +59,32 @@ func (c *Client) modifyLibraryTracks(add bool, ids ...ID) error {
 	}
 	return nil
 }
+
+// UserSavedTracks returns the tracks which the current user has saved. This 
+// call requires the ScopeUserLibraryRead scope. Limit specifies the max items
+// per page.
+func (c *Client) UserSavedTracks(limit int) (SavedTrackPage, error) {
+  return c.UserSavedTracksOpt(limit, 0, "")
+}
+
+// UserSavedTracksOpt returns tracks which the current user has saved. This
+// call requires the ScopeUserLibraryRead scope. Limit and offset are used for
+// manual paging. Limit is the max number of objects to return in the page,
+// offset is the index of the first object in the page. Market is an ISO 3166-1
+// alpha-2 country code, or the string "from_token". This is used for track
+// relinking, use the empty string to leave this unspecified.
+func (c *Client) UserSavedTracksOpt(limit int, offset uint, market string)(SavedTrackPage, error) {
+  var result SavedTrackPage
+  if limit > 50 || limit < 1 {
+    return result, errors.New("spotify: SavedTracks supports a limit of 1 to 50")
+  }
+  spotifyURL := fmt.Sprintf("%sme/tracks?limit=%d", c.baseURL, limit)
+  if offset != 0 {
+    spotifyURL = fmt.Sprintf("%s&offset=%d", spotifyURL, offset)
+  }
+  if market != "" {
+    spotifyURL = fmt.Sprintf("%s&market=%s", spotifyURL, market)
+  }
+  err := c.get(spotifyURL, &result)
+  return result, err
+}
