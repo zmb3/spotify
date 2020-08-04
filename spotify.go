@@ -46,7 +46,8 @@ type Client struct {
 	http    *http.Client
 	baseURL string
 
-	AutoRetry bool
+	AutoRetry      bool
+	AcceptLanguage string
 }
 
 // NewClient returns a client for working with the Spotify Web API.
@@ -217,7 +218,14 @@ func retryDuration(resp *http.Response) time.Duration {
 
 func (c *Client) get(url string, result interface{}) error {
 	for {
-		resp, err := c.http.Get(url)
+		req, err := http.NewRequest("GET", url, nil)
+		if c.AcceptLanguage != "" {
+			req.Header.Set("Accept-Language", c.AcceptLanguage)
+		}
+		if err != nil {
+			return err
+		}
+		resp, err := c.http.Do(req)
 		if err != nil {
 			return err
 		}
