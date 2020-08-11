@@ -174,6 +174,9 @@ func isFailure(code int, validCodes []int) bool {
 // status codes that will be treated as success. Note that we allow all 200s
 // even if there are additional success codes that represent success.
 func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...int) error {
+	if c.AcceptLanguage != "" {
+		req.Header.Set("Accept-Language", c.AcceptLanguage)
+	}
 	for {
 		resp, err := c.http.Do(req)
 		if err != nil {
