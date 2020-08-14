@@ -136,6 +136,11 @@ func (a Authenticator) AuthURLWithDialog(state string) string {
 	return a.config.AuthCodeURL(state, oauth2.SetAuthURLParam("show_dialog", "true"))
 }
 
+// AuthURLWithOpts returns the bause AuthURL along with any extra URL params
+func (a Authenticator) AuthURLWithOpts(state string, opts ...oauth2.AuthCodeOption) string {
+	return a.config.AuthCodeURL(state, opts...)
+}
+
 // Token pulls an authorization code from an HTTP request and attempts to exchange
 // it for an access token.  The standard use case is to call Token from the handler
 // that handles requests to your application's redirect URL.
@@ -153,6 +158,22 @@ func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, erro
 		return nil, errors.New("spotify: redirect state parameter doesn't match")
 	}
 	return a.config.Exchange(a.context, code)
+}
+
+func (a Authenticator) TokenWithOpts(state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
+	values := r.URL.Query()
+	if e := values.Get("error"); e != "" {
+		return nil, errors.New("spotify: auth failed - " + e)
+	}
+	code := values.Get("code")
+	if code == "" {
+		return nil, errors.New("spotify: didn't get access code")
+	}
+	actualState := values.Get("state")
+	if actualState != state {
+		return nil, errors.New("spotify: redirect state parameter doesn't match")
+	}
+	return a.config.Exchange(a.context, code, opts...)
 }
 
 // Exchange is like Token, except it allows you to manually specify the access
