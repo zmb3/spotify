@@ -136,7 +136,7 @@ func (a Authenticator) AuthURLWithDialog(state string) string {
 	return a.config.AuthCodeURL(state, oauth2.SetAuthURLParam("show_dialog", "true"))
 }
 
-// AuthURLWithOpts returns the bause AuthURL along with any extra URL params
+// AuthURLWithOpts returns the bause AuthURL along with any extra URL Auth params
 func (a Authenticator) AuthURLWithOpts(state string, opts ...oauth2.AuthCodeOption) string {
 	return a.config.AuthCodeURL(state, opts...)
 }
@@ -160,6 +160,8 @@ func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, erro
 	return a.config.Exchange(a.context, code)
 }
 
+// TokenWithOpts performs the same function as the Authenticator Token function
+// but takes in optional URL Auth params
 func (a Authenticator) TokenWithOpts(state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
 	values := r.URL.Query()
 	if e := values.Get("error"); e != "" {

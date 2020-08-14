@@ -1,10 +1,9 @@
-// This example demonstrates how to authenticate with Spotify using the authorization code flow.
+// This example demonstrates how to authenticate with Spotify using the authorization code flow with PKCE.
 // In order to run this example yourself, you'll need to:
 //
 //  1. Register an application at: https://developer.spotify.com/my-applications/
 //       - Use "http://localhost:8080/callback" as the redirect URI
 //  2. Set the SPOTIFY_ID environment variable to the client ID you got in step 1.
-//  3. Set the SPOTIFY_SECRET environment variable to the client secret from step 1.
 package main
 
 import (
@@ -14,7 +13,6 @@ import (
 
 	"golang.org/x/oauth2"
 
-	pkce "github.com/frankmoreno/oauth2-pkce"
 	"github.com/zmb3/spotify"
 )
 
@@ -24,10 +22,14 @@ import (
 const redirectURI = "http://localhost:8080/callback"
 
 var (
-	auth            = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
-	ch              = make(chan *spotify.Client)
-	state           = "abc123"
-	codeVerifier, _ = pkce.GenerateCodeVerifier(64, true)
+	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	ch    = make(chan *spotify.Client)
+	state = "abc123"
+	// These should be randomly generated for each request
+	//  More information on generating these can be found here,
+	// https://www.oauth.com/playground/authorization-code-with-pkce.html
+	codeVerifier  = "w0HfYrKnG8AihqYHA9_XUPTIcqEXQvCQfOF2IitRgmlF43YWJ8dy2b49ZUwVUOR.YnvzVoTBL57BwIhM4ouSa~tdf0eE_OmiMC_ESCcVOe7maSLIk9IOdBhRstAxjCl7"
+	codeChallenge = "ZhZJzPQXYBMjH8FlGAdYK5AndohLzFfZT-8J7biT7ig"
 )
 
 func main() {
@@ -38,10 +40,9 @@ func main() {
 	})
 	go http.ListenAndServe(":8080", nil)
 
-	challenge := pkce.GenerateCodeChallenge(codeVerifier, true)
 	url := auth.AuthURLWithOpts(state,
 		oauth2.SetAuthURLParam("code_challenge_method", "S256"),
-		oauth2.SetAuthURLParam("code_challenge", challenge),
+		oauth2.SetAuthURLParam("code_challenge", codeChallenge),
 	)
 	fmt.Println("Please log in to Spotify by visiting the following page in your browser:", url)
 
