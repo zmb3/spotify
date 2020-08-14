@@ -58,7 +58,8 @@ func main() {
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.TokenWithOpts(state, r, oauth2.SetAuthURLParam("code_verifier", codeVerifier))
+	tok, err := auth.TokenWithOpts(state, r,
+		oauth2.SetAuthURLParam("code_verifier", codeVerifier))
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
 		log.Fatal(err)
