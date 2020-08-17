@@ -83,13 +83,8 @@ func (c *Client) GetUsersPublicProfile(userID ID) (*User, error) {
 // checked that the email address actually belongs to the user.
 func (c *Client) CurrentUser() (*PrivateUser, error) {
 	var result PrivateUser
-
 	err := c.get(c.baseURL+"me", &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // CurrentUsersShows gets a list of shows saved in the current
@@ -155,13 +150,8 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 	}
 
 	var result SavedTrackPage
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // FollowUser adds the current user as a follower of one or more
@@ -220,13 +210,8 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 		c.baseURL, t, strings.Join(toStringSlice(ids), ","))
 
 	var result []bool
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return result, nil
+	return result, err
 }
 
 func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error {
@@ -246,10 +231,7 @@ func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error 
 		return err
 	}
 	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 // CurrentUsersFollowedArtists gets the current user's followed artists.
@@ -283,11 +265,7 @@ func (c *Client) CurrentUsersFollowedArtistsOpt(limit int, after string) (*FullA
 	}
 
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result.A, nil
+	return &result.A, err
 }
 
 // CurrentUsersAlbums gets a list of albums saved in the current
@@ -317,13 +295,8 @@ func (c *Client) CurrentUsersAlbumsOpt(opt *Options) (*SavedAlbumPage, error) {
 	}
 
 	var result SavedAlbumPage
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // CurrentUsersPlaylists gets a list of the playlists owned or followed by
@@ -355,13 +328,8 @@ func (c *Client) CurrentUsersPlaylistsOpt(opt *Options) (*SimplePlaylistPage, er
 	}
 
 	var result SimplePlaylistPage
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // CurrentUsersTopArtistsOpt gets a list of the top played artists in a given time
@@ -383,13 +351,8 @@ func (c *Client) CurrentUsersTopArtistsOpt(opt *Options) (*FullArtistPage, error
 	}
 
 	var result FullArtistPage
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // CurrentUsersTopArtists is like CurrentUsersTopArtistsOpt but with
@@ -423,11 +386,7 @@ func (c *Client) CurrentUsersTopTracksOpt(opt *Options) (*FullTrackPage, error) 
 	var result FullTrackPage
 
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
+	return &result, err
 }
 
 // CurrentUsersTopTracks is like CurrentUsersTopTracksOpt but with

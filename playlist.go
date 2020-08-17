@@ -136,11 +136,7 @@ func (c *Client) FollowPlaylist(owner ID, playlist ID, public bool) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
 
 // UnfollowPlaylist removes the current user as a follower of a playlist.
@@ -152,11 +148,7 @@ func (c *Client) UnfollowPlaylist(owner, playlist ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
 
 func buildFollowURI(url string, owner, playlist ID) string {
@@ -195,12 +187,7 @@ func (c *Client) GetPlaylistsForUserOpt(userID string, opt *Options) (*SimplePla
 	}
 
 	var result SimplePlaylistPage
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
 	return &result, err
 }
 
@@ -234,12 +221,7 @@ func (c *Client) GetPlaylistOpt(playlistID ID, fields string) (*FullPlaylist, er
 	}
 
 	var playlist FullPlaylist
-
 	err := c.get(spotifyURL, &playlist)
-	if err != nil {
-		return nil, err
-	}
-
 	return &playlist, err
 }
 
@@ -291,12 +273,7 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 	}
 
 	var result PlaylistTrackPage
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
 	return &result, err
 }
 
@@ -332,10 +309,6 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName, description string,
 
 	var p FullPlaylist
 	err = c.execute(req, &p, http.StatusCreated)
-	if err != nil {
-		return nil, err
-	}
-
 	return &p, err
 }
 
@@ -399,11 +372,7 @@ func (c *Client) modifyPlaylist(playlistID ID, newName, newDescription string, p
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.execute(req, nil, http.StatusCreated)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusCreated)
 }
 
 // AddTracksToPlaylist adds one or more tracks to a user's playlist.
@@ -552,12 +521,7 @@ func (c *Client) ReplacePlaylistTracks(playlistID ID, trackIDs ...ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusCreated)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.execute(req, nil, http.StatusCreated)
 }
 
 // UserFollowsPlaylist checks if one or more (up to 5) Spotify users are following
@@ -571,12 +535,7 @@ func (c *Client) UserFollowsPlaylist(playlistID ID, userIDs ...string) ([]bool, 
 		c.baseURL, playlistID, strings.Join(userIDs, ","))
 
 	follows := make([]bool, len(userIDs))
-
 	err := c.get(spotifyURL, &follows)
-	if err != nil {
-		return nil, err
-	}
-
 	return follows, err
 }
 

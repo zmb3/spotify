@@ -134,12 +134,7 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 	spotifyURL := c.baseURL + "search?" + v.Encode()
 
 	var result SearchResult
-
 	err := c.get(spotifyURL, &result)
-	if err != nil {
-		return nil, err
-	}
-
 	return &result, err
 }
 
