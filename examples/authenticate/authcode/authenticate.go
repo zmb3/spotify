@@ -11,8 +11,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/zmb3/spotify"
+	"golang.org/x/oauth2"
 )
 
 // redirectURI is the OAuth redirect URI for the application.
@@ -20,8 +22,14 @@ import (
 // and enter this value.
 const redirectURI = "http://localhost:8080/callback"
 
+func makeAuth() spotify.Authenticator {
+	auth := spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	auth.SetAuthInfo(os.Getenv("SPOTIFY_ID"), os.Getenv("SPOTIFY_SECRET"))
+	return auth
+}
+
 var (
-	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	auth  = makeAuth()
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 )
@@ -46,6 +54,23 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("You are logged in as:", user.ID)
+
+	// Extract the token.
+	token, err := client.Token()
+	if err != nil {
+		panic(err)
+	}
+
+	// Save token for later use ..
+
+	// Load token again and create client from it.
+	c := clientFromToken(token)
+
+	user, err = c.CurrentUser()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("You are logged in as:", user.ID)
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
@@ -62,4 +87,13 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 	client := auth.NewClient(tok)
 	fmt.Fprintf(w, "Login Completed!")
 	ch <- &client
+}
+
+func clientFromToken(token *oauth2.Token) spotify.Client {
+	// Refreshing the access token requires the priorly-used
+	// client-id and client-secret. Do not forget to set them
+	// before constructing the client in case you did set them
+	// manually during the authcode flow above.
+	auth := makeAuth()
+	return auth.NewClient(token)
 }
