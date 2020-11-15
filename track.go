@@ -50,6 +50,11 @@ type FullTrack struct {
 	// with 100 being the most popular.  The popularity is calculated from
 	// both total plays and most recent plays.
 	Popularity int `json:"popularity"`
+
+	// IsPlayable defines if the track is playable. It's reported when the "market" parameter is passed to the track
+	// listing API.
+	// See: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+	IsPlayable *bool `json:"is_playable"`
 }
 
 // PlaylistTrack contains info about a track in a playlist.
