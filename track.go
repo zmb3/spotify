@@ -39,6 +39,25 @@ func (st SimpleTrack) String() string {
 	return fmt.Sprintf("TRACK<[%s] [%s]>", st.ID, st.Name)
 }
 
+// LinkedFromInfo
+// See: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
+type LinkedFromInfo struct {
+	// ExternalURLs are the known external APIs for this track or album
+	ExternalURLs map[string]string `json:"external_urls"`
+
+	// Href is a link to the Web API endpoint providing full details
+	Href string `json:"href"`
+
+	// ID of the linked track
+	ID ID `json:"id"`
+
+	// Type of the link: album of the track
+	Type string `json:"type"`
+
+	// URI is the Spotify URI of the track/album
+	URI string `json:"uri"`
+}
+
 // FullTrack provides extra track data in addition to what is provided by SimpleTrack.
 type FullTrack struct {
 	SimpleTrack
@@ -51,10 +70,14 @@ type FullTrack struct {
 	// both total plays and most recent plays.
 	Popularity int `json:"popularity"`
 
-	// IsPlayable defines if the track is playable. It's reported when the "market" parameter is passed to the track
+	// IsPlayable defines if the track is playable. It's reported when the "market" parameter is passed to the tracks
 	// listing API.
 	// See: https://developer.spotify.com/documentation/general/guides/track-relinking-guide/
 	IsPlayable *bool `json:"is_playable"`
+
+	// LinkedFrom points to the linked track. It's reported when the "market" parameter is passed to the tracks listing
+	// API.
+	LinkedFrom *LinkedFromInfo `json:"linked_from"`
 }
 
 // PlaylistTrack contains info about a track in a playlist.
