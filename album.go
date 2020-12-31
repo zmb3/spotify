@@ -103,7 +103,16 @@ type SavedAlbum struct {
 
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
 func (c *Client) GetAlbum(id ID) (*FullAlbum, error) {
+	return c.GetAlbumOpt(id, nil)
+}
+
+// GetAlbum is like GetAlbumOpt but it accepts an additional country option for track relinking
+func (c *Client) GetAlbumOpt(id ID, opt *Options) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", c.baseURL, id)
+
+	if opt != nil && opt.Country != nil {
+		spotifyURL += "?market=" + *opt.Country
+	}
 
 	var a FullAlbum
 
@@ -128,10 +137,24 @@ func toStringSlice(ids []ID) []string {
 // in the order requested.  If an album is not found, that position in the
 // result slice will be nil.
 func (c *Client) GetAlbums(ids ...ID) ([]*FullAlbum, error) {
+	return c.GetAlbumsOpt(nil, ids...)
+}
+
+// GetAlbumsOpt is like GetAlbums but it accepts an additional country option for track relinking
+// Doc API: https://developer.spotify.com/documentation/web-api/reference/albums/get-several-albums/
+func (c *Client) GetAlbumsOpt(opt *Options, ids ...ID) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
-	spotifyURL := fmt.Sprintf("%salbums?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
+
+	params := url.Values{}
+	params.Set("ids", strings.Join(toStringSlice(ids), ","))
+
+	if opt != nil && opt.Country != nil {
+		params.Set("market", *opt.Country)
+	}
+
+	spotifyURL := fmt.Sprintf("%salbums?%s", c.baseURL, params.Encode())
 
 	var a struct {
 		Albums []*FullAlbum `json:"albums"`
@@ -180,26 +203,34 @@ func (at AlbumType) encode() string {
 // If you only care about the tracks, this call is more efficient
 // than GetAlbum.
 func (c *Client) GetAlbumTracks(id ID) (*SimpleTrackPage, error) {
-	return c.GetAlbumTracksOpt(id, -1, -1)
+	return c.GetAlbumTracksOpt(id, nil)
 }
 
 // GetAlbumTracksOpt behaves like GetAlbumTracks, with the exception that it
-// allows you to specify extra parameters that limit the number of results returned.
+// allows you to specify options that limit the number of results returned and if
+// track relinking should be used.
 // The maximum number of results to return is specified by limit.
 // The offset argument can be used to specify the index of the first track to return.
-// It can be used along with limit to reqeust the next set of results.
-func (c *Client) GetAlbumTracksOpt(id ID, limit, offset int) (*SimpleTrackPage, error) {
+// It can be used along with limit to request the next set of results.
+// Track relinking can be enabled by setting the Country option
+func (c *Client) GetAlbumTracksOpt(id ID, opt *Options) (*SimpleTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", c.baseURL, id)
-	v := url.Values{}
-	if limit != -1 {
-		v.Set("limit", strconv.Itoa(limit))
-	}
-	if offset != -1 {
-		v.Set("offset", strconv.Itoa(offset))
-	}
-	optional := v.Encode()
-	if optional != "" {
-		spotifyURL = spotifyURL + "?" + optional
+
+	if opt != nil {
+		v := url.Values{}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
+		}
+		optional := v.Encode()
+		if optional != "" {
+			spotifyURL += "?" + optional
+		}
 	}
 
 	var result SimpleTrackPage
