@@ -105,10 +105,6 @@ func (c *Client) CurrentUsersShowsOpt(opt *Options) (*SavedShowPage, error) {
 	spotifyURL := c.baseURL + "me/shows"
 	if opt != nil {
 		v := url.Values{}
-		if opt.Country != nil {
-			// Note: This parameter doesn't actually exist
-			v.Set("country", *opt.Country)
-		}
 		if opt.Limit != nil {
 			v.Set("limit", strconv.Itoa(*opt.Limit))
 		}
@@ -137,7 +133,7 @@ func (c *Client) CurrentUsersTracks() (*SavedTrackPage, error) {
 }
 
 // CurrentUsersTracksOpt is like CurrentUsersTracks, but it accepts additional
-// options for sorting and filtering the results.
+// options for track relinking, sorting and filtering the results.
 // API Doc: https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks
 func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 	spotifyURL := c.baseURL + "me/tracks"

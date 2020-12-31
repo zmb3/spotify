@@ -3,6 +3,7 @@ package spotify
 import (
 	"errors"
 	"fmt"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -113,10 +114,26 @@ func (t *SimpleTrack) TimeDuration() time.Duration {
 
 // GetTrack gets Spotify catalog information for
 // a single track identified by its unique Spotify ID.
+// API Doc: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
 func (c *Client) GetTrack(id ID) (*FullTrack, error) {
+	return c.GetTrackOpt(id, nil)
+}
+
+// GetTrackOpt is like GetTrack but it accepts additional arguments
+func (c *Client) GetTrackOpt(id ID, opt *Options) (*FullTrack, error) {
 	spotifyURL := c.baseURL + "tracks/" + string(id)
 
 	var t FullTrack
+
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
 
 	err := c.get(spotifyURL, &t)
 	if err != nil {
@@ -131,11 +148,23 @@ func (c *Client) GetTrack(id ID) (*FullTrack, error) {
 // returned in the order requested.  If a track is not found, that position in the
 // result will be nil.  Duplicate ids in the query will result in duplicate
 // tracks in the result.
+// API Doc: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
 func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
+	return c.GetTracksOpt(nil, ids...)
+}
+
+// GetTracksOpt is like GetTracks but it accepts an additional country option for track relinking
+func (c *Client) GetTracksOpt(opt *Options, ids ...ID) ([]*FullTrack, error) {
 	if len(ids) > 50 {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}
-	spotifyURL := c.baseURL + "tracks?ids=" + strings.Join(toStringSlice(ids), ",")
+
+	params := url.Values{}
+	params.Set("ids", strings.Join(toStringSlice(ids), ","))
+	if opt != nil && opt.Country != nil {
+		params.Set("market", *opt.Country)
+	}
+	spotifyURL := c.baseURL + "tracks?" + params.Encode()
 
 	var t struct {
 		Tracks []*FullTrack `json:"tracks"`
