@@ -90,12 +90,7 @@ func TestGetCategoryPlaylistsOpt(t *testing.T) {
 	})
 	defer server.Close()
 
-	opt := &Options{}
-	opt.Limit = new(int)
-	opt.Offset = new(int)
-	*opt.Limit = 5
-	*opt.Offset = 10
-	client.GetCategoryPlaylistsOpt("id", opt)
+	client.GetCategoryPlaylistsOpt("id", Opt().SetLimit(5).SetOffset(10))
 }
 
 func TestGetCategoriesInvalidToken(t *testing.T) {
