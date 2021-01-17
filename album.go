@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -103,16 +102,12 @@ type SavedAlbum struct {
 }
 
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.
-func (c *Client) GetAlbum(ctx context.Context, id ID) (*FullAlbum, error) {
-	return c.GetAlbumOpt(ctx, id, nil)
-}
-
-// GetAlbum is like GetAlbumOpt but it accepts an additional country option for track relinking
-func (c *Client) GetAlbumOpt(ctx context.Context, id ID, opt *Options) (*FullAlbum, error) {
+// It supports the Country option for relinking support
+func (c *Client) GetAlbum(ctx context.Context, id ID, opts ...RequestOption) (*FullAlbum, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s", c.baseURL, id)
 
-	if opt != nil && opt.Country != nil {
-		spotifyURL += "?market=" + *opt.Country
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var a FullAlbum
@@ -137,23 +132,16 @@ func toStringSlice(ids []ID) []string {
 // Spotify IDs.  It supports up to 20 IDs in a single call.  Albums are returned
 // in the order requested.  If an album is not found, that position in the
 // result slice will be nil.
-func (c *Client) GetAlbums(ctx context.Context, ids ...ID) ([]*FullAlbum, error) {
-	return c.GetAlbumsOpt(ctx, nil, ids...)
-}
-
-// GetAlbumsOpt is like GetAlbums but it accepts an additional country option for track relinking
+//
 // Doc API: https://developer.spotify.com/documentation/web-api/reference/albums/get-several-albums/
-func (c *Client) GetAlbumsOpt(ctx context.Context, opt *Options, ids ...ID) ([]*FullAlbum, error) {
+//
+// The Country opt is supported by this method
+func (c *Client) GetAlbums(ctx context.Context, ids []ID, opts ...RequestOption) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
-
-	params := url.Values{}
+	params := processOptions(opts...).urlParams
 	params.Set("ids", strings.Join(toStringSlice(ids), ","))
-
-	if opt != nil && opt.Country != nil {
-		params.Set("market", *opt.Country)
-	}
 
 	spotifyURL := fmt.Sprintf("%salbums?%s", c.baseURL, params.Encode())
 
@@ -205,7 +193,7 @@ func (at AlbumType) encode() string {
 // than GetAlbum.
 //
 // The Country, Limit and Offset options can be used with this method.
-func (c *Client) GetAlbumTracks(ctx context.Context, id ID, opts ...Option) (*SimpleTrackPage, error) {
+func (c *Client) GetAlbumTracks(ctx context.Context, id ID, opts ...RequestOption) (*SimpleTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", c.baseURL, id)
 
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
