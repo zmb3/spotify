@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strconv"
@@ -72,7 +73,7 @@ func setTrackAttributesValues(trackAttributes *TrackAttributes, values url.Value
 // about the provided seeds, a list of tracks will be returned together with pool size details.
 // For artists and tracks that are very new or obscure
 // there might not be enough data to generate a list of tracks.
-func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttributes, opt *Options) (*Recommendations, error) {
+func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttributes *TrackAttributes, opt *Options) (*Recommendations, error) {
 	v := url.Values{}
 
 	if seeds.count() == 0 {
@@ -97,7 +98,7 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 	spotifyURL := c.baseURL + "recommendations?" + v.Encode()
 
 	var recommendations Recommendations
-	err := c.get(spotifyURL, &recommendations)
+	err := c.get(ctx, spotifyURL, &recommendations)
 	if err != nil {
 		return nil, err
 	}
@@ -107,12 +108,12 @@ func (c *Client) GetRecommendations(seeds Seeds, trackAttributes *TrackAttribute
 
 // GetAvailableGenreSeeds retrieves a list of available genres seed parameter values for
 // recommendations.
-func (c *Client) GetAvailableGenreSeeds() ([]string, error) {
+func (c *Client) GetAvailableGenreSeeds(ctx context.Context) ([]string, error) {
 	spotifyURL := c.baseURL + "recommendations/available-genre-seeds"
 
 	genreSeeds := make(map[string][]string)
 
-	err := c.get(spotifyURL, &genreSeeds)
+	err := c.get(ctx, spotifyURL, &genreSeeds)
 	if err != nil {
 		return nil, err
 	}

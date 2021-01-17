@@ -422,7 +422,7 @@ func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 // currently active device. This call requires ScopeUserModifyPlaybackState
 // in order to modify the player state
 func (c *Client) Previous(ctx context.Context) error {
-	return c.PreviousOpt(ctx. nil)
+	return c.PreviousOpt(ctx, nil)
 }
 
 // PreviousOpt is like Previous but with more options
