@@ -11,10 +11,6 @@ type optionSet struct {
 	urlParams url.Values
 }
 
-func (oS optionSet) URLParams() url.Values {
-	return oS.urlParams
-}
-
 // Limit sets the number of entries that a request should return
 func Limit(amount int) Option {
 	return func(oS *optionSet) {
@@ -44,9 +40,11 @@ func Timerange(timerange string) Option {
 }
 
 func processOptions(options ...Option) optionSet {
-	oS := optionSet{}
-	for _, option := range options {
-		option(&oS)
+	oS := optionSet{
+		urlParams: url.Values{},
+	}
+	for _, opt := range options {
+		opt(&oS)
 	}
 
 	return oS

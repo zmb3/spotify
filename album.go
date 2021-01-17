@@ -203,10 +203,12 @@ func (at AlbumType) encode() string {
 // GetAlbumTracks gets the tracks for a particular album.
 // If you only care about the tracks, this call is more efficient
 // than GetAlbum.
+//
+// The Country, Limit and Offset options can be used with this method.
 func (c *Client) GetAlbumTracks(ctx context.Context, id ID, opts ...Option) (*SimpleTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", c.baseURL, id)
 
-	if params := processOptions(opts...).URLParams().Encode(); params != "" {
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
 

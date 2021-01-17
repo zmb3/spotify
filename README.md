@@ -81,14 +81,6 @@ https://godoc.org/golang.org/x/oauth2/google
 
 ## Helpful Hints
 
-
-### Optional Parameters
-
-Many of the functions in this package come in two forms - a simple version that
-omits optional parameters and uses reasonable defaults, and a more sophisticated
-version that accepts additional parameters.  The latter is suffixed with `Opt`
-to indicate that it accepts some optional parameters.
-
 ### Automatic Retries
 
 The API will throttle your requests if you are sending them too rapidly.

@@ -90,8 +90,7 @@ func TestFindAlbumTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/find_album_tracks.txt")
 	defer server.Close()
 
-	limit := 1
-	res, err := client.GetAlbumTracksOpt(context.Background(), ID("0sNOF9WDwhWunNAHPD3Baj"), &Options{Limit: &limit})
+	res, err := client.GetAlbumTracks(context.Background(), ID("0sNOF9WDwhWunNAHPD3Baj"), Limit(1))
 	if err != nil {
 		t.Fatal(err)
 	}
