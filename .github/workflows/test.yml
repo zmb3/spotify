@@ -1,0 +1,16 @@
+name: test
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+jobs:
+  unit:
+    name: unit
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.15.6' # The Go version to download (if necessary) and use.
+    - run: go test ./...
