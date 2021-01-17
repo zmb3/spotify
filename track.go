@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/url"
@@ -115,12 +116,12 @@ func (t *SimpleTrack) TimeDuration() time.Duration {
 // GetTrack gets Spotify catalog information for
 // a single track identified by its unique Spotify ID.
 // API Doc: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
-func (c *Client) GetTrack(id ID) (*FullTrack, error) {
-	return c.GetTrackOpt(id, nil)
+func (c *Client) GetTrack(ctx context.Context, id ID) (*FullTrack, error) {
+	return c.GetTrackOpt(ctx, id, nil)
 }
 
 // GetTrackOpt is like GetTrack but it accepts additional arguments
-func (c *Client) GetTrackOpt(id ID, opt *Options) (*FullTrack, error) {
+func (c *Client) GetTrackOpt(ctx context.Context, id ID, opt *Options) (*FullTrack, error) {
 	spotifyURL := c.baseURL + "tracks/" + string(id)
 
 	var t FullTrack
@@ -135,7 +136,7 @@ func (c *Client) GetTrackOpt(id ID, opt *Options) (*FullTrack, error) {
 		}
 	}
 
-	err := c.get(spotifyURL, &t)
+	err := c.get(ctx, spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}
@@ -149,12 +150,12 @@ func (c *Client) GetTrackOpt(id ID, opt *Options) (*FullTrack, error) {
 // result will be nil.  Duplicate ids in the query will result in duplicate
 // tracks in the result.
 // API Doc: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
-func (c *Client) GetTracks(ids ...ID) ([]*FullTrack, error) {
-	return c.GetTracksOpt(nil, ids...)
+func (c *Client) GetTracks(ctx context.Context, ids ...ID) ([]*FullTrack, error) {
+	return c.GetTracksOpt(ctx, nil, ids...)
 }
 
 // GetTracksOpt is like GetTracks but it accepts an additional country option for track relinking
-func (c *Client) GetTracksOpt(opt *Options, ids ...ID) ([]*FullTrack, error) {
+func (c *Client) GetTracksOpt(ctx context.Context, opt *Options, ids ...ID) ([]*FullTrack, error) {
 	if len(ids) > 50 {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}
@@ -170,7 +171,7 @@ func (c *Client) GetTracksOpt(opt *Options, ids ...ID) ([]*FullTrack, error) {
 		Tracks []*FullTrack `json:"tracks"`
 	}
 
-	err := c.get(spotifyURL, &t)
+	err := c.get(ctx, spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}
