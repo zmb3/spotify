@@ -137,13 +137,13 @@ func toStringSlice(ids []ID) []string {
 // Spotify IDs.  It supports up to 20 IDs in a single call.  Albums are returned
 // in the order requested.  If an album is not found, that position in the
 // result slice will be nil.
-func (c *Client) GetAlbums(ctx context.Context , ids ...ID) ([]*FullAlbum, error) {
+func (c *Client) GetAlbums(ctx context.Context, ids ...ID) ([]*FullAlbum, error) {
 	return c.GetAlbumsOpt(ctx, nil, ids...)
 }
 
 // GetAlbumsOpt is like GetAlbums but it accepts an additional country option for track relinking
 // Doc API: https://developer.spotify.com/documentation/web-api/reference/albums/get-several-albums/
-func (c *Client) GetAlbumsOpt(ctx context.Context , opt *Options, ids ...ID) ([]*FullAlbum, error) {
+func (c *Client) GetAlbumsOpt(ctx context.Context, opt *Options, ids ...ID) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
 	}
@@ -203,35 +203,11 @@ func (at AlbumType) encode() string {
 // GetAlbumTracks gets the tracks for a particular album.
 // If you only care about the tracks, this call is more efficient
 // than GetAlbum.
-func (c *Client) GetAlbumTracks(ctx context.Context, id ID) (*SimpleTrackPage, error) {
-	return c.GetAlbumTracksOpt(ctx, id, nil)
-}
-
-// GetAlbumTracksOpt behaves like GetAlbumTracks, with the exception that it
-// allows you to specify options that limit the number of results returned and if
-// track relinking should be used.
-// The maximum number of results to return is specified by limit.
-// The offset argument can be used to specify the index of the first track to return.
-// It can be used along with limit to request the next set of results.
-// Track relinking can be enabled by setting the Country option
-func (c *Client) GetAlbumTracksOpt(ctx context.Context, id ID, opt *Options) (*SimpleTrackPage, error) {
+func (c *Client) GetAlbumTracks(ctx context.Context, id ID, opts ...Option) (*SimpleTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", c.baseURL, id)
 
-	if opt != nil {
-		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		optional := v.Encode()
-		if optional != "" {
-			spotifyURL += "?" + optional
-		}
+	if params := processOptions(opts...).URLParams().Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result SimpleTrackPage
