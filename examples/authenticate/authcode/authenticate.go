@@ -8,6 +8,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -41,7 +42,7 @@ func main() {
 	client := <-ch
 
 	// use the client to make calls that require authorization
-	user, err := client.CurrentUser()
+	user, err := client.CurrentUser(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}

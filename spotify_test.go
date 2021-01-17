@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -49,7 +50,7 @@ func TestNewReleases(t *testing.T) {
 	c, s := testClientFile(http.StatusOK, "test_data/new_releases.txt")
 	defer s.Close()
 
-	r, err := c.NewReleases()
+	r, err := c.NewReleases(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -92,7 +93,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	defer server.Close()
 
 	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
-	releases, err := client.NewReleases()
+	releases, err := client.NewReleases(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}

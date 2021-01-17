@@ -170,7 +170,7 @@ func (c *Client) CurrentUsersTracksOpt(ctx context.Context, opt *Options) (*Save
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) FollowUser(ctx context.Context, ids ...ID) error {
-	return c.modifyFollowers("user", true, ids...)
+	return c.modifyFollowers(ctx, "user", true, ids...)
 }
 
 // FollowArtist adds the current user as a follower of one or more
@@ -179,7 +179,7 @@ func (c *Client) FollowUser(ctx context.Context, ids ...ID) error {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) FollowArtist(ctx context.Context, ids ...ID) error {
-	return c.modifyFollowers("artist", true, ids...)
+	return c.modifyFollowers(ctx, "artist", true, ids...)
 }
 
 // UnfollowUser removes the current user as a follower of one or more
@@ -188,7 +188,7 @@ func (c *Client) FollowArtist(ctx context.Context, ids ...ID) error {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) UnfollowUser(ctx context.Context, ids ...ID) error {
-	return c.modifyFollowers("user", false, ids...)
+	return c.modifyFollowers(ctx, "user", false, ids...)
 }
 
 // UnfollowArtist removes the current user as a follower of one or more
@@ -197,7 +197,7 @@ func (c *Client) UnfollowUser(ctx context.Context, ids ...ID) error {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) UnfollowArtist(ctx context.Context, ids ...ID) error {
-	return c.modifyFollowers("artist", false, ids...)
+	return c.modifyFollowers(ctx, "artist", false, ids...)
 }
 
 // CurrentUserFollows checks to see if the current user is following

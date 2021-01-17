@@ -12,19 +12,20 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
 		TokenURL:     spotify.TokenURL,
 	}
-	token, err := config.Token(context.Background())
+	token, err := config.Token(ctx)
 	if err != nil {
 		log.Fatalf("couldn't get token: %v", err)
 	}
 
 	client := spotify.Authenticator{}.NewClient(token)
 	// search for playlists and albums containing "holiday"
-	results, err := client.Search("holiday", spotify.SearchTypePlaylist|spotify.SearchTypeAlbum)
+	results, err := client.Search(ctx, "holiday", spotify.SearchTypePlaylist|spotify.SearchTypeAlbum)
 	if err != nil {
 		log.Fatal(err)
 	}

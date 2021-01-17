@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/url"
 	"testing"
 )
@@ -21,7 +22,7 @@ func TestGetRecommendations(t *testing.T) {
 		Country: &country,
 		Limit:   &limit,
 	}
-	recommendations, err := client.GetRecommendations(seeds, nil, &opts)
+	recommendations, err := client.GetRecommendations(context.Background(), seeds, nil, &opts)
 	if err != nil {
 		t.Fatal(err)
 	}

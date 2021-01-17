@@ -35,7 +35,7 @@ func main() {
 	}
 
 	client := spotify.Authenticator{}.NewClient(token)
-	user, err := client.GetUsersPublicProfile(spotify.ID(*userID))
+	user, err := client.GetUsersPublicProfile(context.Background(), spotify.ID(*userID))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
 		return

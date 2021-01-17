@@ -8,6 +8,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -45,21 +46,22 @@ func main() {
 	http.HandleFunc("/callback", completeAuth)
 
 	http.HandleFunc("/player/", func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
 		action := strings.TrimPrefix(r.URL.Path, "/player/")
 		fmt.Println("Got request for:", action)
 		var err error
 		switch action {
 		case "play":
-			err = client.Play()
+			err = client.Play(ctx)
 		case "pause":
-			err = client.Pause()
+			err = client.Pause(ctx)
 		case "next":
-			err = client.Next()
+			err = client.Next(ctx)
 		case "previous":
-			err = client.Previous()
+			err = client.Previous(ctx)
 		case "shuffle":
 			playerState.ShuffleState = !playerState.ShuffleState
-			err = client.Shuffle(playerState.ShuffleState)
+			err = client.Shuffle(ctx, playerState.ShuffleState)
 		}
 		if err != nil {
 			log.Print(err)
@@ -81,13 +83,13 @@ func main() {
 		client = <-ch
 
 		// use the client to make calls that require authorization
-		user, err := client.CurrentUser()
+		user, err := client.CurrentUser(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("You are logged in as:", user.ID)
 
-		playerState, err = client.PlayerState()
+		playerState, err = client.PlayerState(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -34,7 +35,7 @@ func TestUserProfile(t *testing.T) {
 	client, server := testClientString(http.StatusOK, userResponse)
 	defer server.Close()
 
-	user, err := client.GetUsersPublicProfile("wizzler")
+	user, err := client.GetUsersPublicProfile(context.Background(), "wizzler")
 	if err != nil {
 		t.Error(err)
 		return
@@ -70,7 +71,7 @@ func TestCurrentUser(t *testing.T) {
 	client, server := testClientString(http.StatusOK, json)
 	defer server.Close()
 
-	me, err := client.CurrentUser()
+	me, err := client.CurrentUser(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
@@ -99,7 +100,7 @@ func TestFollowUsersMissingScope(t *testing.T) {
 	})
 	defer server.Close()
 
-	err := client.FollowUser(ID("exampleuser01"))
+	err := client.FollowUser(context.Background(), ID("exampleuser01"))
 	serr, ok := err.(Error)
 	if !ok {
 		t.Fatal("Expected insufficient client scope error")
@@ -117,7 +118,7 @@ func TestFollowArtist(t *testing.T) {
 	})
 	defer server.Close()
 
-	if err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov"); err != nil {
+	if err := client.FollowArtist(context.Background(), "3ge4xOaKvWfhRwgx0Rldov"); err != nil {
 		t.Error(err)
 	}
 }
@@ -145,7 +146,7 @@ func TestFollowArtistAutoRetry(t *testing.T) {
 	defer server.Close()
 
 	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
-	if err := client.FollowArtist("3ge4xOaKvWfhRwgx0Rldov"); err != nil {
+	if err := client.FollowArtist(context.Background(), "3ge4xOaKvWfhRwgx0Rldov"); err != nil {
 		t.Error(err)
 	}
 }
@@ -164,7 +165,7 @@ func TestFollowUsersInvalidToken(t *testing.T) {
 	})
 	defer server.Close()
 
-	err := client.FollowUser(ID("dummyID"))
+	err := client.FollowUser(context.Background(), ID("dummyID"))
 	serr, ok := err.(Error)
 	if !ok {
 		t.Fatal("Expected invalid token error")
@@ -179,7 +180,7 @@ func TestUserFollows(t *testing.T) {
 	client, server := testClientString(http.StatusOK, json)
 	defer server.Close()
 
-	follows, err := client.CurrentUserFollows("artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
+	follows, err := client.CurrentUserFollows(context.Background(), "artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
 	if err != nil {
 		t.Error(err)
 		return
@@ -193,7 +194,7 @@ func TestCurrentUsersTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/current_users_tracks.txt")
 	defer server.Close()
 
-	tracks, err := client.CurrentUsersTracks()
+	tracks, err := client.CurrentUsersTracks(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
@@ -223,7 +224,7 @@ func TestCurrentUsersAlbums(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/current_users_albums.txt")
 	defer server.Close()
 
-	albums, err := client.CurrentUsersAlbums()
+	albums, err := client.CurrentUsersAlbums(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
@@ -262,7 +263,7 @@ func TestCurrentUsersPlaylists(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/current_users_playlists.txt")
 	defer server.Close()
 
-	playlists, err := client.CurrentUsersPlaylists()
+	playlists, err := client.CurrentUsersPlaylists(context.Background())
 	if err != nil {
 		t.Error(err)
 	}
@@ -341,7 +342,7 @@ func TestUsersFollowedArtists(t *testing.T) {
 	client, server := testClientString(http.StatusOK, json)
 	defer server.Close()
 
-	artists, err := client.CurrentUsersFollowedArtists()
+	artists, err := client.CurrentUsersFollowedArtists(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -368,14 +369,14 @@ func TestCurrentUsersFollowedArtistsOpt(t *testing.T) {
 	})
 	defer server.Close()
 
-	client.CurrentUsersFollowedArtistsOpt(50, "0aV6DOiouImYTqrR5YlIqx")
+	client.CurrentUsersFollowedArtistsOpt(context.Background(), 50, "0aV6DOiouImYTqrR5YlIqx")
 }
 
 func TestCurrentUsersTopArtists(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/current_users_top_artists.txt")
 	defer server.Close()
 
-	artists, err := client.CurrentUsersTopArtists()
+	artists, err := client.CurrentUsersTopArtists(context.Background())
 	if err != nil {
 		t.Error(err)
 	}
@@ -408,7 +409,7 @@ func TestCurrentUsersTopTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/current_users_top_tracks.txt")
 	defer server.Close()
 
-	tracks, err := client.CurrentUsersTopTracks()
+	tracks, err := client.CurrentUsersTopTracks(context.Background())
 	if err != nil {
 		t.Error(err)
 	}
