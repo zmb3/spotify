@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strconv"
@@ -33,11 +34,11 @@ type FullArtist struct {
 }
 
 // GetArtist gets Spotify catalog information for a single artist, given its Spotify ID.
-func (c *Client) GetArtist(id ID) (*FullArtist, error) {
+func (c *Client) GetArtist(ctx context.Context, id ID) (*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s", c.baseURL, id)
 
 	var a FullArtist
-	err := c.get(spotifyURL, &a)
+	err := c.get(ctx, spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -50,14 +51,14 @@ func (c *Client) GetArtist(id ID) (*FullArtist, error) {
 // returned in the order requested.  If an artist is not found, that position
 // in the result will be nil.  Duplicate IDs will result in duplicate artists
 // in the result.
-func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
+func (c *Client) GetArtists(ctx context.Context, ids ...ID) ([]*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	var a struct {
 		Artists []*FullArtist
 	}
 
-	err := c.get(spotifyURL, &a)
+	err := c.get(ctx, spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -68,14 +69,14 @@ func (c *Client) GetArtists(ids ...ID) ([]*FullArtist, error) {
 // GetArtistsTopTracks gets Spotify catalog information about an artist's top
 // tracks in a particular country.  It returns a maximum of 10 tracks.  The
 // country is specified as an ISO 3166-1 alpha-2 country code.
-func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, error) {
+func (c *Client) GetArtistsTopTracks(ctx context.Context, artistID ID, country string) ([]FullTrack, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", c.baseURL, artistID, country)
 
 	var t struct {
 		Tracks []FullTrack `json:"tracks"`
 	}
 
-	err := c.get(spotifyURL, &t)
+	err := c.get(ctx, spotifyURL, &t)
 	if err != nil {
 		return nil, err
 	}
@@ -87,14 +88,14 @@ func (c *Client) GetArtistsTopTracks(artistID ID, country string) ([]FullTrack, 
 // given artist.  Similarity is based on analysis of the Spotify community's
 // listening history.  This function returns up to 20 artists that are considered
 // related to the specified artist.
-func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
+func (c *Client) GetRelatedArtists(ctx context.Context, id ID) ([]FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", c.baseURL, id)
 
 	var a struct {
 		Artists []FullArtist `json:"artists"`
 	}
 
-	err := c.get(spotifyURL, &a)
+	err := c.get(ctx, spotifyURL, &a)
 	if err != nil {
 		return nil, err
 	}
@@ -104,8 +105,8 @@ func (c *Client) GetRelatedArtists(id ID) ([]FullArtist, error) {
 
 // GetArtistAlbums gets Spotify catalog information about an artist's albums.
 // It is equivalent to GetArtistAlbumsOpt(artistID, nil).
-func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
-	return c.GetArtistAlbumsOpt(artistID, nil)
+func (c *Client) GetArtistAlbums(ctx context.Context, artistID ID) (*SimpleAlbumPage, error) {
+	return c.GetArtistAlbumsOpt(ctx, artistID, nil)
 }
 
 // GetArtistAlbumsOpt is just like GetArtistAlbums, but it accepts optional
@@ -114,7 +115,7 @@ func (c *Client) GetArtistAlbums(artistID ID) (*SimpleAlbumPage, error) {
 // The AlbumType argument can be used to find a particular types of album.
 // If the market (Options.Country) is not specified, Spotify will likely return a lot
 // of duplicates (one for each market in which the album is available)
-func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, ts ...AlbumType) (*SimpleAlbumPage, error) {
+func (c *Client) GetArtistAlbumsOpt(ctx context.Context, artistID ID, options *Options, ts ...AlbumType) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified
 	values := url.Values{}
@@ -142,7 +143,7 @@ func (c *Client) GetArtistAlbumsOpt(artistID ID, options *Options, ts ...AlbumTy
 
 	var p SimpleAlbumPage
 
-	err := c.get(spotifyURL, &p)
+	err := c.get(ctx, spotifyURL, &p)
 	if err != nil {
 		return nil, err
 	}

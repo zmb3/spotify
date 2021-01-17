@@ -4,6 +4,7 @@ package spotify
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -219,9 +220,9 @@ func retryDuration(resp *http.Response) time.Duration {
 	return time.Duration(seconds) * time.Second
 }
 
-func (c *Client) get(url string, result interface{}) error {
+func (c *Client) get(ctx context.Context, url string, result interface{}) error {
 	for {
-		req, err := http.NewRequest("GET", url, nil)
+		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 		if c.AcceptLanguage != "" {
 			req.Header.Set("Accept-Language", c.AcceptLanguage)
 		}
