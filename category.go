@@ -98,7 +98,7 @@ func (c *Client) GetCategoryPlaylistsOpt(ctx context.Context, catID string, opt 
 // GetCategories gets a list of categories used to tag items in Spotify
 // (on, for example, the Spotify player's "Browse" tab).
 func (c *Client) GetCategories(ctx context.Context) (*CategoryPage, error) {
-	return c.GetCategoriesOpt(ctx,nil, "")
+	return c.GetCategoriesOpt(ctx, nil, "")
 }
 
 // GetCategoriesOpt is like GetCategories, but it accepts optional parameters.
