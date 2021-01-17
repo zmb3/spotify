@@ -59,7 +59,7 @@ func main() {
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.TokenWithOpts(state, r,
+	tok, err := auth.TokenWithOpts(r.Context(), state, r,
 		oauth2.SetAuthURLParam("code_verifier", codeVerifier))
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
@@ -70,7 +70,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client := auth.NewClient(tok)
+	client := auth.NewClient(r.Context(), tok)
 	fmt.Fprintf(w, "Login Completed!")
 	ch <- &client
 }
