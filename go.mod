@@ -1,4 +1,4 @@
-module github.com/strideynet/spotify-go
+module github.com/zmb3/spotify/v2
 
 go 1.15
 

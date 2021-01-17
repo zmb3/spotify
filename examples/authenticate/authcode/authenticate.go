@@ -13,7 +13,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/strideynet/spotify-go"
+	"github.com/zmb3/spotify/v2"
 )
 
 // redirectURI is the OAuth redirect URI for the application.
@@ -66,7 +66,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// use the token to get an authenticated client
-	client := auth.NewClient(r.Context(),tok)
+	client := auth.NewClient(r.Context(), tok)
 	fmt.Fprintf(w, "Login Completed!")
 	ch <- &client
 }

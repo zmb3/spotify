@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/oauth2/clientcredentials"
 
-	"github.com/strideynet/spotify-go"
+	"github.com/zmb3/spotify/v2"
 )
 
 func main() {
