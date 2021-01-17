@@ -13,7 +13,7 @@ import (
 
 	"golang.org/x/oauth2"
 
-	"github.com/zmb3/spotify"
+	"github.com/strideynet/spotify-go"
 )
 
 // redirectURI is the OAuth redirect URI for the application.

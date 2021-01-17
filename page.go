@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"errors"
 	"reflect"
 )
@@ -101,7 +102,7 @@ func (b basePage) canPage() {}
 
 // NextPage fetches the next page of items and writes them into p.
 // It returns ErrNoMorePages if p already contains the last page.
-func (c *Client) NextPage(p pageable) error {
+func (c *Client) NextPage(ctx context.Context, p pageable) error {
 	val := reflect.ValueOf(p).Elem()
 	field := val.FieldByName("Next")
 	nextURL := field.Interface().(string)
@@ -116,12 +117,12 @@ func (c *Client) NextPage(p pageable) error {
 	zero := reflect.Zero(val.Type())
 	val.Set(zero)
 
-	return c.get(nextURL, p)
+	return c.get(ctx, nextURL, p)
 }
 
 // PreviousPage fetches the previous page of items and writes them into p.
 // It returns ErrNoMorePages if p already contains the last page.
-func (c *Client) PreviousPage(p pageable) error {
+func (c *Client) PreviousPage(ctx context.Context, p pageable) error {
 	val := reflect.ValueOf(p).Elem()
 	field := val.FieldByName("Previous")
 	prevURL := field.Interface().(string)
@@ -136,5 +137,5 @@ func (c *Client) PreviousPage(p pageable) error {
 	zero := reflect.Zero(val.Type())
 	val.Set(zero)
 
-	return c.get(prevURL, p)
+	return c.get(ctx, prevURL, p)
 }

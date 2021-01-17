@@ -2,9 +2,9 @@
 Spotify
 =======
 
-[![GoDoc](https://godoc.org/github.com/zmb3/spotify?status.svg)](http://godoc.org/github.com/zmb3/spotify)
-[![Build status](https://ci.appveyor.com/api/projects/status/1nr9vv0jqq438nj2?svg=true)](https://ci.appveyor.com/project/zmb3/spotify)
-[![Build Status](https://travis-ci.org/zmb3/spotify.svg)](https://travis-ci.org/zmb3/spotify)
+[![GoDoc](https://godoc.org/github.com/strideynet/spotify-go?status.svg)](http://godoc.org/github.com/strideynet/spotify-go)
+[![Build status](https://ci.appveyor.com/api/projects/status/1nr9vv0jqq438nj2?svg=true)](https://ci.appveyor.com/project/strideynet/spotify-go)
+[![Build Status](https://travis-ci.org/strideynet/spotify-go.svg)](https://travis-ci.org/strideynet/spotify-go)
 
 This is a Go wrapper for working with Spotify's
 [Web API](https://developer.spotify.com/web-api/).
@@ -19,7 +19,7 @@ By using this library you agree to Spotify's
 
 To install the library, simply
 
-`go get github.com/zmb3/spotify`
+`go get github.com/strideynet/spotify-go`
 
 ## Authentication
 

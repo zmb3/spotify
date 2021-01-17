@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strconv"
@@ -29,7 +30,7 @@ type Category struct {
 // get categories in Mexico, returned in Spanish).
 //
 // This call requires authorization.
-func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
+func (c *Client) GetCategoryOpt(ctx context.Context, id, country, locale string) (Category, error) {
 	cat := Category{}
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s", c.baseURL, id)
 	values := url.Values{}
@@ -43,7 +44,7 @@ func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 		spotifyURL += "?" + query
 	}
 
-	err := c.get(spotifyURL, &cat)
+	err := c.get(ctx, spotifyURL, &cat)
 	if err != nil {
 		return cat, err
 	}
@@ -53,18 +54,18 @@ func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 
 // GetCategory gets a single category used to tag items in Spotify
 // (on, for example, the Spotify player's Browse tab).
-func (c *Client) GetCategory(id string) (Category, error) {
-	return c.GetCategoryOpt(id, "", "")
+func (c *Client) GetCategory(ctx context.Context, id string) (Category, error) {
+	return c.GetCategoryOpt(ctx, id, "", "")
 }
 
 // GetCategoryPlaylists gets a list of Spotify playlists tagged with a particular category.
-func (c *Client) GetCategoryPlaylists(catID string) (*SimplePlaylistPage, error) {
-	return c.GetCategoryPlaylistsOpt(catID, nil)
+func (c *Client) GetCategoryPlaylists(ctx context.Context, catID string) (*SimplePlaylistPage, error) {
+	return c.GetCategoryPlaylistsOpt(ctx, catID, nil)
 }
 
 // GetCategoryPlaylistsOpt is like GetCategoryPlaylists, but it accepts optional
 // arguments.
-func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePlaylistPage, error) {
+func (c *Client) GetCategoryPlaylistsOpt(ctx context.Context, catID string, opt *Options) (*SimplePlaylistPage, error) {
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", c.baseURL, catID)
 	if opt != nil {
 		values := url.Values{}
@@ -86,7 +87,7 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 		Playlists SimplePlaylistPage `json:"playlists"`
 	}{}
 
-	err := c.get(spotifyURL, &wrapper)
+	err := c.get(ctx, spotifyURL, &wrapper)
 	if err != nil {
 		return nil, err
 	}
@@ -96,8 +97,8 @@ func (c *Client) GetCategoryPlaylistsOpt(catID string, opt *Options) (*SimplePla
 
 // GetCategories gets a list of categories used to tag items in Spotify
 // (on, for example, the Spotify player's "Browse" tab).
-func (c *Client) GetCategories() (*CategoryPage, error) {
-	return c.GetCategoriesOpt(nil, "")
+func (c *Client) GetCategories(ctx context.Context) (*CategoryPage, error) {
+	return c.GetCategoriesOpt(ctx,nil, "")
 }
 
 // GetCategoriesOpt is like GetCategories, but it accepts optional parameters.
@@ -106,7 +107,7 @@ func (c *Client) GetCategories() (*CategoryPage, error) {
 // It consists of an ISO 639 language code and an ISO 3166-1 alpha-2 country
 // code, separated by an underscore.  Specify the empty string to have results
 // returned in the Spotify default language (American English).
-func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, error) {
+func (c *Client) GetCategoriesOpt(ctx context.Context, opt *Options, locale string) (*CategoryPage, error) {
 	spotifyURL := c.baseURL + "browse/categories"
 	values := url.Values{}
 	if locale != "" {
@@ -131,7 +132,7 @@ func (c *Client) GetCategoriesOpt(opt *Options, locale string) (*CategoryPage, e
 		Categories CategoryPage `json:"categories"`
 	}{}
 
-	err := c.get(spotifyURL, &wrapper)
+	err := c.get(ctx, spotifyURL, &wrapper)
 	if err != nil {
 		return nil, err
 	}

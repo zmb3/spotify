@@ -1,4 +1,4 @@
-module github.com/strideynet/spotify
+module github.com/strideynet/spotify-go
 
 go 1.15
 

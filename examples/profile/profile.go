@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/oauth2/clientcredentials"
 
-	"github.com/zmb3/spotify"
+	"github.com/strideynet/spotify-go"
 )
 
 var userID = flag.String("user", "", "the Spotify user ID to look up")
