@@ -8,12 +8,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
 
-	"github.com/zmb3/spotify"
+	"github.com/zmb3/spotify/v2"
 )
 
 // redirectURI is the OAuth redirect URI for the application.
@@ -45,21 +46,22 @@ func main() {
 	http.HandleFunc("/callback", completeAuth)
 
 	http.HandleFunc("/player/", func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
 		action := strings.TrimPrefix(r.URL.Path, "/player/")
 		fmt.Println("Got request for:", action)
 		var err error
 		switch action {
 		case "play":
-			err = client.Play()
+			err = client.Play(ctx)
 		case "pause":
-			err = client.Pause()
+			err = client.Pause(ctx)
 		case "next":
-			err = client.Next()
+			err = client.Next(ctx)
 		case "previous":
-			err = client.Previous()
+			err = client.Previous(ctx)
 		case "shuffle":
 			playerState.ShuffleState = !playerState.ShuffleState
-			err = client.Shuffle(playerState.ShuffleState)
+			err = client.Shuffle(ctx, playerState.ShuffleState)
 		}
 		if err != nil {
 			log.Print(err)
@@ -81,13 +83,13 @@ func main() {
 		client = <-ch
 
 		// use the client to make calls that require authorization
-		user, err := client.CurrentUser()
+		user, err := client.CurrentUser(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("You are logged in as:", user.ID)
 
-		playerState, err = client.PlayerState()
+		playerState, err = client.PlayerState(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -99,7 +101,7 @@ func main() {
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.Token(state, r)
+	tok, err := auth.Token(r.Context(), state, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
 		log.Fatal(err)
@@ -109,7 +111,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client := auth.NewClient(tok)
+	client := auth.NewClient(r.Context(), tok)
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprintf(w, "Login Completed!"+html)
 	ch <- &client

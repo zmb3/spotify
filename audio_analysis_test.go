@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
 	"reflect"
 	"testing"
@@ -106,7 +107,7 @@ func TestAudioAnalysis(t *testing.T) {
 	c, s := testClientFile(http.StatusOK, "test_data/get_audio_analysis.txt")
 	defer s.Close()
 
-	analysis, err := c.GetAudioAnalysis("foo")
+	analysis, err := c.GetAudioAnalysis(context.Background(), "foo")
 	if err != nil {
 		t.Error(err)
 	}

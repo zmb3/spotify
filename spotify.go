@@ -4,6 +4,7 @@ package spotify
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -219,9 +220,9 @@ func retryDuration(resp *http.Response) time.Duration {
 	return time.Duration(seconds) * time.Second
 }
 
-func (c *Client) get(url string, result interface{}) error {
+func (c *Client) get(ctx context.Context, url string, result interface{}) error {
 	for {
-		req, err := http.NewRequest("GET", url, nil)
+		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 		if c.AcceptLanguage != "" {
 			req.Header.Set("Accept-Language", c.AcceptLanguage)
 		}
@@ -279,7 +280,7 @@ type Options struct {
 
 // NewReleasesOpt is like NewReleases, but it accepts optional parameters
 // for filtering the results.
-func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err error) {
+func (c *Client) NewReleasesOpt(ctx context.Context, opt *Options) (albums *SimpleAlbumPage, err error) {
 	spotifyURL := c.baseURL + "browse/new-releases"
 	if opt != nil {
 		v := url.Values{}
@@ -298,7 +299,7 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	}
 
 	var objmap map[string]*json.RawMessage
-	err = c.get(spotifyURL, &objmap)
+	err = c.get(ctx, spotifyURL, &objmap)
 	if err != nil {
 		return nil, err
 	}
@@ -314,6 +315,6 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 
 // NewReleases gets a list of new album releases featured in Spotify.
 // This call requires bearer authorization.
-func (c *Client) NewReleases() (albums *SimpleAlbumPage, err error) {
-	return c.NewReleasesOpt(nil)
+func (c *Client) NewReleases(ctx context.Context) (albums *SimpleAlbumPage, err error) {
+	return c.NewReleasesOpt(ctx, nil)
 }

@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -15,7 +16,7 @@ func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*C
 			v(r)
 		}
 		w.WriteHeader(code)
-		io.Copy(w, body)
+		_, _ = io.Copy(w, body)
 		r.Body.Close()
 		if closer, ok := body.(io.Closer); ok {
 			closer.Close()
@@ -49,7 +50,7 @@ func TestNewReleases(t *testing.T) {
 	c, s := testClientFile(http.StatusOK, "test_data/new_releases.txt")
 	defer s.Close()
 
-	r, err := c.NewReleases()
+	r, err := c.NewReleases(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -68,7 +69,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", "2")
 			w.WriteHeader(rateLimitExceededStatusCode)
-			io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -92,7 +93,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	defer server.Close()
 
 	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
-	releases, err := client.NewReleases()
+	releases, err := client.NewReleases(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}

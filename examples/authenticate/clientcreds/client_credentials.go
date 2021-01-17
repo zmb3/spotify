@@ -12,23 +12,24 @@ import (
 	"log"
 	"os"
 
-	"github.com/zmb3/spotify"
+	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
+	ctx := context.Background()
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
 		TokenURL:     spotify.TokenURL,
 	}
-	token, err := config.Token(context.Background())
+	token, err := config.Token(ctx)
 	if err != nil {
 		log.Fatalf("couldn't get token: %v", err)
 	}
 
-	client := spotify.Authenticator{}.NewClient(token)
-	msg, page, err := client.FeaturedPlaylists()
+	client := spotify.Authenticator{}.NewClient(ctx, token)
+	msg, page, err := client.FeaturedPlaylists(ctx)
 	if err != nil {
 		log.Fatalf("couldn't get features playlists: %v", err)
 	}

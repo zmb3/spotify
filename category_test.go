@@ -1,7 +1,9 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
+	"strings"
 	"testing"
 )
 
@@ -9,7 +11,7 @@ func TestGetCategories(t *testing.T) {
 	client, server := testClientString(http.StatusOK, getCategories)
 	defer server.Close()
 
-	page, err := client.GetCategories()
+	page, err := client.GetCategories(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -25,7 +27,7 @@ func TestGetCategory(t *testing.T) {
 	client, server := testClientString(http.StatusOK, getCategory)
 	defer server.Close()
 
-	cat, err := client.GetCategory("dinner")
+	cat, err := client.GetCategory(context.Background(), "dinner")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -38,7 +40,7 @@ func TestGetCategoryPlaylists(t *testing.T) {
 	client, server := testClientString(http.StatusOK, getCategoryPlaylists)
 	defer server.Close()
 
-	page, err := client.GetCategoryPlaylists("dinner")
+	page, err := client.GetCategoryPlaylists(context.Background(), "dinner")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -69,7 +71,7 @@ func TestGetCategoryOpt(t *testing.T) {
 	})
 	defer server.Close()
 
-	_, err := client.GetCategoryOpt("id", CountryBrazil, "es_MX")
+	_, err := client.GetCategoryOpt(context.Background(), "id", CountryBrazil, "es_MX")
 	if err == nil {
 		t.Fatal("Expected error")
 	}
@@ -95,14 +97,17 @@ func TestGetCategoryPlaylistsOpt(t *testing.T) {
 	opt.Offset = new(int)
 	*opt.Limit = 5
 	*opt.Offset = 10
-	client.GetCategoryPlaylistsOpt("id", opt)
+	_, err := client.GetCategoryPlaylistsOpt(context.Background(), "id", opt)
+	if err == nil || !strings.Contains(err.Error(), "HTTP 404: Not Found") {
+		t.Errorf("Expected error 'spotify: HTTP 404: Not Found (body empty)', got %v", err)
+	}
 }
 
 func TestGetCategoriesInvalidToken(t *testing.T) {
 	client, server := testClientString(http.StatusUnauthorized, invalidToken)
 	defer server.Close()
 
-	_, err := client.GetCategories()
+	_, err := client.GetCategories(context.Background())
 	if err == nil {
 		t.Fatal("Expected error but didn't get one")
 	}

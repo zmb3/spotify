@@ -80,8 +80,7 @@ const (
 //     client := a.NewClient(token)
 //
 type Authenticator struct {
-	config  *oauth2.Config
-	context context.Context
+	config *oauth2.Config
 }
 
 // NewAuthenticator creates an authenticator which is used to implement the
@@ -104,15 +103,20 @@ func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
 		},
 	}
 
-	// disable HTTP/2 for DefaultClient, see: https://github.com/zmb3/spotify/issues/20
+	return Authenticator{
+		config: cfg,
+	}
+}
+
+// WithHTTPClient returns a context with a value set to override the oauth2 http client as Spotify does not
+// support HTTP/2
+//
+// see: https://github.com/zmb3/spotify/issues/20
+func withHTTPClient(ctx context.Context) context.Context {
 	tr := &http.Transport{
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}
-	ctx := context.WithValue(context.Background(), oauth2.HTTPClient, &http.Client{Transport: tr})
-	return Authenticator{
-		config:  cfg,
-		context: ctx,
-	}
+	return context.WithValue(ctx, oauth2.HTTPClient, &http.Client{Transport: tr})
 }
 
 // SetAuthInfo overwrites the client ID and secret key used by the authenticator.
@@ -144,7 +148,7 @@ func (a Authenticator) AuthURLWithOpts(state string, opts ...oauth2.AuthCodeOpti
 // Token pulls an authorization code from an HTTP request and attempts to exchange
 // it for an access token.  The standard use case is to call Token from the handler
 // that handles requests to your application's redirect URL.
-func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, error) {
+func (a Authenticator) Token(ctx context.Context, state string, r *http.Request) (*oauth2.Token, error) {
 	values := r.URL.Query()
 	if e := values.Get("error"); e != "" {
 		return nil, errors.New("spotify: auth failed - " + e)
@@ -157,12 +161,12 @@ func (a Authenticator) Token(state string, r *http.Request) (*oauth2.Token, erro
 	if actualState != state {
 		return nil, errors.New("spotify: redirect state parameter doesn't match")
 	}
-	return a.config.Exchange(a.context, code)
+	return a.config.Exchange(withHTTPClient(ctx), code)
 }
 
 // TokenWithOpts performs the same function as the Authenticator Token function
 // but takes in optional URL Auth params
-func (a Authenticator) TokenWithOpts(state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
+func (a Authenticator) TokenWithOpts(ctx context.Context, state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
 	values := r.URL.Query()
 	if e := values.Get("error"); e != "" {
 		return nil, errors.New("spotify: auth failed - " + e)
@@ -175,18 +179,18 @@ func (a Authenticator) TokenWithOpts(state string, r *http.Request, opts ...oaut
 	if actualState != state {
 		return nil, errors.New("spotify: redirect state parameter doesn't match")
 	}
-	return a.config.Exchange(a.context, code, opts...)
+	return a.config.Exchange(withHTTPClient(ctx), code, opts...)
 }
 
 // Exchange is like Token, except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
-func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
-	return a.config.Exchange(a.context, code)
+func (a Authenticator) Exchange(ctx context.Context, code string) (*oauth2.Token, error) {
+	return a.config.Exchange(withHTTPClient(ctx), code)
 }
 
 // NewClient creates a Client that will use the specified access token for its API requests.
-func (a Authenticator) NewClient(token *oauth2.Token) Client {
-	client := a.config.Client(a.context, token)
+func (a Authenticator) NewClient(ctx context.Context, token *oauth2.Token) Client {
+	client := a.config.Client(withHTTPClient(ctx), token)
 	return Client{
 		http:    client,
 		baseURL: baseAddress,

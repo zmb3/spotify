@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -78,7 +79,7 @@ func TestAudioFeatures(t *testing.T) {
 		"abc", // intentionally throw a bad one in
 		"24JygzOLM0EmRQeGtFcIcG",
 	}
-	features, err := c.GetAudioFeatures()
+	features, err := c.GetAudioFeatures(context.Background())
 	if err != nil {
 		t.Error(err)
 	}

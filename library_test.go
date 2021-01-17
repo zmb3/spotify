@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -9,7 +10,7 @@ func TestUserHasTracks(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `[ false, true ]`)
 	defer server.Close()
 
-	contains, err := client.UserHasTracks("0udZHhCi7p1YzMlvI4fXoK", "55nlbqqFVnSsArIeYSQlqx")
+	contains, err := client.UserHasTracks(context.Background(), "0udZHhCi7p1YzMlvI4fXoK", "55nlbqqFVnSsArIeYSQlqx")
 	if err != nil {
 		t.Error(err)
 	}
@@ -25,7 +26,7 @@ func TestAddTracksToLibrary(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	err := client.AddTracksToLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	err := client.AddTracksToLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err != nil {
 		t.Error(err)
 	}
@@ -40,7 +41,7 @@ func TestAddTracksToLibraryFailure(t *testing.T) {
   }
 }`)
 	defer server.Close()
-	err := client.AddTracksToLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	err := client.AddTracksToLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err == nil {
 		t.Error("Expected error and didn't get one")
 	}
@@ -50,7 +51,7 @@ func TestRemoveTracksFromLibrary(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	err := client.RemoveTracksFromLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	err := client.RemoveTracksFromLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err != nil {
 		t.Error(err)
 	}
