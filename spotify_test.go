@@ -16,7 +16,7 @@ func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*C
 			v(r)
 		}
 		w.WriteHeader(code)
-		io.Copy(w, body)
+		_, _ = io.Copy(w, body)
 		r.Body.Close()
 		if closer, ok := body.(io.Closer); ok {
 			closer.Close()
@@ -69,7 +69,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", "2")
 			w.WriteHeader(rateLimitExceededStatusCode)
-			io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

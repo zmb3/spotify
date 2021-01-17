@@ -130,7 +130,7 @@ func TestFollowArtistAutoRetry(t *testing.T) {
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", "2")
 			w.WriteHeader(rateLimitExceededStatusCode)
-			io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -369,7 +369,10 @@ func TestCurrentUsersFollowedArtistsOpt(t *testing.T) {
 	})
 	defer server.Close()
 
-	client.CurrentUsersFollowedArtistsOpt(context.Background(), 50, "0aV6DOiouImYTqrR5YlIqx")
+	_, err := client.CurrentUsersFollowedArtistsOpt(context.Background(), 50, "0aV6DOiouImYTqrR5YlIqx")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
 }
 
 func TestCurrentUsersTopArtists(t *testing.T) {

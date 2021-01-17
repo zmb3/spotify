@@ -96,7 +96,10 @@ func TestGetCategoryPlaylistsOpt(t *testing.T) {
 	opt.Offset = new(int)
 	*opt.Limit = 5
 	*opt.Offset = 10
-	client.GetCategoryPlaylistsOpt(context.Background(), "id", opt)
+	_, err := client.GetCategoryPlaylistsOpt(context.Background(), "id", opt)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
 }
 
 func TestGetCategoriesInvalidToken(t *testing.T) {
