@@ -18,6 +18,8 @@ var userID = flag.String("user", "", "the Spotify user ID to look up")
 func main() {
 	flag.Parse()
 
+	ctx := context.Background()
+
 	if *userID == "" {
 		fmt.Fprintf(os.Stderr, "Error: missing user ID\n")
 		flag.Usage()
@@ -34,8 +36,8 @@ func main() {
 		log.Fatalf("couldn't get token: %v", err)
 	}
 
-	client := spotify.Authenticator{}.NewClient(token)
-	user, err := client.GetUsersPublicProfile(context.Background(), spotify.ID(*userID))
+	client := spotify.Authenticator{}.NewClient(ctx, token)
+	user, err := client.GetUsersPublicProfile(ctx, spotify.ID(*userID))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
 		return

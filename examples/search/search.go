@@ -23,7 +23,7 @@ func main() {
 		log.Fatalf("couldn't get token: %v", err)
 	}
 
-	client := spotify.Authenticator{}.NewClient(token)
+	client := spotify.Authenticator{}.NewClient(ctx, token)
 	// search for playlists and albums containing "holiday"
 	results, err := client.Search(ctx, "holiday", spotify.SearchTypePlaylist|spotify.SearchTypeAlbum)
 	if err != nil {

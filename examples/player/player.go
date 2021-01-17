@@ -101,7 +101,7 @@ func main() {
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.Token(state, r)
+	tok, err := auth.Token(r.Context(), state, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
 		log.Fatal(err)
@@ -111,7 +111,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client := auth.NewClient(tok)
+	client := auth.NewClient(r.Context(), tok)
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprintf(w, "Login Completed!"+html)
 	ch <- &client

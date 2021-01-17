@@ -28,7 +28,7 @@ func main() {
 		log.Fatalf("couldn't get token: %v", err)
 	}
 
-	client := spotify.Authenticator{}.NewClient(token)
+	client := spotify.Authenticator{}.NewClient(ctx, token)
 	msg, page, err := client.FeaturedPlaylists(ctx)
 	if err != nil {
 		log.Fatalf("couldn't get features playlists: %v", err)
