@@ -3,8 +3,6 @@ package spotify
 import (
 	"context"
 	"fmt"
-	"net/url"
-	"strconv"
 )
 
 // Category is used by Spotify to tag items in.  For example, on the Spotify
@@ -21,27 +19,14 @@ type Category struct {
 	Name string `json:"name"`
 }
 
-// GetCategoryOpt is like GetCategory, but it accepts optional arguments.
-// The country parameter is an ISO 3166-1 alpha-2 country code.  It can be
-// used to ensure that the category exists for a particular country.  The
-// locale argument is an ISO 639 language code and an ISO 3166-1 alpha-2
-// country code, separated by an underscore.  It can be used to get the
-// category strings in a particular language (for example: "es_MX" means
-// get categories in Mexico, returned in Spanish).
+// GetCategory gets a single category used to tag items in Spotify.
 //
-// This call requires authorization.
-func (c *Client) GetCategoryOpt(ctx context.Context, id, country, locale string) (Category, error) {
+// It supports Country and Locale request options.
+func (c *Client) GetCategory(ctx context.Context, id string, opts ...RequestOption) (Category, error) {
 	cat := Category{}
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s", c.baseURL, id)
-	values := url.Values{}
-	if country != "" {
-		values.Set("country", country)
-	}
-	if locale != "" {
-		values.Set("locale", locale)
-	}
-	if query := values.Encode(); query != "" {
-		spotifyURL += "?" + query
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	err := c.get(ctx, spotifyURL, &cat)
@@ -52,35 +37,12 @@ func (c *Client) GetCategoryOpt(ctx context.Context, id, country, locale string)
 	return cat, err
 }
 
-// GetCategory gets a single category used to tag items in Spotify
-// (on, for example, the Spotify player's Browse tab).
-func (c *Client) GetCategory(ctx context.Context, id string) (Category, error) {
-	return c.GetCategoryOpt(ctx, id, "", "")
-}
-
 // GetCategoryPlaylists gets a list of Spotify playlists tagged with a particular category.
-func (c *Client) GetCategoryPlaylists(ctx context.Context, catID string) (*SimplePlaylistPage, error) {
-	return c.GetCategoryPlaylistsOpt(ctx, catID, nil)
-}
-
-// GetCategoryPlaylistsOpt is like GetCategoryPlaylists, but it accepts optional
-// arguments.
-func (c *Client) GetCategoryPlaylistsOpt(ctx context.Context, catID string, opt *Options) (*SimplePlaylistPage, error) {
+// It supports Country, Limit and Offset for configuration
+func (c *Client) GetCategoryPlaylists(ctx context.Context, catID string, opts ...RequestOption) (*SimplePlaylistPage, error) {
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", c.baseURL, catID)
-	if opt != nil {
-		values := url.Values{}
-		if opt.Country != nil {
-			values.Set("country", *opt.Country)
-		}
-		if opt.Limit != nil {
-			values.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			values.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if query := values.Encode(); query != "" {
-			spotifyURL += "?" + query
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	wrapper := struct {
@@ -96,35 +58,11 @@ func (c *Client) GetCategoryPlaylistsOpt(ctx context.Context, catID string, opt 
 }
 
 // GetCategories gets a list of categories used to tag items in Spotify
-// (on, for example, the Spotify player's "Browse" tab).
-func (c *Client) GetCategories(ctx context.Context) (*CategoryPage, error) {
-	return c.GetCategoriesOpt(ctx, nil, "")
-}
-
-// GetCategoriesOpt is like GetCategories, but it accepts optional parameters.
 //
-// The locale option can be used to get the results in a particular language.
-// It consists of an ISO 639 language code and an ISO 3166-1 alpha-2 country
-// code, separated by an underscore.  Specify the empty string to have results
-// returned in the Spotify default language (American English).
-func (c *Client) GetCategoriesOpt(ctx context.Context, opt *Options, locale string) (*CategoryPage, error) {
+// It supports Country, Locale, Limit and Offset options.
+func (c *Client) GetCategories(ctx context.Context, opts ...RequestOption) (*CategoryPage, error) {
 	spotifyURL := c.baseURL + "browse/categories"
-	values := url.Values{}
-	if locale != "" {
-		values.Set("locale", locale)
-	}
-	if opt != nil {
-		if opt.Country != nil {
-			values.Set("country", *opt.Country)
-		}
-		if opt.Limit != nil {
-			values.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			values.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-	}
-	if query := values.Encode(); query != "" {
+	if query := processOptions(opts...).urlParams.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}
 

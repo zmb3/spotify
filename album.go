@@ -135,7 +135,7 @@ func toStringSlice(ids []ID) []string {
 //
 // Doc API: https://developer.spotify.com/documentation/web-api/reference/albums/get-several-albums/
 //
-// The Country opt is supported by this method
+// The Market opt is supported by this method
 func (c *Client) GetAlbums(ctx context.Context, ids []ID, opts ...RequestOption) ([]*FullAlbum, error) {
 	if len(ids) > 20 {
 		return nil, errors.New("spotify: exceeded maximum number of albums")
@@ -192,7 +192,7 @@ func (at AlbumType) encode() string {
 // If you only care about the tracks, this call is more efficient
 // than GetAlbum.
 //
-// The Country, Limit and Offset options can be used with this method.
+// The Market, Limit and Offset options can be used with this method.
 func (c *Client) GetAlbumTracks(ctx context.Context, id ID, opts ...RequestOption) (*SimpleTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%salbums/%s/tracks", c.baseURL, id)
 

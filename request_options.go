@@ -18,10 +18,30 @@ func Limit(amount int) RequestOption {
 	}
 }
 
-// Country enables track re-linking
-func Country(code string) RequestOption {
+// Market enables track re-linking
+func Market(code string) RequestOption {
 	return func(o *requestOptions) {
 		o.urlParams.Set("market", code)
+	}
+}
+
+// Country enables a specific region to be specified for region-specific suggestions e.g popular playlists
+// The Country option takes an ISO 3166-1 alpha-2 country code.  It can be
+// used to ensure that the category exists for a particular country.
+func Country(code string) RequestOption {
+	return func(o *requestOptions) {
+		o.urlParams.Set("country", code)
+	}
+}
+
+// Locale enables a specific language to be used when returning results.
+// The Locale argument is an ISO 639 language code and an ISO 3166-1 alpha-2
+// country code, separated by an underscore.  It can be used to get the
+// category strings in a particular language (for example: "es_MX" means
+// get categories in Mexico, returned in Spanish).
+func Locale(code string) RequestOption {
+	return func(o *requestOptions) {
+		o.urlParams.Set("locale", code)
 	}
 }
 

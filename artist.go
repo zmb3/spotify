@@ -3,8 +3,6 @@ package spotify
 import (
 	"context"
 	"fmt"
-	"net/url"
-	"strconv"
 	"strings"
 )
 
@@ -105,20 +103,15 @@ func (c *Client) GetRelatedArtists(ctx context.Context, id ID) ([]FullArtist, er
 
 // GetArtistAlbums gets Spotify catalog information about an artist's albums.
 // It is equivalent to GetArtistAlbumsOpt(artistID, nil).
-func (c *Client) GetArtistAlbums(ctx context.Context, artistID ID) (*SimpleAlbumPage, error) {
-	return c.GetArtistAlbumsOpt(ctx, artistID, nil)
-}
-
-// GetArtistAlbumsOpt is just like GetArtistAlbums, but it accepts optional
-// parameters used to filter and sort the result.
 //
 // The AlbumType argument can be used to find a particular types of album.
-// If the market (Options.Country) is not specified, Spotify will likely return a lot
+// If the Market is not specified, Spotify will likely return a lot
 // of duplicates (one for each market in which the album is available)
-func (c *Client) GetArtistAlbumsOpt(ctx context.Context, artistID ID, options *Options, ts ...AlbumType) (*SimpleAlbumPage, error) {
+func (c *Client) GetArtistAlbums(ctx context.Context, artistID ID, ts []AlbumType, opts ...RequestOption) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified
-	values := url.Values{}
+	values := processOptions(opts...).urlParams
+
 	if ts != nil {
 		types := make([]string, len(ts))
 		for i := range ts {
@@ -126,17 +119,7 @@ func (c *Client) GetArtistAlbumsOpt(ctx context.Context, artistID ID, options *O
 		}
 		values.Set("include_groups", strings.Join(types, ","))
 	}
-	if options != nil {
-		if options.Country != nil {
-			values.Set("market", *options.Country)
-		}
-		if options.Limit != nil {
-			values.Set("limit", strconv.Itoa(*options.Limit))
-		}
-		if options.Offset != nil {
-			values.Set("offset", strconv.Itoa(*options.Offset))
-		}
-	}
+
 	if query := values.Encode(); query != "" {
 		spotifyURL += "?" + query
 	}

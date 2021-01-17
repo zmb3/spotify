@@ -140,12 +140,7 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 	client, server := testClientString(http.StatusOK, albumsResponse)
 	defer server.Close()
 
-	l := 2
-
-	options := Options{}
-	options.Limit = &l
-
-	albums, err := client.GetArtistAlbumsOpt(context.Background(), ID("1vCWHaC5f2uS3yhpwWbIA6"), &options, AlbumTypeSingle)
+	albums, err := client.GetArtistAlbums(context.Background(), "1vCWHaC5f2uS3yhpwWbIA6", []AlbumType{AlbumTypeSingle}, Limit(2))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -154,7 +149,7 @@ func TestArtistAlbumsFiltered(t *testing.T) {
 	}
 	// since we didn't specify a country, we got duplicate albums
 	// (the album has a different ID in different regions)
-	if l = len(albums.Albums); l != 2 {
+	if l := len(albums.Albums); l != 2 {
 		t.Fatalf("Expected 2 albums, got %d\n", l)
 	}
 	if albums.Albums[0].Name != "The Days / Nights" {

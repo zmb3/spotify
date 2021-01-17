@@ -144,24 +144,13 @@ func (c *Client) PlayerDevices(ctx context.Context) ([]PlayerDevice, error) {
 }
 
 // PlayerState gets information about the playing state for the current user
-//
 // Requires the ScopeUserReadPlaybackState scope in order to read information
-func (c *Client) PlayerState(ctx context.Context) (*PlayerState, error) {
-	return c.PlayerStateOpt(ctx, nil)
-}
-
-// PlayerStateOpt is like PlayerState, but it accepts additional
-// options for sorting and filtering the results.
-func (c *Client) PlayerStateOpt(ctx context.Context, opt *Options) (*PlayerState, error) {
+//
+// It supports the Market request option,
+func (c *Client) PlayerState(ctx context.Context, opts ...RequestOption) (*PlayerState, error) {
 	spotifyURL := c.baseURL + "me/player"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result PlayerState
@@ -179,22 +168,13 @@ func (c *Client) PlayerStateOpt(ctx context.Context, opt *Options) (*PlayerState
 //
 // Requires the ScopeUserReadCurrentlyPlaying scope or the ScopeUserReadPlaybackState
 // scope in order to read information
-func (c *Client) PlayerCurrentlyPlaying(ctx context.Context) (*CurrentlyPlaying, error) {
-	return c.PlayerCurrentlyPlayingOpt(ctx, nil)
-}
-
-// PlayerCurrentlyPlayingOpt is like PlayerCurrentlyPlaying, but it accepts
-// additional options for sorting and filtering the results.
-func (c *Client) PlayerCurrentlyPlayingOpt(ctx context.Context, opt *Options) (*CurrentlyPlaying, error) {
+//
+// It supports the Market request option,
+func (c *Client) PlayerCurrentlyPlaying(ctx context.Context, opts ...RequestOption) (*CurrentlyPlaying, error) {
 	spotifyURL := c.baseURL + "me/player/currently-playing"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", spotifyURL, nil)
