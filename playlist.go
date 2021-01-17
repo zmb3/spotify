@@ -661,8 +661,8 @@ func (c *Client) SetPlaylistImage(ctx context.Context, playlistID ID, img io.Rea
 	go func() {
 		enc := base64.NewEncoder(base64.StdEncoding, w)
 		_, err := io.Copy(enc, img)
-		enc.Close()
-		w.CloseWithError(err)
+		_ = enc.Close()
+		_ = w.CloseWithError(err)
 	}()
 
 	req, err := http.NewRequestWithContext(ctx, "PUT", spotifyURL, r)
