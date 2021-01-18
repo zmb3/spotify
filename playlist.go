@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 )
@@ -57,49 +56,12 @@ type FullPlaylist struct {
 	Tracks    PlaylistTrackPage `json:"tracks"`
 }
 
-// PlaylistOptions contains optional parameters that can be used when querying
-// for featured playlists.  Only the non-nil fields are used in the request.
-type PlaylistOptions struct {
-	Options
-	// The desired language, consisting of a lowercase IO 639
-	// language code and an uppercase ISO 3166-1 alpha-2
-	// country code, joined by an underscore.  Provide this
-	// parameter if you want the results returned in a particular
-	// language.  If not specified, the result will be returned
-	// in the Spotify default language (American English).
-	Locale *string
-	// A timestamp in ISO 8601 format (yyyy-MM-ddTHH:mm:ss).
-	// use this parameter to specify the user's local time to
-	// get results tailored for that specific date and time
-	// in the day.  If not provided, the response defaults to
-	// the current UTC time.
-	Timestamp *string
-}
-
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
-// It accepts a number of optional parameters via the opt argument.
-func (c *Client) FeaturedPlaylistsOpt(ctx context.Context, opt *PlaylistOptions) (message string, playlists *SimplePlaylistPage, e error) {
+// It accepts Locale, Country, Timestamp, Limit and Offset options
+func (c *Client) FeaturedPlaylists(ctx context.Context, opts ...RequestOption) (message string, playlists *SimplePlaylistPage, e error) {
 	spotifyURL := c.baseURL + "browse/featured-playlists"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Locale != nil {
-			v.Set("locale", *opt.Locale)
-		}
-		if opt.Country != nil {
-			v.Set("country", *opt.Country)
-		}
-		if opt.Timestamp != nil {
-			v.Set("timestamp", *opt.Timestamp)
-		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result struct {
@@ -113,12 +75,6 @@ func (c *Client) FeaturedPlaylistsOpt(ctx context.Context, opt *PlaylistOptions)
 	}
 
 	return result.Message, &result.Playlists, nil
-}
-
-// FeaturedPlaylists gets a list of playlists featured by Spotify.
-// It is equivalent to c.FeaturedPlaylistsOpt(nil).
-func (c *Client) FeaturedPlaylists(ctx context.Context) (message string, playlists *SimplePlaylistPage, e error) {
-	return c.FeaturedPlaylistsOpt(ctx, nil)
 }
 
 // FollowPlaylist adds the current user as a follower of the specified
@@ -174,25 +130,12 @@ func buildFollowURI(url string, owner, playlist ID) string {
 // return collaborative playlists, even though they are always private.  In
 // order to read collaborative playlists, the user must have granted the
 // ScopePlaylistReadCollaborative scope.
-func (c *Client) GetPlaylistsForUser(ctx context.Context, userID string) (*SimplePlaylistPage, error) {
-	return c.GetPlaylistsForUserOpt(ctx, userID, nil)
-}
-
-// GetPlaylistsForUserOpt is like PlaylistsForUser, but it accepts optional parameters
-// for filtering the results.
-func (c *Client) GetPlaylistsForUserOpt(ctx context.Context, userID string, opt *Options) (*SimplePlaylistPage, error) {
+//
+// It supports Limit and Offset options
+func (c *Client) GetPlaylistsForUser(ctx context.Context, userID string, opts ...RequestOption) (*SimplePlaylistPage, error) {
 	spotifyURL := c.baseURL + "users/" + userID + "/playlists"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result SimplePlaylistPage
@@ -205,33 +148,12 @@ func (c *Client) GetPlaylistsForUserOpt(ctx context.Context, userID string, opt 
 	return &result, err
 }
 
-// GetPlaylist gets a playlist
-func (c *Client) GetPlaylist(ctx context.Context, playlistID ID) (*FullPlaylist, error) {
-	return c.GetPlaylistOpt(ctx, playlistID, "")
-}
-
-// GetPlaylistOpt is like GetPlaylist, but it accepts an optional fields parameter
-// that can be used to filter the query.
-//
-// fields is a comma-separated list of the fields to return.
-// See the JSON tags on the FullPlaylist struct for valid field options.
-// For example, to get just the playlist's description and URI:
-//    fields = "description,uri"
-//
-// A dot separator can be used to specify non-reoccurring fields, while
-// parentheses can be used to specify reoccurring fields within objects.
-// For example, to get just the added date and the user ID of the adder:
-//    fields = "tracks.items(added_at,added_by.id)"
-//
-// Use multiple parentheses to drill down into nested objects, for example:
-//    fields = "tracks.items(track(name,href,album(name,href)))"
-//
-// Fields can be excluded by prefixing them with an exclamation mark, for example;
-//    fields = "tracks.items(track(name,href,album(!name,href)))"
-func (c *Client) GetPlaylistOpt(ctx context.Context, playlistID ID, fields string) (*FullPlaylist, error) {
+// GetPlaylist fetches a playlist from spotify.
+// It accepts the Fields option
+func (c *Client) GetPlaylist(ctx context.Context, playlistID ID, opts ...RequestOption) (*FullPlaylist, error) {
 	spotifyURL := fmt.Sprintf("%splaylists/%s", c.baseURL, playlistID)
-	if fields != "" {
-		spotifyURL += "?fields=" + url.QueryEscape(fields)
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var playlist FullPlaylist
@@ -246,51 +168,15 @@ func (c *Client) GetPlaylistOpt(ctx context.Context, playlistID ID, fields strin
 
 // GetPlaylistTracks gets full details of the tracks in a playlist, given the
 // playlist's Spotify ID.
-func (c *Client) GetPlaylistTracks(ctx context.Context, playlistID ID) (*PlaylistTrackPage, error) {
-	return c.GetPlaylistTracksOpt(ctx, playlistID, nil, "")
-}
-
-// GetPlaylistTracksOpt is like GetPlaylistTracks, but it accepts optional parameters
-// for sorting and filtering the results.
 //
-// The field parameter is a comma-separated list of the fields to return.  See the
-// JSON struct tags for the PlaylistTrackPage type for valid field names.
-// For example, to get just the total number of tracks and the request limit:
-//     fields = "total,limit"
-//
-// A dot separator can be used to specify non-reoccurring fields, while parentheses
-// can be used to specify reoccurring fields within objects.  For example, to get
-// just the added date and user ID of the adder:
-//     fields = "items(added_at,added_by.id
-//
-// Use multiple parentheses to drill down into nested objects.  For example:
-//     fields = "items(track(name,href,album(name,href)))"
-//
-// Fields can be excluded by prefixing them with an exclamation mark.  For example:
-//     fields = "items.track.album(!external_urls,images)"
-func (c *Client) GetPlaylistTracksOpt(
+// It accepts Limit, Offset, Market and Fields options.
+func (c *Client) GetPlaylistTracks(
 	ctx context.Context,
 	playlistID ID,
-	opt *Options,
-	fields string) (*PlaylistTrackPage, error) {
-
+	opts ...RequestOption,
+) (*PlaylistTrackPage, error) {
 	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
-	v := url.Values{}
-	if fields != "" {
-		v.Set("fields", fields)
-	}
-	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-	}
-	if params := v.Encode(); params != "" {
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
 
@@ -416,7 +302,6 @@ func (c *Client) modifyPlaylist(ctx context.Context, playlistID ID, newName, new
 // can be used to identify this version (the new version) of the playlist in
 // future requests.
 func (c *Client) AddTracksToPlaylist(ctx context.Context, playlistID ID, trackIDs ...ID) (snapshotID string, err error) {
-
 	uris := make([]string, len(trackIDs))
 	for i, id := range trackIDs {
 		uris[i] = fmt.Sprintf("spotify:track:%s", id)
