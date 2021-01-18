@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/url"
 	"strings"
 	"time"
 )
@@ -115,25 +114,17 @@ func (t *SimpleTrack) TimeDuration() time.Duration {
 
 // GetTrack gets Spotify catalog information for
 // a single track identified by its unique Spotify ID.
+//
 // API Doc: https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
-func (c *Client) GetTrack(ctx context.Context, id ID) (*FullTrack, error) {
-	return c.GetTrackOpt(ctx, id, nil)
-}
-
-// GetTrackOpt is like GetTrack but it accepts additional arguments
-func (c *Client) GetTrackOpt(ctx context.Context, id ID, opt *Options) (*FullTrack, error) {
+//
+// Supported options: Market
+func (c *Client) GetTrack(ctx context.Context, id ID, opts ...RequestOption) (*FullTrack, error) {
 	spotifyURL := c.baseURL + "tracks/" + string(id)
 
 	var t FullTrack
 
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	err := c.get(ctx, spotifyURL, &t)
@@ -149,22 +140,17 @@ func (c *Client) GetTrackOpt(ctx context.Context, id ID, opt *Options) (*FullTra
 // returned in the order requested.  If a track is not found, that position in the
 // result will be nil.  Duplicate ids in the query will result in duplicate
 // tracks in the result.
+//
 // API Doc: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/
-func (c *Client) GetTracks(ctx context.Context, ids ...ID) ([]*FullTrack, error) {
-	return c.GetTracksOpt(ctx, nil, ids...)
-}
-
-// GetTracksOpt is like GetTracks but it accepts an additional country option for track relinking
-func (c *Client) GetTracksOpt(ctx context.Context, opt *Options, ids ...ID) ([]*FullTrack, error) {
+//
+// Supported options: Market
+func (c *Client) GetTracks(ctx context.Context, ids []ID, opts ...RequestOption) ([]*FullTrack, error) {
 	if len(ids) > 50 {
 		return nil, errors.New("spotify: FindTracks supports up to 50 tracks")
 	}
 
-	params := url.Values{}
+	params := processOptions(opts...).urlParams
 	params.Set("ids", strings.Join(toStringSlice(ids), ","))
-	if opt != nil && opt.Country != nil {
-		params.Set("market", *opt.Country)
-	}
 	spotifyURL := c.baseURL + "tracks?" + params.Encode()
 
 	var t struct {

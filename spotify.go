@@ -11,7 +11,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"strconv"
 	"time"
 )
@@ -258,44 +257,12 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 	return nil
 }
 
-// Options contains optional parameters that can be provided
-// to various API calls.  Only the non-nil fields are used
-// in queries.
-type Options struct {
-	// Country is an ISO 3166-1 alpha-2 country code.  Provide
-	// this parameter if you want the list of returned items to
-	// be relevant to a particular country.  If omitted, the
-	// results will be relevant to all countries.
-	Country *string
-	// Limit is the maximum number of items to return.
-	Limit *int
-	// Offset is the index of the first item to return.  Use it
-	// with Limit to get the next set of items.
-	Offset *int
-	// Timerange is the period of time from which to return results
-	// in certain API calls. The three options are the following string
-	// literals: "short", "medium", and "long"
-	Timerange *string
-}
-
-// NewReleasesOpt is like NewReleases, but it accepts optional parameters
-// for filtering the results.
-func (c *Client) NewReleasesOpt(ctx context.Context, opt *Options) (albums *SimpleAlbumPage, err error) {
+// NewReleases gets a list of new album releases featured in Spotify.
+// Supported options: Country, Limit, Offset
+func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums *SimpleAlbumPage, err error) {
 	spotifyURL := c.baseURL + "browse/new-releases"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("country", *opt.Country)
-		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var objmap map[string]*json.RawMessage
@@ -311,10 +278,4 @@ func (c *Client) NewReleasesOpt(ctx context.Context, opt *Options) (albums *Simp
 	}
 
 	return &result, nil
-}
-
-// NewReleases gets a list of new album releases featured in Spotify.
-// This call requires bearer authorization.
-func (c *Client) NewReleases(ctx context.Context) (albums *SimpleAlbumPage, err error) {
-	return c.NewReleasesOpt(ctx, nil)
 }

@@ -73,8 +73,10 @@ func setTrackAttributesValues(trackAttributes *TrackAttributes, values url.Value
 // about the provided seeds, a list of tracks will be returned together with pool size details.
 // For artists and tracks that are very new or obscure
 // there might not be enough data to generate a list of tracks.
-func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttributes *TrackAttributes, opt *Options) (*Recommendations, error) {
-	v := url.Values{}
+//
+// Supports Limit and Country options.
+func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttributes *TrackAttributes, opts ...RequestOption) (*Recommendations, error) {
+	v := processOptions(opts...).urlParams
 
 	if seeds.count() == 0 {
 		return nil, fmt.Errorf("spotify: at least one seed is required")
@@ -85,15 +87,6 @@ func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttri
 
 	setSeedValues(seeds, v)
 	setTrackAttributesValues(trackAttributes, v)
-
-	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-	}
 
 	spotifyURL := c.baseURL + "recommendations?" + v.Encode()
 

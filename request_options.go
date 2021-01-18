@@ -63,6 +63,13 @@ func Timestamp(ts string) RequestOption {
 	}
 }
 
+// After is the last ID retrieved from the previous request. This allows pagination.
+func After(after string) RequestOption {
+	return func(o *requestOptions) {
+		o.urlParams.Set("after", after)
+	}
+}
+
 // Fields is a comma-separated list of the fields to return.
 // See the JSON tags on the FullPlaylist struct for valid field options.
 // For example, to get just the playlist's description and URI:

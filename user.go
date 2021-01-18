@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
@@ -95,26 +94,14 @@ func (c *Client) CurrentUser(ctx context.Context) (*PrivateUser, error) {
 
 // CurrentUsersShows gets a list of shows saved in the current
 // Spotify user's "Your Music" library.
-func (c *Client) CurrentUsersShows(ctx context.Context) (*SavedShowPage, error) {
-	return c.CurrentUsersShowsOpt(ctx, nil)
-}
-
-// CurrentUsersShowsOpt is like CurrentUsersShows, but it accepts additional
-// options for sorting and filtering the results.
+//
 // API Doc: https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-shows
-func (c *Client) CurrentUsersShowsOpt(ctx context.Context, opt *Options) (*SavedShowPage, error) {
+//
+// Supported options: Limit, Offset
+func (c *Client) CurrentUsersShows(ctx context.Context, opts ...RequestOption) (*SavedShowPage, error) {
 	spotifyURL := c.baseURL + "me/shows"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result SavedShowPage
@@ -129,29 +116,14 @@ func (c *Client) CurrentUsersShowsOpt(ctx context.Context, opt *Options) (*Saved
 
 // CurrentUsersTracks gets a list of songs saved in the current
 // Spotify user's "Your Music" library.
-func (c *Client) CurrentUsersTracks(ctx context.Context) (*SavedTrackPage, error) {
-	return c.CurrentUsersTracksOpt(ctx, nil)
-}
-
-// CurrentUsersTracksOpt is like CurrentUsersTracks, but it accepts additional
-// options for track relinking, sorting and filtering the results.
+//
 // API Doc: https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks
-func (c *Client) CurrentUsersTracksOpt(ctx context.Context, opt *Options) (*SavedTrackPage, error) {
+//
+// Supported options: Limit, Country, Offset
+func (c *Client) CurrentUsersTracks(ctx context.Context, opts ...RequestOption) (*SavedTrackPage, error) {
 	spotifyURL := c.baseURL + "me/tracks"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result SavedTrackPage
@@ -254,26 +226,11 @@ func (c *Client) modifyFollowers(ctx context.Context, usertype string, follow bo
 
 // CurrentUsersFollowedArtists gets the current user's followed artists.
 // This call requires that the user has granted the ScopeUserFollowRead scope.
-func (c *Client) CurrentUsersFollowedArtists(ctx context.Context) (*FullArtistCursorPage, error) {
-	return c.CurrentUsersFollowedArtistsOpt(ctx, -1, "")
-}
-
-// CurrentUsersFollowedArtistsOpt is like CurrentUsersFollowedArtists,
-// but it accept the optional arguments limit and after.  Limit is the
-// maximum number of items to return (1 <= limit <= 50), and after is
-// the last artist ID retrieved from the previous request.  If you don't
-// wish to specify either of the parameters, use -1 for limit and the empty
-// string for after.
-func (c *Client) CurrentUsersFollowedArtistsOpt(ctx context.Context, limit int, after string) (*FullArtistCursorPage, error) {
+// Supported options: Limit, After
+func (c *Client) CurrentUsersFollowedArtists(ctx context.Context, opts ...RequestOption) (*FullArtistCursorPage, error) {
 	spotifyURL := c.baseURL + "me/following"
-	v := url.Values{}
+	v := processOptions(opts...).urlParams
 	v.Set("type", "artist")
-	if limit != -1 {
-		v.Set("limit", strconv.Itoa(limit))
-	}
-	if after != "" {
-		v.Set("after", after)
-	}
 	if params := v.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}
@@ -292,28 +249,12 @@ func (c *Client) CurrentUsersFollowedArtistsOpt(ctx context.Context, limit int, 
 
 // CurrentUsersAlbums gets a list of albums saved in the current
 // Spotify user's "Your Music" library.
-func (c *Client) CurrentUsersAlbums(ctx context.Context) (*SavedAlbumPage, error) {
-	return c.CurrentUsersAlbumsOpt(ctx, nil)
-}
-
-// CurrentUsersAlbumsOpt is like CurrentUsersAlbums, but it accepts additional
-// options for sorting and filtering the results.
-func (c *Client) CurrentUsersAlbumsOpt(ctx context.Context, opt *Options) (*SavedAlbumPage, error) {
+//
+// Supported options: Market, Limit, Offset
+func (c *Client) CurrentUsersAlbums(ctx context.Context, opts ...RequestOption) (*SavedAlbumPage, error) {
 	spotifyURL := c.baseURL + "me/albums"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result SavedAlbumPage
@@ -333,25 +274,12 @@ func (c *Client) CurrentUsersAlbumsOpt(ctx context.Context, opt *Options) (*Save
 // this scope alone will not return collaborative playlists, even though
 // they are always private.  In order to retrieve collaborative playlists
 // the user must authorize the ScopePlaylistReadCollaborative scope.
-func (c *Client) CurrentUsersPlaylists(ctx context.Context) (*SimplePlaylistPage, error) {
-	return c.CurrentUsersPlaylistsOpt(ctx, nil)
-}
-
-// CurrentUsersPlaylistsOpt is like CurrentUsersPlaylists, but it accepts
-// additional options for sorting and filtering the results.
-func (c *Client) CurrentUsersPlaylistsOpt(ctx context.Context, opt *Options) (*SimplePlaylistPage, error) {
+//
+// Supported options: Limit, Offset
+func (c *Client) CurrentUsersPlaylists(ctx context.Context, opts ...RequestOption) (*SimplePlaylistPage, error) {
 	spotifyURL := c.baseURL + "me/playlists"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result SimplePlaylistPage
@@ -364,22 +292,14 @@ func (c *Client) CurrentUsersPlaylistsOpt(ctx context.Context, opt *Options) (*S
 	return &result, nil
 }
 
-// CurrentUsersTopArtistsOpt gets a list of the top played artists in a given time
-// range of the current Spotify user. It supports up to 50 artists in a single
-// call. This call requires ScopeUserTopRead.
-func (c *Client) CurrentUsersTopArtistsOpt(ctx context.Context, opt *Options) (*FullArtistPage, error) {
+// CurrentUsersTopArtists fetches a list of the user's top artists over the specified Timerange.
+// The default is medium term.
+//
+// Supported options: Limit, Timerange
+func (c *Client) CurrentUsersTopArtists(ctx context.Context, opts ...RequestOption) (*FullArtistPage, error) {
 	spotifyURL := c.baseURL + "me/top/artists"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Timerange != nil {
-			v.Set("time_range", *opt.Timerange+"_term")
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result FullArtistPage
@@ -392,32 +312,15 @@ func (c *Client) CurrentUsersTopArtistsOpt(ctx context.Context, opt *Options) (*
 	return &result, nil
 }
 
-// CurrentUsersTopArtists is like CurrentUsersTopArtistsOpt but with
+// CurrentUsersTopTracks fetches the user's top tracks over the specified Timerange
 // sensible defaults. The default limit is 20 and the default timerange
-// is medium_term.
-func (c *Client) CurrentUsersTopArtists(ctx context.Context) (*FullArtistPage, error) {
-	return c.CurrentUsersTopArtistsOpt(ctx, nil)
-}
-
-// CurrentUsersTopTracksOpt gets a list of the top played tracks in a given time
-// range of the current Spotify user. It supports up to 50 tracks in a single
-// call. This call requires ScopeUserTopRead.
-func (c *Client) CurrentUsersTopTracksOpt(ctx context.Context, opt *Options) (*FullTrackPage, error) {
+// is medium_term. This call requires ScopeUserTopRead.
+//
+// Supported options: Limit, Timerange, Offset
+func (c *Client) CurrentUsersTopTracks(ctx context.Context, opts ...RequestOption) (*FullTrackPage, error) {
 	spotifyURL := c.baseURL + "me/top/tracks"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Timerange != nil {
-			v.Set("time_range", *opt.Timerange+"_term")
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var result FullTrackPage
@@ -428,11 +331,4 @@ func (c *Client) CurrentUsersTopTracksOpt(ctx context.Context, opt *Options) (*F
 	}
 
 	return &result, nil
-}
-
-// CurrentUsersTopTracks is like CurrentUsersTopTracksOpt but with
-// sensible defaults. The default limit is 20 and the default timerange
-// is medium_term.
-func (c *Client) CurrentUsersTopTracks(ctx context.Context) (*FullTrackPage, error) {
-	return c.CurrentUsersTopTracksOpt(ctx, nil)
 }

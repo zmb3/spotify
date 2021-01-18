@@ -2,8 +2,6 @@ package spotify
 
 import (
 	"context"
-	"net/url"
-	"strconv"
 	"strings"
 )
 
@@ -102,35 +100,19 @@ type SearchResult struct {
 //
 // Other possible field filters, depending on object types being searched,
 // include "genre", "upc", and "isrc".  For example "damian genre:reggae-pop".
-func (c *Client) Search(ctx context.Context, query string, t SearchType) (*SearchResult, error) {
-	return c.SearchOpt(ctx, query, t, nil)
-}
-
-// SearchOpt works just like Search, but it accepts additional
-// parameters for filtering the output.  See the documentation for Search more
-// more information.
 //
-// If the Country field is specified in the options, then the results will only
+// If the Market field is specified in the options, then the results will only
 // contain artists, albums, and tracks playable in the specified country
-// (playlist results are not affected by the Country option).  Additionally,
+// (playlist results are not affected by the Market option).  Additionally,
 // the constant MarketFromToken can be used with authenticated clients.
 // If the client has a valid access token, then the results will only include
 // content playable in the user's country.
-func (c *Client) SearchOpt(ctx context.Context, query string, t SearchType, opt *Options) (*SearchResult, error) {
-	v := url.Values{}
+//
+// Limit, Market and Offset request options are supported
+func (c *Client) Search(ctx context.Context, query string, t SearchType, opts ...RequestOption) (*SearchResult, error) {
+	v := processOptions(opts...).urlParams
 	v.Set("q", query)
 	v.Set("type", t.encode())
-	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-	}
 
 	spotifyURL := c.baseURL + "search?" + v.Encode()
 
