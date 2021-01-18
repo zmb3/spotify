@@ -146,7 +146,7 @@ func (c *Client) PlayerDevices(ctx context.Context) ([]PlayerDevice, error) {
 // PlayerState gets information about the playing state for the current user
 // Requires the ScopeUserReadPlaybackState scope in order to read information
 //
-// It supports the Market request option,
+// Supported options: Market
 func (c *Client) PlayerState(ctx context.Context, opts ...RequestOption) (*PlayerState, error) {
 	spotifyURL := c.baseURL + "me/player"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -169,7 +169,7 @@ func (c *Client) PlayerState(ctx context.Context, opts ...RequestOption) (*Playe
 // Requires the ScopeUserReadCurrentlyPlaying scope or the ScopeUserReadPlaybackState
 // scope in order to read information
 //
-// It supports the Market request option,
+// Supported options: Market
 func (c *Client) PlayerCurrentlyPlaying(ctx context.Context, opts ...RequestOption) (*CurrentlyPlaying, error) {
 	spotifyURL := c.baseURL + "me/player/currently-playing"
 

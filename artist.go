@@ -106,7 +106,9 @@ func (c *Client) GetRelatedArtists(ctx context.Context, id ID) ([]FullArtist, er
 //
 // The AlbumType argument can be used to find a particular types of album.
 // If the Market is not specified, Spotify will likely return a lot
-// of duplicates (one for each market in which the album is available)
+// of duplicates (one for each market in which the album is available
+//
+// Supported options: Market
 func (c *Client) GetArtistAlbums(ctx context.Context, artistID ID, ts []AlbumType, opts ...RequestOption) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified

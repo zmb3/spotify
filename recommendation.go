@@ -74,7 +74,7 @@ func setTrackAttributesValues(trackAttributes *TrackAttributes, values url.Value
 // For artists and tracks that are very new or obscure
 // there might not be enough data to generate a list of tracks.
 //
-// Supports Limit and Country options.
+// Supported options: Limit, Country
 func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttributes *TrackAttributes, opts ...RequestOption) (*Recommendations, error) {
 	v := processOptions(opts...).urlParams
 

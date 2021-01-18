@@ -57,7 +57,7 @@ type FullPlaylist struct {
 }
 
 // FeaturedPlaylistsOpt gets a list of playlists featured by Spotify.
-// It accepts Locale, Country, Timestamp, Limit and Offset options
+// Supported options: Locale, Country, Timestamp, Limit, Offset
 func (c *Client) FeaturedPlaylists(ctx context.Context, opts ...RequestOption) (message string, playlists *SimplePlaylistPage, e error) {
 	spotifyURL := c.baseURL + "browse/featured-playlists"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -131,7 +131,7 @@ func buildFollowURI(url string, owner, playlist ID) string {
 // order to read collaborative playlists, the user must have granted the
 // ScopePlaylistReadCollaborative scope.
 //
-// It supports Limit and Offset options
+// Supported options: Limit, Offset
 func (c *Client) GetPlaylistsForUser(ctx context.Context, userID string, opts ...RequestOption) (*SimplePlaylistPage, error) {
 	spotifyURL := c.baseURL + "users/" + userID + "/playlists"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -149,7 +149,7 @@ func (c *Client) GetPlaylistsForUser(ctx context.Context, userID string, opts ..
 }
 
 // GetPlaylist fetches a playlist from spotify.
-// It accepts the Fields option
+// Supported options: Fields
 func (c *Client) GetPlaylist(ctx context.Context, playlistID ID, opts ...RequestOption) (*FullPlaylist, error) {
 	spotifyURL := fmt.Sprintf("%splaylists/%s", c.baseURL, playlistID)
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -169,7 +169,7 @@ func (c *Client) GetPlaylist(ctx context.Context, playlistID ID, opts ...Request
 // GetPlaylistTracks gets full details of the tracks in a playlist, given the
 // playlist's Spotify ID.
 //
-// It accepts Limit, Offset, Market and Fields options.
+// Supported options: Limit, Offset, Market, Fields
 func (c *Client) GetPlaylistTracks(
 	ctx context.Context,
 	playlistID ID,
