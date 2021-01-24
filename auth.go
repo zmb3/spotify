@@ -184,6 +184,12 @@ func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
 	return a.config.Exchange(a.context, code)
 }
 
+// ExchangeWithOpts performs the same function as the Exchange function
+// but takes in optional URL Auth params
+func (a Authenticator) ExchangeWithOpts(code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
+	return a.config.Exchange(a.context, code, opts...)
+}
+
 // NewClient creates a Client that will use the specified access token for its API requests.
 func (a Authenticator) NewClient(token *oauth2.Token) Client {
 	client := a.config.Client(a.context, token)
