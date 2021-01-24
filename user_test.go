@@ -369,7 +369,7 @@ func TestCurrentUsersFollowedArtistsOpt(t *testing.T) {
 	})
 	defer server.Close()
 
-	_, err := client.CurrentUsersFollowedArtistsOpt(context.Background(), 50, "0aV6DOiouImYTqrR5YlIqx")
+	_, err := client.CurrentUsersFollowedArtists(context.Background(), Limit(50), After("0aV6DOiouImYTqrR5YlIqx"))
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}

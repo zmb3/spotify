@@ -18,11 +18,7 @@ func TestGetRecommendations(t *testing.T) {
 	}
 	country := "ES"
 	limit := 10
-	opts := Options{
-		Country: &country,
-		Limit:   &limit,
-	}
-	recommendations, err := client.GetRecommendations(context.Background(), seeds, nil, &opts)
+	recommendations, err := client.GetRecommendations(context.Background(), seeds, nil, Country(country), Limit(limit))
 	if err != nil {
 		t.Fatal(err)
 	}

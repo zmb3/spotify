@@ -17,10 +17,8 @@ func TestFeaturedPlaylists(t *testing.T) {
 	defer server.Close()
 
 	country := "SE"
-	opt := PlaylistOptions{}
-	opt.Country = &country
 
-	msg, p, err := client.FeaturedPlaylistsOpt(context.Background(), &opt)
+	msg, p, err := client.FeaturedPlaylists(context.Background(), Country(country))
 	if err != nil {
 		t.Error(err)
 		return
@@ -85,7 +83,7 @@ func TestGetPlaylistOpt(t *testing.T) {
 	defer server.Close()
 
 	fields := "href,name,owner(!href,external_urls),tracks.items(added_by.id,track(name,href,album(name,href)))"
-	p, err := client.GetPlaylistOpt(context.Background(), "59ZbFPES4DQwEjBpWHzrtC", fields)
+	p, err := client.GetPlaylist(context.Background(), "59ZbFPES4DQwEjBpWHzrtC", Fields(fields))
 	if err != nil {
 		t.Error(err)
 	}
