@@ -180,8 +180,8 @@ func (a Authenticator) TokenWithOpts(state string, r *http.Request, opts ...oaut
 
 // Exchange is like Token, except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
-func (a Authenticator) Exchange(code string) (*oauth2.Token, error) {
-	return a.config.Exchange(a.context, code)
+func (a Authenticator) Exchange(code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
+	return a.config.Exchange(a.context, code, opts...)
 }
 
 // NewClient creates a Client that will use the specified access token for its API requests.
