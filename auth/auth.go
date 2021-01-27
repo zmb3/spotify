@@ -1,4 +1,4 @@
-package spotify
+package spotifyauth
 
 import (
 	"context"
@@ -67,23 +67,23 @@ const (
 )
 
 // Authenticator provides convenience functions for implementing the OAuth2 flow.
-// You should always use `NewAuthenticator` to make them.
+// You should always use `New` to make them.
 //
 // Example:
 //
-//     a := spotify.NewAuthenticator(redirectURL, spotify.ScopeUserLibaryRead, spotify.ScopeUserFollowRead)
+//     a := spotifyauth.New(redirectURL, spotify.ScopeUserLibaryRead, spotify.ScopeUserFollowRead)
 //     // direct user to Spotify to log in
 //     http.Redirect(w, r, a.AuthURL("state-string"), http.StatusFound)
 //
 //     // then, in redirect handler:
 //     token, err := a.Token(state, r)
-//     client := a.NewClient(token)
+//     client := a.Client(token)
 //
 type Authenticator struct {
 	config *oauth2.Config
 }
 
-// NewAuthenticator creates an authenticator which is used to implement the
+// New creates an authenticator which is used to implement the
 // OAuth2 authorization flow.  The redirectURL must exactly match one of the
 // URLs specified in your Spotify developer account.
 //
@@ -91,7 +91,7 @@ type Authenticator struct {
 // SPOTIFY_ID and SPOTIFY_SECRET environment variables.  If you'd like to provide
 // them from some other source, you can call `SetAuthInfo(id, key)` on the
 // returned authenticator.
-func NewAuthenticator(redirectURL string, scopes ...string) Authenticator {
+func New(redirectURL string, scopes ...string) Authenticator {
 	cfg := &oauth2.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
@@ -126,47 +126,23 @@ func (a *Authenticator) SetAuthInfo(clientID, secretKey string) {
 	a.config.ClientSecret = secretKey
 }
 
+// ShowDialog forces the user to approve the app, even if they have already done so.
+// Without this, users who have already approved the app are immediately redirected to the redirect uri.
+var ShowDialog = oauth2.SetAuthURLParam("show_dialog", "true")
+
 // AuthURL returns a URL to the the Spotify Accounts Service's OAuth2 endpoint.
 //
 // State is a token to protect the user from CSRF attacks.  You should pass the
 // same state to `Token`, where it will be validated.  For more info, refer to
 // http://tools.ietf.org/html/rfc6749#section-10.12.
-func (a Authenticator) AuthURL(state string) string {
-	return a.config.AuthCodeURL(state)
-}
-
-// AuthURLWithDialog returns the same URL as AuthURL, but sets show_dialog to true
-func (a Authenticator) AuthURLWithDialog(state string) string {
-	return a.config.AuthCodeURL(state, oauth2.SetAuthURLParam("show_dialog", "true"))
-}
-
-// AuthURLWithOpts returns the bause AuthURL along with any extra URL Auth params
-func (a Authenticator) AuthURLWithOpts(state string, opts ...oauth2.AuthCodeOption) string {
+func (a Authenticator) AuthURL(state string, opts ...oauth2.AuthCodeOption) string {
 	return a.config.AuthCodeURL(state, opts...)
 }
 
 // Token pulls an authorization code from an HTTP request and attempts to exchange
 // it for an access token.  The standard use case is to call Token from the handler
 // that handles requests to your application's redirect URL.
-func (a Authenticator) Token(ctx context.Context, state string, r *http.Request) (*oauth2.Token, error) {
-	values := r.URL.Query()
-	if e := values.Get("error"); e != "" {
-		return nil, errors.New("spotify: auth failed - " + e)
-	}
-	code := values.Get("code")
-	if code == "" {
-		return nil, errors.New("spotify: didn't get access code")
-	}
-	actualState := values.Get("state")
-	if actualState != state {
-		return nil, errors.New("spotify: redirect state parameter doesn't match")
-	}
-	return a.config.Exchange(withHTTPClient(ctx), code)
-}
-
-// TokenWithOpts performs the same function as the Authenticator Token function
-// but takes in optional URL Auth params
-func (a Authenticator) TokenWithOpts(ctx context.Context, state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
+func (a Authenticator) Token(ctx context.Context, state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
 	values := r.URL.Query()
 	if e := values.Get("error"); e != "" {
 		return nil, errors.New("spotify: auth failed - " + e)
@@ -188,25 +164,8 @@ func (a Authenticator) Exchange(ctx context.Context, code string, opts ...oauth2
 	return a.config.Exchange(withHTTPClient(ctx), code, opts...)
 }
 
-// NewClient creates a Client that will use the specified access token for its API requests.
-func (a Authenticator) NewClient(ctx context.Context, token *oauth2.Token) Client {
-	client := a.config.Client(withHTTPClient(ctx), token)
-	return Client{
-		http:    client,
-		baseURL: baseAddress,
-	}
-}
-
-// Token gets the client's current token.
-func (c *Client) Token() (*oauth2.Token, error) {
-	transport, ok := c.http.Transport.(*oauth2.Transport)
-	if !ok {
-		return nil, errors.New("spotify: oauth2 transport type not correct")
-	}
-	t, err := transport.Source.Token()
-	if err != nil {
-		return nil, err
-	}
-
-	return t, nil
+// Client creates a *http.Client that will use the specified access token for its API requests.
+// Combine this with spotify.HTTPClientOpt.
+func (a Authenticator) Client(ctx context.Context, token *oauth2.Token) *http.Client {
+	return a.config.Client(withHTTPClient(ctx), token)
 }

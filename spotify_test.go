@@ -92,7 +92,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", AutoRetry: true}
+	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", autoRetry: true}
 	releases, err := client.NewReleases(context.Background())
 	if err != nil {
 		t.Fatal(err)

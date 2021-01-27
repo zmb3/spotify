@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"golang.org/x/oauth2"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -38,26 +39,56 @@ const (
 	rateLimitExceededStatusCode = 429
 )
 
-const baseAddress = "https://api.spotify.com/v1/"
-
 // Client is a client for working with the Spotify Web API.
-// It is created by `NewClient` and `Authenticator.NewClient`.
+// It is created by `New`
 type Client struct {
 	http    *http.Client
 	baseURL string
 
-	AutoRetry      bool
-	AcceptLanguage string
+	autoRetry      bool
+	acceptLanguage string
 }
 
-// NewClient returns a client for working with the Spotify Web API.
-// The provided HTTP client must include the user's access token in each request;
-// if you do not have such a client, use the `Authenticator.NewClient` method instead.
-func NewClient(client *http.Client) Client {
-	return Client{
-		http:    client,
-		baseURL: baseAddress,
+type ClientOption func(client *Client)
+
+func HTTPClientOpt(c *http.Client) ClientOption {
+	return func(client *Client) {
+		client.http = c
 	}
+}
+
+func RetryOpt(shouldRetry bool) ClientOption {
+	return func(client *Client) {
+		client.autoRetry = shouldRetry
+	}
+}
+
+func BaseURLOpt(url string) ClientOption {
+	return func(client *Client) {
+		client.baseURL = url
+	}
+}
+
+func AcceptLanguageOpt(lang string) ClientOption {
+	return func(client *Client) {
+		client.acceptLanguage = lang
+	}
+}
+
+// New returns a client for working with the Spotify Web API.
+// You must provide some form of a HTTP client with HTTPClientOpt that attaches authorisation
+// to the requests. You may use the built-in auth client to generate one.
+func New(opts ...ClientOption) *Client {
+	c := &Client{
+		http:    http.DefaultClient,
+		baseURL: "https://api.spotify.com/v1/",
+	}
+
+	for _, opt := range opts {
+		opt(c)
+	}
+
+	return c
 }
 
 // URI identifies an artist, album, track, or category.  For example,
@@ -174,8 +205,8 @@ func isFailure(code int, validCodes []int) bool {
 // status codes that will be treated as success. Note that we allow all 200s
 // even if there are additional success codes that represent success.
 func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...int) error {
-	if c.AcceptLanguage != "" {
-		req.Header.Set("Accept-Language", c.AcceptLanguage)
+	if c.acceptLanguage != "" {
+		req.Header.Set("Accept-Language", c.acceptLanguage)
 	}
 	for {
 		resp, err := c.http.Do(req)
@@ -184,7 +215,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.AutoRetry && shouldRetry(resp.StatusCode) {
+		if c.autoRetry && shouldRetry(resp.StatusCode) {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
@@ -222,8 +253,8 @@ func retryDuration(resp *http.Response) time.Duration {
 func (c *Client) get(ctx context.Context, url string, result interface{}) error {
 	for {
 		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-		if c.AcceptLanguage != "" {
-			req.Header.Set("Accept-Language", c.AcceptLanguage)
+		if c.acceptLanguage != "" {
+			req.Header.Set("Accept-Language", c.acceptLanguage)
 		}
 		if err != nil {
 			return err
@@ -235,7 +266,7 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
@@ -278,4 +309,18 @@ func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums
 	}
 
 	return &result, nil
+}
+
+// Token gets the client's current token.
+func (c *Client) Token() (*oauth2.Token, error) {
+	transport, ok := c.http.Transport.(*oauth2.Transport)
+	if !ok {
+		return nil, errors.New("spotify: oauth2 transport type not correct")
+	}
+	t, err := transport.Source.Token()
+	if err != nil {
+		return nil, err
+	}
+
+	return t, nil
 }

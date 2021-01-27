@@ -9,6 +9,7 @@ package main
 import (
 	"context"
 	"fmt"
+	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"log"
 	"net/http"
 
@@ -23,7 +24,7 @@ import (
 const redirectURI = "http://localhost:8080/callback"
 
 var (
-	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	auth  = spotifyauth.New(redirectURI, spotifyauth.ScopeUserReadPrivate)
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 	// These should be randomly generated for each request
@@ -41,7 +42,7 @@ func main() {
 	})
 	go http.ListenAndServe(":8080", nil)
 
-	url := auth.AuthURLWithOpts(state,
+	url := auth.AuthURL(state,
 		oauth2.SetAuthURLParam("code_challenge_method", "S256"),
 		oauth2.SetAuthURLParam("code_challenge", codeChallenge),
 	)
@@ -59,7 +60,7 @@ func main() {
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.TokenWithOpts(r.Context(), state, r,
+	tok, err := auth.Token(r.Context(), state, r,
 		oauth2.SetAuthURLParam("code_verifier", codeVerifier))
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
@@ -70,7 +71,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client := auth.NewClient(r.Context(), tok)
+	client := spotify.New(spotify.HTTPClientOpt(auth.Client(r.Context(), tok)))
 	fmt.Fprintf(w, "Login Completed!")
-	ch <- &client
+	ch <- client
 }

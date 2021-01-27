@@ -10,6 +10,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/zmb3/spotify/v2/auth"
 	"log"
 	"net/http"
 
@@ -22,7 +23,7 @@ import (
 const redirectURI = "http://localhost:8080/callback"
 
 var (
-	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	auth  = spotifyauth.New(redirectURI, spotifyauth.ScopeUserReadPrivate)
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 )
@@ -66,7 +67,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// use the token to get an authenticated client
-	client := auth.NewClient(r.Context(), tok)
+	client := spotify.New(spotify.HTTPClientOpt(auth.Client(r.Context(), tok)))
 	fmt.Fprintf(w, "Login Completed!")
-	ch <- &client
+	ch <- client
 }
