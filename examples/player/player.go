@@ -10,6 +10,7 @@ package main
 import (
 	"context"
 	"fmt"
+	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"log"
 	"net/http"
 	"strings"
@@ -33,7 +34,7 @@ var html = `
 `
 
 var (
-	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadCurrentlyPlaying, spotify.ScopeUserReadPlaybackState, spotify.ScopeUserModifyPlaybackState)
+	auth  = spotifyauth.New(redirectURI, spotifyauth.ScopeUserReadCurrentlyPlaying, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState)
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 )
@@ -111,8 +112,8 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client := auth.NewClient(r.Context(), tok)
+	client := spotify.New(spotify.HTTPClientOpt(auth.Client(r.Context(), tok)))
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprintf(w, "Login Completed!"+html)
-	ch <- &client
+	ch <- client
 }
