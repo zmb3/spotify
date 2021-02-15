@@ -24,7 +24,7 @@ func main() {
 	httpClient := spotifyauth.New("").Client(ctx, token)
 	client := spotify.New(spotify.HTTPClientOpt(httpClient))
 
-	tracks, err := client.GetPlaylistTracks(ctx, "37i9dQZF1DWWzVPEmatsUB")
+	tracks, err := client.GetPlaylistTracks(ctx, "57qttz6pK881sjxj2TAEEo")
 	if err != nil {
 		log.Fatal(err)
 	}
