@@ -21,8 +21,7 @@ func main() {
 	}
 
 	client := spotify.Authenticator{}.NewClient(token)
-
-	tracks, err := client.GetPlaylistTracks("37i9dQZF1DWWzVPEmatsUB")
+	tracks, err := client.GetPlaylistTracks("57qttz6pK881sjxj2TAEEo")
 	if err != nil {
 		log.Fatal(err)
 	}
