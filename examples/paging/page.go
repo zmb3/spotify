@@ -2,12 +2,11 @@ package main
 
 import (
 	"context"
+	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
+	"golang.org/x/oauth2/clientcredentials"
 	"log"
 	"os"
-
-	"github.com/zmb3/spotify/v2"
-	"golang.org/x/oauth2/clientcredentials"
 )
 
 func main() {
