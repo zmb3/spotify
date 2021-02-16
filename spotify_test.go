@@ -31,7 +31,7 @@ func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*C
 // Returns a client whose requests will always return
 // the specified status code and body.
 func testClientString(code int, body string, validators ...func(*http.Request)) (*Client, *httptest.Server) {
-	return testClient(code, strings.NewReader(body))
+	return testClient(code, strings.NewReader(body), validators...)
 }
 
 // Returns a client whose requests will always return
@@ -42,7 +42,7 @@ func testClientFile(code int, filename string, validators ...func(*http.Request)
 	if err != nil {
 		panic(err)
 	}
-	return testClient(code, f)
+	return testClient(code, f, validators...)
 }
 
 func TestNewReleases(t *testing.T) {
