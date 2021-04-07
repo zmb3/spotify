@@ -118,8 +118,7 @@ func WithRedirectURL(url string) AuthenticatorOption {
 
 // New creates an authenticator which is used to implement the OAuth2 authorization flow.
 //
-// By default, NewAuthenticator pulls your client ID and secret key from the
-// SPOTIFY_ID and SPOTIFY_SECRET environment variables. This can be adjusted WithClientID and WithClientSecret
+// By default, NewAuthenticator pulls your client ID and secret key from the SPOTIFY_ID and SPOTIFY_SECRET environment variables.
 func New(opts ...AuthenticatorOption) *Authenticator {
 	cfg := &oauth2.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),

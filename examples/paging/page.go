@@ -21,7 +21,7 @@ func main() {
 		log.Fatalf("couldn't get token: %v", err)
 	}
 
-	httpClient := spotifyauth.New("").Client(ctx, token)
+	httpClient := spotifyauth.New().Client(ctx, token)
 	client := spotify.New(spotify.WithHTTPClient(httpClient))
 
 	tracks, err := client.GetPlaylistTracks(ctx, "57qttz6pK881sjxj2TAEEo")

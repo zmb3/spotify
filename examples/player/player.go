@@ -34,7 +34,10 @@ var html = `
 `
 
 var (
-	auth  = spotifyauth.New(redirectURI, spotifyauth.ScopeUserReadCurrentlyPlaying, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState)
+	auth  = spotifyauth.New(
+		spotifyauth.WithRedirectURL(redirectURI),
+		spotifyauth.WithScopes(spotifyauth.ScopeUserReadCurrentlyPlaying, spotifyauth.ScopeUserReadPlaybackState, spotifyauth.ScopeUserModifyPlaybackState),
+		)
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 )
