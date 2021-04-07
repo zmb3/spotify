@@ -39,7 +39,7 @@ const (
 )
 
 // Client is a client for working with the Spotify Web API.
-// It is created by `New`
+// It is best to create this using spotify.New()
 type Client struct {
 	http    *http.Client
 	baseURL string
@@ -50,24 +50,29 @@ type Client struct {
 
 type ClientOption func(client *Client)
 
+// WithHTTPClient provides a http client to be used when making requests to the Spotify API
 func WithHTTPClient(c *http.Client) ClientOption {
 	return func(client *Client) {
 		client.http = c
 	}
 }
 
+// WithRetry configures the Spotify API client to automatically retry requests that fail due to ratelimiting.
 func WithRetry(shouldRetry bool) ClientOption {
 	return func(client *Client) {
 		client.autoRetry = shouldRetry
 	}
 }
 
+// WithBaseURL provides an alternative base url to use for requests to the Spotify API. This can be used to connect to a
+// staging or other alternative environment.
 func WithBaseURL(url string) ClientOption {
 	return func(client *Client) {
 		client.baseURL = url
 	}
 }
 
+// WithAcceptLanguage configures the client to provide the accept language header on all requests.
 func WithAcceptLanguage(lang string) ClientOption {
 	return func(client *Client) {
 		client.acceptLanguage = lang
@@ -76,7 +81,7 @@ func WithAcceptLanguage(lang string) ClientOption {
 
 // New returns a client for working with the Spotify Web API.
 // You must provide some form of a HTTP client with WithHTTPClient that attaches authorisation
-// to the requests. You may use the built-in auth client to generate one.
+// to the requests or requests will fail. You may use the built-in auth client to generate one.
 func New(opts ...ClientOption) *Client {
 	c := &Client{
 		http:    http.DefaultClient,
