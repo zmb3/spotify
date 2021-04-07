@@ -3,6 +3,7 @@ package spotify
 import (
 	"context"
 	"errors"
+	"fmt"
 	"reflect"
 )
 
@@ -98,11 +99,15 @@ type CategoryPage struct {
 // by embedding basePage.
 type pageable interface{ canPage() }
 
-func (b basePage) canPage() {}
+func (b *basePage) canPage() {}
 
 // NextPage fetches the next page of items and writes them into p.
 // It returns ErrNoMorePages if p already contains the last page.
 func (c *Client) NextPage(ctx context.Context, p pageable) error {
+	if p == nil || reflect.ValueOf(p).IsNil() {
+		return fmt.Errorf("spotify: p must be a non-nil pointer to a page")
+	}
+
 	val := reflect.ValueOf(p).Elem()
 	field := val.FieldByName("Next")
 	nextURL := field.Interface().(string)
@@ -123,6 +128,10 @@ func (c *Client) NextPage(ctx context.Context, p pageable) error {
 // PreviousPage fetches the previous page of items and writes them into p.
 // It returns ErrNoMorePages if p already contains the last page.
 func (c *Client) PreviousPage(ctx context.Context, p pageable) error {
+	if p == nil || reflect.ValueOf(p).IsNil() {
+		return fmt.Errorf("spotify: p must be a non-nil pointer to a page")
+	}
+
 	val := reflect.ValueOf(p).Elem()
 	field := val.FieldByName("Previous")
 	prevURL := field.Interface().(string)
