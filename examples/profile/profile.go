@@ -38,7 +38,7 @@ func main() {
 	}
 
 	httpClient := spotifyauth.New("").Client(ctx, token)
-	client := spotify.New(spotify.HTTPClientOpt(httpClient))
+	client := spotify.New(spotify.WithHTTPClient(httpClient))
 	user, err := client.GetUsersPublicProfile(ctx, spotify.ID(*userID))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())

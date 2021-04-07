@@ -71,7 +71,7 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
-	client := spotify.New(spotify.HTTPClientOpt(auth.Client(r.Context(), tok)))
+	client := spotify.New(spotify.WithHTTPClient(auth.Client(r.Context(), tok)))
 	fmt.Fprintf(w, "Login Completed!")
 	ch <- client
 }

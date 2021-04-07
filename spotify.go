@@ -50,32 +50,32 @@ type Client struct {
 
 type ClientOption func(client *Client)
 
-func HTTPClientOpt(c *http.Client) ClientOption {
+func WithHTTPClient(c *http.Client) ClientOption {
 	return func(client *Client) {
 		client.http = c
 	}
 }
 
-func RetryOpt(shouldRetry bool) ClientOption {
+func WithRetry(shouldRetry bool) ClientOption {
 	return func(client *Client) {
 		client.autoRetry = shouldRetry
 	}
 }
 
-func BaseURLOpt(url string) ClientOption {
+func WithBaseURL(url string) ClientOption {
 	return func(client *Client) {
 		client.baseURL = url
 	}
 }
 
-func AcceptLanguageOpt(lang string) ClientOption {
+func WithAcceptLanguage(lang string) ClientOption {
 	return func(client *Client) {
 		client.acceptLanguage = lang
 	}
 }
 
 // New returns a client for working with the Spotify Web API.
-// You must provide some form of a HTTP client with HTTPClientOpt that attaches authorisation
+// You must provide some form of a HTTP client with WithHTTPClient that attaches authorisation
 // to the requests. You may use the built-in auth client to generate one.
 func New(opts ...ClientOption) *Client {
 	c := &Client{

@@ -25,7 +25,7 @@ func main() {
 	}
 
 	httpClient := spotifyauth.New("").Client(ctx, token)
-	client := spotify.New(spotify.HTTPClientOpt(httpClient))
+	client := spotify.New(spotify.WithHTTPClient(httpClient))
 	// search for playlists and albums containing "holiday"
 	results, err := client.Search(ctx, "holiday", spotify.SearchTypePlaylist|spotify.SearchTypeAlbum)
 	if err != nil {
