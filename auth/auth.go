@@ -83,47 +83,73 @@ type Authenticator struct {
 	config *oauth2.Config
 }
 
-// New creates an authenticator which is used to implement the
-// OAuth2 authorization flow.  The redirectURL must exactly match one of the
+type AuthenticatorOption func(a *Authenticator)
+
+// WithClientID allows a client ID to be specified. Without this the value of the SPOTIFY_ID environment
+// variable will be used.
+func WithClientID(id string) AuthenticatorOption {
+	return func(a *Authenticator) {
+		a.config.ClientID = id
+	}
+}
+
+// WithClientSecret allows a client secret to be specified. Without this the value of the SPOTIFY_SECRET environment
+// variable will be used.
+func WithClientSecret(secret string) AuthenticatorOption {
+	return func(a *Authenticator) {
+		a.config.ClientSecret = secret
+	}
+}
+
+// WithScopes configures the oauth scopes that the client should request.
+func WithScopes(scopes ...string) AuthenticatorOption {
+	return func(a *Authenticator) {
+		a.config.Scopes = scopes
+	}
+}
+
+// WithRedirectURL configures a redirect url for oauth flows. It must exactly match one of the
 // URLs specified in your Spotify developer account.
+func WithRedirectURL(url string) AuthenticatorOption {
+	return func(a *Authenticator) {
+		a.config.RedirectURL = url
+	}
+}
+
+// New creates an authenticator which is used to implement the OAuth2 authorization flow.
 //
 // By default, NewAuthenticator pulls your client ID and secret key from the
-// SPOTIFY_ID and SPOTIFY_SECRET environment variables.  If you'd like to provide
-// them from some other source, you can call `SetAuthInfo(id, key)` on the
-// returned authenticator.
-func New(redirectURL string, scopes ...string) Authenticator {
+// SPOTIFY_ID and SPOTIFY_SECRET environment variables. This can be adjusted WithClientID and WithClientSecret
+func New(opts ...AuthenticatorOption) *Authenticator {
 	cfg := &oauth2.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
-		RedirectURL:  redirectURL,
-		Scopes:       scopes,
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  AuthURL,
 			TokenURL: TokenURL,
 		},
 	}
 
-	return Authenticator{
+	a := &Authenticator{
 		config: cfg,
 	}
+
+	for _, opt := range opts {
+		opt(a)
+	}
+
+	return a
 }
 
 // WithHTTPClient returns a context with a value set to override the oauth2 http client as Spotify does not
 // support HTTP/2
 //
 // see: https://github.com/zmb3/spotify/issues/20
-func withHTTPClient(ctx context.Context) context.Context {
+func contextWithHTTPClient(ctx context.Context) context.Context {
 	tr := &http.Transport{
 		TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
 	}
 	return context.WithValue(ctx, oauth2.HTTPClient, &http.Client{Transport: tr})
-}
-
-// SetAuthInfo overwrites the client ID and secret key used by the authenticator.
-// You can use this if you don't want to store this information in environment variables.
-func (a *Authenticator) SetAuthInfo(clientID, secretKey string) {
-	a.config.ClientID = clientID
-	a.config.ClientSecret = secretKey
 }
 
 // ShowDialog forces the user to approve the app, even if they have already done so.
@@ -155,17 +181,17 @@ func (a Authenticator) Token(ctx context.Context, state string, r *http.Request,
 	if actualState != state {
 		return nil, errors.New("spotify: redirect state parameter doesn't match")
 	}
-	return a.config.Exchange(withHTTPClient(ctx), code, opts...)
+	return a.config.Exchange(contextWithHTTPClient(ctx), code, opts...)
 }
 
 // Exchange is like Token, except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
 func (a Authenticator) Exchange(ctx context.Context, code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
-	return a.config.Exchange(withHTTPClient(ctx), code, opts...)
+	return a.config.Exchange(contextWithHTTPClient(ctx), code, opts...)
 }
 
 // Client creates a *http.Client that will use the specified access token for its API requests.
 // Combine this with spotify.HTTPClientOpt.
 func (a Authenticator) Client(ctx context.Context, token *oauth2.Token) *http.Client {
-	return a.config.Client(withHTTPClient(ctx), token)
+	return a.config.Client(contextWithHTTPClient(ctx), token)
 }
