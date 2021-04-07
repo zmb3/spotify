@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"errors"
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -50,7 +51,7 @@ func TestClient_NextPage(t *testing.T) {
 				tt.Input.Next = server.URL + tt.Input.Next // add fake server url so we intercept the message
 			}
 
-			err := client.NextPage(tt.Input)
+			err := client.NextPage(context.Background(), tt.Input)
 			assert.Equal(t, tt.ExpectedPath != "", wasCalled)
 			if tt.Err == nil {
 				assert.NoError(t, err)
@@ -105,7 +106,7 @@ func TestClient_PreviousPage(t *testing.T) {
 				tt.Input.Previous = server.URL + tt.Input.Previous // add fake server url so we intercept the message
 			}
 
-			err := client.PreviousPage(tt.Input)
+			err := client.PreviousPage(context.Background(), tt.Input)
 			assert.Equal(t, tt.ExpectedPath != "", wasCalled)
 			if tt.Err == nil {
 				assert.NoError(t, err)
