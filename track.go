@@ -10,6 +10,8 @@ import (
 
 // SimpleTrack contains basic info about a track.
 type SimpleTrack struct {
+	Album SimpleAlbum `json:"album"`
+
 	Artists []SimpleArtist `json:"artists"`
 	// A list of the countries in which the track can be played,
 	// identified by their ISO 3166-1 alpha-2 codes.
@@ -32,8 +34,10 @@ type SimpleTrack struct {
 	// The number of the track.  If an album has several
 	// discs, the track number is the number on the specified
 	// DiscNumber.
-	TrackNumber int `json:"track_number"`
-	URI         URI `json:"uri"`
+	TrackNumber int               `json:"track_number"`
+	URI         URI               `json:"uri"`
+	Popularity  int               `json:"popularity"`
+	ExternalIDs map[string]string `json:"external_ids"`
 }
 
 func (st SimpleTrack) String() string {
