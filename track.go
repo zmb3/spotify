@@ -34,6 +34,8 @@ type SimpleTrack struct {
 	// DiscNumber.
 	TrackNumber int `json:"track_number"`
 	URI         URI `json:"uri"`
+	// Type of the track
+	Type string `json:"type"`
 }
 
 func (st SimpleTrack) String() string {
