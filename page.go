@@ -94,6 +94,12 @@ type CategoryPage struct {
 	Categories []Category `json:"items"`
 }
 
+// SimpleEpisodePage contains EpisodePage returned by the Web API.
+type SimpleEpisodePage struct {
+	basePage
+	Episodes []EpisodePage `json:"items"`
+}
+
 // pageable is an internal interface for types that support paging
 // by embedding basePage.
 type pageable interface{ canPage() }
