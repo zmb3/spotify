@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -8,7 +9,7 @@ import (
 func TestTransferPlaybackDeviceUnavailable(t *testing.T) {
 	client, server := testClientString(http.StatusNotFound, "")
 	defer server.Close()
-	err := client.TransferPlayback("newdevice", false)
+	err := client.TransferPlayback(context.Background(), "newdevice", false)
 	if err == nil {
 		t.Error("expected error since auto retry is disabled")
 	}
@@ -18,7 +19,7 @@ func TestTransferPlayback(t *testing.T) {
 	client, server := testClientString(http.StatusNoContent, "")
 	defer server.Close()
 
-	err := client.TransferPlayback("newdevice", true)
+	err := client.TransferPlayback(context.Background(), "newdevice", true)
 	if err != nil {
 		t.Error(err)
 	}
@@ -28,7 +29,7 @@ func TestVolume(t *testing.T) {
 	client, server := testClientString(http.StatusNoContent, "")
 	defer server.Close()
 
-	err := client.Volume(50)
+	err := client.Volume(context.Background(), 50)
 	if err != nil {
 		t.Error(err)
 	}
@@ -38,7 +39,7 @@ func TestQueue(t *testing.T) {
 	client, server := testClientString(http.StatusNoContent, "")
 	defer server.Close()
 
-	err := client.QueueSong("4JpKVNYnVcJ8tuMKjAj50A")
+	err := client.QueueSong(context.Background(), "4JpKVNYnVcJ8tuMKjAj50A")
 	if err != nil {
 		t.Error(err)
 	}
@@ -48,7 +49,7 @@ func TestPlayerDevices(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/player_available_devices.txt")
 	defer server.Close()
 
-	list, err := client.PlayerDevices()
+	list, err := client.PlayerDevices(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
@@ -69,7 +70,7 @@ func TestPlayerState(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/player_state.txt")
 	defer server.Close()
 
-	state, err := client.PlayerState()
+	state, err := client.PlayerState(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
@@ -100,7 +101,7 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/player_currently_playing.txt")
 	defer server.Close()
 
-	state, err := client.PlayerCurrentlyPlaying()
+	state, err := client.PlayerCurrentlyPlaying(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
@@ -131,7 +132,7 @@ func TestPlayerRecentlyPlayed(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/player_recently_played.txt")
 	defer server.Close()
 
-	items, err := client.PlayerRecentlyPlayed()
+	items, err := client.PlayerRecentlyPlayed(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -158,7 +159,7 @@ func TestPlayArgsError(t *testing.T) {
 	client, server := testClientString(http.StatusUnauthorized, json)
 	defer server.Close()
 
-	err := client.Play()
+	err := client.Play(context.Background())
 	if err == nil {
 		t.Error("Expected an error")
 	}

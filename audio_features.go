@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"fmt"
 	"strings"
 )
@@ -107,14 +108,14 @@ const (
 // high-level acoustic attributes of audio tracks.
 // Objects are returned in the order requested.  If an object
 // is not found, a nil value is returned in the appropriate position.
-func (c *Client) GetAudioFeatures(ids ...ID) ([]*AudioFeatures, error) {
+func (c *Client) GetAudioFeatures(ctx context.Context, ids ...ID) ([]*AudioFeatures, error) {
 	url := fmt.Sprintf("%saudio-features?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
 	temp := struct {
 		F []*AudioFeatures `json:"audio_features"`
 	}{}
 
-	err := c.get(url, &temp)
+	err := c.get(ctx, url, &temp)
 	if err != nil {
 		return nil, err
 	}
