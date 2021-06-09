@@ -308,17 +308,21 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 // Creating a public playlist for a user requires ScopePlaylistModifyPublic;
 // creating a private playlist requires ScopePlaylistModifyPrivate.
 //
+// Collaborative playlists must be private.
+//
 // On success, the newly created playlist is returned.
-func (c *Client) CreatePlaylistForUser(userID, playlistName, description string, public bool) (*FullPlaylist, error) {
+func (c *Client) CreatePlaylistForUser(userID, playlistName, description string, public, collaborative bool) (*FullPlaylist, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists", c.baseURL, userID)
 	body := struct {
-		Name        string `json:"name"`
-		Public      bool   `json:"public"`
-		Description string `json:"description"`
+		Name          string `json:"name"`
+		Public        bool   `json:"public"`
+		Description   string `json:"description"`
+		Collaborative bool   `json:"collaborative"`
 	}{
 		playlistName,
 		public,
 		description,
+		collaborative,
 	}
 	bodyJSON, err := json.Marshal(body)
 	if err != nil {
