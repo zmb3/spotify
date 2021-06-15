@@ -308,8 +308,6 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 // Creating a public playlist for a user requires ScopePlaylistModifyPublic;
 // creating a private playlist requires ScopePlaylistModifyPrivate.
 //
-// Collaborative playlists must be private.
-//
 // On success, the newly created playlist is returned.
 // TODO Accept a collaborative parameter and delete
 // CreateCollaborativePlaylistForUser.
