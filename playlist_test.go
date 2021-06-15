@@ -154,9 +154,10 @@ func TestUserFollowsPlaylist(t *testing.T) {
 	}
 }
 
+// NOTE collaborative is a fmt boolean.
 var newPlaylist = `
 {
-"collaborative": %v,
+"collaborative": %t,
 "description": "Test Description",
 "external_urls": {
 	"spotify": "http://open.spotify.com/user/thelinmichael/playlist/7d2D2S200NyUE5KYs80PwO"
@@ -197,7 +198,7 @@ func TestCreatePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, false))
 	defer server.Close()
 
-	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", "Test Description", false, false)
+	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", "Test Description", false)
 	if err != nil {
 		t.Error(err)
 	}
@@ -218,27 +219,11 @@ func TestCreatePlaylist(t *testing.T) {
 	}
 }
 
-func TestCreatePublicCollaborativePlaylist(t *testing.T) {
-	client, server := testClientString(http.StatusBadRequest, `{
-			"error": {
-				"status": 400,
-				"message": "Collaborative playlists can only be private."
-			}
-		}`,
-	)
-	defer server.Close()
-
-	_, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", "Test Description", true, true)
-	if err == nil {
-		t.Error("Expected error creating public, collaborative playlist")
-	}
-}
-
-func TestCreatePrivateCollaborativePlaylist(t *testing.T) {
+func TestCreateCollaborativePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, true))
 	defer server.Close()
 
-	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", "Test Description", false, true)
+	p, err := client.CreateCollaborativePlaylistForUser("thelinmichael", "A New Playlist", "Test Description")
 	if err != nil {
 		t.Error(err)
 	}

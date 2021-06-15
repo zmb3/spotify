@@ -311,7 +311,43 @@ func (c *Client) GetPlaylistTracksOpt(playlistID ID,
 // Collaborative playlists must be private.
 //
 // On success, the newly created playlist is returned.
-func (c *Client) CreatePlaylistForUser(userID, playlistName, description string, public, collaborative bool) (*FullPlaylist, error) {
+// TODO Accept a collaborative parameter and delete
+// CreateCollaborativePlaylistForUser.
+func (c *Client) CreatePlaylistForUser(userID, playlistName, description string, public bool) (*FullPlaylist, error) {
+	spotifyURL := fmt.Sprintf("%susers/%s/playlists", c.baseURL, userID)
+	body := struct {
+		Name        string `json:"name"`
+		Public      bool   `json:"public"`
+		Description string `json:"description"`
+	}{
+		playlistName,
+		public,
+		description,
+	}
+	bodyJSON, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest("POST", spotifyURL, bytes.NewReader(bodyJSON))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	var p FullPlaylist
+	err = c.execute(req, &p, http.StatusCreated)
+	if err != nil {
+		return nil, err
+	}
+
+	return &p, err
+}
+
+// CreateCollaborativePlaylistForUser creates a playlist for a Spotify user.
+// A collaborative playlist is one that could have tracks added to and removed
+// from by other Spotify users.
+// Collaborative playlists must be private as per the Spotify API.
+func (c *Client) CreateCollaborativePlaylistForUser(userID, playlistName, description string) (*FullPlaylist, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists", c.baseURL, userID)
 	body := struct {
 		Name          string `json:"name"`
@@ -320,9 +356,9 @@ func (c *Client) CreatePlaylistForUser(userID, playlistName, description string,
 		Collaborative bool   `json:"collaborative"`
 	}{
 		playlistName,
-		public,
+		false,
 		description,
-		collaborative,
+		true,
 	}
 	bodyJSON, err := json.Marshal(body)
 	if err != nil {
