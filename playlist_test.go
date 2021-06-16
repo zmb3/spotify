@@ -154,9 +154,10 @@ func TestUserFollowsPlaylist(t *testing.T) {
 	}
 }
 
+// NOTE collaborative is a fmt boolean.
 var newPlaylist = `
 {
-"collaborative": false,
+"collaborative": %t,
 "description": "Test Description",
 "external_urls": {
 	"spotify": "http://open.spotify.com/user/thelinmichael/playlist/7d2D2S200NyUE5KYs80PwO"
@@ -194,7 +195,7 @@ var newPlaylist = `
 }`
 
 func TestCreatePlaylist(t *testing.T) {
-	client, server := testClientString(http.StatusCreated, newPlaylist)
+	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, false))
 	defer server.Close()
 
 	p, err := client.CreatePlaylistForUser("thelinmichael", "A New Playlist", "Test Description", false)
@@ -212,6 +213,34 @@ func TestCreatePlaylist(t *testing.T) {
 	}
 	if p.Tracks.Total != 0 {
 		t.Error("Expected new playlist to be empty")
+	}
+	if p.Collaborative {
+		t.Error("Expected non-collaborative playlist, got collaborative")
+	}
+}
+
+func TestCreateCollaborativePlaylist(t *testing.T) {
+	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, true))
+	defer server.Close()
+
+	p, err := client.CreateCollaborativePlaylistForUser("thelinmichael", "A New Playlist", "Test Description")
+	if err != nil {
+		t.Error(err)
+	}
+	if p.IsPublic {
+		t.Error("Expected private playlist, got public")
+	}
+	if p.Name != "A New Playlist" {
+		t.Errorf("Expected 'A New Playlist', got '%s'\n", p.Name)
+	}
+	if p.Description != "Test Description" {
+		t.Errorf("Expected 'Test Description', got '%s'\n", p.Description)
+	}
+	if p.Tracks.Total != 0 {
+		t.Error("Expected new playlist to be empty")
+	}
+	if !p.Collaborative {
+		t.Error("Expected collaborative playlist, got non-collaborative")
 	}
 }
 
