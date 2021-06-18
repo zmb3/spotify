@@ -169,7 +169,7 @@ func (c *Client) CurrentUsersTracksOpt(opt *Options) (*SavedTrackPage, error) {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) FollowUser(ids ...ID) error {
-	return c.modifyFollowers("user", true, ids...)
+	return c.modifyResource(followingResource, "user", true, ids...)
 }
 
 // FollowArtist adds the current user as a follower of one or more
@@ -178,7 +178,7 @@ func (c *Client) FollowUser(ids ...ID) error {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) FollowArtist(ids ...ID) error {
-	return c.modifyFollowers("artist", true, ids...)
+	return c.modifyResource(followingResource, "artist", true, ids...)
 }
 
 // UnfollowUser removes the current user as a follower of one or more
@@ -187,7 +187,7 @@ func (c *Client) FollowArtist(ids ...ID) error {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) UnfollowUser(ids ...ID) error {
-	return c.modifyFollowers("user", false, ids...)
+	return c.modifyResource(followingResource, "user", false, ids...)
 }
 
 // UnfollowArtist removes the current user as a follower of one or more
@@ -196,7 +196,43 @@ func (c *Client) UnfollowUser(ids ...ID) error {
 // Modifying the lists of artists or users the current user follows
 // requires that the application has the ScopeUserFollowModify scope.
 func (c *Client) UnfollowArtist(ids ...ID) error {
-	return c.modifyFollowers("artist", false, ids...)
+	return c.modifyResource(followingResource, "artist", false, ids...)
+}
+
+// SaveAlbum save one or more albums to the current user’s ‘Your
+// Music’ library.
+//
+// Modifying the lists of albums requires that the application has
+// the ScopeUserLibraryModify scope.
+func (c *Client) SaveAlbum(ids ...ID) error {
+	return c.modifyResource(albumsResource, "albums", true, ids...)
+}
+
+// RemoveAlbum removes one or more albums to the current user’s
+// ‘Your Music’ library.
+//
+// Modifying the lists of albums requires that the application has
+// the ScopeUserLibraryModify scope.
+func (c *Client) RemoveAlbum(ids ...ID) error {
+	return c.modifyResource(albumsResource, "albums", true, ids...)
+}
+
+// SaveTrack save one or more tracks to the current user’s ‘Your
+// Music’ library.
+//
+// Modifying the lists of albums requires that the application has
+// the ScopeUserLibraryModify scope.
+func (c *Client) SaveTrack(ids ...ID) error {
+	return c.modifyResource(tracksResource, "albums", true, ids...)
+}
+
+// RemoveTrack removes one or more albums to the current user’s
+// ‘Your Music’ library.
+//
+// Modifying the lists of albums requires that the application has
+// the ScopeUserLibraryModify scope.
+func (c *Client) RemoveTrack(ids ...ID) error {
+	return c.modifyResource(tracksResource, "albums", true, ids...)
 }
 
 // CurrentUserFollows checks to see if the current user is following
@@ -228,14 +264,20 @@ func (c *Client) CurrentUserFollows(t string, ids ...ID) ([]bool, error) {
 	return result, nil
 }
 
-func (c *Client) modifyFollowers(usertype string, follow bool, ids ...ID) error {
+const (
+	followingResource = "following"
+	albumsResource    = "albums"
+	tracksResource    = "tracks"
+)
+
+func (c *Client) modifyResource(resourceType string, usertype string, follow bool, ids ...ID) error {
 	if l := len(ids); l == 0 || l > 50 {
 		return errors.New("spotify: Follow/Unfollow supports 1 to 50 IDs")
 	}
 	v := url.Values{}
 	v.Add("type", usertype)
 	v.Add("ids", strings.Join(toStringSlice(ids), ","))
-	spotifyURL := c.baseURL + "me/following?" + v.Encode()
+	spotifyURL := c.baseURL + "me/" + resourceType + "?" + v.Encode()
 	method := "PUT"
 	if !follow {
 		method = "DELETE"
