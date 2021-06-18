@@ -277,6 +277,40 @@ type Options struct {
 	Timerange *string
 }
 
+// Instantiate some options
+// Because we cannot pass &Options.SetLimit(1) as a function parameter
+func Opt() *Options {
+	return &Options{}
+}
+
+// SetLimit sets a limit
+func (o *Options) SetLimit(limit int) *Options {
+	o.Limit = new(int)
+	*o.Limit = limit
+	return o
+}
+
+// SetOffset sets an offset
+func (o *Options) SetOffset(offset int) *Options {
+	o.Offset = new(int)
+	*o.Offset = offset
+	return o
+}
+
+// SetCountry sets the country
+func (o *Options) SetCountry(country string) *Options {
+	o.Country = new(string)
+	*o.Country = country
+	return o
+}
+
+// SetTimerange sets a time range
+func (o *Options) SetTimerange(timerange string) *Options {
+	o.Timerange = new(string)
+	*o.Timerange = timerange
+	return o
+}
+
 // NewReleasesOpt is like NewReleases, but it accepts optional parameters
 // for filtering the results.
 func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err error) {
