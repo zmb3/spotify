@@ -79,14 +79,14 @@ func (c *Client) FeaturedPlaylists(ctx context.Context, opts ...RequestOption) (
 
 // FollowPlaylist adds the current user as a follower of the specified
 // playlist.  Any playlist can be followed, regardless of its private/public
-// status, as long as you know the owner and playlist ID.
+// status, as long as you know the playlist ID.
 //
 // If the public argument is true, then the playlist will be included in the
 // user's public playlists.  To be able to follow playlists privately, the user
 // must have granted the ScopePlaylistModifyPrivate scope.  The
 // ScopePlaylistModifyPublic scope is required to follow playlists publicly.
-func (c *Client) FollowPlaylist(ctx context.Context, owner ID, playlist ID, public bool) error {
-	spotifyURL := buildFollowURI(c.baseURL, owner, playlist)
+func (c *Client) FollowPlaylist(ctx context.Context, playlist ID, public bool) error {
+	spotifyURL := buildFollowURI(c.baseURL, playlist)
 	body := strings.NewReader(strconv.FormatBool(public))
 	req, err := http.NewRequestWithContext(ctx, "PUT", spotifyURL, body)
 	if err != nil {
@@ -103,8 +103,8 @@ func (c *Client) FollowPlaylist(ctx context.Context, owner ID, playlist ID, publ
 // UnfollowPlaylist removes the current user as a follower of a playlist.
 // Unfollowing a publicly followed playlist requires ScopePlaylistModifyPublic.
 // Unfolowing a privately followed playlist requies ScopePlaylistModifyPrivate.
-func (c *Client) UnfollowPlaylist(ctx context.Context, owner, playlist ID) error {
-	spotifyURL := buildFollowURI(c.baseURL, owner, playlist)
+func (c *Client) UnfollowPlaylist(ctx context.Context, playlist ID) error {
+	spotifyURL := buildFollowURI(c.baseURL, playlist)
 	req, err := http.NewRequestWithContext(ctx, "DELETE", spotifyURL, nil)
 	if err != nil {
 		return err
@@ -116,9 +116,9 @@ func (c *Client) UnfollowPlaylist(ctx context.Context, owner, playlist ID) error
 	return nil
 }
 
-func buildFollowURI(url string, owner, playlist ID) string {
-	return fmt.Sprintf("%susers/%s/playlists/%s/followers",
-		url, string(owner), string(playlist))
+func buildFollowURI(url string, playlist ID) string {
+	return fmt.Sprintf("%splaylists/%s/followers",
+		url, string(playlist))
 }
 
 // GetPlaylistsForUser gets a list of the playlists owned or followed by a
@@ -202,9 +202,9 @@ func (c *Client) GetPlaylistTracks(
 func (c *Client) CreatePlaylistForUser(ctx context.Context, userID, playlistName, description string, public bool, collaborative bool) (*FullPlaylist, error) {
 	spotifyURL := fmt.Sprintf("%susers/%s/playlists", c.baseURL, userID)
 	body := struct {
-		Name        string `json:"name"`
-		Public      bool   `json:"public"`
-		Description string `json:"description"`
+		Name          string `json:"name"`
+		Public        bool   `json:"public"`
+		Description   string `json:"description"`
 		Collaborative bool   `json:"collaborative"`
 	}{
 		playlistName,
