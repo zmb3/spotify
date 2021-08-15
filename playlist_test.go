@@ -106,7 +106,7 @@ func TestFollowPlaylistSetsContentType(t *testing.T) {
 	})
 	defer server.Close()
 
-	err := client.FollowPlaylist(context.Background(), "ownerID", "playlistID", true)
+	err := client.FollowPlaylist(context.Background(), "playlistID", true)
 	if err != nil {
 		t.Error(err)
 	}
