@@ -93,7 +93,7 @@ func Fields(fields string) RequestOption {
 
 type Range string
 
-var (
+const (
 	// LongTermRange is calculated from several years of data, including new data where possible
 	LongTermRange Range = "long_term"
 	// MediumTermRange is approximately the last six months
