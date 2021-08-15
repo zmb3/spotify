@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -9,7 +10,7 @@ func TestGetShow(t *testing.T) {
 	c, s := testClientFile(http.StatusOK, "test_data/get_show.txt")
 	defer s.Close()
 
-	r, err := c.GetShow("1234")
+	r, err := c.GetShow(context.Background(), "1234")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -25,7 +26,7 @@ func TestGetShowEpisodes(t *testing.T) {
 	c, s := testClientFile(http.StatusOK, "test_data/get_show_episodes.txt")
 	defer s.Close()
 
-	r, err := c.GetShowEpisodes("1234")
+	r, err := c.GetShowEpisodes(context.Background(),"1234")
 	if err != nil {
 		t.Fatal(err)
 	}

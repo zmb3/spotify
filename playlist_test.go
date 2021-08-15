@@ -198,7 +198,7 @@ func TestCreatePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, false))
 	defer server.Close()
 
-	p, err := client.CreatePlaylistForUser(context.Background(), "thelinmichael", "A New Playlist", "Test Description", false)
+	p, err := client.CreatePlaylistForUser(context.Background(), "thelinmichael", "A New Playlist", "Test Description", false, false)
 	if err != nil {
 		t.Error(err)
 	}
@@ -223,7 +223,7 @@ func TestCreateCollaborativePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, true))
 	defer server.Close()
 
-	p, err := client.CreateCollaborativePlaylistForUser("thelinmichael", "A New Playlist", "Test Description")
+	p, err := client.CreatePlaylistForUser(context.Background(), "thelinmichael", "A New Playlist", "Test Description", false, true)
 	if err != nil {
 		t.Error(err)
 	}
