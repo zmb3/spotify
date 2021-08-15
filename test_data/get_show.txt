@@ -1,0 +1,967 @@
+{
+  "available_markets" : [ "AD", "AE", "AG", "AL", "AM", "AR", "AT", "AU", "BA", "BB", "BE", "BF", "BG", "BH", "BJ", "BO", "BR", "BS", "BT", "BW", "BZ", "CA", "CH", "CL", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DK", "DM", "DO", "DZ", "EC", "EE", "ES", "FI", "FJ", "FM", "FR", "GB", "GD", "GE", "GH", "GM", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JM", "JO", "JP", "KE", "KI", "KN", "KW", "LB", "LC", "LI", "LR", "LS", "LT", "LU", "LV", "MA", "MC", "ME", "MG", "MH", "MK", "ML", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PL", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "TH", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "US", "UY", "VC", "VN", "VU", "WS", "XK", "ZA" ],
+  "copyrights" : [ ],
+  "description" : "Exploring the big ideas in crypto from first principles. Hosted by Su Zhu, the CEO and founder of Three Arrows Capital, one of the leading trading firms in crypto, and Hasu, a crypto researcher and writer.",
+  "episodes" : {
+    "href" : "https://api.spotify.com/v1/shows/3vuV292Him90EjQ5YL4XIw/episodes?offset=0&limit=50",
+    "items" : [ {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/cac00fc7b28df9c607ef3f812b47ed3676e27a38",
+      "description" : "Su is sitting out today, and I instead welcome Charlie Noyes and Georgios Konstantopoulos of Paradigm, one of the largest investment funds in crypto.   We cover a lot of ground in this episode, including:   How Paradigm can so consistently identify and back the category-defining protocols and companies in crypto    MEV and how it can be mitigated, including some actionable advice on how you can avoid getting sandwich-attacked today   The new features and remaining challenges of Uniswap v3  Paradigm’s thesis for Cosmos and why each blockchain should adopt the IBC protocol    Whether Bitcoin's value proposition is still intact at a time where Bitcoin dominance is at an all-time low   Our personal “wishlists” for Bitcoin improvement proposals, and   whether Bitcoin will ever go to PoS    Listen to conversations between Su Zhu, the CEO and CIO of Three Arrows Capital, and Hasu, an experienced crypto researcher and writer. Together with occasional guests, we explore the transformative nature of trust-minimized currency and financial services. SUBSCRIBE to the Podcast Apple Podcast https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4 Spotify https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw Youtube https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw== Other https://anchor.fm/uncommoncore FOLLOW on Twitter Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/ Transcripts, if available https://uncommoncore.co/blog/",
+      "duration_ms" : 5485408,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/2DSKnz9Hqm1tKimcXqcMJD"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/2DSKnz9Hqm1tKimcXqcMJD",
+      "html_description" : "Su is sitting out today, and I instead welcome Charlie Noyes and Georgios Konstantopoulos of Paradigm, one of the largest investment funds in crypto.  \nWe cover a lot of ground in this episode, including:\n\n How Paradigm can so consistently identify and back the category-defining protocols and companies in crypto  \n MEV and how it can be mitigated, including some actionable advice on how you can avoid getting sandwich-attacked today \n The new features and remaining challenges of Uniswap v3\n Paradigm’s thesis for Cosmos and why each blockchain should adopt the IBC protocol  \n Whether Bitcoin's value proposition is still intact at a time where Bitcoin dominance is at an all-time low \n Our personal “wishlists” for Bitcoin improvement proposals, and \n whether Bitcoin will ever go to PoS  \n\nListen to conversations between Su Zhu, the CEO and CIO of Three Arrows Capital, and Hasu, an experienced crypto researcher and writer. Together with occasional guests, we explore the transformative nature of trust-minimized currency and financial services.\nSUBSCRIBE to the Podcast\nApple Podcast https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4\nSpotify https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw\nYoutube https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw==\nOther https://anchor.fm/uncommoncore\nFOLLOW on Twitter\nSu Zhu https://twitter.com/zhusu\nHasu https://twitter.com/hasufl\nOur homepage and mailing list https://uncommoncore.co/podcast/\nTranscripts, if available https://uncommoncore.co/blog/",
+      "id" : "2DSKnz9Hqm1tKimcXqcMJD",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab6765630000ba8a05c1a052d1c08b04f32d5575",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67656300005f1f05c1a052d1c08b04f32d5575",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab6765630000f68d05c1a052d1c08b04f32d5575",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#25: Paradigm's Thesis - with Charlie Noyes, Georgios Konstantopoulos and Hasu",
+      "release_date" : "2021-05-18",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : false,
+        "resume_position_ms" : 5466000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:2DSKnz9Hqm1tKimcXqcMJD"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/cf6d004000d9e01709379f0a3cb153c4dd62318f",
+      "description" : "For this episode, Su and I invited the legendary trader Cobie, who goes under @CryptoCobain on Twitter. Together, we talked about   The bull case for Ethereum and its upcoming catalysts  Whether ETH can flippen BTC   What advice has helped Cobie to survive several market cycles  Enjoy!  Listen to conversations between Su Zhu, the CEO and CIO of Three Arrows Capital, and Hasu, an experienced crypto researcher and writer. Together with occasional guests, we explore the transformative nature of trust-minimized currency and financial services. SUBSCRIBE to the Podcast Apple Podcast https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4 Spotify https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw Youtube https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw== Other https://anchor.fm/uncommoncore FOLLOW on Twitter Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/ Transcripts, if available https://uncommoncore.co/blog/",
+      "duration_ms" : 6228552,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/0tDjHN0BHJUQAlJYNY4GFm"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/0tDjHN0BHJUQAlJYNY4GFm",
+      "html_description" : "<p>For this episode, Su and I invited the <strong>legendary trader Cobie</strong>, who goes under <a href=\"https://twitter.com/CryptoCobain\">@CryptoCobain</a> on Twitter. Together, we talked about</p>\n<ul>\n <li>The bull case for Ethereum and its upcoming catalysts</li>\n <li>Whether ETH can flippen BTC</li>\n  <li>What advice has helped Cobie to survive several market cycles</li>\n</ul>\n<p>Enjoy!<br>\n<br>\nListen to conversations between Su Zhu, the CEO and CIO of Three Arrows Capital, and Hasu, an experienced crypto researcher and writer. Together with occasional guests, we explore the transformative nature of trust-minimized currency and financial services.</p>\n<p>SUBSCRIBE to the Podcast</p>\n<p>Apple Podcast <a href=\"https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4\"><u>https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4</u></a></p>\n<p>Spotify <a href=\"https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw\"><u>https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw</u></a></p>\n<p>Youtube <a href=\"https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw==\"><u>https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw==</u></a></p>\n<p>Other <a href=\"https://anchor.fm/uncommoncore\"><u>https://anchor.fm/uncommoncore</u></a></p>\n<p>FOLLOW on Twitter</p>\n<p>Su Zhu <a href=\"https://www.youtube.com/redirect?q=https%3A%2F%2Ftwitter.com%2Fzhusu&amp;v=Z7ydEjK7SaM&amp;event=video_description&amp;redir_token=QUFFLUhqbFk0Mm94SURfemNWSkgwa1RxLVhqYVBaTmZDQXxBQ3Jtc0trS2NaT1htNmNTRklpSHZ1Y1VkV0QtZFVBQlFrWGF2bmRUTlFuOFJ4bVFHdmw3UWtFYnhmYkI4Yl9ER1VKdGtsOEdhTWN5Q2dnbWZON2xoVWtCTzNPcnBwWEZiUXpwblFPenJRUzJfX0taellheVR1dw%3D%3D\"><u>https://twitter.com/zhusu</u></a></p>\n<p>Hasu <a href=\"https://www.youtube.com/redirect?q=https%3A%2F%2Ftwitter.com%2Fhasufl&amp;v=Z7ydEjK7SaM&amp;event=video_description&amp;redir_token=QUFFLUhqbU9acGpjSENxbGxnclhUMHI1Z29vSDRfTlhUd3xBQ3Jtc0tuZ3lqQnZkN3h5QlRMN1B0R3pfLUFyQUhlSGNOQXBHaTZ1NU5UWUI4SzI2Q3NuY01yd0NqTUFHNTBQekZ5LWxKb0pzQ3JFaVdtZjFsdDMwMk1rTnVRZVR1VDc5Tjk3VDFKOUREcE5OaURTc2lJdnlSQQ%3D%3D\"><u>https://twitter.com/hasufl</u></a></p>\n<p>Our homepage and mailing list <a href=\"https://www.youtube.com/redirect?q=https%3A%2F%2Funcommoncore.co%2Fpodcast%2F&amp;v=Z7ydEjK7SaM&amp;event=video_description&amp;redir_token=QUFFLUhqbXJ0VDVMT3FGRnBQbkJFRUpwSGNwS3VFdHhPZ3xBQ3Jtc0tua09yYlcwaC1kc1h1X3E1R1hteU1zZkRxVEZRaXA4ejhtUDFWeWN4TjAyaEtVNXpSWUZXRk5nbjh0MmpQNW14dkFPcVY5Z2pCS1luOXl6cHIxZkwyRUkwb0twUlpvUlVmanNfUGtuOXJaNUU1S3BkMA%3D%3D\"><u>https://uncommoncore.co/podcast/</u></a></p>\n<p>Transcripts, if available <a href=\"https://uncommoncore.co/blog/\"><u>https://uncommoncore.co/blog/</u></a></p>",
+      "id" : "0tDjHN0BHJUQAlJYNY4GFm",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab6765630000ba8a94bbfd31336d749df33b7331",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67656300005f1f94bbfd31336d749df33b7331",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab6765630000f68d94bbfd31336d749df33b7331",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#24: Ethereum Bull Case with Cobie and Su Zhu",
+      "release_date" : "2021-04-27",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 5898000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:0tDjHN0BHJUQAlJYNY4GFm"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/017f2cd0ae552217ac66989459b7eae82a7f2e75",
+      "description" : "Crypto commands unusually high yields relative to the traditional financial system, allowing investors to earn 20% on fiat and stablecoins and even more on other assets. In this episode, Su and I unpack a very simple question: Where are these yields coming from? Topics discussed:   Unpacking the three major sources of yield in crypto  How sustainable are they?  What are the risks?  How the GBTC premium or discount affects the market  Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 3142694,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/4G0x6TTb751RNB8Hzafi3u"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/4G0x6TTb751RNB8Hzafi3u",
+      "html_description" : "<p>Crypto commands unusually high yields relative to the traditional financial system, allowing investors to earn 20% on fiat and stablecoins and even more on other assets. In this episode, Su and I unpack a very simple question: <strong>Where are these yields coming from?</strong></p>\n<p>Topics discussed:</p>\n<ul>\n <li>Unpacking the three major sources of yield in crypto</li>\n <li>How sustainable are they?</li>\n <li>What are the risks?</li>\n <li>How the GBTC premium or discount affects the market</li>\n</ul>\n<p>Su Zhu <a href=\"https://twitter.com/zhusu\"><u>https://twitter.com/zhusu</u></a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\"><u>https://twitter.com/hasufl</u></a></p>\n<p>Our homepage and mailing list <a href=\"https://uncommoncore.co/podcast/\"><u>https://uncommoncore.co/podcast/</u></a></p>",
+      "id" : "4G0x6TTb751RNB8Hzafi3u",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab6765630000ba8a0de45d1944917690c0d3b757",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67656300005f1f0de45d1944917690c0d3b757",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab6765630000f68d0de45d1944917690c0d3b757",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#23: Where do the Yields come from in Crypto?",
+      "release_date" : "2021-04-05",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:4G0x6TTb751RNB8Hzafi3u"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/e9a267cd465acdd1dacfb81c4454da6f696b5c9e",
+      "description" : "We are super hyped to bring you our conversation with Richard Galvin, one of the best performing VCs of the last years and frontrunner to the DeFi opportunity. In this episode, Richard and Su make the most condensed case for Defi that I've heard to date. In this episode, we covered   Richard’s history on Wall Street  Why crypto is in a megatrend   How he goes from thesis to investment   Why society needs finance   How Defi improves on traditional finance; and   the best investment opportunities inside Defi  Richard Galvin https://twitter.com/richwgalvin Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/ ",
+      "duration_ms" : 3740588,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/1Z2a7hFPFCC8Qxx1AUEx0y"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/1Z2a7hFPFCC8Qxx1AUEx0y",
+      "html_description" : "<p>We are super hyped to bring you our conversation with <strong>Richard Galvin</strong>, one of the <strong>best performing VCs</strong> of the last years and <strong>frontrunner to the DeFi opportunity</strong>. In this episode, Richard and Su make the most <strong>condensed case for Defi</strong> that I've heard to date.</p>\n<p>In this episode, we covered</p>\n<ul>\n <li>Richard’s history on Wall Street</li>\n <li>Why crypto is in a megatrend</li>\n  <li>How he goes from thesis to investment</li>\n  <li>Why society needs finance</li>\n  <li>How Defi improves on traditional finance; and</li>\n  <li>the best investment opportunities inside Defi</li>\n</ul>\n<p>Richard Galvin <a href=\"https://twitter.com/richwgalvin\">https://twitter.com/richwgalvin</a></p>\n<p>Su Zhu <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a></p>\n<p>Our homepage and mailing list <a href=\"https://uncommoncore.co/podcast/\">https://uncommoncore.co/podcast/</a><strong><br>\n</strong></p>",
+      "id" : "1Z2a7hFPFCC8Qxx1AUEx0y",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab6765630000ba8a8a944ff8b5cf7b50adaf69a1",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67656300005f1f8a944ff8b5cf7b50adaf69a1",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab6765630000f68d8a944ff8b5cf7b50adaf69a1",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#22: The case for Defi - With Richard Galvin",
+      "release_date" : "2021-03-05",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:1Z2a7hFPFCC8Qxx1AUEx0y"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/e7e9d08379850972558fb7b15073e4e08bc200f3",
+      "description" : "This is part two of our conversation with Matti and Fiskantes of Zee Prime Capital. While the first half was more philosophical in nature, this time we talked exclusively about different blockchain projects and how they might connect to each other in the future. I believe that with gas fees in Ethereum being as high as they, the advent of sharding and layer two solutions, and the first credible Ethereum competitors like Polkadot, Cosmos, and Solana coming to mainnet, this topic has never been more relevant. In this episode, we covered   Why Zee Prime invests in Polkadot and its ecosystem  Different approaches to interoperability  Binance Smart Chain  What role Bitcoin and Ethereum will play in a multi-chain future  Part 1 of 2 https://anchor.fm/uncommoncore/episodes/20-Matti-and-Fiskantes-of-Zee-Prime-Capital---Part-1-eqfb0m Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/ ",
+      "duration_ms" : 3685244,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3mF73QCFLurirjbZRHAE60"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3mF73QCFLurirjbZRHAE60",
+      "html_description" : "<p>This is part two of our conversation with <a href=\"https://twitter.com/mattigags\">Matti </a>and <a href=\"https://twitter.com/Fiskantes\">Fiskantes </a>of <a href=\"https://twitter.com/zeeprimecap\">Zee Prime Capital</a>. While the first half was more philosophical in nature, this time we talked exclusively about different blockchain projects and how they might connect to each other in the future. I believe that with gas fees in Ethereum being as high as they, the advent of sharding and layer two solutions, and the first credible Ethereum competitors like Polkadot, Cosmos, and Solana coming to mainnet, this topic has never been more relevant.</p>\n<p>In this episode, we covered</p>\n<ul>\n <li>Why Zee Prime invests in Polkadot and its ecosystem</li>\n <li>Different approaches to interoperability</li>\n <li>Binance Smart Chain</li>\n <li>What role Bitcoin and Ethereum will play in a multi-chain future</li>\n</ul>\n<p>Part 1 of 2 <a href=\"https://anchor.fm/uncommoncore/episodes/20-Matti-and-Fiskantes-of-Zee-Prime-Capital---Part-1-eqfb0m\">https://anchor.fm/uncommoncore/episodes/20-Matti-and-Fiskantes-of-Zee-Prime-Capital---Part-1-eqfb0m</a></p>\n<p>Su Zhu <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a></p>\n<p>Our homepage and mailing list <a href=\"https://uncommoncore.co/podcast/\">https://uncommoncore.co/podcast/</a><br>\n</p>",
+      "id" : "3mF73QCFLurirjbZRHAE60",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ab6765630000ba8a27589b211dadd3f9979b34e6",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/ab67656300005f1f27589b211dadd3f9979b34e6",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ab6765630000f68d27589b211dadd3f9979b34e6",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#21: Exploring a Multi-Chain Future - With Matti and Fiskantes",
+      "release_date" : "2021-02-21",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3mF73QCFLurirjbZRHAE60"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/7679f6810f1297c938ad132ef824fcdd501322bd",
+      "description" : "Today, Su and I are sitting down with Matti and Fiskantes of Zee Prime Capital. These two have consistently been among my favorite people to follow on Crypto Twitter, so I’m very glad that they agreed to have this conversation with us. In fact, we ended up talking for so long that we have to release the episode in two parts. In this first half, we covered   The value of Crypto Twitter in finding and spreading ideas  Zee Prime’s unique investment thesis and how it is to be an outsider in the VC space  How mimetics and reflexity shape crypto markets  Whether the current crypto cycle will be the last  Hope you enjoy this conversation, I know I did. Zee Prime's Investment Thesis https://twitter.com/mattigags/status/1353668468776824840?s=20 Matti's article \"On Reflexivity & Imitation\" https://insights.deribit.com/market-research/on-reflexivity-and-imitation/ Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 4095006,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/07HX8bhBOhgyD0SCCOK2kS"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/07HX8bhBOhgyD0SCCOK2kS",
+      "html_description" : "<p>Today, Su and I are sitting down with <a href=\"https://twitter.com/mattigags\">Matti </a>and <a href=\"https://twitter.com/Fiskantes\">Fiskantes </a>of <a href=\"https://twitter.com/zeeprimecap\">Zee Prime Capital</a>. These two have consistently been among my favorite people to follow on Crypto Twitter, so I’m very glad that they agreed to have this conversation with us.</p>\n<p>In fact, we ended up talking for so long that we have to release the episode in two parts. In this first half, we covered</p>\n<ul>\n <li>The value of Crypto Twitter in finding and spreading ideas</li>\n <li>Zee Prime’s unique investment thesis and how it is to be an outsider in the VC space</li>\n <li>How mimetics and reflexity shape crypto markets</li>\n <li>Whether the current crypto cycle will be the last</li>\n</ul>\n<p>Hope you enjoy this conversation, I know I did.</p>\n<p>Zee Prime's Investment Thesis <a href=\"https://twitter.com/mattigags/status/1353668468776824840?s=20\">https://twitter.com/mattigags/status/1353668468776824840?s=20</a></p>\n<p>Matti's article \"On Reflexivity &amp; Imitation\" <a href=\"https://insights.deribit.com/market-research/on-reflexivity-and-imitation/\">https://insights.deribit.com/market-research/on-reflexivity-and-imitation/</a></p>\n<p>Su Zhu <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a></p>\n<p>Our homepage and mailing list <a href=\"https://uncommoncore.co/podcast/\">https://uncommoncore.co/podcast/</a></p>",
+      "id" : "07HX8bhBOhgyD0SCCOK2kS",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/916b0d05ad327c23210ccbf19d37006550a893d2",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/475d629705b5cdce5cdd18bfc6af0913ca61e66f",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/ac65971e59a0dca4b5a45b1f4d4f869f073eb3d2",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#20: Matti and Fiskantes of Zee Prime Capital - Part 1",
+      "release_date" : "2021-02-16",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:07HX8bhBOhgyD0SCCOK2kS"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/d9ecd67aca5c60d5b608532fcc3afbfec693e30f",
+      "description" : "Today, Su and I discuss the rise of WallStreetBets and financial populism in general. As one of the most experienced market participants I know, Su has a unique perspective on the story behind the GameStop short squeeze. We explore why he thinks it is going to end in tears for small investors, which invisible rules of the traditional financial system have been laid bare for everyone to see, and how all of this massively validates crypto and Defi going forward.   Su Zhu https://twitter.com/zhusu  Hasu https://twitter.com/hasufl  Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 2940150,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/2EeJ1wHXZjnEQ6440TokNR"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/2EeJ1wHXZjnEQ6440TokNR",
+      "html_description" : "<p>Today, Su and I discuss the rise of <strong>WallStreetBets</strong> and <strong>financial populism</strong> in general. As one of the most experienced market participants I know, Su has a unique perspective on the story behind the <strong>GameStop short squeeze</strong>. We explore why he thinks it is going to end in tears for small investors, which invisible rules of the traditional financial system have been laid bare for everyone to see, and how all of this <strong>massively validates crypto and Defi</strong> going forward. <br>\n<br>\nSu Zhu <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a>&nbsp;</p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a>&nbsp;</p>\n<p>Our homepage and mailing list <a href=\"https://uncommoncore.co/podcast/\">https://uncommoncore.co/podcast/</a></p>",
+      "id" : "2EeJ1wHXZjnEQ6440TokNR",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/e541e84750011e8492f9b13ff04eeb70de751468",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/fc897a2a71087589c177a137ead53bc2473d7869",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/2bdea9bfb76340358542a2995376f587e048abdc",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#19: The Future of Financial Populism - with Su Zhu and Hasu",
+      "release_date" : "2021-02-02",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:2EeJ1wHXZjnEQ6440TokNR"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/64c71317ea3153bdec1c86a6e6724bb30c321750",
+      "description" : "This is Part Two of our conversation with Arthur0x on the Top 20 Defi (Decentralized Finance) coins by market cap. Arthur0x went from being one of the earliest users and investors at Synthetix, Aave, and Kyber, to running the largest Defi-focused fund in all of Asia.  Arthur0x https://twitter.com/Arthur_0x Defiance Capital https://twitter.com/DeFianceCapital Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl  Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 3945556,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/6YCvFVZHUwtiHTrWgoM7D1"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/6YCvFVZHUwtiHTrWgoM7D1",
+      "html_description" : "<p>This is Part Two of our conversation with Arthur0x on the Top 20 Defi (Decentralized Finance) coins by market cap. Arthur0x went from being one of the earliest users and investors at Synthetix, Aave, and Kyber, to running the largest Defi-focused fund in all of Asia.<br>\n<br>\nArthur0x https://twitter.com/Arthur_0x<br>\nDefiance Capital https://twitter.com/DeFianceCapital<br>\nSu Zhu https://twitter.com/zhusu<br>\nHasu https://twitter.com/hasufl<br>\n<br>\nOur homepage and mailing list https://uncommoncore.co/podcast/</p>",
+      "id" : "6YCvFVZHUwtiHTrWgoM7D1",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/63b4156ed1d1f35036de4a0f5b76ef59d0fe943d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f7bf621047340a668f65659e83a162f89eb6779a",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/e4c34f77b904041c2696ffb99bd09bfb6ac1fd15",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#18: Defi Top 20 with Arthur0x, Su Zhu and Hasu - Part Two",
+      "release_date" : "2021-01-07",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:6YCvFVZHUwtiHTrWgoM7D1"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/d0ef9ebe348cae77efb4cad9cb8e097b4434f0a7",
+      "description" : "After our episode on the top 20 crypto coins by market cap, we got a lot of requests to do one for Defi as well. For that discussion, we brought in one of the foremost experts on Defi. Arthur0x went from being one of the earliest users and investors at Synthetix, Aave, and Kyber, to running the largest Defi-focused fund in all of Asia.   Arthur0x https://twitter.com/Arthur_0x  Defiance Capital https://twitter.com/DeFianceCapital  Su Zhu https://twitter.com/zhusu  Hasu https://twitter.com/hasufl   Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 5035810,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3edl57cdmv8fvRXZnuq6ZU"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3edl57cdmv8fvRXZnuq6ZU",
+      "html_description" : "After our episode on the top 20 crypto coins by market cap, we got a lot of requests to do one for Defi as well. For that discussion, we brought in one of the foremost experts on Defi. Arthur0x went from being one of the earliest users and investors at Synthetix, Aave, and Kyber, to running the largest Defi-focused fund in all of Asia.\n\n Arthur0x https://twitter.com/Arthur_0x\n Defiance Capital https://twitter.com/DeFianceCapital\n Su Zhu https://twitter.com/zhusu\n Hasu https://twitter.com/hasufl\n  Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "id" : "3edl57cdmv8fvRXZnuq6ZU",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/47f71699372ef7bec8e2040bb9ed288c179b2796",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/be09eff806d7213f895190ceac4d19dc9bb2dd5f",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/43592c088772ad96324bc44f3909012007f9dad7",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#17: Defi Top 20 with Arthur0x, Su Zhu and Hasu",
+      "release_date" : "2021-01-02",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3edl57cdmv8fvRXZnuq6ZU"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/848ef4ff1fb4f2e5f366764f1a63f342eef74eaf",
+      "description" : "Today, I’m sitting down with Su Zhu, my friend and co-host, and Josh, of Orthogonal Trading. Josh is one of the biggest and most experienced options traders in crypto and joined us for a very interesting and wide-ranging conversation. Together, we touched on topics like   how options work  differences between options and futures  Different strategies for using them in crypto  as well as what Josh thinks about options trading platforms in Defi  Resources:    https://www.optiontradingtips.com/options101/payoff-diagrams.html   https://www.payoffcharts.com/    https://www.investopedia.com/trading/getting-to-know-the-greeks/   Orthogonal Trading https://twitter.com/OrthoTrading   Su Zhu https://twitter.com/zhusu   Hasu https://twitter.com/hasufl   Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 4627421,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/2lsrAsh0jnDCaebcgTdNNT"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/2lsrAsh0jnDCaebcgTdNNT",
+      "html_description" : "Today, I’m sitting down with Su Zhu, my friend and co-host, and Josh, of Orthogonal Trading.\nJosh is one of the biggest and most experienced options traders in crypto and joined us for a very interesting and wide-ranging conversation. Together, we touched on topics like\n\n how options work\n differences between options and futures\n Different strategies for using them in crypto\n as well as what Josh thinks about options trading platforms in Defi\n\nResources:\n\n  https://www.optiontradingtips.com/options101/payoff-diagrams.html\n  https://www.payoffcharts.com/ \n  https://www.investopedia.com/trading/getting-to-know-the-greeks/\n  Orthogonal Trading https://twitter.com/OrthoTrading\n  Su Zhu https://twitter.com/zhusu\n  Hasu https://twitter.com/hasufl\n  Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "id" : "2lsrAsh0jnDCaebcgTdNNT",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#16: Josh and Su Zhu on Trading Options",
+      "release_date" : "2020-12-23",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:2lsrAsh0jnDCaebcgTdNNT"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/475bf49cd63d326d0336f81f1b44bc8503d0349b",
+      "description" : "When our scheduled guest had microphone issues, Su and I decided to record an improvised episode for you guys instead. In this one, we go through all the coins in Coingecko's Top 20 by market cap and discuss our thoughts and predictions for them going forward.  Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/",
+      "duration_ms" : 6683493,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/66a0eQrnO2OSBHnby71q4c"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/66a0eQrnO2OSBHnby71q4c",
+      "html_description" : "<p>When our scheduled guest had microphone issues, Su and I decided to record an improvised episode for you guys instead. In this one, we go through all the coins in Coingecko's Top 20 by market cap and discuss our thoughts and predictions for them going forward.<br>\n<br>\nSu Zhu <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a><br>\nHasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a><br>\nOur homepage and mailing list <a href=\"https://uncommoncore.co/podcast/\">https://uncommoncore.co/podcast/</a></p>",
+      "id" : "66a0eQrnO2OSBHnby71q4c",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/b5ddda7afdf0969d5823b197dc99ae10179c767b",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/42f501c0cc9a35783267dcb0ae458800eccf3ac2",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/aa99f40c51e77b894132bddf6010bfbdffd7802a",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#15: Su and Hasu discuss the 20 Biggest Coins on Coingecko",
+      "release_date" : "2020-12-11",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 2000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:66a0eQrnO2OSBHnby71q4c"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/d885d8d31df615edcfa58ad71d6dfd4da0819c15",
+      "description" : "Today, I’m not only joined by a very special guest, but the format of this episode is highly unusual as well! I interviewed the man who goes by the name @DegenSpartan on Twitter and who is one of the biggest and most enigmatic Defi investors there is. I have wanted to have him on for a long time, but there was one problem: DegenSpartan, or DS in short, is fully pseudonymous and did not even want to have his voice known. So we looked for a solution and ended up doing a text interview instead. Then I got Patrick McCorry (@paddypisa on Twitter) to speak the part of DS in the final recording, while I spoke my own part. At this point, I want to give a huge thank you to everyone who reached out to us on Twitter and offered their help to make this episode a reality. I get that this isn’t your average podcast, and you can go and read the text interview instead if you want, but I think Paddy did a fantastic job and the final product came out great. Please enjoy! Discussed in this interview:   DS: Degenerate or prudent investor?  How he managed to recognize (and sell) the top in Defi  His approach to investing  Becoming Synthetix' patient zero  Why he dislikes Maker, YFI, and governance tokens in general  and more!  Links: Subscribe to our mailing list for transcripts and other bonus content: https://uncommoncore.co/  DegenSpartan https://twitter.com/DegenSpartan Hasu https://twitter.com/hasufl  Patrick McCorry (as DS): https://twitter.com/paddypisa",
+      "duration_ms" : 2262885,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/4mASwr9psipfZxOn8pyJ1z"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/4mASwr9psipfZxOn8pyJ1z",
+      "html_description" : "Today, I’m not only joined by a very special guest, but the format of this episode is highly unusual as well! I interviewed the man who goes by the name @DegenSpartan on Twitter and who is one of the biggest and most enigmatic Defi investors there is. I have wanted to have him on for a long time, but there was one problem: DegenSpartan, or DS in short, is fully pseudonymous and did not even want to have his voice known.\nSo we looked for a solution and ended up doing a text interview instead. Then I got Patrick McCorry (@paddypisa on Twitter) to speak the part of DS in the final recording, while I spoke my own part. At this point, I want to give a huge thank you to everyone who reached out to us on Twitter and offered their help to make this episode a reality.\nI get that this isn’t your average podcast, and you can go and read the text interview instead if you want, but I think Paddy did a fantastic job and the final product came out great. Please enjoy!\nDiscussed in this interview:\n\n DS: Degenerate or prudent investor?\n How he managed to recognize (and sell) the top in Defi\n His approach to investing\n Becoming Synthetix' patient zero\n Why he dislikes Maker, YFI, and governance tokens in general\n and more!\n\nLinks:\nSubscribe to our mailing list for transcripts and other bonus content: https://uncommoncore.co/ \nDegenSpartan https://twitter.com/DegenSpartan\nHasu https://twitter.com/hasufl \nPatrick McCorry (as DS): https://twitter.com/paddypisa",
+      "id" : "4mASwr9psipfZxOn8pyJ1z",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/0d9a3155105b75a57ca2a913f9f275ccac9e4770",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/54e030b9858017bf837f0ea661c3e158b2e27371",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/9b17aefeaa7fb89683891c7f8d059e76b87e1025",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#14: Interview with a (Degen)Spartan",
+      "release_date" : "2020-11-13",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:4mASwr9psipfZxOn8pyJ1z"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/8528e76774a246f5d6c98e8376d52c7e9672bb86",
+      "description" : "Today, I sat down with Su Zhu, who is the CEO and CIO of Three Arrows Capital, as well as LightCrypto.  Light is a real crypto OG and one of the largest and most successful prop traders in this space.  We’ve known each other for two years now and I have tremendous respect for his skill and clarity of thought. He’s usually very secretive, so we are thankful that he has recorded his first-ever interview with us. In this conversation, we go very deep into the process and mindset of trading, as well as Su and Light’s current views on the market and how they are positioned going forward.  My name is Hasu, and I’m a researcher, investor, and writer. Light https://twitter.com/lightcrypto Su https://twitter.com/zhusu Hasu https://twitter.com/hasufl https://podcasts.apple.com/us/podcast/uncommon-core/ ",
+      "duration_ms" : 5084132,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/5Us70MUTalLnyPceZwOH55"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/5Us70MUTalLnyPceZwOH55",
+      "html_description" : "<p>Today, I sat down with Su Zhu, who is the CEO and CIO of Three Arrows Capital, as well as LightCrypto.&nbsp;</p>\n<p>Light is a real crypto OG and one of the largest and most successful prop traders in this space.&nbsp;</p>\n<p>We’ve known each other for two years now and I have tremendous respect for his skill and clarity of thought. He’s usually very secretive, so we are thankful that he has recorded his first-ever interview with us. In this conversation, we go very deep into the process and mindset of trading, as well as Su and Light’s current views on the market and how they are positioned going forward.&nbsp;</p>\n<p>My name is Hasu, and I’m a researcher, investor, and writer.</p>\n<p>Light <a href=\"https://twitter.com/lightcrypto\">https://twitter.com/lightcrypto</a></p>\n<p>Su <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a></p>\n<p><a href=\"https://podcasts.apple.com/us/podcast/uncommon-core/\">https://podcasts.apple.com/us/podcast/uncommon-core/</a></p>\n<p><br></p>",
+      "id" : "5Us70MUTalLnyPceZwOH55",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#13: Light and Su Zhu on the Art of Trading",
+      "release_date" : "2020-10-23",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:5Us70MUTalLnyPceZwOH55"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/02980edc2e59289366b4cd0ff8b63ada3dbcac02",
+      "description" : "Today, I’m sitting down with Su Zhu, my co-host and friend, to talk about the state of the crypto market and what he’s seeing on the horizon. Su is the CEO as well as Chief Investment Officer at Three Arrows Capital, one of the largest trading firms in crypto.  Just one thing before we dive in, we make no money from this podcast we do want to grow our audience. so please take the time to leave us a rating and review on Apple Podcasts. It really helps a lot with discovery. Thank you. Apple Podcasts https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188 Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl ",
+      "duration_ms" : 3607316,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/2pfSItD2fm9XPg6HkMvOlB"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/2pfSItD2fm9XPg6HkMvOlB",
+      "html_description" : "<p><strong>Today, I’m sitting down with Su Zhu, my co-host and friend, to talk about the state of the crypto market and what he’s seeing on the horizon.</strong></p>\n<p><strong>Su is the CEO as well as Chief Investment Officer at Three Arrows Capital, one of the largest trading firms in crypto.&nbsp;</strong></p>\n<p><strong>Just one thing before we dive in, we make no money from this podcast we do want to grow our audience. so please take the time to leave us a rating and review on Apple Podcasts. It really helps a lot with discovery. Thank you.</strong></p>\n<p><strong>Apple Podcasts </strong><a href=\"https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188\"><strong>https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188</strong></a></p>\n<p><strong>Su Zhu </strong><a href=\"https://twitter.com/zhusu\"><strong>https://twitter.com/zhusu</strong></a></p>\n<p><strong>Hasu </strong><a href=\"https://twitter.com/hasufl \"><strong>https://twitter.com/hasufl&nbsp;</strong></a></p>",
+      "id" : "2pfSItD2fm9XPg6HkMvOlB",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#12 Su Zhu on the State of the Crypto Market",
+      "release_date" : "2020-10-08",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:2pfSItD2fm9XPg6HkMvOlB"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/b9844879242f580be803326f4e562533ab5582c2",
+      "description" : "Today, we bring you a special episode. This is actually Part II of an interview I did with Anna Rose of the Zero Knowledge Podcast, and Tarun Chitra of Gauntlet. We explore the rise of governance tokens by looking at Sushiswap as our case study. Part I has been released on the ZK podcast and you can find the link to it in the show notes. It's not necessary for you to follow along, but it was a great and very lively discussion and I still recommend you listen to it first. Finally, we recorded this episode the day before Uniswap launched its own token. So keep that in mind when you hear as speculate about its future. Enjoy! Listen to Part I https://www.zeroknowledge.fm/148  (RSS: https://feeds.fireside.fm/zeroknowledge/rss) Anna Rose https://twitter.com/AnnaRRose Tarun Chitra https://twitter.com/tarunchitra Hasu https://twitter.com/hasufl",
+      "duration_ms" : 2421899,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/7gQQeXLV5b29F6mkEmUpVo"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/7gQQeXLV5b29F6mkEmUpVo",
+      "html_description" : "<p>Today, we bring you a special episode. This is actually Part II of an interview I did with Anna Rose of the Zero Knowledge Podcast, and Tarun Chitra of Gauntlet. <strong>We explore the rise of governance tokens by looking at Sushiswap as our case study.</strong></p>\n<p>Part I has been released on the ZK podcast and you can find the link to it in the show notes. It's not necessary for you to follow along, but it was a great and very lively discussion and I still recommend you listen to it first.</p>\n<p>Finally, we recorded this episode the day before Uniswap launched its own token. So keep that in mind when you hear as speculate about its future.</p>\n<p>Enjoy!</p>\n<p><strong>Listen to Part I </strong><a href=\"https://www.zeroknowledge.fm/148\"><u><strong>https://www.zeroknowledge.fm/148</strong></u></a><u><strong>&nbsp;</strong></u></p>\n<p><u><strong>(RSS: </strong></u><a href=\"https://anchor.fm/uncommoncore/episodes/A-Tale-of-SushiSwap---Part-II-ek3o9d\"><u><strong>https://feeds.fireside.fm/zeroknowledge/rss</strong></u></a><u><strong>)</strong></u></p>\n<p><strong>Anna Rose </strong><a href=\"https://twitter.com/AnnaRRose\"><u><strong>https://twitter.com/AnnaRRose</strong></u></a></p>\n<p><strong>Tarun Chitra </strong><a href=\"https://twitter.com/tarunchitra\"><u><strong>https://twitter.com/tarunchitra</strong></u></a></p>\n<p><strong>Hasu </strong><a href=\"https://twitter.com/hasufl\"><u><strong>https://twitter.com/hasufl</strong></u></a></p>",
+      "id" : "7gQQeXLV5b29F6mkEmUpVo",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/74209079a3e87f281dcc6ce9866a6e031a05c688",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/692a8a91483825e3117d7224d0bc9715fe908412",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/5f0535a52a32e8242d8825aa66ba5b84a8f1b6d6",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#11 A Tale of Sushi(Swap) - Part II",
+      "release_date" : "2020-09-24",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:7gQQeXLV5b29F6mkEmUpVo"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/8c93b2751e3746086d44684402b70fc472837752",
+      "description" : "Today, Su and I talk to Will Price and Trent Elmore of YAM.finance. YAM launched last month as a mix between Yearn’s fair launch, Ampleforth's supply elasticity, and Compound’s on-chain governance. And while its launch was short-lived (it had to shut down from a bug only two days later), it inspired a whole wave of food coins that tried to replicate its initial success. In this episode, we explore what made YAM so successful and what might be in store for the future. Will Price https://twitter.com/will__price Trent Elmore https://twitter.com/trentelme Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl",
+      "duration_ms" : 2790076,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3FxUa1OWvBneDrQrPvZyRT"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3FxUa1OWvBneDrQrPvZyRT",
+      "html_description" : "<p>Today, Su and I talk to Will Price and Trent Elmore of YAM.finance.</p>\n<p>YAM launched last month as a mix between Yearn’s fair launch, Ampleforth's supply elasticity, and Compound’s on-chain governance. And while its launch was short-lived (it had to shut down from a bug only two days later), it inspired a whole wave of food coins that tried to replicate its initial success. In this episode, we explore what made YAM so successful and what might be in store for the future.</p>\n<p>Will Price <a href=\"https://twitter.com/will__price\">https://twitter.com/will__price</a></p>\n<p>Trent Elmore <a href=\"https://twitter.com/trentelme\">https://twitter.com/trentelme</a></p>\n<p>Su Zhu <a href=\"https://twitter.com/zhusu\">https://twitter.com/zhusu</a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a></p>",
+      "id" : "3FxUa1OWvBneDrQrPvZyRT",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/d6d06d9ab3dd1404c66a932d98f04020696f4a12",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/68a8aa6e5a814a1a9e7133e36881987e684de1e0",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3f05cfcd5fc4581f2b62f2f0b9110526d40e396a",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#10 YAM: At the Root of DeFi's Food Obsession",
+      "release_date" : "2020-09-22",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3FxUa1OWvBneDrQrPvZyRT"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/081929bfe77a7b9230ea40c981a740e90fbb45f6",
+      "description" : "Today, I brought on Dan Robinson and Georgios Konstantopoulos, who are both research partners at Paradigm. Together, we explore the topic of MEV, or “Miner Extractable Value”. Blockchains like Ethereum have this dirty little secret that, while in most regards they are very decentralized, the ordering of transactions within a single block is actually completely in the hands of a single miner. They can insert their own transactions, rearrange those of users, or even censor them completely. MEV describes how much value a miner can extract from users and other miners by using these powers to their advantage. If you’ve never looked into MEV before, I think you’ll be both shocked and fascinated by the complexity and sophistication of the war that’s raging inside Ethereum’s memory pool. Enjoy  Dan Robinson https://twitter.com/danrobinson Georgios Konstantopoulos https://twitter.com/gakonst Hasu https://twitter.com/hasufl Flash Boys 2.0 (Daian et al) https://pdaian.com/flashboys2.pdf",
+      "duration_ms" : 4493124,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3JNtMt7oouY5aXMmg7jh8w"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3JNtMt7oouY5aXMmg7jh8w",
+      "html_description" : "<p>Today, I brought on Dan Robinson and Georgios Konstantopoulos, who are both research partners at Paradigm. Together, we explore the topic of MEV, or “Miner Extractable Value”.</p>\n<p>Blockchains like Ethereum have this dirty little secret that, while in most regards they are very decentralized, the ordering of transactions within a single block is actually completely in the hands of a single miner. They can insert their own transactions, rearrange those of users, or even censor them completely.</p>\n<p>MEV describes how much value a miner can extract from users and other miners by using these powers to their advantage.</p>\n<p>If you’ve never looked into MEV before, I think you’ll be both shocked and fascinated by the complexity and sophistication of the war that’s raging inside Ethereum’s memory pool. Enjoy<br>\n<br>\nDan Robinson <a href=\"https://twitter.com/danrobinson\">https://twitter.com/danrobinson</a></p>\n<p>Georgios Konstantopoulos <a href=\"https://twitter.com/gakonst\">https://twitter.com/gakonst</a></p>\n<p>Hasu <a href=\"https://twitter.com/hasufl\">https://twitter.com/hasufl</a></p>\n<p>Flash Boys 2.0 (Daian et al) <a href=\"https://pdaian.com/flashboys2.pdf\">https://pdaian.com/flashboys2.pdf</a></p>",
+      "id" : "3JNtMt7oouY5aXMmg7jh8w",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/0a09fe792405808e3956610acc517e40be87e881",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/31f3ff7f7cb2ed2d3d30d4cc55a1e5e2d825ad77",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/a1d26e3483e3fb77ee3874b52c5a46b10b99ba24",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#9 Gas Wars: Understanding Ethereum's Mempool & Miner Extractable Value",
+      "release_date" : "2020-09-20",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : false,
+        "resume_position_ms" : 3865000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3JNtMt7oouY5aXMmg7jh8w"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/cdeabc2b97857cc46574bfc285b540be69865e71",
+      "description" : "For today’s episode, I sat down with Su Zhu to learn all about perpetual swaps. There’s probably not a person in crypto who has more authority on this topic than him. The first half of the episode serves as a general introduction to perpetual swaps, while in the second half, we explore how perpetual swaps are coming to DeFi and why they are the single biggest primitive that is still missing from the DeFi puzzle. While the episode can get pretty technical at times, we tried to follow a logical buildup, so no prior knowledge should be required. Please note that I put some links to definitions and followup reading into the show notes. Enjoy the episode. In this episode:   What is a perpetual swap and how does it work  The history of perp swaps and their usage outside of cryptocurrency  How the oracle problem is misunderstood  AMM and central limit order book: mapping the two approaches to perpetual swaps in DeFi  Tradeoffs between perps in CeFi and DeFi  Perpetual swaps as money legos  How DeFi perp swaps will enable a new form of stablecoin  The role of insurance funds and auto liquidation   Hasu Twitter https://twitter.com/hasufl Su Zhu Twitter https://twitter.com/zhusu Episode transcript https://uncommoncore.co/uncommon-core-podcast-episode-8-transcript/ Definitions and further reading:   TWAP: https://en.wikipedia.org/wiki/Time-weighted_average_price  LIBOR: https://en.wikipedia.org/wiki/Libor  CFD: https://en.wikipedia.org/wiki/Contract_for_difference  Tom next swaps: https://www.investopedia.com/terms/t/tomorrownext.asp  Rolling a futures contract https://www.investopedia.com/terms/r/rollforward.asp  yTokens and yVaults: https://anchor.fm/uncommoncore/episodes/6-Andre-Cronje-and-the-Philosophy-of-Yearn-Finance-ei4vds  Synthetix tokens and inverse tokens: https://docs.synthetix.io/tokens/  Article on crypto banking https://insights.deribit.com/market-research/the-great-race-to-crypto-banking/  Design space for auto liquidation mechanisms https://insights.deribit.com/market-research/crypto-derivatives-exchanges-liquidation-pioneers/",
+      "duration_ms" : 4041308,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3BY9hUeUcV3mjRx50gNTPp"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3BY9hUeUcV3mjRx50gNTPp",
+      "html_description" : "For today’s episode, I sat down with Su Zhu to learn all about perpetual swaps. There’s probably not a person in crypto who has more authority on this topic than him. The first half of the episode serves as a general introduction to perpetual swaps, while in the second half, we explore how perpetual swaps are coming to DeFi and why they are the single biggest primitive that is still missing from the DeFi puzzle.\nWhile the episode can get pretty technical at times, we tried to follow a logical buildup, so no prior knowledge should be required. Please note that I put some links to definitions and followup reading into the show notes. Enjoy the episode.\nIn this episode:\n\n What is a perpetual swap and how does it work\n The history of perp swaps and their usage outside of cryptocurrency\n How the oracle problem is misunderstood\n AMM and central limit order book: mapping the two approaches to perpetual swaps in DeFi\n Tradeoffs between perps in CeFi and DeFi\n Perpetual swaps as money legos\n How DeFi perp swaps will enable a new form of stablecoin\n The role of insurance funds and auto liquidation\n\n\nHasu Twitter https://twitter.com/hasufl\nSu Zhu Twitter https://twitter.com/zhusu\nEpisode transcript https://uncommoncore.co/uncommon-core-podcast-episode-8-transcript/\nDefinitions and further reading:\n\n TWAP: https://en.wikipedia.org/wiki/Time-weighted_average_price\n LIBOR: https://en.wikipedia.org/wiki/Libor\n CFD: https://en.wikipedia.org/wiki/Contract_for_difference\n Tom next swaps: https://www.investopedia.com/terms/t/tomorrownext.asp\n Rolling a futures contract https://www.investopedia.com/terms/r/rollforward.asp\n yTokens and yVaults: https://anchor.fm/uncommoncore/episodes/6-Andre-Cronje-and-the-Philosophy-of-Yearn-Finance-ei4vds\n Synthetix tokens and inverse tokens: https://docs.synthetix.io/tokens/\n Article on crypto banking https://insights.deribit.com/market-research/the-great-race-to-crypto-banking/\n Design space for auto liquidation mechanisms https://insights.deribit.com/market-research/crypto-derivatives-exchanges-liquidation-pioneers/",
+      "id" : "3BY9hUeUcV3mjRx50gNTPp",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#8: Su Zhu on Perpetual Swaps - Crypto's Killer Product So Far",
+      "release_date" : "2020-08-27",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 1482000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3BY9hUeUcV3mjRx50gNTPp"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/1c41b1516ad09de80cee51282f98d7c34c8ddc7b",
+      "description" : "We return for the second half of our interview with Andre Cronje, a long-time DeFi developer, and creator of Yearn Finance. You can think of Yearn as a smart bank account that automatically allocates your assets to different low-risk investment strategies that execute on the Ethereum blockchain. My co-host is Tarun Chitra, the CEO and founder of Gauntlet, a company that helps stress test the incentive structures and economics of cryptocurrency protocols, especially of DeFi protocols. In this episode, we explore governance in Yearn in particular and how governance in DeFi should work in general. What roles exist, and how can we align their incentives? Is governance a feature to be tokenized and sold off, or an attack vector to be closed? How does the price of a governance token affect the security of its parent protocol? And why does Andre eventually want to retreat from being the lead developer of Yearn Finance? Yearn Finance Gauntlet Hasu's article \"Is Yearn.finance safe to use?\" Episode Transcript",
+      "duration_ms" : 3874770,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3D8mzEDVGhbLuknrmP3LGf"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3D8mzEDVGhbLuknrmP3LGf",
+      "html_description" : "We return for the second half of our interview with Andre Cronje, a long-time DeFi developer, and creator of Yearn Finance. You can think of Yearn as a smart bank account that automatically allocates your assets to different low-risk investment strategies that execute on the Ethereum blockchain.\nMy co-host is Tarun Chitra, the CEO and founder of Gauntlet, a company that helps stress test the incentive structures and economics of cryptocurrency protocols, especially of DeFi protocols.\nIn this episode, we explore governance in Yearn in particular and how governance in DeFi should work in general. What roles exist, and how can we align their incentives? Is governance a feature to be tokenized and sold off, or an attack vector to be closed? How does the price of a governance token affect the security of its parent protocol? And why does Andre eventually want to retreat from being the lead developer of Yearn Finance?\nYearn Finance\nGauntlet\nHasu's article \"Is Yearn.finance safe to use?\"\nEpisode Transcript",
+      "id" : "3D8mzEDVGhbLuknrmP3LGf",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#7: Andre Cronje on Governance",
+      "release_date" : "2020-08-21",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3D8mzEDVGhbLuknrmP3LGf"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/114426f7e8414dd0c53cc260d96887ac3126b4d9",
+      "description" : "This week, I - Hasu - talk to Andre Cronje, a long-time DeFi developer, and creator of Yearn Finance. You can think of Yearn as a smart bank account that automatically allocates your assets to different low-risk investment strategies that execute on the Ethereum blockchain. My co-host is Tarun Chitra, the CEO and founder of Gauntlet, a company that helps stress test the incentive structures and economics of cryptocurrency protocols, especially of DeFi protocols. We're releasing this interview in two parts. The first gives you an introduction to Yearn Finance, it's future, and Andre's design and investment philosophy in building it. Part II explores the design space for governance systems in DeFi - one of the hottest topics in crypto right now.  Yearn Finance Gauntlet Hasu's article \"Is Yearn.finance safe to use?\" New: Episode Transcript",
+      "duration_ms" : 3729092,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/2elQquWg0DgWhepA34UWjX"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/2elQquWg0DgWhepA34UWjX",
+      "html_description" : "This week, I - Hasu - talk to Andre Cronje, a long-time DeFi developer, and creator of Yearn Finance. You can think of Yearn as a smart bank account that automatically allocates your assets to different low-risk investment strategies that execute on the Ethereum blockchain.\nMy co-host is Tarun Chitra, the CEO and founder of Gauntlet, a company that helps stress test the incentive structures and economics of cryptocurrency protocols, especially of DeFi protocols.\nWe're releasing this interview in two parts. The first gives you an introduction to Yearn Finance, it's future, and Andre's design and investment philosophy in building it. Part II explores the design space for governance systems in DeFi - one of the hottest topics in crypto right now.\n\nYearn Finance\nGauntlet\nHasu's article \"Is Yearn.finance safe to use?\"\nNew: Episode Transcript",
+      "id" : "2elQquWg0DgWhepA34UWjX",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#6: Andre Cronje on Yearn Finance",
+      "release_date" : "2020-08-14",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:2elQquWg0DgWhepA34UWjX"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/2a8af14f28a02c83ecb11435a0e7cdeb2ae4bb60",
+      "description" : "In this episode, Su and Hasu talk to Matt Castro and Brad Koeppen of CMT Digital, one of the longest-standing trading firms in crypto. Topics covered - What their firm does in crypto - What CMT thinks about DeFi - The rise of AMMs and their future - Why CMT co-founded the Chigaco DeFi Alliance - Why community-funded coins have performed better than VC-funded ones, and whether this trend will continue Su Zhu is the CEO and CIO of Three Arrows Capital. Hasu is a cryptocurrency researcher and writer. Together, they publish on Deribit Insights and uncommoncore.co.",
+      "duration_ms" : 2675372,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/3A3NoeqflsxW4YI7RZqG4b"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/3A3NoeqflsxW4YI7RZqG4b",
+      "html_description" : "In this episode, Su and Hasu talk to Matt Castro and Brad Koeppen of CMT Digital, one of the longest-standing trading firms in crypto.\nTopics covered\n- What their firm does in crypto\n- What CMT thinks about DeFi\n- The rise of AMMs and their future\n- Why CMT co-founded the Chigaco DeFi Alliance\n- Why community-funded coins have performed better than VC-funded ones, and whether this trend will continue\nSu Zhu is the CEO and CIO of Three Arrows Capital.\nHasu is a cryptocurrency researcher and writer.\nTogether, they publish on Deribit Insights and uncommoncore.co.",
+      "id" : "3A3NoeqflsxW4YI7RZqG4b",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#5: CMT Digital on DeFi and the overall crypto market",
+      "release_date" : "2020-08-10",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 2236000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:3A3NoeqflsxW4YI7RZqG4b"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/5d510f4649e0dbb8ac9cbe72475143ff224f1493",
+      "description" : "In this episode, Su and Hasu are joined by James Prestwich, one of the leading technical experts and thinkers in this space.  Topics covered: - What is Blockstream Liquid - The bug James found - Disclosure and aftermath - Sidechains, channels, plasma, and rollups - How Bitcoin isolates itself from innovation happening on other chains (recommended reading) - Bitcoin in DeFi  Su Zhu is the CEO and CIO of Three Arrows Capital. Hasu is a cryptocurrency researcher and writer. Together, they publish on Deribit Insights and uncommoncore.co.",
+      "duration_ms" : 3262450,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/24RSkuqxfSpqJRShZWZb6e"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/24RSkuqxfSpqJRShZWZb6e",
+      "html_description" : "In this episode, Su and Hasu are joined by James Prestwich, one of the leading technical experts and thinkers in this space.\n\nTopics covered:\n- What is Blockstream Liquid\n- The bug James found\n- Disclosure and aftermath\n- Sidechains, channels, plasma, and rollups\n- How Bitcoin isolates itself from innovation happening on other chains (recommended reading)\n- Bitcoin in DeFi\n\nSu Zhu is the CEO and CIO of Three Arrows Capital.\nHasu is a cryptocurrency researcher and writer.\nTogether, they publish on Deribit Insights and uncommoncore.co.",
+      "id" : "24RSkuqxfSpqJRShZWZb6e",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#4: James Prestwich",
+      "release_date" : "2020-07-08",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 0
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:24RSkuqxfSpqJRShZWZb6e"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/a762a8ebdaa5bdf77cbb900b2055736d9ceaf899",
+      "description" : "In this episode, Su and Hasu talk about decentralized finance (DeFi).  Topics covered: - What DeFi means to Su - Why use DeFi over CeFi? - Is the current demand organic or subsidized by VC money? - Where users will allocate on the trust spectrum - The delicate dance between regulatory arbitrage & attracting talent and capital - The path to decentralization - Most important DeFi use cases today and in the future - How AMMs work and can be improved - The core building blocks of DeFi - Incentive mechanisms - Tokenized balances - Atomic transactions - Will a boom in DeFi translate to ether?  Su Zhu is the CEO and CIO of Three Arrows Capital. Hasu is a cryptocurrency researcher and writer. Together, they publish on Deribit Insights and uncommoncore.co.",
+      "duration_ms" : 4416203,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/7Ir4dMAnKWyXVjolNQLJVK"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/7Ir4dMAnKWyXVjolNQLJVK",
+      "html_description" : "In this episode, Su and Hasu talk about decentralized finance (DeFi).\n\nTopics covered:\n- What DeFi means to Su\n- Why use DeFi over CeFi?\n- Is the current demand organic or subsidized by VC money?\n- Where users will allocate on the trust spectrum\n- The delicate dance between regulatory arbitrage & attracting talent and capital\n- The path to decentralization\n- Most important DeFi use cases today and in the future\n- How AMMs work and can be improved\n- The core building blocks of DeFi\n- Incentive mechanisms\n- Tokenized balances\n- Atomic transactions\n- Will a boom in DeFi translate to ether?\n\nSu Zhu is the CEO and CIO of Three Arrows Capital.\nHasu is a cryptocurrency researcher and writer.\nTogether, they publish on Deribit Insights and uncommoncore.co.",
+      "id" : "7Ir4dMAnKWyXVjolNQLJVK",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#3: Su Zhu on Decentralized Finance",
+      "release_date" : "2020-06-24",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 2623000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:7Ir4dMAnKWyXVjolNQLJVK"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/8be9a85339a910538a7f8696fc42fbd0242cb391",
+      "description" : "In this episode, Su and Hasu talk about blockspace market mechanisms and EIP-1559. Read Hasu's analysis of EIP-1559 (w/ Georgios Konstantopoulos)   Topics covered: - what EIP-1559 is and the problems it solves - negative-sum vs zero-sum vs positive-sum proposals - reasons against EIP-1559 - what, if anything, can Bitcoin learn from EIP-1559 - impact on long-term security - how realistic perpetual issuance is in Bitcoin - elastic blocksize proposals in Bitcoin - lessons from the scaling debate - how parasitic L2s can threaten baselayer security - how dApps benefit from EIP-1559 - building dApps on appchains vs Ethereum - why every chain incl. Ethereum specializes over time - first-price auction vs fixed-price sale - EIP-1559 as an oracle for on-chain congestion - moving the Overton window for changes to Bitcoin  Su Zhu is the CEO and CIO of Three Arrows Capital.  Hasu is a cryptocurrency researcher and writer.   Together, they publish on Deribit Insights and uncommoncore.co.",
+      "duration_ms" : 2938711,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/6PPASBhSJX5CZaFbsJf6V6"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/6PPASBhSJX5CZaFbsJf6V6",
+      "html_description" : "In this episode, Su and Hasu talk about blockspace market mechanisms and EIP-1559. Read Hasu's analysis of EIP-1559 (w/ Georgios Konstantopoulos) \n\nTopics covered:\n- what EIP-1559 is and the problems it solves\n- negative-sum vs zero-sum vs positive-sum proposals\n- reasons against EIP-1559\n- what, if anything, can Bitcoin learn from EIP-1559\n- impact on long-term security\n- how realistic perpetual issuance is in Bitcoin\n- elastic blocksize proposals in Bitcoin\n- lessons from the scaling debate\n- how parasitic L2s can threaten baselayer security\n- how dApps benefit from EIP-1559\n- building dApps on appchains vs Ethereum\n- why every chain incl. Ethereum specializes over time\n- first-price auction vs fixed-price sale\n- EIP-1559 as an oracle for on-chain congestion\n- moving the Overton window for changes to Bitcoin\n\nSu Zhu is the CEO and CIO of Three Arrows Capital. \nHasu is a cryptocurrency researcher and writer. \n\nTogether, they publish on Deribit Insights and uncommoncore.co.",
+      "id" : "6PPASBhSJX5CZaFbsJf6V6",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#2: Hasu on EIP-1559",
+      "release_date" : "2020-06-16",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 2938000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:6PPASBhSJX5CZaFbsJf6V6"
+    }, {
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/44e036e6dcccca7d5804a489320fc9d18523efbe",
+      "description" : "Welcome to the first episode of the Uncommon Core podcast. Su and Hasu talk about the future of custody in crypto.  Follow Su on Twitter Follow Hasu on Twitter",
+      "duration_ms" : 2111267,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/7504jDzPgYamiaorHKdrfL"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/7504jDzPgYamiaorHKdrfL",
+      "html_description" : "Welcome to the first episode of the Uncommon Core podcast. Su and Hasu talk about the future of custody in crypto.\n\nFollow Su on Twitter\nFollow Hasu on Twitter",
+      "id" : "7504jDzPgYamiaorHKdrfL",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "en",
+      "languages" : [ "en" ],
+      "name" : "#1: Su Zhu on Custody",
+      "release_date" : "2020-06-08",
+      "release_date_precision" : "day",
+      "resume_point" : {
+        "fully_played" : true,
+        "resume_position_ms" : 2111000
+      },
+      "type" : "episode",
+      "uri" : "spotify:episode:7504jDzPgYamiaorHKdrfL"
+    } ],
+    "limit" : 50,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 25
+  },
+  "explicit" : false,
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw"
+  },
+  "href" : "https://api.spotify.com/v1/shows/3vuV292Him90EjQ5YL4XIw",
+  "html_description" : "",
+  "id" : "3vuV292Him90EjQ5YL4XIw",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://i.scdn.co/image/1587a1eedb53b190fe2c75eafe6cf4a6c419ed2d",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://i.scdn.co/image/f3470c2ccdf1dc66fde426d0a0e56296b208b680",
+    "width" : 300
+  }, {
+    "height" : 64,
+    "url" : "https://i.scdn.co/image/998f0bb42236942ec513c5af46c22ab98f000c17",
+    "width" : 64
+  } ],
+  "is_externally_hosted" : false,
+  "languages" : [ "en" ],
+  "media_type" : "audio",
+  "name" : "Uncommon Core",
+  "publisher" : "Uncommon Core",
+  "total_episodes" : 25,
+  "type" : "show",
+  "uri" : "spotify:show:3vuV292Him90EjQ5YL4XIw"
+}

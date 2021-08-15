@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -20,7 +21,7 @@ type FullShow struct {
 	SimpleShow
 
 	// A list of the show’s episodes.
-	Episodes EpisodePage `json:"episode"`
+	Episodes SimpleEpisodePage `json:"episodes"`
 }
 
 // SimpleShow contains basic data about a show.
@@ -165,4 +166,70 @@ func (e *EpisodePage) ReleaseDateTime() time.Time {
 	}
 	year, _ := strconv.Atoi(e.ReleaseDate)
 	return time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC)
+}
+
+// GetShow retrieves information about a specific show.
+// API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-show
+func (c *Client) GetShow(id string) (*FullShow, error) {
+	return c.GetShowOpt(nil, id)
+}
+
+// GetShowOpt is like GetShow while supporting an optional market parameter.
+// API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-show
+func (c *Client) GetShowOpt(opt *Options, id string) (*FullShow, error) {
+	spotifyURL := c.baseURL + "shows/" + id
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+
+	var result FullShow
+
+	err := c.get(spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+// GetShowEpisodes retrieves paginated episode information about a specific show.
+// API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes
+func (c *Client) GetShowEpisodes(id string) (*SimpleEpisodePage, error) {
+	return c.GetShowEpisodesOpt(nil, id)
+}
+
+// GetShowEpisodesOpt is like GetShowEpisodes while supporting optional market, limit, offset parameters.
+// API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes
+func (c *Client) GetShowEpisodesOpt(opt *Options, id string) (*SimpleEpisodePage, error) {
+	spotifyURL := c.baseURL + "shows/" + id + "/episodes"
+	if opt != nil {
+		v := url.Values{}
+		if opt.Country != nil {
+			v.Set("market", *opt.Country)
+		}
+		if opt.Limit != nil {
+			v.Set("limit", strconv.Itoa(*opt.Limit))
+		}
+		if opt.Offset != nil {
+			v.Set("offset", strconv.Itoa(*opt.Offset))
+		}
+		if params := v.Encode(); params != "" {
+			spotifyURL += "?" + params
+		}
+	}
+
+	var result SimpleEpisodePage
+
+	err := c.get(spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }
