@@ -30,7 +30,7 @@ func main() {
 	}
 
 	httpClient := spotifyauth.New().Client(ctx, token)
-	client := spotify.New(spotify.WithHTTPClient(httpClient))
+	client := spotify.New(httpClient)
 	msg, page, err := client.FeaturedPlaylists(ctx)
 	if err != nil {
 		log.Fatalf("couldn't get features playlists: %v", err)
