@@ -61,7 +61,7 @@ func TestUserHasAlbums(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `[ false, true ]`)
 	defer server.Close()
 
-	contains, err := client.UserHasAlbums("0udZHhCi7p1YzMlvI4fXoK", "55nlbqqFVnSsArIeYSQlqx")
+	contains, err := client.UserHasAlbums(context.Background(), "0udZHhCi7p1YzMlvI4fXoK", "55nlbqqFVnSsArIeYSQlqx")
 	if err != nil {
 		t.Error(err)
 	}
@@ -77,7 +77,7 @@ func TestAddAlbumsToLibrary(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	err := client.AddAlbumsToLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	err := client.AddAlbumsToLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err != nil {
 		t.Error(err)
 	}
@@ -92,7 +92,7 @@ func TestAddAlbumsToLibraryFailure(t *testing.T) {
   }
 }`)
 	defer server.Close()
-	err := client.AddAlbumsToLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	err := client.AddAlbumsToLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err == nil {
 		t.Error("Expected error and didn't get one")
 	}
@@ -102,7 +102,7 @@ func TestRemoveAlbumsFromLibrary(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
-	err := client.RemoveAlbumsFromLibrary("4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	err := client.RemoveAlbumsFromLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
 	if err != nil {
 		t.Error(err)
 	}
