@@ -1,8 +1,7 @@
 package spotify
 
 import (
-	"net/url"
-	"strconv"
+	"context"
 	"strings"
 )
 
@@ -101,41 +100,25 @@ type SearchResult struct {
 //
 // Other possible field filters, depending on object types being searched,
 // include "genre", "upc", and "isrc".  For example "damian genre:reggae-pop".
-func (c *Client) Search(query string, t SearchType) (*SearchResult, error) {
-	return c.SearchOpt(query, t, nil)
-}
-
-// SearchOpt works just like Search, but it accepts additional
-// parameters for filtering the output.  See the documentation for Search more
-// more information.
 //
-// If the Country field is specified in the options, then the results will only
+// If the Market field is specified in the options, then the results will only
 // contain artists, albums, and tracks playable in the specified country
-// (playlist results are not affected by the Country option).  Additionally,
+// (playlist results are not affected by the Market option).  Additionally,
 // the constant MarketFromToken can be used with authenticated clients.
 // If the client has a valid access token, then the results will only include
 // content playable in the user's country.
-func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchResult, error) {
-	v := url.Values{}
+//
+// Limit, Market and Offset request options are supported
+func (c *Client) Search(ctx context.Context, query string, t SearchType, opts ...RequestOption) (*SearchResult, error) {
+	v := processOptions(opts...).urlParams
 	v.Set("q", query)
 	v.Set("type", t.encode())
-	if opt != nil {
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Country != nil {
-			v.Set("market", *opt.Country)
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-	}
 
 	spotifyURL := c.baseURL + "search?" + v.Encode()
 
 	var result SearchResult
 
-	err := c.get(spotifyURL, &result)
+	err := c.get(ctx, spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -144,65 +127,65 @@ func (c *Client) SearchOpt(query string, t SearchType, opt *Options) (*SearchRes
 }
 
 // NextArtistResults loads the next page of artists into the specified search result.
-func (c *Client) NextArtistResults(s *SearchResult) error {
+func (c *Client) NextArtistResults(ctx context.Context, s *SearchResult) error {
 	if s.Artists == nil || s.Artists.Next == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Artists.Next, s)
+	return c.get(ctx, s.Artists.Next, s)
 }
 
 // PreviousArtistResults loads the previous page of artists into the specified search result.
-func (c *Client) PreviousArtistResults(s *SearchResult) error {
+func (c *Client) PreviousArtistResults(ctx context.Context, s *SearchResult) error {
 	if s.Artists == nil || s.Artists.Previous == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Artists.Previous, s)
+	return c.get(ctx, s.Artists.Previous, s)
 }
 
 // NextAlbumResults loads the next page of albums into the specified search result.
-func (c *Client) NextAlbumResults(s *SearchResult) error {
+func (c *Client) NextAlbumResults(ctx context.Context, s *SearchResult) error {
 	if s.Albums == nil || s.Albums.Next == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Albums.Next, s)
+	return c.get(ctx, s.Albums.Next, s)
 }
 
 // PreviousAlbumResults loads the previous page of albums into the specified search result.
-func (c *Client) PreviousAlbumResults(s *SearchResult) error {
+func (c *Client) PreviousAlbumResults(ctx context.Context, s *SearchResult) error {
 	if s.Albums == nil || s.Albums.Previous == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Albums.Previous, s)
+	return c.get(ctx, s.Albums.Previous, s)
 }
 
 // NextPlaylistResults loads the next page of playlists into the specified search result.
-func (c *Client) NextPlaylistResults(s *SearchResult) error {
+func (c *Client) NextPlaylistResults(ctx context.Context, s *SearchResult) error {
 	if s.Playlists == nil || s.Playlists.Next == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Playlists.Next, s)
+	return c.get(ctx, s.Playlists.Next, s)
 }
 
 // PreviousPlaylistResults loads the previous page of playlists into the specified search result.
-func (c *Client) PreviousPlaylistResults(s *SearchResult) error {
+func (c *Client) PreviousPlaylistResults(ctx context.Context, s *SearchResult) error {
 	if s.Playlists == nil || s.Playlists.Previous == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Playlists.Previous, s)
+	return c.get(ctx, s.Playlists.Previous, s)
 }
 
 // PreviousTrackResults loads the previous page of tracks into the specified search result.
-func (c *Client) PreviousTrackResults(s *SearchResult) error {
+func (c *Client) PreviousTrackResults(ctx context.Context, s *SearchResult) error {
 	if s.Tracks == nil || s.Tracks.Previous == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Tracks.Previous, s)
+	return c.get(ctx, s.Tracks.Previous, s)
 }
 
 // NextTrackResults loads the next page of tracks into the specified search result.
-func (c *Client) NextTrackResults(s *SearchResult) error {
+func (c *Client) NextTrackResults(ctx context.Context, s *SearchResult) error {
 	if s.Tracks == nil || s.Tracks.Next == "" {
 		return ErrNoMorePages
 	}
-	return c.get(s.Tracks.Next, s)
+	return c.get(ctx, s.Tracks.Next, s)
 }

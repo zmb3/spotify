@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -96,12 +97,12 @@ type AnalysisTrack struct {
 
 // GetAudioAnalysis queries the Spotify web API for an audio analysis of a
 // single track.
-func (c *Client) GetAudioAnalysis(id ID) (*AudioAnalysis, error) {
+func (c *Client) GetAudioAnalysis(ctx context.Context, id ID) (*AudioAnalysis, error) {
 	url := fmt.Sprintf("%saudio-analysis/%s", c.baseURL, id)
 
 	temp := AudioAnalysis{}
 
-	err := c.get(url, &temp)
+	err := c.get(ctx, url, &temp)
 	if err != nil {
 		return nil, err
 	}

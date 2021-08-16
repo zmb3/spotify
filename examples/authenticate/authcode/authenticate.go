@@ -8,11 +8,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"github.com/zmb3/spotify/v2/auth"
 	"log"
 	"net/http"
 
-	"github.com/zmb3/spotify"
+	"github.com/zmb3/spotify/v2"
 )
 
 // redirectURI is the OAuth redirect URI for the application.
@@ -21,7 +23,7 @@ import (
 const redirectURI = "http://localhost:8080/callback"
 
 var (
-	auth  = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadPrivate)
+	auth  = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURI), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
 )
@@ -32,7 +34,12 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Got request for:", r.URL.String())
 	})
-	go http.ListenAndServe(":8080", nil)
+	go func() {
+		err := http.ListenAndServe(":8080", nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	url := auth.AuthURL(state)
 	fmt.Println("Please log in to Spotify by visiting the following page in your browser:", url)
@@ -41,7 +48,7 @@ func main() {
 	client := <-ch
 
 	// use the client to make calls that require authorization
-	user, err := client.CurrentUser()
+	user, err := client.CurrentUser(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,7 +56,7 @@ func main() {
 }
 
 func completeAuth(w http.ResponseWriter, r *http.Request) {
-	tok, err := auth.Token(state, r)
+	tok, err := auth.Token(r.Context(), state, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
 		log.Fatal(err)
@@ -58,8 +65,9 @@ func completeAuth(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		log.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
+
 	// use the token to get an authenticated client
-	client := auth.NewClient(tok)
+	client := spotify.New(auth.Client(r.Context(), tok))
 	fmt.Fprintf(w, "Login Completed!")
-	ch <- &client
+	ch <- client
 }

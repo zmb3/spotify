@@ -4,13 +4,13 @@ package spotify
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"strconv"
 	"time"
 )
@@ -38,26 +38,54 @@ const (
 	rateLimitExceededStatusCode = 429
 )
 
-const baseAddress = "https://api.spotify.com/v1/"
-
 // Client is a client for working with the Spotify Web API.
-// It is created by `NewClient` and `Authenticator.NewClient`.
+// It is best to create this using spotify.New()
 type Client struct {
 	http    *http.Client
 	baseURL string
 
-	AutoRetry      bool
-	AcceptLanguage string
+	autoRetry      bool
+	acceptLanguage string
 }
 
-// NewClient returns a client for working with the Spotify Web API.
-// The provided HTTP client must include the user's access token in each request;
-// if you do not have such a client, use the `Authenticator.NewClient` method instead.
-func NewClient(client *http.Client) Client {
-	return Client{
-		http:    client,
-		baseURL: baseAddress,
+type ClientOption func(client *Client)
+
+// WithRetry configures the Spotify API client to automatically retry requests that fail due to ratelimiting.
+func WithRetry(shouldRetry bool) ClientOption {
+	return func(client *Client) {
+		client.autoRetry = shouldRetry
 	}
+}
+
+// WithBaseURL provides an alternative base url to use for requests to the Spotify API. This can be used to connect to a
+// staging or other alternative environment.
+func WithBaseURL(url string) ClientOption {
+	return func(client *Client) {
+		client.baseURL = url
+	}
+}
+
+// WithAcceptLanguage configures the client to provide the accept language header on all requests.
+func WithAcceptLanguage(lang string) ClientOption {
+	return func(client *Client) {
+		client.acceptLanguage = lang
+	}
+}
+
+// New returns a client for working with the Spotify Web API.
+// The provided httpClient must provide Authentication with the requests.
+// The auth package may be used to generate a suitable client.
+func New(httpClient *http.Client, opts ...ClientOption) *Client {
+	c := &Client{
+		http:    httpClient,
+		baseURL: "https://api.spotify.com/v1/",
+	}
+
+	for _, opt := range opts {
+		opt(c)
+	}
+
+	return c
 }
 
 // URI identifies an artist, album, track, or category.  For example,
@@ -174,8 +202,8 @@ func isFailure(code int, validCodes []int) bool {
 // status codes that will be treated as success. Note that we allow all 200s
 // even if there are additional success codes that represent success.
 func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...int) error {
-	if c.AcceptLanguage != "" {
-		req.Header.Set("Accept-Language", c.AcceptLanguage)
+	if c.acceptLanguage != "" {
+		req.Header.Set("Accept-Language", c.acceptLanguage)
 	}
 	for {
 		resp, err := c.http.Do(req)
@@ -184,7 +212,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.AutoRetry && shouldRetry(resp.StatusCode) {
+		if c.autoRetry && shouldRetry(resp.StatusCode) {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
@@ -219,11 +247,11 @@ func retryDuration(resp *http.Response) time.Duration {
 	return time.Duration(seconds) * time.Second
 }
 
-func (c *Client) get(url string, result interface{}) error {
+func (c *Client) get(ctx context.Context, url string, result interface{}) error {
 	for {
-		req, err := http.NewRequest("GET", url, nil)
-		if c.AcceptLanguage != "" {
-			req.Header.Set("Accept-Language", c.AcceptLanguage)
+		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+		if c.acceptLanguage != "" {
+			req.Header.Set("Accept-Language", c.acceptLanguage)
 		}
 		if err != nil {
 			return err
@@ -235,7 +263,7 @@ func (c *Client) get(url string, result interface{}) error {
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.AutoRetry {
+		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
@@ -257,48 +285,16 @@ func (c *Client) get(url string, result interface{}) error {
 	return nil
 }
 
-// Options contains optional parameters that can be provided
-// to various API calls.  Only the non-nil fields are used
-// in queries.
-type Options struct {
-	// Country is an ISO 3166-1 alpha-2 country code.  Provide
-	// this parameter if you want the list of returned items to
-	// be relevant to a particular country.  If omitted, the
-	// results will be relevant to all countries.
-	Country *string
-	// Limit is the maximum number of items to return.
-	Limit *int
-	// Offset is the index of the first item to return.  Use it
-	// with Limit to get the next set of items.
-	Offset *int
-	// Timerange is the period of time from which to return results
-	// in certain API calls. The three options are the following string
-	// literals: "short", "medium", and "long"
-	Timerange *string
-}
-
-// NewReleasesOpt is like NewReleases, but it accepts optional parameters
-// for filtering the results.
-func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err error) {
+// NewReleases gets a list of new album releases featured in Spotify.
+// Supported options: Country, Limit, Offset
+func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums *SimpleAlbumPage, err error) {
 	spotifyURL := c.baseURL + "browse/new-releases"
-	if opt != nil {
-		v := url.Values{}
-		if opt.Country != nil {
-			v.Set("country", *opt.Country)
-		}
-		if opt.Limit != nil {
-			v.Set("limit", strconv.Itoa(*opt.Limit))
-		}
-		if opt.Offset != nil {
-			v.Set("offset", strconv.Itoa(*opt.Offset))
-		}
-		if params := v.Encode(); params != "" {
-			spotifyURL += "?" + params
-		}
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
 	}
 
 	var objmap map[string]*json.RawMessage
-	err = c.get(spotifyURL, &objmap)
+	err = c.get(ctx, spotifyURL, &objmap)
 	if err != nil {
 		return nil, err
 	}
@@ -310,10 +306,4 @@ func (c *Client) NewReleasesOpt(opt *Options) (albums *SimpleAlbumPage, err erro
 	}
 
 	return &result, nil
-}
-
-// NewReleases gets a list of new album releases featured in Spotify.
-// This call requires bearer authorization.
-func (c *Client) NewReleases() (albums *SimpleAlbumPage, err error) {
-	return c.NewReleasesOpt(nil)
 }

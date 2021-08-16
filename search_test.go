@@ -1,6 +1,7 @@
 package spotify
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -9,7 +10,7 @@ func TestSearchArtist(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/search_artist.txt")
 	defer server.Close()
 
-	result, err := client.Search("tania bowra", SearchTypeArtist)
+	result, err := client.Search(context.Background(), "tania bowra", SearchTypeArtist)
 	if err != nil {
 		t.Error(err)
 	}
@@ -34,7 +35,7 @@ func TestSearchTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/search_tracks.txt")
 	defer server.Close()
 
-	result, err := client.Search("uptown", SearchTypeTrack)
+	result, err := client.Search(context.Background(), "uptown", SearchTypeTrack)
 	if err != nil {
 		t.Error(err)
 	}
@@ -59,7 +60,7 @@ func TestSearchPlaylistTrack(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/search_trackplaylist.txt")
 	defer server.Close()
 
-	result, err := client.Search("holiday", SearchTypePlaylist|SearchTypeTrack)
+	result, err := client.Search(context.Background(), "holiday", SearchTypePlaylist|SearchTypeTrack)
 	if err != nil {
 		t.Error(err)
 	}
@@ -86,16 +87,16 @@ func TestPrevNextSearchPageErrors(t *testing.T) {
 
 	//  1) there are no results (nil)
 	nilResults := &SearchResult{nil, nil, nil, nil}
-	if client.NextAlbumResults(nilResults) != ErrNoMorePages ||
-		client.NextArtistResults(nilResults) != ErrNoMorePages ||
-		client.NextPlaylistResults(nilResults) != ErrNoMorePages ||
-		client.NextTrackResults(nilResults) != ErrNoMorePages {
+	if client.NextAlbumResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.NextArtistResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.NextPlaylistResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.NextTrackResults(context.Background(), nilResults) != ErrNoMorePages {
 		t.Error("Next search result page should have failed for nil results")
 	}
-	if client.PreviousAlbumResults(nilResults) != ErrNoMorePages ||
-		client.PreviousArtistResults(nilResults) != ErrNoMorePages ||
-		client.PreviousPlaylistResults(nilResults) != ErrNoMorePages ||
-		client.PreviousTrackResults(nilResults) != ErrNoMorePages {
+	if client.PreviousAlbumResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.PreviousArtistResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.PreviousPlaylistResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.PreviousTrackResults(context.Background(), nilResults) != ErrNoMorePages {
 		t.Error("Previous search result page should have failed for nil results")
 	}
 	//  2) the prev/next URL is empty
@@ -105,16 +106,16 @@ func TestPrevNextSearchPageErrors(t *testing.T) {
 		Playlists: new(SimplePlaylistPage),
 		Tracks:    new(FullTrackPage),
 	}
-	if client.NextAlbumResults(emptyURL) != ErrNoMorePages ||
-		client.NextArtistResults(emptyURL) != ErrNoMorePages ||
-		client.NextPlaylistResults(emptyURL) != ErrNoMorePages ||
-		client.NextTrackResults(emptyURL) != ErrNoMorePages {
+	if client.NextAlbumResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.NextArtistResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.NextPlaylistResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.NextTrackResults(context.Background(), emptyURL) != ErrNoMorePages {
 		t.Error("Next search result page should have failed with empty URL")
 	}
-	if client.PreviousAlbumResults(emptyURL) != ErrNoMorePages ||
-		client.PreviousArtistResults(emptyURL) != ErrNoMorePages ||
-		client.PreviousPlaylistResults(emptyURL) != ErrNoMorePages ||
-		client.PreviousTrackResults(emptyURL) != ErrNoMorePages {
+	if client.PreviousAlbumResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.PreviousArtistResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.PreviousPlaylistResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.PreviousTrackResults(context.Background(), emptyURL) != ErrNoMorePages {
 		t.Error("Previous search result page should have failed with empty URL")
 	}
 }
