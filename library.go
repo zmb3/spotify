@@ -22,7 +22,7 @@ func (c *Client) UserHasAlbums(ctx context.Context, ids ...ID) ([]bool, error) {
 
 func (c *Client) libraryContains(ctx context.Context, typ string, ids ...ID) ([]bool, error) {
 	if l := len(ids); l == 0 || l > 50 {
-		return nil, errors.New("spotify: UserHasAlbums supports 1 to 50 IDs per call")
+		return nil, errors.New("spotify: supports 1 to 50 IDs per call")
 	}
 	spotifyURL := fmt.Sprintf("%sme/%s/contains?ids=%s", c.baseURL, typ, strings.Join(toStringSlice(ids), ","))
 
