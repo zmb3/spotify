@@ -58,7 +58,7 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
             return
       }
       // create a client using the specified token
-      client := spotify.New(spotify.WithHTTPClient(auth.Client(r.Context(), token)))
+      client := spotify.New(auth.Client(r.Context(), token))
 
       // the client can now be used to make authenticated requests
 }
