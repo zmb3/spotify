@@ -13,6 +13,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"golang.org/x/oauth2"
 )
 
 // Version is the version of this library.
@@ -306,4 +308,17 @@ func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums
 	}
 
 	return &result, nil
+}
+
+// Token gets the client's current token.
+func (c *Client) Token() (*oauth2.Token, error) {
+	transport, ok := c.http.Transport.(*oauth2.Transport)
+	if !ok {
+		return nil, errors.New("spotify: client not backed by oauth2 transport")
+	}
+	t, err := transport.Source.Token()
+	if err != nil {
+		return nil, err
+	}
+	return t, nil
 }
