@@ -2,12 +2,14 @@ package spotify
 
 import (
 	"context"
+	"golang.org/x/oauth2"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*Client, *httptest.Server) {
@@ -100,4 +102,62 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	if releases.Albums[0].ID != "60mvULtYiNSRmpVvoa3RE4" {
 		t.Error("Invalid data:", releases.Albums[0].ID)
 	}
+}
+
+func TestClient_Token(t *testing.T) {
+	// oauth setup for valid test token
+	config := oauth2.Config{
+		ClientID:     "test_client",
+		ClientSecret: "test_client_secret",
+		Endpoint:     oauth2.Endpoint{},
+		RedirectURL:  "http://redirect.redirect",
+		Scopes:       nil,
+	}
+	token := &oauth2.Token{
+		AccessToken:  "access_token",
+		TokenType:    "test_type",
+		RefreshToken: "refresh_token",
+		Expiry:       time.Now().Add(time.Hour),
+	}
+
+	t.Run("success", func(t *testing.T) {
+		httpClient := config.Client(context.Background(), token)
+		client := New(httpClient)
+		token, err := client.Token()
+		if err != nil {
+			t.Error(err)
+		}
+
+		if !token.Valid() {
+			t.Errorf("Token should be valid: %v", token)
+		}
+		if token.AccessToken != "access_token" {
+			t.Errorf("Invalid access token data: %s", token.AccessToken)
+		}
+		if token.RefreshToken != "refresh_token" {
+			t.Errorf("Invalid refresh token data: %s", token.RefreshToken)
+		}
+		if token.TokenType != "test_type" {
+			t.Errorf("Invalid token type: %s", token.TokenType)
+		}
+	})
+
+	t.Run("non oauth2 transport", func(t *testing.T) {
+		client := &Client{
+			http:    http.DefaultClient,
+		}
+		_, err := client.Token()
+		if err == nil || err.Error() != "spotify: client not backed by oauth2 transport" {
+			t.Errorf("Should throw error: %s", "spotify: client not backed by oauth2 transport")
+		}
+	})
+	
+	t.Run("invalid token", func(t *testing.T) {
+		httpClient := config.Client(context.Background(), nil)
+		client := New(httpClient)
+		_, err := client.Token()
+		if err == nil || err.Error() != "oauth2: token expired and refresh token is not set" {
+			t.Errorf("Should throw error: %s", "oauth2: token expired and refresh token is not set")
+		}
+	})
 }
