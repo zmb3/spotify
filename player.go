@@ -84,7 +84,7 @@ type RecentlyPlayedResult struct {
 // the request may be accepted but with an unpredictable resulting action on playback.
 type PlaybackOffset struct {
 	// Position is zero based and can’t be negative.
-	Position int `json:"position"`
+	Position *int `json:"position,omitempty"`
 	// URI is a string representing the uri of the item to start at.
 	URI URI `json:"uri,omitempty"`
 }
