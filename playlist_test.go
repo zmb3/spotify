@@ -311,6 +311,19 @@ func TestAddTracksToPlaylist(t *testing.T) {
 	}
 }
 
+func TestAddItemsToPlaylist(t *testing.T) {
+	client, server := testClientString(http.StatusCreated, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`)
+	defer server.Close()
+
+	snapshot, err := client.AddItemsToPlaylist(context.Background(), ID("playlist_id"), 0, URI("spotify:track:111"), URI("spotify:track:222"), URI("spotify:episode:111"))
+	if err != nil {
+		t.Error(err)
+	}
+	if snapshot != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
+		t.Error("Didn't get expected snapshot ID")
+	}
+}
+
 func TestRemoveTracksFromPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`, func(req *http.Request) {
 		requestBody, err := ioutil.ReadAll(req.Body)
