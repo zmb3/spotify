@@ -187,7 +187,7 @@ func (c *Client) decodeError(resp *http.Response) error {
 // shouldRetry determines whether the status code indicates that the
 // previous operation should be retried at a later time
 func shouldRetry(status int) bool {
-	return status == http.StatusAccepted || status == http.StatusTooManyRequests
+	return status == http.StatusTooManyRequests
 }
 
 // isFailure determines whether the code indicates failure
