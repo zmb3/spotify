@@ -10,6 +10,7 @@ import (
 
 // SimpleTrack contains basic info about a track.
 type SimpleTrack struct {
+	Album SimpleAlbum `json:"album"`
 	Artists []SimpleArtist `json:"artists"`
 	// A list of the countries in which the track can be played,
 	// identified by their ISO 3166-1 alpha-2 codes.
