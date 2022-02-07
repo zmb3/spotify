@@ -5,9 +5,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"log"
 	"os"
+
+	spotifyauth "github.com/zmb3/spotify/v2/auth"
 
 	"golang.org/x/oauth2/clientcredentials"
 
@@ -39,7 +40,7 @@ func main() {
 
 	httpClient := spotifyauth.New().Client(ctx, token)
 	client := spotify.New(httpClient)
-	user, err := client.GetUsersPublicProfile(ctx, spotify.ID(*userID))
+	user, err := client.GetUsersPublicProfile(ctx, *userID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
 		return
