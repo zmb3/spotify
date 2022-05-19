@@ -3,6 +3,7 @@ package spotify
 import (
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type RequestOption func(*requestOptions)
@@ -107,6 +108,28 @@ const (
 func Timerange(timerange Range) RequestOption {
 	return func(o *requestOptions) {
 		o.urlParams.Set("time_range", string(timerange))
+	}
+}
+
+type additionalType string
+
+const (
+	episodeAdditionalType = "episode"
+	trackAdditionalType   = "track"
+)
+
+// additionalTypes is a list of item types that your client supports besides the default track type.
+// Valid types are: episodeAdditionalType and trackAdditionalType.
+func additionalTypes(types ...additionalType) RequestOption {
+	strTypes := make([]string, len(types))
+	for i, t := range types {
+		strTypes[i] = string(t)
+	}
+
+	csv := strings.Join(strTypes, ",")
+
+	return func(o *requestOptions) {
+		o.urlParams.Set("additional_types", csv)
 	}
 }
 

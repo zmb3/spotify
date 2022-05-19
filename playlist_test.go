@@ -141,6 +141,64 @@ func TestGetPlaylistTracks(t *testing.T) {
 	}
 }
 
+func TestGetPlaylistItemsEpisodes(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/playlist_items_episodes.json")
+	defer server.Close()
+
+	tracks, err := client.GetPlaylistItems(context.Background(), "playlistID")
+	if err != nil {
+		t.Error(err)
+	}
+	if tracks.Total != 4 {
+		t.Errorf("Got %d tracks, expected 47\n", tracks.Total)
+	}
+	if len(tracks.Items) == 0 {
+		t.Fatal("No tracks returned")
+	}
+	expected := "112: Dirty Coms"
+	actual := tracks.Items[0].Track.Episode.Name
+	if expected != actual {
+		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
+	}
+	added := tracks.Items[0].AddedAt
+	tm, err := time.Parse(TimestampLayout, added)
+	if err != nil {
+		t.Error(err)
+	}
+	if f := tm.Format(DateLayout); f != "2022-03-22" {
+		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
+	}
+}
+
+func TestGetPlaylistItemsTracks(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/playlist_items_tracks.json")
+	defer server.Close()
+
+	tracks, err := client.GetPlaylistItems(context.Background(), "playlistID")
+	if err != nil {
+		t.Error(err)
+	}
+	if tracks.Total != 4 {
+		t.Errorf("Got %d tracks, expected 47\n", tracks.Total)
+	}
+	if len(tracks.Items) == 0 {
+		t.Fatal("No tracks returned")
+	}
+	expected := "112: Dirty Coms"
+	actual := tracks.Items[0].Track.Name
+	if expected != actual {
+		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
+	}
+	added := tracks.Items[0].AddedAt
+	tm, err := time.Parse(TimestampLayout, added)
+	if err != nil {
+		t.Error(err)
+	}
+	if f := tm.Format(DateLayout); f != "2022-03-22" {
+		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
+	}
+}
+
 func TestUserFollowsPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `[ true, false ]`)
 	defer server.Close()

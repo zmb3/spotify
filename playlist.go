@@ -190,6 +190,84 @@ func (c *Client) GetPlaylistTracks(
 	return &result, err
 }
 
+// PlaylistItem contains info about an item in a playlist.
+type PlaylistItem struct {
+	// The date and time the track was added to the playlist.
+	// You can use the TimestampLayout constant to convert
+	// this field to a time.Time value.
+	// Warning: very old playlists may not populate this value.
+	AddedAt string `json:"added_at"`
+	// The Spotify user who added the track to the playlist.
+	// Warning: vary old playlists may not populate this value.
+	AddedBy User `json:"added_by"`
+	// Whether this track is a local file or not.
+	IsLocal bool `json:"is_local"`
+	// Information about the track.
+	Track PlaylistItemTrack `json:"track"`
+}
+
+type PlaylistItemTrack struct {
+	*FullTrack
+	Episode *EpisodePage
+}
+
+func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
+	is := struct {
+		Episode bool `json:"episode"`
+		Track   bool `json:"track"`
+	}{}
+
+	err := json.Unmarshal(b, &is)
+	if err != nil {
+		return err
+	}
+
+	if is.Episode {
+		err := json.Unmarshal(b, &t.Episode)
+		if err != nil {
+			return err
+		}
+	}
+
+	if is.Track {
+		err := json.Unmarshal(b, &t.FullTrack)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// PlaylistItemPage contains information about tracks in a playlist.
+type PlaylistItemPage struct {
+	basePage
+	Items []PlaylistItem `json:"items"`
+}
+
+// GetPlaylistItems gets full details of the items in a playlist, given the
+// playlist's Spotify ID.
+//
+// Supported options: Limit, Offset, Market, Fields
+func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...RequestOption) (*PlaylistItemPage, error) {
+	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+
+	opts = append(opts, additionalTypes(episodeAdditionalType, trackAdditionalType))
+
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
+	}
+
+	var result PlaylistItemPage
+
+	err := c.get(ctx, spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, err
+}
+
 // CreatePlaylistForUser creates a playlist for a Spotify user.
 // The playlist will be empty until you add tracks to it.
 // The playlistName does not need to be unique - a user can have
