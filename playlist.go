@@ -244,7 +244,7 @@ func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// PlaylistItemPage contains information about tracks in a playlist.
+// PlaylistItemPage contains information about items in a playlist.
 type PlaylistItemPage struct {
 	basePage
 	Items []PlaylistItem `json:"items"`
