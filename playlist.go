@@ -170,6 +170,9 @@ func (c *Client) GetPlaylist(ctx context.Context, playlistID ID, opts ...Request
 // playlist's Spotify ID.
 //
 // Supported options: Limit, Offset, Market, Fields
+//
+// Deprecated: the Spotify api is moving towards supporting both tracks and episodes. Use GetPlaylistItems which
+// supports these.
 func (c *Client) GetPlaylistTracks(
 	ctx context.Context,
 	playlistID ID,
