@@ -165,7 +165,7 @@ func TestGetPlaylistItemsEpisodes(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f := tm.Format(DateLayout); f != "2022-03-22" {
+	if f := tm.Format(DateLayout); f != "2022-05-20" {
 		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
 	}
 }
