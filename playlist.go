@@ -570,7 +570,7 @@ func (c *Client) ReplacePlaylistItems(ctx context.Context, playlistID ID, items 
 		SnapshotID string `json:"snapshot_id"`
 	}{}
 
-	err = c.execute(req, result, http.StatusCreated)
+	err = c.execute(req, &result, http.StatusCreated)
 	if err != nil {
 		return "", err
 	}

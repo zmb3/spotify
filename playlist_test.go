@@ -536,6 +536,20 @@ func TestReplacePlaylistTracks(t *testing.T) {
 	}
 }
 
+func TestReplacePlaylistItems(t *testing.T) {
+	client, server := testClientString(http.StatusCreated, `{"snapshot_id": "test_snapshot"}`)
+	defer server.Close()
+
+	snapshot, err := client.ReplacePlaylistItems(context.Background(), "playlistID", "spotify:track:track1", "spotify:track:track2")
+	if err != nil {
+		t.Error(err)
+	}
+
+	if snapshot != "test_snapshot" {
+		t.Fatal("Incorrect snapshot returned")
+	}
+}
+
 func TestReplacePlaylistTracksForbidden(t *testing.T) {
 	client, server := testClientString(http.StatusForbidden, "")
 	defer server.Close()
