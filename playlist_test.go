@@ -243,6 +243,20 @@ func TestGetPlaylistItemsTracksAndEpisodes(t *testing.T) {
 	}
 }
 
+func TestGetPlaylistItemsOverride(t *testing.T) {
+	var types string
+	client, server := testClientString(http.StatusForbidden, "", func(r *http.Request) {
+		types = r.URL.Query().Get("additional_types")
+	})
+	defer server.Close()
+
+	_, _ = client.GetPlaylistItems(context.Background(), "playlistID", AdditionalTypes(EpisodeAdditionalType))
+
+	if types != "episode" {
+		t.Errorf("Expected additional type episode, got %s\n", types)
+	}
+}
+
 func TestUserFollowsPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `[ true, false ]`)
 	defer server.Close()

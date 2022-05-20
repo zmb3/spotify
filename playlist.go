@@ -254,7 +254,8 @@ type PlaylistItemPage struct {
 func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...RequestOption) (*PlaylistItemPage, error) {
 	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
 
-	opts = append(opts, additionalTypes(episodeAdditionalType, trackAdditionalType))
+	// Add default as the first option so it gets override by url.Values#Set
+	opts = append([]RequestOption{AdditionalTypes(EpisodeAdditionalType, TrackAdditionalType)}, opts...)
 
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
 		spotifyURL += "?" + params

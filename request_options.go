@@ -111,16 +111,16 @@ func Timerange(timerange Range) RequestOption {
 	}
 }
 
-type additionalType string
+type AdditionalType string
 
 const (
-	episodeAdditionalType = "episode"
-	trackAdditionalType   = "track"
+	EpisodeAdditionalType = "episode"
+	TrackAdditionalType   = "track"
 )
 
-// additionalTypes is a list of item types that your client supports besides the default track type.
-// Valid types are: episodeAdditionalType and trackAdditionalType.
-func additionalTypes(types ...additionalType) RequestOption {
+// AdditionalTypes is a list of item types that your client supports besides the default track type.
+// Valid types are: EpisodeAdditionalType and TrackAdditionalType.
+func AdditionalTypes(types ...AdditionalType) RequestOption {
 	strTypes := make([]string, len(types))
 	for i, t := range types {
 		strTypes[i] = string(t)
