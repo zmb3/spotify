@@ -178,14 +178,14 @@ func TestGetPlaylistItemsTracks(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if tracks.Total != 4 {
+	if tracks.Total != 2 {
 		t.Errorf("Got %d tracks, expected 47\n", tracks.Total)
 	}
 	if len(tracks.Items) == 0 {
 		t.Fatal("No tracks returned")
 	}
-	expected := "112: Dirty Coms"
-	actual := tracks.Items[0].Track.Name
+	expected := "Typhoons"
+	actual := tracks.Items[0].Track.Track.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
 	}
@@ -194,7 +194,51 @@ func TestGetPlaylistItemsTracks(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f := tm.Format(DateLayout); f != "2022-03-22" {
+	if f := tm.Format(DateLayout); f != "2022-05-20" {
+		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
+	}
+}
+
+func TestGetPlaylistItemsTracksAndEpisodes(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/playlist_items_episodes_and_tracks.json")
+	defer server.Close()
+
+	tracks, err := client.GetPlaylistItems(context.Background(), "playlistID")
+	if err != nil {
+		t.Error(err)
+	}
+	if tracks.Total != 4 {
+		t.Errorf("Got %d tracks, expected 47\n", tracks.Total)
+	}
+	if len(tracks.Items) == 0 {
+		t.Fatal("No tracks returned")
+	}
+
+	expected := "491- The Missing Middle"
+	actual := tracks.Items[0].Track.Episode.Name
+	if expected != actual {
+		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
+	}
+	added := tracks.Items[0].AddedAt
+	tm, err := time.Parse(TimestampLayout, added)
+	if err != nil {
+		t.Error(err)
+	}
+	if f := tm.Format(DateLayout); f != "2022-05-20" {
+		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
+	}
+
+	expected = "Typhoons"
+	actual = tracks.Items[2].Track.Track.Name
+	if expected != actual {
+		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
+	}
+	added = tracks.Items[0].AddedAt
+	tm, err = time.Parse(TimestampLayout, added)
+	if err != nil {
+		t.Error(err)
+	}
+	if f := tm.Format(DateLayout); f != "2022-05-20" {
 		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
 	}
 }
@@ -218,7 +262,7 @@ var newPlaylist = `
 "collaborative": %t,
 "description": "Test Description",
 "external_urls": {
-	"spotify": "http://open.spotify.com/user/thelinmichael/playlist/7d2D2S200NyUE5KYs80PwO"
+	"spotify": "api.http://open.spotify.com/user/thelinmichael/playlist/7d2D2S200NyUE5KYs80PwO"
 },
 "followers": {
 	"href": null,
@@ -230,7 +274,7 @@ var newPlaylist = `
 "name": "A New Playlist",
 "owner": {
 	"external_urls": {
-	"spotify": "http://open.spotify.com/user/thelinmichael"
+	"spotify": "api.http://open.spotify.com/user/thelinmichael"
 	},
 	"href": "https://api.spotify.com/v1/users/thelinmichael",
 	"id": "thelinmichael",

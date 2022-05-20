@@ -206,9 +206,9 @@ type PlaylistItem struct {
 	Track PlaylistItemTrack `json:"track"`
 }
 
-// PlaylistItemTrack is a union type for both tracks and episodes. It defaults to track type.
+// PlaylistItemTrack is a union type for both tracks and episodes.
 type PlaylistItemTrack struct {
-	*FullTrack
+	Track   *FullTrack
 	Episode *EpisodePage
 }
 
@@ -232,7 +232,7 @@ func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
 	}
 
 	if is.Track {
-		err := json.Unmarshal(b, &t.FullTrack)
+		err := json.Unmarshal(b, &t.Track)
 		if err != nil {
 			return err
 		}
