@@ -560,6 +560,20 @@ func TestReplacePlaylistTracksForbidden(t *testing.T) {
 	}
 }
 
+func TestReplacePlaylistItemsForbidden(t *testing.T) {
+	client, server := testClientString(http.StatusForbidden, "")
+	defer server.Close()
+
+	snapshot, err := client.ReplacePlaylistItems(context.Background(), "playlistID", "spotify:track:track1", "spotify:track:track2")
+	if err == nil {
+		t.Error("Replace succeeded but shouldn't have")
+	}
+
+	if snapshot != "" {
+		t.Fatal("Incorrect snapshot returned")
+	}
+}
+
 func TestReorderPlaylistRequest(t *testing.T) {
 	client, server := testClientString(http.StatusNotFound, "", func(req *http.Request) {
 		if ct := req.Header.Get("Content-Type"); ct != "application/json" {
