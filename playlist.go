@@ -170,6 +170,9 @@ func (c *Client) GetPlaylist(ctx context.Context, playlistID ID, opts ...Request
 // playlist's Spotify ID.
 //
 // Supported options: Limit, Offset, Market, Fields
+//
+// Deprecated: the Spotify api is moving towards supporting both tracks and episodes. Use GetPlaylistItems which
+// supports these.
 func (c *Client) GetPlaylistTracks(
 	ctx context.Context,
 	playlistID ID,
@@ -181,6 +184,87 @@ func (c *Client) GetPlaylistTracks(
 	}
 
 	var result PlaylistTrackPage
+
+	err := c.get(ctx, spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, err
+}
+
+// PlaylistItem contains info about an item in a playlist.
+type PlaylistItem struct {
+	// The date and time the track was added to the playlist.
+	// You can use the TimestampLayout constant to convert
+	// this field to a time.Time value.
+	// Warning: very old playlists may not populate this value.
+	AddedAt string `json:"added_at"`
+	// The Spotify user who added the track to the playlist.
+	// Warning: very old playlists may not populate this value.
+	AddedBy User `json:"added_by"`
+	// Whether this track is a local file or not.
+	IsLocal bool `json:"is_local"`
+	// Information about the track.
+	Track PlaylistItemTrack `json:"track"`
+}
+
+// PlaylistItemTrack is a union type for both tracks and episodes.
+type PlaylistItemTrack struct {
+	Track   *FullTrack
+	Episode *EpisodePage
+}
+
+// UnmarshalJSON customises the unmarshalling based on the type flags set.
+func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
+	is := struct {
+		Episode bool `json:"episode"`
+		Track   bool `json:"track"`
+	}{}
+
+	err := json.Unmarshal(b, &is)
+	if err != nil {
+		return err
+	}
+
+	if is.Episode {
+		err := json.Unmarshal(b, &t.Episode)
+		if err != nil {
+			return err
+		}
+	}
+
+	if is.Track {
+		err := json.Unmarshal(b, &t.Track)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// PlaylistItemPage contains information about items in a playlist.
+type PlaylistItemPage struct {
+	basePage
+	Items []PlaylistItem `json:"items"`
+}
+
+// GetPlaylistItems gets full details of the items in a playlist, given the
+// playlist's Spotify ID.
+//
+// Supported options: Limit, Offset, Market, Fields
+func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...RequestOption) (*PlaylistItemPage, error) {
+	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+
+	// Add default as the first option so it gets override by url.Values#Set
+	opts = append([]RequestOption{AdditionalTypes(EpisodeAdditionalType, TrackAdditionalType)}, opts...)
+
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
+	}
+
+	var result PlaylistItemPage
 
 	err := c.get(ctx, spotifyURL, &result)
 	if err != nil {
