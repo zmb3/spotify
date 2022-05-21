@@ -537,7 +537,23 @@ func TestReplacePlaylistTracks(t *testing.T) {
 }
 
 func TestReplacePlaylistItems(t *testing.T) {
-	client, server := testClientString(http.StatusCreated, `{"snapshot_id": "test_snapshot"}`)
+	var body []byte
+
+	client, server := testClientString(http.StatusCreated, `{"snapshot_id": "test_snapshot"}`, func(request *http.Request) {
+		var err error
+		body, err = ioutil.ReadAll(request.Body)
+		defer func() {
+			err := request.Body.Close()
+			if err != nil {
+				t.Error(err)
+			}
+		}()
+
+		if err != nil {
+			t.Error(err)
+		}
+
+	})
 	defer server.Close()
 
 	snapshot, err := client.ReplacePlaylistItems(context.Background(), "playlistID", "spotify:track:track1", "spotify:track:track2")
@@ -546,7 +562,11 @@ func TestReplacePlaylistItems(t *testing.T) {
 	}
 
 	if snapshot != "test_snapshot" {
-		t.Fatal("Incorrect snapshot returned")
+		t.Error("Incorrect snapshot returned")
+	}
+
+	if string(body) != `{"uris":["spotify:track:track1","spotify:track:track2"]}` {
+		t.Errorf("Expected '{\"uris\":[\"spotify:track:track1\", \"spotify:track:track2\"]}' as body, got %s", string(body))
 	}
 }
 
