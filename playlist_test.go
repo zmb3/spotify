@@ -565,8 +565,9 @@ func TestReplacePlaylistItems(t *testing.T) {
 		t.Error("Incorrect snapshot returned")
 	}
 
-	if string(body) != `{"uris":["spotify:track:track1","spotify:track:track2"]}` {
-		t.Errorf("Expected '{\"uris\":[\"spotify:track:track1\", \"spotify:track:track2\"]}' as body, got %s", string(body))
+	const expectedBody = `{"uris":["spotify:track:track1","spotify:track:track2"]}`
+	if string(body) != expectedBody {
+		t.Errorf("Expected '%s' as body, got %s", expectedBody, string(body))
 	}
 }
 
