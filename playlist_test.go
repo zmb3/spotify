@@ -542,13 +542,7 @@ func TestReplacePlaylistItems(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, `{"snapshot_id": "test_snapshot"}`, func(request *http.Request) {
 		var err error
 		body, err = ioutil.ReadAll(request.Body)
-		defer func() {
-			err := request.Body.Close()
-			if err != nil {
-				t.Error(err)
-			}
-		}()
-
+		defer request.Body.Close()
 		if err != nil {
 			t.Error(err)
 		}
