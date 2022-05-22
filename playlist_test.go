@@ -593,7 +593,7 @@ func TestClient_ReplacePlaylistItems(t *testing.T) {
 			defer server.Close()
 
 			gotSnapshot, gotErr := c.ReplacePlaylistItems(tt.args.ctx, tt.args.playlistID, tt.args.items...)
-			if tt.want.err != "" && gotErr == nil {
+			if gotErr == nil && tt.want.err != "" {
 				t.Errorf("Expected an error %s, got nil", tt.want.err)
 				return
 			}
