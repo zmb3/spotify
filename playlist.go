@@ -540,6 +540,44 @@ func (c *Client) ReplacePlaylistTracks(ctx context.Context, playlistID ID, track
 	return nil
 }
 
+// ReplacePlaylistItems replaces all the items in a playlist, overwriting its
+// existing tracks  This can be useful for replacing or reordering tracks, or for
+// clearing a playlist.
+//
+// Modifying a public playlist requires that the user has authorized the
+// ScopePlaylistModifyPublic scope.  Modifying a private playlist requires the
+// ScopePlaylistModifyPrivate scope.
+//
+// A maximum of 100 tracks is permited in this call.  Additional tracks must be
+// added via AddTracksToPlaylist.
+func (c *Client) ReplacePlaylistItems(ctx context.Context, playlistID ID, items ...URI) (string, error) {
+	m := make(map[string]interface{})
+	m["uris"] = items
+
+	body, err := json.Marshal(m)
+	if err != nil {
+		return "", err
+	}
+
+	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+	req, err := http.NewRequestWithContext(ctx, "PUT", spotifyURL, bytes.NewReader(body))
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	result := struct {
+		SnapshotID string `json:"snapshot_id"`
+	}{}
+
+	err = c.execute(req, &result, http.StatusCreated)
+	if err != nil {
+		return "", err
+	}
+
+	return result.SnapshotID, nil
+}
+
 // UserFollowsPlaylist checks if one or more (up to 5) Spotify users are following
 // a Spotify playlist, given the playlist's owner and ID.
 //

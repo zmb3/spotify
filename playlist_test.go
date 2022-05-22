@@ -526,6 +526,96 @@ func TestRemoveTracksFromPlaylistOpt(t *testing.T) {
 	}
 }
 
+func TestClient_ReplacePlaylistItems(t *testing.T) {
+	type clientFields struct {
+		httpCode int
+		body     string
+	}
+	type args struct {
+		ctx        context.Context
+		playlistID ID
+		items      []URI
+	}
+	type want struct {
+		requestBody string
+		snapshot    string
+		err         string
+	}
+	tests := []struct {
+		name         string
+		clientFields clientFields
+		args         args
+		want         want
+	}{
+		{
+			name: "Happy path",
+			clientFields: clientFields{
+				httpCode: http.StatusCreated,
+				body:     `{"snapshot_id": "test_snapshot"}`,
+			},
+			args: args{
+				ctx:        context.TODO(),
+				playlistID: "playlistID",
+				items:      []URI{"spotify:track:track1", "spotify:track:track2"},
+			},
+			want: want{
+				requestBody: `{"uris":["spotify:track:track1","spotify:track:track2"]}`,
+				snapshot:    "test_snapshot",
+			},
+		}, {
+			name: "Forbidden",
+			clientFields: clientFields{
+				httpCode: http.StatusForbidden,
+			},
+			args: args{
+				ctx:        context.TODO(),
+				playlistID: "playlistID",
+				items:      []URI{"spotify:track:track1", "spotify:track:track2"},
+			},
+			want: want{
+				err: "spotify: HTTP 403: Forbidden (body empty)",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var gotRequestBody string
+
+			c, server := testClientString(tt.clientFields.httpCode, tt.clientFields.body, func(request *http.Request) {
+				b, err := ioutil.ReadAll(request.Body)
+				defer request.Body.Close()
+				if err != nil {
+					t.Error(err)
+				}
+
+				gotRequestBody = string(b)
+			})
+			defer server.Close()
+
+			gotSnapshot, gotErr := c.ReplacePlaylistItems(tt.args.ctx, tt.args.playlistID, tt.args.items...)
+			if gotErr == nil && tt.want.err != "" {
+				t.Errorf("Expected an error %s, got nil", tt.want.err)
+				return
+			}
+			if gotErr != nil {
+				if gotErr.Error() != tt.want.err {
+					t.Errorf("Expected error %s, got %s", tt.want.err, gotErr)
+				}
+
+				return
+			}
+
+			if gotSnapshot != tt.want.snapshot {
+				t.Errorf("Expected snapshot %s, got %s", tt.want.snapshot, gotSnapshot)
+			}
+
+			if gotRequestBody != tt.want.requestBody {
+				t.Errorf("Expected requestBody %s, got %s", tt.want.requestBody, gotRequestBody)
+			}
+		})
+	}
+}
+
 func TestReplacePlaylistTracks(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, "")
 	defer server.Close()
