@@ -47,7 +47,7 @@ const (
 	// ScopeUserLibraryRead seeks read access to a user's "Your Music" library.
 	ScopeUserLibraryRead = "user-library-read"
 	// ScopeUserReadPrivate seeks read access to a user's
-	// subsription details (type of user account).
+	// subscription details (type of user account).
 	ScopeUserReadPrivate = "user-read-private"
 	// ScopeUserReadEmail seeks read access to a user's email address.
 	ScopeUserReadEmail = "user-read-email"
@@ -70,7 +70,7 @@ const (
 //
 // Example:
 //
-//     a := spotifyauth.New(redirectURL, spotify.ScopeUserLibaryRead, spotify.ScopeUserFollowRead)
+//     a := spotifyauth.New(redirectURL, spotify.ScopeUserLibraryRead, spotify.ScopeUserFollowRead)
 //     // direct user to Spotify to log in
 //     http.Redirect(w, r, a.AuthURL("state-string"), http.StatusFound)
 //
@@ -143,7 +143,7 @@ func New(opts ...AuthenticatorOption) *Authenticator {
 // Without this, users who have already approved the app are immediately redirected to the redirect uri.
 var ShowDialog = oauth2.SetAuthURLParam("show_dialog", "true")
 
-// AuthURL returns a URL to the the Spotify Accounts Service's OAuth2 endpoint.
+// AuthURL returns a URL to the Spotify Accounts Service's OAuth2 endpoint.
 //
 // State is a token to protect the user from CSRF attacks.  You should pass the
 // same state to `Token`, where it will be validated.  For more info, refer to

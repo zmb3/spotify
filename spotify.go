@@ -1,4 +1,4 @@
-// Package spotify provides utilties for interfacing
+// Package spotify provides utilities for interfacing
 // with Spotify's Web API.
 package spotify
 
@@ -52,7 +52,7 @@ type Client struct {
 
 type ClientOption func(client *Client)
 
-// WithRetry configures the Spotify API client to automatically retry requests that fail due to ratelimiting.
+// WithRetry configures the Spotify API client to automatically retry requests that fail due to rate limiting.
 func WithRetry(shouldRetry bool) ClientOption {
 	return func(client *Client) {
 		client.autoRetry = shouldRetry
