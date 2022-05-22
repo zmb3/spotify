@@ -24,7 +24,7 @@ type AudioFeatures struct {
 	Danceability float32 `json:"danceability"`
 	// The length of the track in milliseconds.
 	Duration int `json:"duration_ms"`
-	// Energy is a measure from 0.0 to 1.0 and represents a perceptual mesaure
+	// Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 	// of intensity and activity.  Typically, energetic tracks feel fast, loud,
 	// and noisy.
 	Energy float32 `json:"energy"`
@@ -42,7 +42,7 @@ type AudioFeatures struct {
 	Key int `json:"key"`
 	// Detects the presence of an audience in the recording.  Higher liveness
 	// values represent an increased probability that the track was performed live.
-	// A value above 0.8 provides strong likelihook that the track is live.
+	// A value above 0.8 provides strong likelihood that the track is live.
 	Liveness float32 `json:"liveness"`
 	// The overall loudness of a track in decibels (dB).  Loudness values are
 	// averaged across the entire track and are useful for comparing the relative

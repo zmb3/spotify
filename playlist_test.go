@@ -401,7 +401,7 @@ func TestChangePlaylistDescription(t *testing.T) {
 	}
 }
 
-func TestChangePlaylistNamdAndAccess(t *testing.T) {
+func TestChangePlaylistNameAndAccess(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
@@ -410,7 +410,7 @@ func TestChangePlaylistNamdAndAccess(t *testing.T) {
 	}
 }
 
-func TestChangePlaylistNamdAccessAndDescription(t *testing.T) {
+func TestChangePlaylistNameAccessAndDescription(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 

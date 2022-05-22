@@ -420,7 +420,7 @@ func (c *Client) AddTracksToPlaylist(ctx context.Context, playlistID ID, trackID
 }
 
 // RemoveTracksFromPlaylist removes one or more tracks from a user's playlist.
-// This call requrles that the user has authorized the ScopePlaylistModifyPublic
+// This call requires that the user has authorized the ScopePlaylistModifyPublic
 // or ScopePlaylistModifyPrivate scopes.
 //
 // If the track(s) occur multiple times in the specified playlist, then all occurrences
@@ -519,7 +519,7 @@ func (c *Client) removeTracksFromPlaylist(
 // ScopePlaylistModifyPublic scope.  Modifying a private playlist requires the
 // ScopePlaylistModifyPrivate scope.
 //
-// A maximum of 100 tracks is permited in this call.  Additional tracks must be
+// A maximum of 100 tracks is permitted in this call.  Additional tracks must be
 // added via AddTracksToPlaylist.
 func (c *Client) ReplacePlaylistTracks(ctx context.Context, playlistID ID, trackIDs ...ID) error {
 	trackURIs := make([]string, len(trackIDs))
