@@ -217,28 +217,28 @@ type PlaylistItemTrack struct {
 
 // UnmarshalJSON customises the unmarshalling based on the type flags set.
 func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
-	is := struct {
-		Episode bool `json:"episode"`
-		Track   bool `json:"track"`
+	itemType := struct {
+		Type string `json:"type"`
 	}{}
 
-	err := json.Unmarshal(b, &is)
+	err := json.Unmarshal(b, &itemType)
 	if err != nil {
 		return err
 	}
 
-	if is.Episode {
+	switch itemType.Type {
+	case "episode":
 		err := json.Unmarshal(b, &t.Episode)
 		if err != nil {
 			return err
 		}
-	}
-
-	if is.Track {
+	case "track":
 		err := json.Unmarshal(b, &t.Track)
 		if err != nil {
 			return err
 		}
+	default:
+		return fmt.Errorf("unrecognized item type: %s", itemType.Type)
 	}
 
 	return nil
@@ -470,8 +470,8 @@ func (c *Client) RemoveTracksFromPlaylistOpt(
 	ctx context.Context,
 	playlistID ID,
 	tracks []TrackToRemove,
-	snapshotID string) (newSnapshotID string, err error) {
-
+	snapshotID string,
+) (newSnapshotID string, err error) {
 	return c.removeTracksFromPlaylist(ctx, playlistID, tracks, snapshotID)
 }
 
@@ -479,8 +479,8 @@ func (c *Client) removeTracksFromPlaylist(
 	ctx context.Context,
 	playlistID ID,
 	tracks interface{},
-	snapshotID string) (newSnapshotID string, err error) {
-
+	snapshotID string,
+) (newSnapshotID string, err error) {
 	m := make(map[string]interface{})
 	m["tracks"] = tracks
 	if snapshotID != "" {
