@@ -90,3 +90,14 @@ Examples of the API can be found in the [examples](examples) directory.
 You may find tools such as [Spotify's Web API Console](https://developer.spotify.com/web-api/console/)
 or [Rapid API](https://rapidapi.com/package/SpotifyPublicAPI/functions?utm_source=SpotifyGitHub&utm_medium=button&utm_content=Vendor_GitHub)
 valuable for experimenting with the API.
+
+### Missing data in responses
+
+It's extremely common that when there is no market information available in your
+request, that the Spotify API will simply return null for details about a track
+or episode.
+
+This typically occurs when you are just using an application's auth token, and
+aren't impersonating a user via oauth. As when you are using a token associated
+with a user, the user's market seems to be extracted from their profile and
+used when producing the response.
