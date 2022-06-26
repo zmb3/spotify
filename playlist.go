@@ -209,7 +209,9 @@ type PlaylistItem struct {
 	Track PlaylistItemTrack `json:"track"`
 }
 
-// PlaylistItemTrack is a union type for both tracks and episodes.
+// PlaylistItemTrack is a union type for both tracks and episodes. If both
+// values are null, it's likely that the piece of content is not available in
+// the configured market.
 type PlaylistItemTrack struct {
 	Track   *FullTrack
 	Episode *EpisodePage
@@ -217,6 +219,13 @@ type PlaylistItemTrack struct {
 
 // UnmarshalJSON customises the unmarshalling based on the type flags set.
 func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
+	// Spotify API will return `track: null`` where the content is not available
+	// in the specified market. We should respect this and just pass the null
+	// up...
+	if bytes.Equal(b, []byte("null")) {
+		return nil
+	}
+
 	itemType := struct {
 		Type string `json:"type"`
 	}{}
