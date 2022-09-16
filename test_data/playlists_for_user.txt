@@ -2,119 +2,239 @@
   "href" : "https://api.spotify.com/v1/users/whizler/playlists?offset=0&limit=20",
   "items" : [ {
     "collaborative" : false,
+    "description" : "Nederlandse Top 40, de enige echte hitlijst van Nederland! Official Dutch Top 40. Check top40.nl voor alle details en luister iedere vrijdag vanaf 14.00 uur naar de lijst op Qmusic met Domien Verschuuren.",
     "external_urls" : {
-      "spotify" : "http://open.spotify.com/user/nederlandse_top_40/playlist/7vrhBxI0VHV0CNcj06Cno3"
+      "spotify" : "https://open.spotify.com/playlist/5lH9NjOeJvctAO92ZrKQNB"
     },
-    "href" : "https://api.spotify.com/v1/users/nederlandse_top_40/playlists/7vrhBxI0VHV0CNcj06Cno3",
-    "id" : "7vrhBxI0VHV0CNcj06Cno3",
+    "href" : "https://api.spotify.com/v1/playlists/5lH9NjOeJvctAO92ZrKQNB",
+    "id" : "5lH9NjOeJvctAO92ZrKQNB",
     "images" : [ {
-      "height" : 640,
-      "url" : "https://mosaic.scdn.co/640/ee915e50041ce0dd1dfde71cc6e2c28e078aa8e83dac748919303efb1a48a6c5994307f54a9fff8ecfa5aa42c03d94a58e35e842da62ae7ebf30d53dda803660b1bb9226871fe5d127c49a70cbbc6bd1",
-      "width" : 640
-    }, {
-      "height" : 300,
-      "url" : "https://mosaic.scdn.co/300/ee915e50041ce0dd1dfde71cc6e2c28e078aa8e83dac748919303efb1a48a6c5994307f54a9fff8ecfa5aa42c03d94a58e35e842da62ae7ebf30d53dda803660b1bb9226871fe5d127c49a70cbbc6bd1",
-      "width" : 300
-    }, {
-      "height" : 60,
-      "url" : "https://mosaic.scdn.co/60/ee915e50041ce0dd1dfde71cc6e2c28e078aa8e83dac748919303efb1a48a6c5994307f54a9fff8ecfa5aa42c03d94a58e35e842da62ae7ebf30d53dda803660b1bb9226871fe5d127c49a70cbbc6bd1",
-      "width" : 60
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000bebb028a62a3c0cac03d75d26f02",
+      "width" : null
     } ],
-    "name" : "Nederlandse Tipparade",
+    "name" : "Top 40",
     "owner" : {
+      "display_name" : "Nederlandse Top 40",
       "external_urls" : {
-        "spotify" : "http://open.spotify.com/user/nederlandse_top_40"
+        "spotify" : "https://open.spotify.com/user/nederlandse_top_40"
       },
       "href" : "https://api.spotify.com/v1/users/nederlandse_top_40",
       "id" : "nederlandse_top_40",
       "type" : "user",
       "uri" : "spotify:user:nederlandse_top_40"
     },
+    "primary_color" : null,
     "public" : true,
+    "snapshot_id" : "MTM1MDMsNThlNjY3ZmM0OGQxNDM1MzE3OGY1NDk4NmQyNTMzNDczOGFlZWI2Yg==",
     "tracks" : {
-      "href" : "https://api.spotify.com/v1/users/nederlandse_top_40/playlists/7vrhBxI0VHV0CNcj06Cno3/tracks",
-      "total" : 29
-    },
-    "type" : "playlist",
-    "uri" : "spotify:user:nederlandse_top_40:playlist:7vrhBxI0VHV0CNcj06Cno3"
-  }, {
-    "collaborative" : false,
-    "external_urls" : {
-      "spotify" : "http://open.spotify.com/user/1133215025/playlist/6yLFV3fDchwcGliaqYlp6T"
-    },
-    "href" : "https://api.spotify.com/v1/users/1133215025/playlists/6yLFV3fDchwcGliaqYlp6T",
-    "id" : "6yLFV3fDchwcGliaqYlp6T",
-    "images" : [ {
-      "height" : 640,
-      "url" : "https://mosaic.scdn.co/640/0fc4f5402a0a8dc60df091054b61010bdf2618ecf3cf87bfde0748d389702a69e0ba01f6091e24032288494ae80940bed4f31bfb1c6e9bec0f0729a8a8d38a3b1fcedf019957a93b8982fc1a54977aba",
-      "width" : 640
-    }, {
-      "height" : 300,
-      "url" : "https://mosaic.scdn.co/300/0fc4f5402a0a8dc60df091054b61010bdf2618ecf3cf87bfde0748d389702a69e0ba01f6091e24032288494ae80940bed4f31bfb1c6e9bec0f0729a8a8d38a3b1fcedf019957a93b8982fc1a54977aba",
-      "width" : 300
-    }, {
-      "height" : 60,
-      "url" : "https://mosaic.scdn.co/60/0fc4f5402a0a8dc60df091054b61010bdf2618ecf3cf87bfde0748d389702a69e0ba01f6091e24032288494ae80940bed4f31bfb1c6e9bec0f0729a8a8d38a3b1fcedf019957a93b8982fc1a54977aba",
-      "width" : 60
-    } ],
-    "name" : "NL Totaallijst (Mega top 50 - Top 40 - Tipparade - 3fm playlist - Supercrazyturbotophit)",
-    "owner" : {
-      "external_urls" : {
-        "spotify" : "http://open.spotify.com/user/1133215025"
-      },
-      "href" : "https://api.spotify.com/v1/users/1133215025",
-      "id" : "1133215025",
-      "type" : "user",
-      "uri" : "spotify:user:1133215025"
-    },
-    "public" : true,
-    "tracks" : {
-      "href" : "https://api.spotify.com/v1/users/1133215025/playlists/6yLFV3fDchwcGliaqYlp6T/tracks",
-      "total" : 97
-    },
-    "type" : "playlist",
-    "uri" : "spotify:user:1133215025:playlist:6yLFV3fDchwcGliaqYlp6T"
-  }, {
-    "collaborative" : false,
-    "external_urls" : {
-      "spotify" : "http://open.spotify.com/user/vincsie/playlist/1jM0LrhiTpxx9NtrJYRi28"
-    },
-    "href" : "https://api.spotify.com/v1/users/vincsie/playlists/1jM0LrhiTpxx9NtrJYRi28",
-    "id" : "1jM0LrhiTpxx9NtrJYRi28",
-    "images" : [ {
-      "height" : 640,
-      "url" : "https://mosaic.scdn.co/640/646e9619750dfa3d1eadbbea959dc6f528a9109e4956daa8f52ba99d2a2a5818bdec2d05b3c4e4f6080e781821d768e4ba130a3645f7a4367fe8abcb70d6105c78c0dcb66d4a762dd1272473578ef9d7",
-      "width" : 640
-    }, {
-      "height" : 300,
-      "url" : "https://mosaic.scdn.co/300/646e9619750dfa3d1eadbbea959dc6f528a9109e4956daa8f52ba99d2a2a5818bdec2d05b3c4e4f6080e781821d768e4ba130a3645f7a4367fe8abcb70d6105c78c0dcb66d4a762dd1272473578ef9d7",
-      "width" : 300
-    }, {
-      "height" : 60,
-      "url" : "https://mosaic.scdn.co/60/646e9619750dfa3d1eadbbea959dc6f528a9109e4956daa8f52ba99d2a2a5818bdec2d05b3c4e4f6080e781821d768e4ba130a3645f7a4367fe8abcb70d6105c78c0dcb66d4a762dd1272473578ef9d7",
-      "width" : 60
-    } ],
-    "name" : "Top 40 nl / www.HotSpotify.com",
-    "owner" : {
-      "external_urls" : {
-        "spotify" : "http://open.spotify.com/user/vincsie"
-      },
-      "href" : "https://api.spotify.com/v1/users/vincsie",
-      "id" : "vincsie",
-      "type" : "user",
-      "uri" : "spotify:user:vincsie"
-    },
-    "public" : true,
-    "tracks" : {
-      "href" : "https://api.spotify.com/v1/users/vincsie/playlists/1jM0LrhiTpxx9NtrJYRi28/tracks",
+      "href" : "https://api.spotify.com/v1/playlists/5lH9NjOeJvctAO92ZrKQNB/tracks",
       "total" : 40
     },
     "type" : "playlist",
-    "uri" : "spotify:user:vincsie:playlist:1jM0LrhiTpxx9NtrJYRi28"
+    "uri" : "spotify:playlist:5lH9NjOeJvctAO92ZrKQNB"
+  }, {
+    "collaborative" : false,
+    "description" : "Hits to boost your mood and fill you with happiness!",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdPec7aLTmlC",
+    "id" : "37i9dQZF1DXdPec7aLTmlC",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000003b55b6074da1d43715fc16d6d",
+      "width" : null
+    } ],
+    "name" : "Happy Hits!",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTY2MzI3OTI2MCwwMDAwMDAwMDg2MTBkOGJjODI0ZTRkM2ExOGZhMDQ5ZjhhZjgyMTFh",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdPec7aLTmlC/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DXdPec7aLTmlC"
+  }, {
+    "collaborative" : false,
+    "description" : "Check deze 'Feel good' soundtrack voor een goed humeur!!",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWWeNODNe68OF"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWWeNODNe68OF",
+    "id" : "37i9dQZF1DWWeNODNe68OF",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f000000036aca34d6f22bdf3c88b9733f",
+      "width" : null
+    } ],
+    "name" : "Feeling Good, Feeling Great",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTY2MzI2NDczOSwwMDAwMDAwMGZjZDJjNjBjNTY4NjI0NDNlNWZiYzhlOGY1NjQ0NTUw",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWWeNODNe68OF/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DWWeNODNe68OF"
+  }, {
+    "collaborative" : false,
+    "description" : "Lekker rustig aan doen op zondag met deze zachte pop liedjes.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWZpGSuzrdTXg"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWZpGSuzrdTXg",
+    "id" : "37i9dQZF1DWZpGSuzrdTXg",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f000000035dff4961b72d9f7b52095550",
+      "width" : null
+    } ],
+    "name" : "Easy On Sunday",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTY2Mjc1NDQ5OCwwMDAwMDAwMDNmNDdiZjY0MGM4YzI1Y2ZkZmRkZGEzNzk1ZTYxOTlk",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWZpGSuzrdTXg/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DWZpGSuzrdTXg"
+  }, {
+    "collaborative" : false,
+    "description" : "Einfach auf und davon und den Gedanken freien Lauf lassen.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/18V3GF4nC6II1tqwo4Sa5k"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/18V3GF4nC6II1tqwo4Sa5k",
+    "id" : "18V3GF4nC6II1tqwo4Sa5k",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000bebbb21e9030332ae96236dd70e6",
+      "width" : null
+    } ],
+    "name" : "Roadtrip",
+    "owner" : {
+      "display_name" : "Spotify Deutschland",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify_germany"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify_germany",
+      "id" : "spotify_germany",
+      "type" : "user",
+      "uri" : "spotify:user:spotify_germany"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MzEsOGI2NjA5YWUzNzI1MjZlNjVmYTM2YzZkYTQ1NWJlZThiNTBlZDVmNg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/18V3GF4nC6II1tqwo4Sa5k/tracks",
+      "total" : 53
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:18V3GF4nC6II1tqwo4Sa5k"
+  }, {
+    "collaborative" : false,
+    "description" : "Hier vind je alle nieuwe tracks die je op 3FM regelmatig voorbij hoort komen. Iedere vrijdag update!",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/1yzak2pFIMsjWQRD38Hstf"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/1yzak2pFIMsjWQRD38Hstf",
+    "id" : "1yzak2pFIMsjWQRD38Hstf",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000bebbc3fcaf0fce84bd8080ab8363",
+      "width" : null
+    } ],
+    "name" : "3FM 📻 Now Playing",
+    "owner" : {
+      "display_name" : "3FM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/3fm"
+      },
+      "href" : "https://api.spotify.com/v1/users/3fm",
+      "id" : "3fm",
+      "type" : "user",
+      "uri" : "spotify:user:3fm"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "NDM3OCw0ZDhiNWRmZDNjNjc4Y2E0Y2Q1MzRmYzMxMzdkOTZiNTk2NWJmZTlk",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/1yzak2pFIMsjWQRD38Hstf/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:1yzak2pFIMsjWQRD38Hstf"
+  }, {
+    "collaborative" : false,
+    "description" : "Iedere week staan de kanshebbers voor een notering in de  Top 40 genoteerd in de Tipparade.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/7vrhBxI0VHV0CNcj06Cno3"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/7vrhBxI0VHV0CNcj06Cno3",
+    "id" : "7vrhBxI0VHV0CNcj06Cno3",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000bebbd40955c24082a10e09f7847c",
+      "width" : null
+    } ],
+    "name" : "Tipparade",
+    "owner" : {
+      "display_name" : "Nederlandse Top 40",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/nederlandse_top_40"
+      },
+      "href" : "https://api.spotify.com/v1/users/nederlandse_top_40",
+      "id" : "nederlandse_top_40",
+      "type" : "user",
+      "uri" : "spotify:user:nederlandse_top_40"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTMwMDAsZjJmOTNiZDc5ZWQ1ZjhjZTQwNjZhZDQzOTFjZGZiMjQ4M2Q1MWM4Ng==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/7vrhBxI0VHV0CNcj06Cno3/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:7vrhBxI0VHV0CNcj06Cno3"
   } ],
   "limit" : 20,
   "next" : null,
   "offset" : 0,
   "previous" : null,
-  "total" : 3
+  "total" : 7
 }
