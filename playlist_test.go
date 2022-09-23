@@ -23,16 +23,21 @@ func TestFeaturedPlaylists(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	if msg != "Enjoy a mellow afternoon." {
+	if msg != "New Music Friday!" {
 		t.Errorf("Want 'Enjoy a mellow afternoon.', got'%s'\n", msg)
 	}
 	if p.Playlists == nil || len(p.Playlists) == 0 {
 		t.Fatal("Empty playlists result")
 	}
-	expected := "Hangover Friendly Singer-Songwriter"
+	expected := "New Music Friday Sweden"
 	if name := p.Playlists[0].Name; name != expected {
 		t.Errorf("Want '%s', got '%s'\n", expected, name)
 	}
+	expected = "Äntligen fredag och ny musik! Happy New Music Friday!"
+	if desc := p.Playlists[0].Description; desc != expected {
+		t.Errorf("Want '%s', got '%s'\n", expected, desc)
+	}
+
 }
 
 func TestFeaturedPlaylistsExpiredToken(t *testing.T) {
@@ -68,14 +73,22 @@ func TestPlaylistsForUser(t *testing.T) {
 	}
 	if l := len(playlists.Playlists); l == 0 {
 		t.Fatal("Didn't get any results")
+	} else if l != 7 {
+		t.Errorf("Got %d playlists, expected 7\n", l)
 	}
+
 	p := playlists.Playlists[0]
-	if p.Name != "Nederlandse Tipparade" {
-		t.Error("Expected Nederlandse Tipparade, got", p.Name)
+	if p.Name != "Top 40" {
+		t.Error("Expected Top 40, got", p.Name)
 	}
-	if p.Tracks.Total != 29 {
-		t.Error("Expected 29 tracks, got", p.Tracks.Total)
+	if p.Tracks.Total != 40 {
+		t.Error("Expected 40 tracks, got", p.Tracks.Total)
 	}
+	expected := "Nederlandse Top 40, de enige echte hitlijst van Nederland! Official Dutch Top 40. Check top40.nl voor alle details en luister iedere vrijdag vanaf 14.00 uur naar de lijst op Qmusic met Domien Verschuuren."
+	if p.Description != expected {
+		t.Errorf("Expected '%s', got '%s'\n", expected, p.Description)
+	}
+
 }
 
 func TestGetPlaylistOpt(t *testing.T) {
@@ -93,8 +106,9 @@ func TestGetPlaylistOpt(t *testing.T) {
 	if p.Description != "" {
 		t.Error("No description should be included")
 	}
-	if p.Tracks.Total != 10 {
-		t.Error("Expected 10 tracks")
+	// A bit counterintuitive, but we excluded tracks.total from the API call so it should be 0 in the model.
+	if p.Tracks.Total != 0 {
+		t.Errorf("Tracks.Total should be 0, got %d", p.Tracks.Total)
 	}
 }
 
@@ -116,17 +130,17 @@ func TestGetPlaylistTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/playlist_tracks.txt")
 	defer server.Close()
 
-	tracks, err := client.GetPlaylistTracks(context.Background(), "playlistID")
+	tracks, err := client.GetPlaylistTracks(context.Background(), "5lH9NjOeJvctAO92ZrKQNB")
 	if err != nil {
 		t.Error(err)
 	}
-	if tracks.Total != 47 {
-		t.Errorf("Got %d tracks, expected 47\n", tracks.Total)
+	if tracks.Total != 40 {
+		t.Errorf("Got %d tracks, expected 40\n", tracks.Total)
 	}
 	if len(tracks.Tracks) == 0 {
 		t.Fatal("No tracks returned")
 	}
-	expected := "Time Of Our Lives"
+	expected := "Calm Down"
 	actual := tracks.Tracks[0].Track.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
@@ -136,8 +150,8 @@ func TestGetPlaylistTracks(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f := tm.Format(DateLayout); f != "2014-11-25" {
-		t.Errorf("Expected added at 2014-11-25, got %s\n", f)
+	if f := tm.Format(DateLayout); f != "2022-07-15" {
+		t.Errorf("Expected added at 2022-07-15, got %s\n", f)
 	}
 }
 

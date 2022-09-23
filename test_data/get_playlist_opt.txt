@@ -1,701 +1,493 @@
 {
-  "collaborative" : false,
-  "description" : null,
-  "external_urls" : {
-    "spotify" : "http://open.spotify.com/user/zbergquist99/playlist/7I6yjOAxMq4qsvzgqxw7aU"
-  },
-  "followers" : {
-    "href" : null,
-    "total" : 0
-  },
-  "href" : "https://api.spotify.com/v1/users/zbergquist99/playlists/7I6yjOAxMq4qsvzgqxw7aU?fields=fields=href,name,owner(!href,external_urls),tracks.items(added_by.id,track(name,href,album(name,href)))",
-  "id" : "7I6yjOAxMq4qsvzgqxw7aU",
-  "images" : [ {
-    "height" : 640,
-    "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-    "width" : 640
-  } ],
-  "name" : "O.A.R. — The Rockville LP",
+  "href" : "https://api.spotify.com/v1/playlists/5lH9NjOeJvctAO92ZrKQNB?fields=href,name,owner(!href,external_urls),tracks.items(added_by.id,track(name,href,album(name,href)))",
+  "name" : "Top 40",
   "owner" : {
-    "external_urls" : {
-      "spotify" : "http://open.spotify.com/user/zbergquist99"
-    },
-    "href" : "https://api.spotify.com/v1/users/zbergquist99",
-    "id" : "zbergquist99",
+    "display_name" : "Nederlandse Top 40",
+    "id" : "nederlandse_top_40",
     "type" : "user",
-    "uri" : "spotify:user:zbergquist99"
+    "uri" : "spotify:user:nederlandse_top_40"
   },
-  "public" : true,
-  "snapshot_id" : "Yo+BthwRfySLE498r55BaKSJNw0/3ZDUzVYBcRxVtMReZ3joqyhIlBoMJKif2OWJ",
   "tracks" : {
-    "href" : "https://api.spotify.com/v1/users/zbergquist99/playlists/7I6yjOAxMq4qsvzgqxw7aU/tracks?offset=0&limit=100",
     "items" : [ {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/37iaWiKMa9YBbEDlw5c3Qh",
+          "name" : "Calm Down"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 189508,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403537"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/3eL2TpzK8nJyaAq7DRafh3"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/3eL2TpzK8nJyaAq7DRafh3",
-        "id" : "3eL2TpzK8nJyaAq7DRafh3",
-        "name" : "Two Hands Up",
-        "popularity" : 46,
-        "preview_url" : "https://p.scdn.co/mp3-preview/a42b99a34899e9c99386c20a35cf8ef138be642d",
-        "track_number" : 1,
-        "type" : "track",
-        "uri" : "spotify:track:3eL2TpzK8nJyaAq7DRafh3"
+        "href" : "https://api.spotify.com/v1/tracks/6hgoYQDUcPyCz7LcTUHKxa",
+        "name" : "Calm Down"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/4Cv9qCS1q3FDyyRFHGyc1g",
+          "name" : "SNAP"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 206590,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403538"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/1l7E6PxXL78DscO7YEDSBc"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/1l7E6PxXL78DscO7YEDSBc",
-        "id" : "1l7E6PxXL78DscO7YEDSBc",
-        "name" : "We'll Pick Up Where We Left Off",
-        "popularity" : 43,
-        "preview_url" : "https://p.scdn.co/mp3-preview/e107d8f17f036868d8389de406bae057bb609afa",
-        "track_number" : 2,
-        "type" : "track",
-        "uri" : "spotify:track:1l7E6PxXL78DscO7YEDSBc"
+        "href" : "https://api.spotify.com/v1/tracks/0QPRDC97rIQB3Jh3hrVJoH",
+        "name" : "SNAP"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/66W7mt0wKGLFALilLBLfU6",
+          "name" : "Words (feat. Zara Larsson)"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 215915,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403507"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/2xwsf9FuFINP1X4FTsqZ7Q"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/2xwsf9FuFINP1X4FTsqZ7Q",
-        "id" : "2xwsf9FuFINP1X4FTsqZ7Q",
-        "name" : "Peace",
-        "popularity" : 63,
-        "preview_url" : "https://p.scdn.co/mp3-preview/284a912e61b3b609a856249db2d3c0294ad4ba6d",
-        "track_number" : 3,
-        "type" : "track",
-        "uri" : "spotify:track:2xwsf9FuFINP1X4FTsqZ7Q"
+        "href" : "https://api.spotify.com/v1/tracks/1bgKMxPQU7JIZEhNsM1vFs",
+        "name" : "Words (feat. Zara Larsson)"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/1Aq9FlSr9KanZFljnUnl2m",
+          "name" : "Multicolor"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 188402,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403540"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/4Xex8yWezu6gostXaeZ2qs"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/4Xex8yWezu6gostXaeZ2qs",
-        "id" : "4Xex8yWezu6gostXaeZ2qs",
-        "name" : "The Element",
-        "popularity" : 42,
-        "preview_url" : "https://p.scdn.co/mp3-preview/c1c04603159d37ce88f27726c73f2640e0467001",
-        "track_number" : 4,
-        "type" : "track",
-        "uri" : "spotify:track:4Xex8yWezu6gostXaeZ2qs"
+        "href" : "https://api.spotify.com/v1/tracks/2ExdbieQffMXpY7ygN2YN9",
+        "name" : "Multicolor"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/7M842DMhYVALrXsw3ty7B3",
+          "name" : "I'm Good (Blue)"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 205038,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403541"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/3d2aDshX0T1IYXIqA4GguZ"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/3d2aDshX0T1IYXIqA4GguZ",
-        "id" : "3d2aDshX0T1IYXIqA4GguZ",
-        "name" : "Favorite Song",
-        "popularity" : 48,
-        "preview_url" : "https://p.scdn.co/mp3-preview/62631744295d5b0b81200a114bec7e0e1bebbf66",
-        "track_number" : 5,
-        "type" : "track",
-        "uri" : "spotify:track:3d2aDshX0T1IYXIqA4GguZ"
+        "href" : "https://api.spotify.com/v1/tracks/4uUG5RXrOk84mYEfFvj3cK",
+        "name" : "I'm Good (Blue)"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/04PEOM6kIEeq9lRp1asNP2",
+          "name" : "I Ain’t Worried (Music From The Motion Picture \"Top Gun: Maverick\")"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 216687,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403542"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/69qE90aLw0iwMUbDDXZW5z"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/69qE90aLw0iwMUbDDXZW5z",
-        "id" : "69qE90aLw0iwMUbDDXZW5z",
-        "name" : "So Good So Far",
-        "popularity" : 41,
-        "preview_url" : "https://p.scdn.co/mp3-preview/bd8a10d677b813e3410db3e38437e31e44f605ae",
-        "track_number" : 6,
-        "type" : "track",
-        "uri" : "spotify:track:69qE90aLw0iwMUbDDXZW5z"
+        "href" : "https://api.spotify.com/v1/tracks/4h9wh7iOZ0GGn8QVp4RAOB",
+        "name" : "I Ain't Worried"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/6dSmXsyGAnFtq048IFhiYd",
+          "name" : "In The Stars"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 250838,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403543"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/0GpCmz1dAGsTXpqJIp43XG"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/0GpCmz1dAGsTXpqJIp43XG",
-        "id" : "0GpCmz1dAGsTXpqJIp43XG",
-        "name" : "The Architect",
-        "popularity" : 40,
-        "preview_url" : "https://p.scdn.co/mp3-preview/fb63b6cd5259d47ba31dc4b321bc33f602c82cf8",
-        "track_number" : 7,
-        "type" : "track",
-        "uri" : "spotify:track:0GpCmz1dAGsTXpqJIp43XG"
+        "href" : "https://api.spotify.com/v1/tracks/1ei3hzQmrgealgRKFxIcWn",
+        "name" : "In The Stars"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/5F9Y7Rx1ILWqQQXVilf0KN",
+          "name" : "Through The Looking Glass"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 289501,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403544"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/5iXpnUwj4fI5qObReUg32W"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/5iXpnUwj4fI5qObReUg32W",
-        "id" : "5iXpnUwj4fI5qObReUg32W",
-        "name" : "Place To Hide",
-        "popularity" : 41,
-        "preview_url" : "https://p.scdn.co/mp3-preview/391bed0461962a3479233c5c066d5b3d0fc9dd53",
-        "track_number" : 8,
-        "type" : "track",
-        "uri" : "spotify:track:5iXpnUwj4fI5qObReUg32W"
+        "href" : "https://api.spotify.com/v1/tracks/7j2TJXhcE1aAzB6Evmgvm0",
+        "name" : "Through The Looking Glass"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/2e0yXV8bjdl4cqWwp1KG8T",
+          "name" : "I Want You"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 412716,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403545"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/6dvjzJqpFKUr0dkdvKNvbc"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/6dvjzJqpFKUr0dkdvKNvbc",
-        "id" : "6dvjzJqpFKUr0dkdvKNvbc",
-        "name" : "Caroline The Wrecking Ball",
-        "popularity" : 39,
-        "preview_url" : "https://p.scdn.co/mp3-preview/b2fa29845883d5ddcc008d305030b354a370eb53",
-        "track_number" : 9,
-        "type" : "track",
-        "uri" : "spotify:track:6dvjzJqpFKUr0dkdvKNvbc"
+        "href" : "https://api.spotify.com/v1/tracks/4s8BpmFtxDgeCoPj2XHtVj",
+        "name" : "I Want You"
       }
     }, {
-      "added_at" : "2014-06-10T11:23:19Z",
       "added_by" : {
-        "external_urls" : {
-          "spotify" : "http://open.spotify.com/user/zbergquist99"
-        },
-        "href" : "https://api.spotify.com/v1/users/zbergquist99",
-        "id" : "zbergquist99",
-        "type" : "user",
-        "uri" : "spotify:user:zbergquist99"
+        "id" : "nederlandse_top_40"
       },
       "track" : {
         "album" : {
-          "album_type" : "album",
-          "available_markets" : [ "CA", "MX", "US" ],
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/album/23PusidYfyDzIC8X9l640f"
-          },
-          "href" : "https://api.spotify.com/v1/albums/23PusidYfyDzIC8X9l640f",
-          "id" : "23PusidYfyDzIC8X9l640f",
-          "images" : [ {
-            "height" : 640,
-            "url" : "https://i.scdn.co/image/449156e8f2458c247ea9a668e498c598b159f12f",
-            "width" : 640
-          }, {
-            "height" : 300,
-            "url" : "https://i.scdn.co/image/7d97f285065b275e5540cf88300f4ed3218c016e",
-            "width" : 300
-          }, {
-            "height" : 64,
-            "url" : "https://i.scdn.co/image/7267f52295e79b20481c72e3a52731953b6d209e",
-            "width" : 64
-          } ],
-          "name" : "The Rockville LP",
-          "type" : "album",
-          "uri" : "spotify:album:23PusidYfyDzIC8X9l640f"
+          "href" : "https://api.spotify.com/v1/albums/2pqdSWeJVsXAhHFuVLzuA8",
+          "name" : "As It Was"
         },
-        "artists" : [ {
-          "external_urls" : {
-            "spotify" : "https://open.spotify.com/artist/1Cq0LAHFfvUTBEtMPXUidI"
-          },
-          "href" : "https://api.spotify.com/v1/artists/1Cq0LAHFfvUTBEtMPXUidI",
-          "id" : "1Cq0LAHFfvUTBEtMPXUidI",
-          "name" : "O.A.R.",
-          "type" : "artist",
-          "uri" : "spotify:artist:1Cq0LAHFfvUTBEtMPXUidI"
-        } ],
-        "available_markets" : [ "CA", "MX", "US" ],
-        "disc_number" : 1,
-        "duration_ms" : 541787,
-        "explicit" : false,
-        "external_ids" : {
-          "isrc" : "USVG21403546"
-        },
-        "external_urls" : {
-          "spotify" : "https://open.spotify.com/track/43ByDewjtOwEZXi9qI2J66"
-        },
-        "href" : "https://api.spotify.com/v1/tracks/43ByDewjtOwEZXi9qI2J66",
-        "id" : "43ByDewjtOwEZXi9qI2J66",
-        "name" : "I Will Find You",
-        "popularity" : 39,
-        "preview_url" : "https://p.scdn.co/mp3-preview/894236ed584f6e9c72352c57325f820d41247307",
-        "track_number" : 10,
-        "type" : "track",
-        "uri" : "spotify:track:43ByDewjtOwEZXi9qI2J66"
+        "href" : "https://api.spotify.com/v1/tracks/4LRPiXqCikLlN15c3yImP7",
+        "name" : "As It Was"
       }
-    } ],
-    "limit" : 100,
-    "next" : null,
-    "offset" : 0,
-    "previous" : null,
-    "total" : 10
-  },
-  "type" : "playlist",
-  "uri" : "spotify:user:zbergquist99:playlist:7I6yjOAxMq4qsvzgqxw7aU"
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/44aG7QLYLGotCTlu5Fc2J7",
+          "name" : "Bad Memories (feat. Elley Duhé & FAST BOY)"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3rb0tMq42WfggucPm0HHkA",
+        "name" : "Bad Memories (feat. Elley Duhé & FAST BOY)"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/528LrHfHcB7PMAvyp8Obhp",
+          "name" : "Afraid To Feel"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/40SBS57su9xLiE1WqkXOVr",
+        "name" : "Afraid To Feel"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/7CX6KwcrRx0iwTH8iU6rDJ",
+          "name" : "Solo Para Ti"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/2uAgZ0PelSImQe3BME9CiT",
+        "name" : "Solo Para Ti"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/1ORFwaAJM7agyaN1ZLiUHs",
+          "name" : "Automatisch"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/2WeAyT93f7IzrwXm3ZJMb2",
+        "name" : "Automatisch"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/3KpxpdySrMR2S7noneu1bI",
+          "name" : "Deep Down (feat. Never Dull)"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/7MIhUdNJtaOnDmC5nBC1fb",
+        "name" : "Deep Down (feat. Never Dull)"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/1p6j020MWD6BCELPZd8XVC",
+          "name" : "Green Green Grass"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3rk4aJ0vAj3cFUIQEeASkT",
+        "name" : "Green Green Grass"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/6R7Yy0sY9N8PNUhseegr2Q",
+          "name" : "Hot In It"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3Z7CaxQkqbIs1rewKi6v4W",
+        "name" : "Hot In It"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/4umTGjL6WgGnfoJWgz1uHe",
+          "name" : "Van Mij Zijn"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3oFKhY9iW9S0iA9OHO9tN6",
+        "name" : "Van Mij Zijn"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/312M1zzN7C2Vqd0VeORTMC",
+          "name" : "Come Around Again"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/55Y4oE6oE6XBT2e71vK2yA",
+        "name" : "Come Around Again"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/7xgmfo0gHFJk9DNdOfqBNn",
+          "name" : "We Could Be Together (feat. Daddy DJ)"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3ElGRG3DqSzzkh1b2wnbzf",
+        "name" : "We Could Be Together (feat. Daddy DJ)"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/5r36AJ6VOJtp00oxSkBZ5h",
+          "name" : "Harry's House"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/1qEmFfgcLObUfQm0j1W2CK",
+        "name" : "Late Night Talking"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/4QQWpCEX4BxMXwRQmtkKY6",
+          "name" : "Hold Me Closer"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/72yP0DUlWPyH8P7IoxskwN",
+        "name" : "Hold Me Closer"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/4WLkmuc0lGCBJLtj1yxJI0",
+          "name" : "Ferrari"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5xKJI9aPQhuTdTq8BrJ8fL",
+        "name" : "Ferrari"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/0rgJvUPcgTDdiirvy7wHs6",
+          "name" : "Electric Life"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/0iLqpm5c4dGlwth5LYq2tj",
+        "name" : "Electric Life"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/6eEQ0sXVp92CmSL5SsfvY3",
+          "name" : "Trompeta"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5cppeoXfiK59UEsEeOvuNo",
+        "name" : "Trompeta"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/5HyQdrY2jAKPhK1OqX7yOR",
+          "name" : "Questions"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/1cgy2FSOQMbq7DHCVgMAUA",
+        "name" : "Questions"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/118PKNjhP4NWcrW5OjMwzc",
+          "name" : "21 Reasons (feat. Ella Henderson)"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/1RF02Cf80mTaeNXG2P2boR",
+        "name" : "21 Reasons (feat. Ella Henderson)"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/3HdzIBLsdVX4RTuA4zxumb",
+          "name" : "Kwijt"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/1dbNg2ougivyUv6f9hQQzU",
+        "name" : "Kwijt"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/1R7H7T15beGxVaQQ1MnH78",
+          "name" : "HISTORY"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5IfHQilcjciOxJQBFCNCCN",
+        "name" : "HISTORY"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/3plMoBhvQ07H4itII2Qdeb",
+          "name" : "DON'T YOU WORRY"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/0gYXw7aPoybWFfB7btQ0eM",
+        "name" : "DON'T YOU WORRY"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/2wht4rGcaS39dbSxrvdfEL",
+          "name" : "Darte Un Beso"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3ZGJTUAhwua3fBi2M9BOUQ",
+        "name" : "Darte Un Beso"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/1mAlhigBTplhT8aYBo9tFc",
+          "name" : "Terug Bij Af ft. Ronnie Flex"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/65rDc2X5XZNs9mCvnJyaR1",
+        "name" : "Terug Bij Af ft. Ronnie Flex"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/62SWIKrov7HPXU0Jpc6LY1",
+          "name" : "Stay With Me (with Justin Timberlake, Halsey, & Pharrell)"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/5lfWrciYtohtIMVDVZd0Rf",
+        "name" : "Stay With Me (with Justin Timberlake, Halsey, & Pharrell)"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/55hLMMakne8TwUe39HmDZ1",
+          "name" : "Noodgeval"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/27NXXRJAv6Oa8WdtAbhrTR",
+        "name" : "Noodgeval"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/4Aki0Qb1ior78C1RcWb5oX",
+          "name" : "Camino"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/50UWMLI07e82G1VLMZ2M11",
+        "name" : "Camino"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/0VaHnwzDug4AcDkejYDUl5",
+          "name" : "Sunroof"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/4h4QlmocP3IuwYEj2j14p8",
+        "name" : "Sunroof"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/587Ykd8NOCdzRmaW4nlT4e",
+          "name" : "Sharks"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/0TyUOnU4H4GLqOcrH0auc8",
+        "name" : "Sharks"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/2NIChqkijGw4r4Dqfmg0A3",
+          "name" : "Kernkraft 400 (A Better Day)"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/3kcKlOkQQEPVwxwljbGJ5p",
+        "name" : "Kernkraft 400 (A Better Day)"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/06mXfvDsRZNfnsGZvX2zpb",
+          "name" : "Music Of The Spheres"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/23BO6YozrAXUta1buxFZ80",
+        "name" : "Humankind"
+      }
+    }, {
+      "added_by" : {
+        "id" : "nederlandse_top_40"
+      },
+      "track" : {
+        "album" : {
+          "href" : "https://api.spotify.com/v1/albums/3R69AWht6e2vZq7Cg3XGPH",
+          "name" : "The Drop"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/013PVeWEFQio3XHFH9rIC6",
+        "name" : "The Drop"
+      }
+    } ]
+  }
 }

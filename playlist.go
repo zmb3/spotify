@@ -25,8 +25,10 @@ type PlaylistTracks struct {
 type SimplePlaylist struct {
 	// Indicates whether the playlist owner allows others to modify the playlist.
 	// Note: only non-collaborative playlists are currently returned by Spotify's Web API.
-	Collaborative bool              `json:"collaborative"`
-	ExternalURLs  map[string]string `json:"external_urls"`
+	Collaborative bool `json:"collaborative"`
+	// The playlist description. Empty string if no description is set.
+	Description  string            `json:"description"`
+	ExternalURLs map[string]string `json:"external_urls"`
 	// A link to the Web API endpoint providing full details of the playlist.
 	Endpoint string `json:"href"`
 	ID       ID     `json:"id"`
@@ -612,12 +614,12 @@ func (c *Client) UserFollowsPlaylist(ctx context.Context, playlistID ID, userIDs
 //
 // For example, in a playlist with 10 tracks, you can:
 //
-// - move the first track to the end of the playlist by setting
-//   RangeStart to 0 and InsertBefore to 10
-// - move the last track to the beginning of the playlist by setting
-//   RangeStart to 9 and InsertBefore to 0
-// - Move the last 2 tracks to the beginning of the playlist by setting
-//   RangeStart to 8 and RangeLength to 2.
+//   - move the first track to the end of the playlist by setting
+//     RangeStart to 0 and InsertBefore to 10
+//   - move the last track to the beginning of the playlist by setting
+//     RangeStart to 9 and InsertBefore to 0
+//   - Move the last 2 tracks to the beginning of the playlist by setting
+//     RangeStart to 8 and RangeLength to 2.
 type PlaylistReorderOptions struct {
 	// The position of the first track to be reordered.
 	// This field is required.
