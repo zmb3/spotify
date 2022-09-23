@@ -101,6 +101,12 @@ type SimpleEpisodePage struct {
 	Episodes []EpisodePage `json:"items"`
 }
 
+// SimpleShowPage contains ShowPage returned by the Web API.
+type SimpleShowPage struct {
+	basePage
+	Shows []FullShow `json:"items"`
+}
+
 // pageable is an internal interface for types that support paging
 // by embedding basePage.
 type pageable interface{ canPage() }

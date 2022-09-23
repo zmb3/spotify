@@ -86,17 +86,21 @@ func TestPrevNextSearchPageErrors(t *testing.T) {
 	// under either of these conditions:
 
 	//  1) there are no results (nil)
-	nilResults := &SearchResult{nil, nil, nil, nil}
+	nilResults := &SearchResult{nil, nil, nil, nil, nil, nil}
 	if client.NextAlbumResults(context.Background(), nilResults) != ErrNoMorePages ||
 		client.NextArtistResults(context.Background(), nilResults) != ErrNoMorePages ||
 		client.NextPlaylistResults(context.Background(), nilResults) != ErrNoMorePages ||
-		client.NextTrackResults(context.Background(), nilResults) != ErrNoMorePages {
+		client.NextTrackResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.NextShowResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.NextEpisodeResults(context.Background(), nilResults) != ErrNoMorePages {
 		t.Error("Next search result page should have failed for nil results")
 	}
 	if client.PreviousAlbumResults(context.Background(), nilResults) != ErrNoMorePages ||
 		client.PreviousArtistResults(context.Background(), nilResults) != ErrNoMorePages ||
 		client.PreviousPlaylistResults(context.Background(), nilResults) != ErrNoMorePages ||
-		client.PreviousTrackResults(context.Background(), nilResults) != ErrNoMorePages {
+		client.PreviousTrackResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.PreviousShowResults(context.Background(), nilResults) != ErrNoMorePages ||
+		client.PreviousEpisodeResults(context.Background(), nilResults) != ErrNoMorePages {
 		t.Error("Previous search result page should have failed for nil results")
 	}
 	//  2) the prev/next URL is empty
@@ -105,17 +109,23 @@ func TestPrevNextSearchPageErrors(t *testing.T) {
 		Albums:    new(SimpleAlbumPage),
 		Playlists: new(SimplePlaylistPage),
 		Tracks:    new(FullTrackPage),
+		Shows:     new(SimpleShowPage),
+		Episodes:  new(SimpleEpisodePage),
 	}
 	if client.NextAlbumResults(context.Background(), emptyURL) != ErrNoMorePages ||
 		client.NextArtistResults(context.Background(), emptyURL) != ErrNoMorePages ||
 		client.NextPlaylistResults(context.Background(), emptyURL) != ErrNoMorePages ||
-		client.NextTrackResults(context.Background(), emptyURL) != ErrNoMorePages {
+		client.NextTrackResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.NextShowResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.NextEpisodeResults(context.Background(), emptyURL) != ErrNoMorePages {
 		t.Error("Next search result page should have failed with empty URL")
 	}
 	if client.PreviousAlbumResults(context.Background(), emptyURL) != ErrNoMorePages ||
 		client.PreviousArtistResults(context.Background(), emptyURL) != ErrNoMorePages ||
 		client.PreviousPlaylistResults(context.Background(), emptyURL) != ErrNoMorePages ||
-		client.PreviousTrackResults(context.Background(), emptyURL) != ErrNoMorePages {
+		client.PreviousTrackResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.PreviousShowResults(context.Background(), emptyURL) != ErrNoMorePages ||
+		client.PreviousEpisodeResults(context.Background(), emptyURL) != ErrNoMorePages {
 		t.Error("Previous search result page should have failed with empty URL")
 	}
 }
