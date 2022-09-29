@@ -91,6 +91,27 @@ func TestPlaylistsForUser(t *testing.T) {
 
 }
 
+func TestGetPlaylist(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/get_playlist.txt")
+	defer server.Close()
+
+	p, err := client.GetPlaylist(context.Background(), "1h9q8vXXDl2vHOmwdsuXms")
+	if err != nil {
+		t.Error(err)
+	}
+	if p.Collaborative {
+		t.Error("Playlist shouldn't be collaborative")
+	}
+	if p.Description != "Bit of a overlap with phonk but whatever" {
+		t.Error("Description is invalid")
+	}
+
+	// Ensure the Description field is also present in the SimplePlaylist part of the object
+	if p.SimplePlaylist.Description != "Bit of a overlap with phonk but whatever" {
+		t.Error("Description is invalid in the SimplePlaylist part of the object")
+	}
+}
+
 func TestGetPlaylistOpt(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/get_playlist_opt.txt")
 	defer server.Close()

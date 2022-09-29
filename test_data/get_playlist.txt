@@ -1,0 +1,460 @@
+{
+    "collaborative": false,
+    "description": "Bit of a overlap with phonk but whatever",
+    "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/1h9q8vXXDl2vHOmwdsuXms"
+    },
+    "followers": {
+        "href": null,
+        "total": 0
+    },
+    "href": "https://api.spotify.com/v1/playlists/1h9q8vXXDl2vHOmwdsuXms",
+    "id": "1h9q8vXXDl2vHOmwdsuXms",
+    "images": [
+        {
+            "height": 640,
+            "url": "https://mosaic.scdn.co/640/ab67616d0000b2731d32a7e0030e5291b59d1f91ab67616d0000b2732426b043a579efc1a39f23d4ab67616d0000b273ee916eb54edd728968ee71f2ab67616d0000b273fd2eee4843372fdad22c5f80",
+            "width": 640
+        },
+        {
+            "height": 300,
+            "url": "https://mosaic.scdn.co/300/ab67616d0000b2731d32a7e0030e5291b59d1f91ab67616d0000b2732426b043a579efc1a39f23d4ab67616d0000b273ee916eb54edd728968ee71f2ab67616d0000b273fd2eee4843372fdad22c5f80",
+            "width": 300
+        },
+        {
+            "height": 60,
+            "url": "https://mosaic.scdn.co/60/ab67616d0000b2731d32a7e0030e5291b59d1f91ab67616d0000b2732426b043a579efc1a39f23d4ab67616d0000b273ee916eb54edd728968ee71f2ab67616d0000b273fd2eee4843372fdad22c5f80",
+            "width": 60
+        }
+    ],
+    "name": "Rap RU",
+    "owner": {
+        "display_name": "Antoine Egea",
+        "external_urls": {
+            "spotify": "https://open.spotify.com/user/1123408718"
+        },
+        "href": "https://api.spotify.com/v1/users/1123408718",
+        "id": "1123408718",
+        "type": "user",
+        "uri": "spotify:user:1123408718"
+    },
+    "primary_color": null,
+    "public": true,
+    "snapshot_id": "OCw3NGQ1M2Y5NjFiNGE5NmJmYjUxNmJlM2QzMzk2ZDNhYWZmY2NlNTJh",
+    "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/1h9q8vXXDl2vHOmwdsuXms/tracks?offset=0&limit=100&locale=fr-CH,fr;q=0.9,en-GB;q=0.8,en;q=0.7,fr-FR;q=0.6,en-US;q=0.5",
+        "items": [
+            {
+                "added_at": "2021-09-09T06:43:33Z",
+                "added_by": {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/1123408718"
+                    },
+                    "href": "https://api.spotify.com/v1/users/1123408718",
+                    "id": "1123408718",
+                    "type": "user",
+                    "uri": "spotify:user:1123408718"
+                },
+                "is_local": false,
+                "primary_color": null,
+                "track": {
+                    "album": {
+                        "album_type": "single",
+                        "artists": [
+                            {
+                                "external_urls": {
+                                    "spotify": "https://open.spotify.com/artist/7bn3ebQ2jo0AOGDcuGCeKH"
+                                },
+                                "href": "https://api.spotify.com/v1/artists/7bn3ebQ2jo0AOGDcuGCeKH",
+                                "id": "7bn3ebQ2jo0AOGDcuGCeKH",
+                                "name": "H8.HOOD",
+                                "type": "artist",
+                                "uri": "spotify:artist:7bn3ebQ2jo0AOGDcuGCeKH"
+                            }
+                        ],
+                    "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/album/6h4kGu3C9Evz6W8f2d7L7Z"
+                        },
+                        "href": "https://api.spotify.com/v1/albums/6h4kGu3C9Evz6W8f2d7L7Z",
+                        "id": "6h4kGu3C9Evz6W8f2d7L7Z",
+                        "images": [
+                            {
+                                "height": 640,
+                                "url": "https://i.scdn.co/image/ab67616d0000b2732426b043a579efc1a39f23d4",
+                                "width": 640
+                            },
+                            {
+                                "height": 300,
+                                "url": "https://i.scdn.co/image/ab67616d00001e022426b043a579efc1a39f23d4",
+                                "width": 300
+                            },
+                            {
+                                "height": 64,
+                                "url": "https://i.scdn.co/image/ab67616d000048512426b043a579efc1a39f23d4",
+                                "width": 64
+                            }
+                        ],
+                        "name": "BURZUM",
+                        "release_date": "2020-08-17",
+                        "release_date_precision": "day",
+                        "total_tracks": 1,
+                        "type": "album",
+                        "uri": "spotify:album:6h4kGu3C9Evz6W8f2d7L7Z"
+                    },
+                    "artists": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/7bn3ebQ2jo0AOGDcuGCeKH"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/7bn3ebQ2jo0AOGDcuGCeKH",
+                            "id": "7bn3ebQ2jo0AOGDcuGCeKH",
+                            "name": "H8.HOOD",
+                            "type": "artist",
+                            "uri": "spotify:artist:7bn3ebQ2jo0AOGDcuGCeKH"
+                        }
+                    ],
+                    "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                    "disc_number": 1,
+                    "duration_ms": 146585,
+                    "episode": false,
+                    "explicit": true,
+                    "external_ids": {
+                        "isrc": "QZMZ92001031"
+                    },
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/track/79cdJz5daPAnEUa2QhdfMH"
+                    },
+                    "href": "https://api.spotify.com/v1/tracks/79cdJz5daPAnEUa2QhdfMH",
+                    "id": "79cdJz5daPAnEUa2QhdfMH",
+                    "is_local": false,
+                    "name": "BURZUM",
+                    "popularity": 46,
+                    "preview_url": "https://p.scdn.co/mp3-preview/7fcabe4456af910893e65568ad4c1beb81894ae8?cid=774b29d4f13844c495f206cafdad9c86",
+                    "track": true,
+                    "track_number": 1,
+                    "type": "track",
+                    "uri": "spotify:track:79cdJz5daPAnEUa2QhdfMH"
+                },
+                "video_thumbnail": {
+                    "url": null
+                }
+            },
+            {
+                "added_at": "2021-09-09T06:43:40Z",
+                "added_by": {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/1123408718"
+                    },
+                    "href": "https://api.spotify.com/v1/users/1123408718",
+                    "id": "1123408718",
+                    "type": "user",
+                    "uri": "spotify:user:1123408718"
+                },
+                "is_local": false,
+                "primary_color": null,
+                "track": {
+                    "album": {
+                        "album_type": "album",
+                        "artists": [
+                            {
+                                "external_urls": {
+                                    "spotify": "https://open.spotify.com/artist/7bn3ebQ2jo0AOGDcuGCeKH"
+                                },
+                                "href": "https://api.spotify.com/v1/artists/7bn3ebQ2jo0AOGDcuGCeKH",
+                                "id": "7bn3ebQ2jo0AOGDcuGCeKH",
+                                "name": "H8.HOOD",
+                                "type": "artist",
+                                "uri": "spotify:artist:7bn3ebQ2jo0AOGDcuGCeKH"
+                            }
+                        ],
+                        "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/album/4b7Qq8uzf3m9GnhITQ2KAF"
+                        },
+                        "href": "https://api.spotify.com/v1/albums/4b7Qq8uzf3m9GnhITQ2KAF",
+                        "id": "4b7Qq8uzf3m9GnhITQ2KAF",
+                        "images": [
+                            {
+                                "height": 640,
+                                "url": "https://i.scdn.co/image/ab67616d0000b2731d32a7e0030e5291b59d1f91",
+                                "width": 640
+                            },
+                            {
+                                "height": 300,
+                                "url": "https://i.scdn.co/image/ab67616d00001e021d32a7e0030e5291b59d1f91",
+                                "width": 300
+                            },
+                            {
+                                "height": 64,
+                                "url": "https://i.scdn.co/image/ab67616d000048511d32a7e0030e5291b59d1f91",
+                                "width": 64
+                            }
+                        ],
+                        "name": "Antisocial",
+                        "release_date": "2020-03-15",
+                        "release_date_precision": "day",
+                        "total_tracks": 7,
+                        "type": "album",
+                        "uri": "spotify:album:4b7Qq8uzf3m9GnhITQ2KAF"
+                    },
+                    "artists": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/7bn3ebQ2jo0AOGDcuGCeKH"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/7bn3ebQ2jo0AOGDcuGCeKH",
+                            "id": "7bn3ebQ2jo0AOGDcuGCeKH",
+                            "name": "H8.HOOD",
+                            "type": "artist",
+                            "uri": "spotify:artist:7bn3ebQ2jo0AOGDcuGCeKH"
+                        }
+                    ],
+                    "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                    "disc_number": 1,
+                    "duration_ms": 130000,
+                    "episode": false,
+                    "explicit": true,
+                    "external_ids": {
+                        "isrc": "QZGLM2075725"
+                    },
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/track/4Z9Yokp1zpmlJhjrjzQpSz"
+                    },
+                    "href": "https://api.spotify.com/v1/tracks/4Z9Yokp1zpmlJhjrjzQpSz",
+                    "id": "4Z9Yokp1zpmlJhjrjzQpSz",
+                    "is_local": false,
+                    "name": "Аригато",
+                    "popularity": 46,
+                    "preview_url": "https://p.scdn.co/mp3-preview/4767639e15c85bb125f9c9bc83acbe32770a0521?cid=774b29d4f13844c495f206cafdad9c86",
+                    "track": true,
+                    "track_number": 3,
+                    "type": "track",
+                    "uri": "spotify:track:4Z9Yokp1zpmlJhjrjzQpSz"
+                },
+                "video_thumbnail": {
+                    "url": null
+                }
+            },
+            {
+                "added_at": "2021-09-09T13:25:08Z",
+                "added_by": {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/1123408718"
+                    },
+                    "href": "https://api.spotify.com/v1/users/1123408718",
+                    "id": "1123408718",
+                    "type": "user",
+                    "uri": "spotify:user:1123408718"
+                },
+                "is_local": false,
+                "primary_color": null,
+                "track": {
+                    "album": {
+                        "album_type": "album",
+                        "artists": [
+                            {
+                                "external_urls": {
+                                    "spotify": "https://open.spotify.com/artist/4K7kAAsdwnIHjgRk28OyOi"
+                                },
+                                "href": "https://api.spotify.com/v1/artists/4K7kAAsdwnIHjgRk28OyOi",
+                                "id": "4K7kAAsdwnIHjgRk28OyOi",
+                                "name": "Sagath",
+                                "type": "artist",
+                                "uri": "spotify:artist:4K7kAAsdwnIHjgRk28OyOi"
+                            }
+                        ],
+                        "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/album/2llB18pE9tD3sWlbgbEfZG"
+                        },
+                        "href": "https://api.spotify.com/v1/albums/2llB18pE9tD3sWlbgbEfZG",
+                        "id": "2llB18pE9tD3sWlbgbEfZG",
+                        "images": [
+                            {
+                                "height": 640,
+                                "url": "https://i.scdn.co/image/ab67616d0000b273ee916eb54edd728968ee71f2",
+                                "width": 640
+                            },
+                            {
+                                "height": 300,
+                                "url": "https://i.scdn.co/image/ab67616d00001e02ee916eb54edd728968ee71f2",
+                                "width": 300
+                            },
+                            {
+                                "height": 64,
+                                "url": "https://i.scdn.co/image/ab67616d00004851ee916eb54edd728968ee71f2",
+                                "width": 64
+                            }
+                        ],
+                        "name": "Necrotica 2",
+                        "release_date": "2021-01-15",
+                        "release_date_precision": "day",
+                        "total_tracks": 13,
+                        "type": "album",
+                        "uri": "spotify:album:2llB18pE9tD3sWlbgbEfZG"
+                    },
+                    "artists": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/4K7kAAsdwnIHjgRk28OyOi"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/4K7kAAsdwnIHjgRk28OyOi",
+                            "id": "4K7kAAsdwnIHjgRk28OyOi",
+                            "name": "Sagath",
+                            "type": "artist",
+                            "uri": "spotify:artist:4K7kAAsdwnIHjgRk28OyOi"
+                        }
+                    ],
+                    "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                    "disc_number": 1,
+                    "duration_ms": 175725,
+                    "episode": false,
+                    "explicit": false,
+                    "external_ids": {
+                        "isrc": "DGA062003231"
+                    },
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/track/69UZlEcfPW9JIKaua3DRgc"
+                    },
+                    "href": "https://api.spotify.com/v1/tracks/69UZlEcfPW9JIKaua3DRgc",
+                    "id": "69UZlEcfPW9JIKaua3DRgc",
+                    "is_local": false,
+                    "name": "Затащите меня в ад",
+                    "popularity": 34,
+                    "preview_url": "https://p.scdn.co/mp3-preview/8a5802d716bd189ca27b54caee6a33d8a79c7005?cid=774b29d4f13844c495f206cafdad9c86",
+                    "track": true,
+                    "track_number": 7,
+                    "type": "track",
+                    "uri": "spotify:track:69UZlEcfPW9JIKaua3DRgc"
+                },
+                "video_thumbnail": {
+                    "url": null
+                }
+            },
+            {
+                "added_at": "2021-09-23T07:22:27Z",
+                "added_by": {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/1123408718"
+                    },
+                    "href": "https://api.spotify.com/v1/users/1123408718",
+                    "id": "1123408718",
+                    "type": "user",
+                    "uri": "spotify:user:1123408718"
+                },
+                "is_local": false,
+                "primary_color": null,
+                "track": {
+                    "album": {
+                        "album_type": "single",
+                        "artists": [
+                            {
+                                "external_urls": {
+                                    "spotify": "https://open.spotify.com/artist/68iEahGCoHxwo219tbcPf2"
+                                },
+                                "href": "https://api.spotify.com/v1/artists/68iEahGCoHxwo219tbcPf2",
+                                "id": "68iEahGCoHxwo219tbcPf2",
+                                "name": "Hugo Loud",
+                                "type": "artist",
+                                "uri": "spotify:artist:68iEahGCoHxwo219tbcPf2"
+                            },
+                            {
+                                "external_urls": {
+                                    "spotify": "https://open.spotify.com/artist/27se69X1Yrll8cSNWtbWXh"
+                                },
+                                "href": "https://api.spotify.com/v1/artists/27se69X1Yrll8cSNWtbWXh",
+                                "id": "27se69X1Yrll8cSNWtbWXh",
+                                "name": "OFFMi",
+                                "type": "artist",
+                                "uri": "spotify:artist:27se69X1Yrll8cSNWtbWXh"
+                            }
+                        ],
+                        "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/album/7HcIkdUinluzMyIOP8J1nx"
+                        },
+                        "href": "https://api.spotify.com/v1/albums/7HcIkdUinluzMyIOP8J1nx",
+                        "id": "7HcIkdUinluzMyIOP8J1nx",
+                        "images": [
+                            {
+                                "height": 640,
+                                "url": "https://i.scdn.co/image/ab67616d0000b273fd2eee4843372fdad22c5f80",
+                                "width": 640
+                            },
+                            {
+                                "height": 300,
+                                "url": "https://i.scdn.co/image/ab67616d00001e02fd2eee4843372fdad22c5f80",
+                                "width": 300
+                            },
+                            {
+                                "height": 64,
+                                "url": "https://i.scdn.co/image/ab67616d00004851fd2eee4843372fdad22c5f80",
+                                "width": 64
+                            }
+                        ],
+                        "name": "GTA",
+                        "release_date": "2020-07-29",
+                        "release_date_precision": "day",
+                        "total_tracks": 1,
+                        "type": "album",
+                        "uri": "spotify:album:7HcIkdUinluzMyIOP8J1nx"
+                    },
+                    "artists": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/68iEahGCoHxwo219tbcPf2"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/68iEahGCoHxwo219tbcPf2",
+                            "id": "68iEahGCoHxwo219tbcPf2",
+                            "name": "Hugo Loud",
+                            "type": "artist",
+                            "uri": "spotify:artist:68iEahGCoHxwo219tbcPf2"
+                        },
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/27se69X1Yrll8cSNWtbWXh"
+                            },
+                            "href": "https://api.spotify.com/v1/artists/27se69X1Yrll8cSNWtbWXh",
+                            "id": "27se69X1Yrll8cSNWtbWXh",
+                            "name": "OFFMi",
+                            "type": "artist",
+                            "uri": "spotify:artist:27se69X1Yrll8cSNWtbWXh"
+                        }
+                    ],
+                    "available_markets": ["AD","AE","AG","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CG","CH","CI","CL","CM","CO","CR","CV","CW","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ES","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HK","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KN","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MN","MO","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PS","PT","PW","PY","QA","RO","RS","RW","SA","SB","SC","SE","SG","SI","SK","SL","SM","SN","SR","ST","SV","SZ","TD","TG","TH","TJ","TL","TN","TO","TR","TT","TV","TW","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","XK","ZA","ZM","ZW"],
+                    "disc_number": 1,
+                    "duration_ms": 224000,
+                    "episode": false,
+                    "explicit": true,
+                    "external_ids": {
+                        "isrc": "FRX282016101"
+                    },
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/track/2aqwekFSQtLGsld42hhWPy"
+                    },
+                    "href": "https://api.spotify.com/v1/tracks/2aqwekFSQtLGsld42hhWPy",
+                    "id": "2aqwekFSQtLGsld42hhWPy",
+                    "is_local": false,
+                    "name": "GTA",
+                    "popularity": 42,
+                    "preview_url": "https://p.scdn.co/mp3-preview/a59e34cc6ff68a7c344c199aa912b27fe20edfb5?cid=774b29d4f13844c495f206cafdad9c86",
+                    "track": true,
+                    "track_number": 1,
+                    "type": "track",
+                    "uri": "spotify:track:2aqwekFSQtLGsld42hhWPy"
+                },
+                "video_thumbnail": {
+                    "url": null
+                }
+            }
+        ],
+        "limit": 100,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 4
+    },
+    "type": "playlist",
+    "uri": "spotify:playlist:1h9q8vXXDl2vHOmwdsuXms"
+}
