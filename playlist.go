@@ -51,8 +51,6 @@ type SimplePlaylist struct {
 // FullPlaylist provides extra playlist data in addition to the data provided by SimplePlaylist.
 type FullPlaylist struct {
 	SimplePlaylist
-	// The playlist description.  Only returned for modified, verified playlists.
-	Description string `json:"description"`
 	// Information about the followers of this playlist.
 	Followers Followers         `json:"followers"`
 	Tracks    PlaylistTrackPage `json:"tracks"`
