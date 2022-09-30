@@ -190,8 +190,8 @@ func (c *Client) GetShow(ctx context.Context, id ID, opts ...RequestOption) (*Fu
 // GetShowEpisodes retrieves paginated episode information about a specific show..
 // API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes
 // Supported options: Market, Limit, Offset
-func (c *Client) GetShowEpisodes(ctx context.Context,  id string, opts ...RequestOption) (*SimpleEpisodePage, error) {
-	spotifyURL := c.baseURL + "shows/" + id + "/episodes"
+func (c *Client) GetShowEpisodes(ctx context.Context, id ID, opts ...RequestOption) (*SimpleEpisodePage, error) {
+	spotifyURL := c.baseURL + "shows/" + string(id) + "/episodes"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
 		spotifyURL += "?" + params
 	}

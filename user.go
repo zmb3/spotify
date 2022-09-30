@@ -56,7 +56,7 @@ type PrivateUser struct {
 
 // GetUsersPublicProfile gets public profile information about a
 // Spotify User.  It does not require authentication.
-func (c *Client) GetUsersPublicProfile(ctx context.Context, userID ID) (*User, error) {
+func (c *Client) GetUsersPublicProfile(ctx context.Context, userID string) (*User, error) {
 	spotifyURL := c.baseURL + "users/" + string(userID)
 
 	var user User

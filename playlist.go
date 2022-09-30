@@ -456,7 +456,7 @@ type TrackToRemove struct {
 
 // NewTrackToRemove creates a new TrackToRemove object with the specified
 // track ID and playlist locations.
-func NewTrackToRemove(trackID string, positions []int) TrackToRemove {
+func NewTrackToRemove(trackID ID, positions []int) TrackToRemove {
 	return TrackToRemove{
 		URI:       fmt.Sprintf("spotify:track:%s", trackID),
 		Positions: positions,
