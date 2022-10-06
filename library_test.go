@@ -47,6 +47,19 @@ func TestAddTracksToLibraryFailure(t *testing.T) {
 	}
 }
 
+func TestAddTracksToLibraryWithContextCancelled(t *testing.T) {
+	client, server := testClientString(http.StatusOK, ``)
+	defer server.Close()
+
+	ctx, done := context.WithCancel(context.Background())
+	done()
+
+	err := client.AddTracksToLibrary(ctx, "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	if err == nil {
+		t.Error("Expected error and didn't get one")
+	}
+}
+
 func TestRemoveTracksFromLibrary(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
