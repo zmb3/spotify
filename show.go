@@ -209,8 +209,8 @@ func (c *Client) GetShowEpisodes(ctx context.Context, id string, opts ...Request
 
 // SaveShowsForCurrentUser saves one or more shows to current Spotify user's library.
 // API reference: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user
-func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []string) error {
-	spotifyURL := c.baseURL + "me/shows?ids=" + strings.Join(ids, ",")
+func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []ID) error {
+	spotifyURL := c.baseURL + "me/shows?ids=" + strings.Join(toStringSlice(ids), ",")
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, spotifyURL, nil)
 	if err != nil {
 		return err

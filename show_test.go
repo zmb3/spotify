@@ -50,7 +50,7 @@ func TestSaveShowsForCurrentUser(t *testing.T) {
 	})
 	defer s.Close()
 
-	err := c.SaveShowsForCurrentUser(context.Background(), []string{"1", "2"})
+	err := c.SaveShowsForCurrentUser(context.Background(), []ID{"1", "2"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func TestSaveShowsForCurrentUser_Errors(t *testing.T) {
 	c, s := testClient(http.StatusInternalServerError, new(bytes.Buffer))
 	defer s.Close()
 
-	err := c.SaveShowsForCurrentUser(context.Background(), []string{"1"})
+	err := c.SaveShowsForCurrentUser(context.Background(), []ID{"1"})
 	if err == nil {
 		t.Fatal(err)
 	}
