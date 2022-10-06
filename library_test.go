@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"testing"
 )
@@ -55,7 +56,7 @@ func TestAddTracksToLibraryWithContextCancelled(t *testing.T) {
 	done()
 
 	err := client.AddTracksToLibrary(ctx, "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
-	if err == nil {
+	if !errors.Is(err, context.Canceled) {
 		t.Error("Expected error and didn't get one")
 	}
 }
