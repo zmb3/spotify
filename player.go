@@ -387,7 +387,7 @@ func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 			spotifyURL += "?" + params
 		}
 	}
-	req, err := http.NewRequest(http.MethodPost, spotifyURL, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, spotifyURL, nil)
 	if err != nil {
 		return err
 	}
