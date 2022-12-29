@@ -214,13 +214,15 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.autoRetry && shouldRetry(resp.StatusCode) {
+		if c.autoRetry &&
+			isFailure(resp.StatusCode, needsStatus) &&
+			shouldRetry(resp.StatusCode) {
 			select {
 			case <-req.Context().Done():
 				// If the context is cancelled, return the original error
 			case <-time.After(retryDuration(resp)):
 				continue
-			}
+      }
 		}
 		if resp.StatusCode == http.StatusNoContent {
 			return nil
