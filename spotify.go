@@ -222,7 +222,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 				// If the context is cancelled, return the original error
 			case <-time.After(retryDuration(resp)):
 				continue
-      }
+                        }
 		}
 		if resp.StatusCode == http.StatusNoContent {
 			return nil
