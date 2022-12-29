@@ -164,3 +164,29 @@ func TestPlayArgsError(t *testing.T) {
 		t.Error("Expected an error")
 	}
 }
+
+func TestGetQueue(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/get_queue.txt")
+	defer server.Close()
+
+	queue, err := client.GetQueue(context.Background())
+	if err != nil {
+		t.Error(err)
+	}
+	if l := len(queue.Items); l == 0 {
+		t.Fatal("Didn't get any results")
+	} else if l != 20 {
+		t.Errorf("Got %d playlists, expected 20\n", l)
+	}
+
+	p := queue.Items[0].SimpleTrack
+	if p.Name != "This Is the End (For You My Friend)" {
+		t.Error("Expected 'This Is the End (For You My Friend)', got", p.Name)
+	}
+
+	p = queue.CurrentlyPlaying.SimpleTrack
+
+	if p.Name != "Know Your Enemy" {
+		t.Error("Expected 'Know Your Enemy', got", p.Name)
+	}
+}
