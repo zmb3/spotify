@@ -214,9 +214,15 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.autoRetry && shouldRetry(resp.StatusCode) {
-			time.Sleep(retryDuration(resp))
-			continue
+		if c.autoRetry &&
+			isFailure(resp.StatusCode, needsStatus) &&
+			shouldRetry(resp.StatusCode) {
+			select {
+			case <-req.Context().Done():
+				// If the context is cancelled, return the original error
+			case <-time.After(retryDuration(resp)):
+				continue
+                        }
 		}
 		if resp.StatusCode == http.StatusNoContent {
 			return nil
@@ -266,8 +272,12 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 		defer resp.Body.Close()
 
 		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
-			time.Sleep(retryDuration(resp))
-			continue
+			select {
+			case <-ctx.Done():
+				// If the context is cancelled, return the original error
+			case <-time.After(retryDuration(resp)):
+				continue
+			}
 		}
 		if resp.StatusCode == http.StatusNoContent {
 			return nil
