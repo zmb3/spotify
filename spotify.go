@@ -214,7 +214,9 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		}
 		defer resp.Body.Close()
 
-		if c.autoRetry && shouldRetry(resp.StatusCode) {
+		if c.autoRetry &&
+			isFailure(resp.StatusCode, needsStatus) &&
+			shouldRetry(resp.StatusCode) {
 			time.Sleep(retryDuration(resp))
 			continue
 		}
