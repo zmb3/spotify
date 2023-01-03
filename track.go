@@ -8,6 +8,12 @@ import (
 	"time"
 )
 
+type TrackExternalIDs struct {
+	ISRC string `json:"isrc"`
+	EAN  string `json:"ean"`
+	UPC  string `json:"upc"`
+}
+
 // SimpleTrack contains basic info about a track.
 type SimpleTrack struct {
 	Artists []SimpleArtist `json:"artists"`
@@ -23,6 +29,8 @@ type SimpleTrack struct {
 	Explicit bool `json:"explicit"`
 	// External URLs for this track.
 	ExternalURLs map[string]string `json:"external_urls"`
+	// ExternalIDs are IDs for this track in other databases
+	ExternalIDs TrackExternalIDs `json:"external_ids"`
 	// A link to the Web API endpoint providing full details for this track.
 	Endpoint string `json:"href"`
 	ID       ID     `json:"id"`
