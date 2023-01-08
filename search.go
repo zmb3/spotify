@@ -25,6 +25,8 @@ const (
 	SearchTypeArtist              = 1 << iota
 	SearchTypePlaylist            = 1 << iota
 	SearchTypeTrack               = 1 << iota
+	SearchTypeShow                = 1 << iota
+	SearchTypeEpisode             = 1 << iota
 )
 
 func (st SearchType) encode() string {
@@ -41,6 +43,12 @@ func (st SearchType) encode() string {
 	if st&SearchTypeTrack != 0 {
 		types = append(types, "track")
 	}
+	if st&SearchTypeShow != 0 {
+		types = append(types, "show")
+	}
+	if st&SearchTypeEpisode != 0 {
+		types = append(types, "episode")
+	}
 	return strings.Join(types, ",")
 }
 
@@ -51,6 +59,8 @@ type SearchResult struct {
 	Albums    *SimpleAlbumPage    `json:"albums"`
 	Playlists *SimplePlaylistPage `json:"playlists"`
 	Tracks    *FullTrackPage      `json:"tracks"`
+	Shows     *SimpleShowPage     `json:"shows"`
+	Episodes  *SimpleEpisodePage  `json:"episodes"`
 }
 
 // Search gets Spotify catalog information about artists, albums, tracks,
@@ -188,4 +198,36 @@ func (c *Client) NextTrackResults(ctx context.Context, s *SearchResult) error {
 		return ErrNoMorePages
 	}
 	return c.get(ctx, s.Tracks.Next, s)
+}
+
+// PreviousShowResults loads the previous page of shows into the specified search result.
+func (c *Client) PreviousShowResults(ctx context.Context, s *SearchResult) error {
+	if s.Shows == nil || s.Shows.Previous == "" {
+		return ErrNoMorePages
+	}
+	return c.get(ctx, s.Shows.Previous, s)
+}
+
+// NextShowResults loads the next page of shows into the specified search result.
+func (c *Client) NextShowResults(ctx context.Context, s *SearchResult) error {
+	if s.Shows == nil || s.Shows.Next == "" {
+		return ErrNoMorePages
+	}
+	return c.get(ctx, s.Shows.Next, s)
+}
+
+// PreviousEpisodeResults loads the previous page of episodes into the specified search result.
+func (c *Client) PreviousEpisodeResults(ctx context.Context, s *SearchResult) error {
+	if s.Episodes == nil || s.Episodes.Previous == "" {
+		return ErrNoMorePages
+	}
+	return c.get(ctx, s.Episodes.Previous, s)
+}
+
+// NextEpisodeResults loads the next page of episodes into the specified search result.
+func (c *Client) NextEpisodeResults(ctx context.Context, s *SearchResult) error {
+	if s.Episodes == nil || s.Episodes.Next == "" {
+		return ErrNoMorePages
+	}
+	return c.get(ctx, s.Episodes.Next, s)
 }

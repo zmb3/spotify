@@ -12,7 +12,7 @@ type SimpleArtist struct {
 	ID   ID     `json:"id"`
 	// The Spotify URI for the artist.
 	URI URI `json:"uri"`
-	// A link to the Web API enpoint providing full details of the artist.
+	// A link to the Web API endpoint providing full details of the artist.
 	Endpoint     string            `json:"href"`
 	ExternalURLs map[string]string `json:"external_urls"`
 }

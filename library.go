@@ -75,7 +75,7 @@ func (c *Client) modifyLibrary(ctx context.Context, typ string, add bool, ids ..
 	if add {
 		method = "PUT"
 	}
-	req, err := http.NewRequest(method, spotifyURL, nil)
+	req, err := http.NewRequestWithContext(ctx, method, spotifyURL, nil)
 	if err != nil {
 		return err
 	}

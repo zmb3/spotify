@@ -34,7 +34,7 @@ type SimpleAlbum struct {
 	// available in a market when at least 1 of its
 	// tracks is available in that market.
 	AvailableMarkets []string `json:"available_markets"`
-	// A link to the Web API enpoint providing full
+	// A link to the Web API endpoint providing full
 	// details of the album.
 	Endpoint string `json:"href"`
 	// The cover art for the album in various sizes,
@@ -85,7 +85,7 @@ type FullAlbum struct {
 	Genres     []string    `json:"genres"`
 	// The popularity of the album, represented as an integer between 0 and 100,
 	// with 100 being the most popular.  Popularity of an album is calculated
-	// from the popularify of the album's individual tracks.
+	// from the popularity of the album's individual tracks.
 	Popularity  int               `json:"popularity"`
 	Tracks      SimpleTrackPage   `json:"tracks"`
 	ExternalIDs map[string]string `json:"external_ids"`

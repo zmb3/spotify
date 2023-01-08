@@ -107,7 +107,7 @@ func (ta *TrackAttributes) TargetDuration(duration int) *TrackAttributes {
 }
 
 // MaxEnergy sets the maximum energy
-// Energy is a measure from 0.0 to 1.0 and represents a perceptual mesaure
+// Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 // of intensity and activity.  Typically, energetic tracks feel fast, loud,
 // and noisy.
 func (ta *TrackAttributes) MaxEnergy(energy float64) *TrackAttributes {
@@ -116,7 +116,7 @@ func (ta *TrackAttributes) MaxEnergy(energy float64) *TrackAttributes {
 }
 
 // MinEnergy sets the minimum energy
-// Energy is a measure from 0.0 to 1.0 and represents a perceptual mesaure
+// Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 // of intensity and activity.  Typically, energetic tracks feel fast, loud,
 // and noisy.
 func (ta *TrackAttributes) MinEnergy(energy float64) *TrackAttributes {
@@ -125,7 +125,7 @@ func (ta *TrackAttributes) MinEnergy(energy float64) *TrackAttributes {
 }
 
 // TargetEnergy sets the target energy
-// Energy is a measure from 0.0 to 1.0 and represents a perceptual mesaure
+// Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 // of intensity and activity.  Typically, energetic tracks feel fast, loud,
 // and noisy.
 func (ta *TrackAttributes) TargetEnergy(energy float64) *TrackAttributes {
@@ -202,7 +202,7 @@ func (ta *TrackAttributes) TargetKey(key int) *TrackAttributes {
 // MaxLiveness sets the maximum liveness
 // Detects the presence of an audience in the recording.  Higher liveness
 // values represent an increased probability that the track was performed live.
-// A value above 0.8 provides strong likelihook that the track is live.
+// A value above 0.8 provides strong likelihood that the track is live.
 func (ta *TrackAttributes) MaxLiveness(liveness float64) *TrackAttributes {
 	ta.floatAttributes["max_liveness"] = liveness
 	return ta
@@ -211,7 +211,7 @@ func (ta *TrackAttributes) MaxLiveness(liveness float64) *TrackAttributes {
 // MinLiveness sets the minimum liveness
 // Detects the presence of an audience in the recording.  Higher liveness
 // values represent an increased probability that the track was performed live.
-// A value above 0.8 provides strong likelihook that the track is live.
+// A value above 0.8 provides strong likelihood that the track is live.
 func (ta *TrackAttributes) MinLiveness(liveness float64) *TrackAttributes {
 	ta.floatAttributes["min_liveness"] = liveness
 	return ta
@@ -220,7 +220,7 @@ func (ta *TrackAttributes) MinLiveness(liveness float64) *TrackAttributes {
 // TargetLiveness sets the target liveness
 // Detects the presence of an audience in the recording.  Higher liveness
 // values represent an increased probability that the track was performed live.
-// A value above 0.8 provides strong likelihook that the track is live.
+// A value above 0.8 provides strong likelihood that the track is live.
 func (ta *TrackAttributes) TargetLiveness(liveness float64) *TrackAttributes {
 	ta.floatAttributes["target_liveness"] = liveness
 	return ta

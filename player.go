@@ -127,6 +127,11 @@ type RecentlyPlayedOptions struct {
 	BeforeEpochMs int64
 }
 
+type Queue struct {
+	CurrentlyPlaying FullTrack   `json:"currently_playing"`
+	Items            []FullTrack `json:"queue"`
+}
+
 // PlayerDevices information about available devices for the current user.
 //
 // Requires the ScopeUserReadPlaybackState scope in order to read information
@@ -330,6 +335,25 @@ func (c *Client) PauseOpt(ctx context.Context, opt *PlayOptions) error {
 	return nil
 }
 
+// GetQueue gets the user's queue on the user's currently
+// active device. This call requires ScopeUserReadPlaybackState
+func (c *Client) GetQueue(ctx context.Context) (*Queue, error) {
+	spotifyURL := c.baseURL + "me/player/queue"
+	v := url.Values{}
+
+	if params := v.Encode(); params != "" {
+		spotifyURL += "?" + params
+	}
+
+	var q Queue
+	err := c.get(ctx, spotifyURL, &q)
+	if err != nil {
+		return nil, err
+	}
+
+	return &q, nil
+}
+
 // QueueSong adds a song to the user's queue on the user's currently
 // active device. This call requires ScopeUserModifyPlaybackState
 // in order to modify the player state
@@ -387,7 +411,7 @@ func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 			spotifyURL += "?" + params
 		}
 	}
-	req, err := http.NewRequest(http.MethodPost, spotifyURL, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, spotifyURL, nil)
 	if err != nil {
 		return err
 	}

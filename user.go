@@ -35,7 +35,7 @@ type PrivateUser struct {
 	User
 	// The country of the user, as set in the user's account profile.
 	// An ISO 3166-1 alpha-2 country code.  This field is only available when the
-	// current user has granted acess to the ScopeUserReadPrivate scope.
+	// current user has granted access to the ScopeUserReadPrivate scope.
 	Country string `json:"country"`
 	// The user's email address, as entered by the user when creating their account.
 	// Note: this email is UNVERIFIED - there is no proof that it actually

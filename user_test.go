@@ -267,26 +267,35 @@ func TestCurrentUsersPlaylists(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if playlists.Limit != 20 {
-		t.Errorf("Expected limit 20, got %d\n", playlists.Limit)
+	if playlists.Limit != 5 {
+		t.Errorf("Expected limit 5, got %d\n", playlists.Limit)
 	}
-	if playlists.Total != 4 {
-		t.Errorf("Expected 4 playlists, got %d\n", playlists.Total)
+	if playlists.Offset != 20 {
+		t.Errorf("Expected offset 20, got %d\n", playlists.Offset)
 	}
+	if playlists.Total != 42 {
+		t.Errorf("Expected 42 playlists, got %d\n", playlists.Total)
+	}
+
 	tests := []struct {
-		Name       string
-		Public     bool
-		TrackCount uint
+		Name        string
+		Description string
+		Public      bool
+		TrackCount  uint
 	}{
-		{"Discover Weekly", false, 30},
-		{"Your Favorite Coffeehouse", false, 69},
-		{"Afternoon Acoustic", false, 99},
-		{"Yoga and Meditation", true, 31},
+		{"Core", "", true, 3},
+		{"Black/Atmo/Prog ?", "This is kinda fuzzy", true, 10},
+		{"Troll", "", false, 7},
+		{"Melomiel", "", true, 3},
+		{"HEAVY MIEL", "Deathcore,techdeath, tout ce qui tape plus fort que du melodeath", true, 10},
 	}
 	for i := range tests {
 		p := playlists.Playlists[i]
 		if p.Name != tests[i].Name {
 			t.Errorf("Expected '%s', got '%s'\n", tests[i].Name, p.Name)
+		}
+		if p.Description != tests[i].Description {
+			t.Errorf("Expected '%s', got '%s'\n", tests[i].Description, p.Description)
 		}
 		if p.IsPublic != tests[i].Public {
 			t.Errorf("Expected public to be %#v, got %#v\n", tests[i].Public, p.IsPublic)

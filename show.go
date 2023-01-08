@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -187,10 +188,10 @@ func (c *Client) GetShow(ctx context.Context, id ID, opts ...RequestOption) (*Fu
 	return &result, nil
 }
 
-// GetShowEpisodes retrieves paginated episode information about a specific show..
+// GetShowEpisodes retrieves paginated episode information about a specific show.
 // API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes
 // Supported options: Market, Limit, Offset
-func (c *Client) GetShowEpisodes(ctx context.Context,  id string, opts ...RequestOption) (*SimpleEpisodePage, error) {
+func (c *Client) GetShowEpisodes(ctx context.Context, id string, opts ...RequestOption) (*SimpleEpisodePage, error) {
 	spotifyURL := c.baseURL + "shows/" + id + "/episodes"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
 		spotifyURL += "?" + params
@@ -204,4 +205,16 @@ func (c *Client) GetShowEpisodes(ctx context.Context,  id string, opts ...Reques
 	}
 
 	return &result, nil
+}
+
+// SaveShowsForCurrentUser saves one or more shows to current Spotify user's library.
+// API reference: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user
+func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []ID) error {
+	spotifyURL := c.baseURL + "me/shows?ids=" + strings.Join(toStringSlice(ids), ",")
+	req, err := http.NewRequestWithContext(ctx, http.MethodPut, spotifyURL, nil)
+	if err != nil {
+		return err
+	}
+
+	return c.execute(req, nil, http.StatusOK)
 }

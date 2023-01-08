@@ -1,129 +1,198 @@
 {
-	"href": "https://api.spotify.com/v1/users/zbergquist99/playlists?offset=0&limit=20",
-	"items": [{
-		"collaborative": false,
-		"external_urls": {
-			"spotify": "http://open.spotify.com/user/spotifydiscover/playlist/49rgS5DAQGleEzLzgVN6PK"
-		},
-		"href": "https://api.spotify.com/v1/users/spotifydiscover/playlists/49rgS5DAQGleEzLzgVN6PK",
-		"id": "49rgS5DAQGleEzLzgVN6PK",
-		"images": [{
-			"height": 300,
-			"url": "https://i.scdn.co/image/8f5aaf6fed40ace25b38a62d62eaef5d4b788126",
-			"width": 300
-		}],
-		"name": "Discover Weekly",
-		"owner": {
-			"external_urls": {
-				"spotify": "http://open.spotify.com/user/spotifydiscover"
-			},
-			"href": "https://api.spotify.com/v1/users/spotifydiscover",
-			"id": "spotifydiscover",
-			"type": "user",
-			"uri": "spotify:user:spotifydiscover"
-		},
-		"public": false,
-		"snapshot_id": "tk3IF4Uksr76l3spVkCqtci3OJ4T98ijvh2zuzidrtbSwJhVn9HFdILnF6BVCxJU",
-		"tracks": {
-			"href": "https://api.spotify.com/v1/users/spotifydiscover/playlists/49rgS5DAQGleEzLzgVN6PK/tracks",
-			"total": 30
-		},
-		"type": "playlist",
-		"uri": "spotify:user:spotifydiscover:playlist:49rgS5DAQGleEzLzgVN6PK"
-	}, {
-		"collaborative": false,
-		"external_urls": {
-			"spotify": "http://open.spotify.com/user/spotify/playlist/4BKT5olNFqLB1FAa8OtC8k"
-		},
-		"href": "https://api.spotify.com/v1/users/spotify/playlists/4BKT5olNFqLB1FAa8OtC8k",
-		"id": "4BKT5olNFqLB1FAa8OtC8k",
-		"images": [{
-			"height": 300,
-			"url": "https://i.scdn.co/image/dde0c0ca2931038a00c22f5b0750fd38335bdeff",
-			"width": 300
-		}],
-		"name": "Your Favorite Coffeehouse",
-		"owner": {
-			"external_urls": {
-				"spotify": "http://open.spotify.com/user/spotify"
-			},
-			"href": "https://api.spotify.com/v1/users/spotify",
-			"id": "spotify",
-			"type": "user",
-			"uri": "spotify:user:spotify"
-		},
-		"public": false,
-		"snapshot_id": "12QhxYHYdEJmkz54dlDciQbPgwFhHJrXKTUHm1DN2+2JLS2zPr1F/eDcIYJU3Py9",
-		"tracks": {
-			"href": "https://api.spotify.com/v1/users/spotify/playlists/4BKT5olNFqLB1FAa8OtC8k/tracks",
-			"total": 69
-		},
-		"type": "playlist",
-		"uri": "spotify:user:spotify:playlist:4BKT5olNFqLB1FAa8OtC8k"
-	}, {
-		"collaborative": false,
-		"external_urls": {
-			"spotify": "http://open.spotify.com/user/spotify/playlist/16BpjqQV1Ey0HeDueNDSYz"
-		},
-		"href": "https://api.spotify.com/v1/users/spotify/playlists/16BpjqQV1Ey0HeDueNDSYz",
-		"id": "16BpjqQV1Ey0HeDueNDSYz",
-		"images": [{
-			"height": 300,
-			"url": "https://i.scdn.co/image/6b282f0ad7f5de8c8f04a20268376be638e8241a",
-			"width": 300
-		}],
-		"name": "Afternoon Acoustic",
-		"owner": {
-			"external_urls": {
-				"spotify": "http://open.spotify.com/user/spotify"
-			},
-			"href": "https://api.spotify.com/v1/users/spotify",
-			"id": "spotify",
-			"type": "user",
-			"uri": "spotify:user:spotify"
-		},
-		"public": false,
-		"snapshot_id": "+BmVMef6WTYmcU1IJWJjPgbmlcKaKPLNVS82ei/NXyWmVAJx4hIMmvKptafWkYVb",
-		"tracks": {
-			"href": "https://api.spotify.com/v1/users/spotify/playlists/16BpjqQV1Ey0HeDueNDSYz/tracks",
-			"total": 99
-		},
-		"type": "playlist",
-		"uri": "spotify:user:spotify:playlist:16BpjqQV1Ey0HeDueNDSYz"
-	}, {
-		"collaborative": false,
-		"external_urls": {
-			"spotify": "http://open.spotify.com/user/spotify_uk_/playlist/00XAjSa5jB0MNX56tIKMq0"
-		},
-		"href": "https://api.spotify.com/v1/users/spotify_uk_/playlists/00XAjSa5jB0MNX56tIKMq0",
-		"id": "00XAjSa5jB0MNX56tIKMq0",
-		"images": [{
-			"height": 300,
-			"url": "https://i.scdn.co/image/cbca878ec842b14821604767ff745feb1a0f6130",
-			"width": 300
-		}],
-		"name": "Yoga and Meditation",
-		"owner": {
-			"external_urls": {
-				"spotify": "http://open.spotify.com/user/spotify_uk_"
-			},
-			"href": "https://api.spotify.com/v1/users/spotify_uk_",
-			"id": "spotify_uk_",
-			"type": "user",
-			"uri": "spotify:user:spotify_uk_"
-		},
-		"public": true,
-		"snapshot_id": "Y+IT9jxMArqInFKtUUgZfUHGNg+4ZZ9EyKOkhqwwqEJ6BHAHiHmI8urIpIeYGzAd",
-		"tracks": {
-			"href": "https://api.spotify.com/v1/users/spotify_uk_/playlists/00XAjSa5jB0MNX56tIKMq0/tracks",
-			"total": 31
-		},
-		"type": "playlist",
-		"uri": "spotify:user:spotify_uk_:playlist:00XAjSa5jB0MNX56tIKMq0"
-	}],
-	"limit": 20,
-	"next": null,
-	"offset": 0,
-	"previous": null,
-	"total": 4
+  "href" : "https://api.spotify.com/v1/users/1123408718/playlists?offset=20&limit=5",
+  "items" : [ {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/3sPyrAW9PVUMxL9i6QFbaV"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/3sPyrAW9PVUMxL9i6QFbaV",
+    "id" : "3sPyrAW9PVUMxL9i6QFbaV",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b273a72b5360c8941c819162dbb9",
+      "width" : 640
+    } ],
+    "name" : "Core",
+    "owner" : {
+      "display_name" : "Antoine Egea",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1123408718"
+      },
+      "href" : "https://api.spotify.com/v1/users/1123408718",
+      "id" : "1123408718",
+      "type" : "user",
+      "uri" : "spotify:user:1123408718"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "NSw5ZTBhOGQ5M2JkMWM1NDViMWI2YjBiZDcyOTE0NzE0Nzg4MWY0NmNm",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/3sPyrAW9PVUMxL9i6QFbaV/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:3sPyrAW9PVUMxL9i6QFbaV"
+  }, {
+    "collaborative" : false,
+    "description" : "This is kinda fuzzy",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/1hronnZ0DOUXcMna7JtgaN"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/1hronnZ0DOUXcMna7JtgaN",
+    "id" : "1hronnZ0DOUXcMna7JtgaN",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b273180987ab035f6ae9d4459415ab67616d0000b27360c94ef7cdb9d4e5802a0f1eab67616d0000b273995f332b8606a590bcab77e3ab67616d0000b273fa8ec1b4b7b971f05e7554ec",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b273180987ab035f6ae9d4459415ab67616d0000b27360c94ef7cdb9d4e5802a0f1eab67616d0000b273995f332b8606a590bcab77e3ab67616d0000b273fa8ec1b4b7b971f05e7554ec",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b273180987ab035f6ae9d4459415ab67616d0000b27360c94ef7cdb9d4e5802a0f1eab67616d0000b273995f332b8606a590bcab77e3ab67616d0000b273fa8ec1b4b7b971f05e7554ec",
+      "width" : 60
+    } ],
+    "name" : "Black/Atmo/Prog ?",
+    "owner" : {
+      "display_name" : "Antoine Egea",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1123408718"
+      },
+      "href" : "https://api.spotify.com/v1/users/1123408718",
+      "id" : "1123408718",
+      "type" : "user",
+      "uri" : "spotify:user:1123408718"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTUsNDAyOTY5ZjNiNTZlZjIzNWYwYzNhMDc2ZTc5NzI4OTI2OGM5YmJlNg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/1hronnZ0DOUXcMna7JtgaN/tracks",
+      "total" : 10
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:1hronnZ0DOUXcMna7JtgaN"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/46TfdmGiWxxX4uZzqohw89"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/46TfdmGiWxxX4uZzqohw89",
+    "id" : "46TfdmGiWxxX4uZzqohw89",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b273050bed1b11fc76c5a2cd9894ab67616d0000b27346e1dbefaba153a4e5434028ab67616d0000b273a17193d8fb64738c029d8569ab67616d0000b273c40666f47d225dee6e28a6dd",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b273050bed1b11fc76c5a2cd9894ab67616d0000b27346e1dbefaba153a4e5434028ab67616d0000b273a17193d8fb64738c029d8569ab67616d0000b273c40666f47d225dee6e28a6dd",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b273050bed1b11fc76c5a2cd9894ab67616d0000b27346e1dbefaba153a4e5434028ab67616d0000b273a17193d8fb64738c029d8569ab67616d0000b273c40666f47d225dee6e28a6dd",
+      "width" : 60
+    } ],
+    "name" : "Troll",
+    "owner" : {
+      "display_name" : "Antoine Egea",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1123408718"
+      },
+      "href" : "https://api.spotify.com/v1/users/1123408718",
+      "id" : "1123408718",
+      "type" : "user",
+      "uri" : "spotify:user:1123408718"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTIsNzk4ZWUwMWM4Zjg1MDY0MDgyODBlZmEzMDFkOTlhZTUwYmM3ZDkwZg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/46TfdmGiWxxX4uZzqohw89/tracks",
+      "total" : 7
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:46TfdmGiWxxX4uZzqohw89"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/01ckpilMpZMY54FNOmM6hx"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/01ckpilMpZMY54FNOmM6hx",
+    "id" : "01ckpilMpZMY54FNOmM6hx",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b2739dc01ddb0924158d64a283cd",
+      "width" : 640
+    } ],
+    "name" : "Melomiel",
+    "owner" : {
+      "display_name" : "Antoine Egea",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1123408718"
+      },
+      "href" : "https://api.spotify.com/v1/users/1123408718",
+      "id" : "1123408718",
+      "type" : "user",
+      "uri" : "spotify:user:1123408718"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "OSw0OWMxZjMxNDAwMjM0ODk5NTE0MTlkMTNlM2UzYzA5NzllZTU2ZjI0",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/01ckpilMpZMY54FNOmM6hx/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:01ckpilMpZMY54FNOmM6hx"
+  }, {
+    "collaborative" : false,
+    "description" : "Deathcore,techdeath, tout ce qui tape plus fort que du melodeath",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/19DESVha4FbNzqQfcGXMjc"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/19DESVha4FbNzqQfcGXMjc",
+    "id" : "19DESVha4FbNzqQfcGXMjc",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b2731686d2714fcf32b3adac69b7ab67616d0000b2734dc23798ad18d00c2f365a91ab67616d0000b273765da70d8fc8cc47dfad0829ab67616d0000b27378beadb1f83bfb73e17b4af6",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b2731686d2714fcf32b3adac69b7ab67616d0000b2734dc23798ad18d00c2f365a91ab67616d0000b273765da70d8fc8cc47dfad0829ab67616d0000b27378beadb1f83bfb73e17b4af6",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b2731686d2714fcf32b3adac69b7ab67616d0000b2734dc23798ad18d00c2f365a91ab67616d0000b273765da70d8fc8cc47dfad0829ab67616d0000b27378beadb1f83bfb73e17b4af6",
+      "width" : 60
+    } ],
+    "name" : "HEAVY MIEL",
+    "owner" : {
+      "display_name" : "Antoine Egea",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1123408718"
+      },
+      "href" : "https://api.spotify.com/v1/users/1123408718",
+      "id" : "1123408718",
+      "type" : "user",
+      "uri" : "spotify:user:1123408718"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTgsMTE3NDA3N2VjNzA5ZDBkNzJjMDA1MDk4YjBlNDRjOTkzZTZiNDRkMg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/19DESVha4FbNzqQfcGXMjc/tracks",
+      "total" : 10
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:19DESVha4FbNzqQfcGXMjc"
+  } ],
+  "limit" : 5,
+  "next" : "https://api.spotify.com/v1/users/1123408718/playlists?offset=25&limit=5",
+  "offset" : 20,
+  "previous" : "https://api.spotify.com/v1/users/1123408718/playlists?offset=15&limit=5",
+  "total" : 42
 }
