@@ -147,6 +147,13 @@ func TestPlayerRecentlyPlayed(t *testing.T) {
 	if actualTimePhrase != expectedTimePhrase {
 		t.Errorf("Time of first track was not parsed correctly: [%s] != [%s]", actualTimePhrase, expectedTimePhrase)
 	}
+
+	actualAlbumName := items[0].Track.Album.Name
+	expectedAlbumName := "Immortalized"
+
+	if actualAlbumName != expectedAlbumName {
+		t.Errorf("Album name of first track was not parsed correctly: [%s] != [%s]", actualAlbumName, expectedAlbumName)
+	}
 }
 
 func TestPlayArgsError(t *testing.T) {
