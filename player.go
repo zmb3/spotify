@@ -500,7 +500,7 @@ func (c *Client) SeekOpt(ctx context.Context, position int, opt *PlayOptions) er
 
 // Repeat Set the repeat mode for the user's playback.
 //
-// Options are repeat-track, repeat-context, and off.
+// Options are track, context, and off.
 //
 // Requires the ScopeUserModifyPlaybackState in order to modify the player state.
 func (c *Client) Repeat(ctx context.Context, state string) error {
