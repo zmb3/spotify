@@ -258,7 +258,10 @@ func (c *Client) TransferPlayback(ctx context.Context, deviceID ID, play bool) e
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
+	err = c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 	if err != nil {
 		return err
 	}
@@ -295,7 +298,10 @@ func (c *Client) PlayOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
+	err = c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 	if err != nil {
 		return err
 	}
@@ -328,7 +334,10 @@ func (c *Client) PauseOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
+	err = c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 	if err != nil {
 		return err
 	}
@@ -386,7 +395,10 @@ func (c *Client) QueueSongOpt(ctx context.Context, trackID ID, opt *PlayOptions)
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	return c.execute(req, nil, http.StatusNoContent)
+	return c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 }
 
 // Next skips to the next track in the user's queue in the user's
@@ -415,7 +427,10 @@ func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
+	err = c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 	if err != nil {
 		return err
 	}
@@ -448,7 +463,10 @@ func (c *Client) PreviousOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
+	err = c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 	if err != nil {
 		return err
 	}
@@ -564,7 +582,10 @@ func (c *Client) playerFuncWithOpt(ctx context.Context, urlSuffix string, values
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
+	err = c.execute(req, nil,
+		http.StatusAccepted,
+		http.StatusNoContent,
+	)
 	if err != nil {
 		return err
 	}
