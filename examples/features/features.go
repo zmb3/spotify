@@ -42,7 +42,8 @@ func main() {
 	res, err := client.GetAlbumTracks(ctx, item.ID, spotify.Market("US"))
 
 	if err != nil {
-		fmt.Println("error getting tracks ....", err.Error())
+		log.Fatal("error getting tracks ....", err.Error())
+		return
 	}
 
 	// *display in tabular form using TabWriter
