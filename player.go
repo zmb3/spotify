@@ -79,9 +79,13 @@ type RecentlyPlayedResult struct {
 	Items []RecentlyPlayedItem `json:"items"`
 }
 
-// PlaybackOffset can be specified either by track URI OR Position. If both are present the
-// request will return 400 BAD REQUEST. If incorrect values are provided for position or uri,
-// the request may be accepted but with an unpredictable resulting action on playback.
+// PlaybackOffset can be specified either by track URI OR Position. If the
+// Position field is set to a non-nil pointer, it will be taken into
+// consideration when specifying the playback offset. If the Position field is
+// set to a nil pointer, it will be ignored and only the URI will be used to
+// specify the offset. If both are present the request will return 400 BAD
+// REQUEST. If incorrect values are provided for position or uri, the request
+// may be accepted but with an unpredictable resulting action on playback.
 type PlaybackOffset struct {
 	// Position is zero based and can’t be negative.
 	Position *int `json:"position,omitempty"`
