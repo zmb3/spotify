@@ -34,8 +34,8 @@ func main() {
 	var artist_ids []spotify.ID
 
 	// find the ID for each artist and append it to list of artist ID's
-	for _, v := range favorite_artists {
-		artists, err := client.Search(ctx, v, spotify.SearchTypeArtist)
+	for _, artist := range favorite_artists {
+		artists, err := client.Search(ctx, artist, spotify.SearchTypeArtist)
 
 		if err != nil {
 			log.Fatal(err)
@@ -62,7 +62,8 @@ func main() {
 	}
 
 	// display the recommended tracks along with artists
-	for _, st := range res.Tracks {
-		fmt.Println(st.Name + " by " + st.Artists[0].Name)
+	fmt.Println("\t---- Recommended Tracks ----")
+	for _, track := range res.Tracks {
+		fmt.Println(track.Name + " by " + track.Artists[0].Name)
 	}
 }
