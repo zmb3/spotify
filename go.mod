@@ -2,7 +2,7 @@ module github.com/zmb3/spotify/v2
 
 go 1.16
 
-require (
+go (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/net v0.7.0 // indirect
