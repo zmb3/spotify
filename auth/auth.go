@@ -171,8 +171,8 @@ func (a Authenticator) Token(ctx context.Context, state string, r *http.Request,
 	return a.config.Exchange(ctx, code, opts...)
 }
 
-// Return a new access token if it has expired.
-// If it has not expired, return the existing access token.
+// Return a new token if an access token has expired.
+// If it has not expired, return the existing token.
 func (a Authenticator) RefreshToken(ctx context.Context, token *oauth2.Token) (*oauth2.Token, error) {
 	src := a.config.TokenSource(ctx, token)
 	return src.Token()
