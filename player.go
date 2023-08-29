@@ -68,6 +68,9 @@ type RecentlyPlayedItem struct {
 	// Track is the track information
 	Track SimpleTrack `json:"track"`
 
+	// Album is the album information
+	Album SimpleAlbum `json:"album"`
+
 	// PlayedAt is the time that this song was played
 	PlayedAt time.Time `json:"played_at"`
 
