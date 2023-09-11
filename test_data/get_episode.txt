@@ -1,0 +1,38 @@
+{
+  "audio_preview_url" : "https://p.scdn.co/mp3-preview/cac00fc7b28df9c607ef3f812b47ed3676e27a38",
+  "description" : "Su is sitting out today, and I instead welcome Charlie Noyes and Georgios Konstantopoulos of Paradigm, one of the largest investment funds in crypto.   We cover a lot of ground in this episode, including:   How Paradigm can so consistently identify and back the category-defining protocols and companies in crypto    MEV and how it can be mitigated, including some actionable advice on how you can avoid getting sandwich-attacked today   The new features and remaining challenges of Uniswap v3  Paradigm’s thesis for Cosmos and why each blockchain should adopt the IBC protocol    Whether Bitcoin's value proposition is still intact at a time where Bitcoin dominance is at an all-time low   Our personal “wishlists” for Bitcoin improvement proposals, and   whether Bitcoin will ever go to PoS    Listen to conversations between Su Zhu, the CEO and CIO of Three Arrows Capital, and Hasu, an experienced crypto researcher and writer. Together with occasional guests, we explore the transformative nature of trust-minimized currency and financial services. SUBSCRIBE to the Podcast Apple Podcast https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4 Spotify https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw Youtube https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw== Other https://anchor.fm/uncommoncore FOLLOW on Twitter Su Zhu https://twitter.com/zhusu Hasu https://twitter.com/hasufl Our homepage and mailing list https://uncommoncore.co/podcast/ Transcripts, if available https://uncommoncore.co/blog/",
+  "duration_ms" : 5485408,
+  "explicit" : false,
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/episode/2DSKnz9Hqm1tKimcXqcMJD"
+  },
+  "href" : "https://api.spotify.com/v1/episodes/2DSKnz9Hqm1tKimcXqcMJD",
+  "html_description" : "Su is sitting out today, and I instead welcome Charlie Noyes and Georgios Konstantopoulos of Paradigm, one of the largest investment funds in crypto.  \nWe cover a lot of ground in this episode, including:\n\n How Paradigm can so consistently identify and back the category-defining protocols and companies in crypto  \n MEV and how it can be mitigated, including some actionable advice on how you can avoid getting sandwich-attacked today \n The new features and remaining challenges of Uniswap v3\n Paradigm’s thesis for Cosmos and why each blockchain should adopt the IBC protocol  \n Whether Bitcoin's value proposition is still intact at a time where Bitcoin dominance is at an all-time low \n Our personal “wishlists” for Bitcoin improvement proposals, and \n whether Bitcoin will ever go to PoS  \n\nListen to conversations between Su Zhu, the CEO and CIO of Three Arrows Capital, and Hasu, an experienced crypto researcher and writer. Together with occasional guests, we explore the transformative nature of trust-minimized currency and financial services.\nSUBSCRIBE to the Podcast\nApple Podcast https://podcasts.apple.com/us/podcast/uncommon-core/id1517659188?uo=4\nSpotify https://open.spotify.com/show/3vuV292Him90EjQ5YL4XIw\nYoutube https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy8yNTc4ZDVhMC9wb2RjYXN0L3Jzcw==\nOther https://anchor.fm/uncommoncore\nFOLLOW on Twitter\nSu Zhu https://twitter.com/zhusu\nHasu https://twitter.com/hasufl\nOur homepage and mailing list https://uncommoncore.co/podcast/\nTranscripts, if available https://uncommoncore.co/blog/",
+  "id" : "2DSKnz9Hqm1tKimcXqcMJD",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://i.scdn.co/image/ab6765630000ba8a05c1a052d1c08b04f32d5575",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://i.scdn.co/image/ab67656300005f1f05c1a052d1c08b04f32d5575",
+    "width" : 300
+  }, {
+    "height" : 64,
+    "url" : "https://i.scdn.co/image/ab6765630000f68d05c1a052d1c08b04f32d5575",
+    "width" : 64
+  } ],
+  "is_externally_hosted" : false,
+  "is_playable" : true,
+  "language" : "en",
+  "languages" : [ "en" ],
+  "name" : "#25: Paradigm's Thesis - with Charlie Noyes, Georgios Konstantopoulos and Hasu",
+  "release_date" : "2021-05-18",
+  "release_date_precision" : "day",
+  "resume_point" : {
+    "fully_played" : false,
+    "resume_position_ms" : 5466000
+  },
+  "type" : "episode",
+  "uri" : "spotify:episode:2DSKnz9Hqm1tKimcXqcMJD"
+}

@@ -65,3 +65,20 @@ func TestSaveShowsForCurrentUser_Errors(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestGetEpisode(t *testing.T) {
+	c, s := testClientFile(http.StatusOK, "test_data/get_episode.txt")
+	defer s.Close()
+
+	id := "2DSKnz9Hqm1tKimcXqcMJD"
+	r, err := c.GetEpisode(context.Background(), id)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.ID.String() != id {
+		t.Error("Invalid data:", r.ID)
+	}
+	if r.Type != "episode" {
+		t.Error("Invalid data:", r.ID)
+	}
+}

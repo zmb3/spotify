@@ -218,3 +218,21 @@ func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []ID) error {
 
 	return c.execute(req, nil, http.StatusOK)
 }
+
+// GetEpisode gets an episode from a show.
+// API reference: https://developer.spotify.com/documentation/web-api/reference/get-an-episode
+func (c *Client) GetEpisode(ctx context.Context, id string, opts ...RequestOption) (*EpisodePage, error) {
+	spotifyURL := c.baseURL + "episodes/" + id
+	if params := processOptions(opts...).urlParams.Encode(); params != "" {
+		spotifyURL += "?" + params
+	}
+
+	var result EpisodePage
+
+	err := c.get(ctx, spotifyURL, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
+}
