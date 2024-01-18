@@ -81,7 +81,7 @@ The API will throttle your requests if you are sending them too rapidly.
 The client can be configured to wait and re-attempt the request.
 To enable this, set the `AutoRetry` field on the `Client` struct to `true`.
 
-For more information, see Spotify [rate-limits](https://developer.spotify.com/web-api/user-guide/#rate-limiting).
+For more information, see Spotify [rate-limits](https://developer.spotify.com/documentation/web-api/concepts/rate-limits).
 
 ## API Examples
 
