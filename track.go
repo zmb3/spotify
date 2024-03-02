@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -16,7 +17,7 @@ type TrackExternalIDs struct {
 
 // SimpleTrack contains basic info about a track.
 type SimpleTrack struct {
-	Album SimpleAlbum `json:"album"`
+	Album   SimpleAlbum    `json:"album"`
 	Artists []SimpleArtist `json:"artists"`
 	// A list of the countries in which the track can be played,
 	// identified by their ISO 3166-1 alpha-2 codes.
@@ -45,6 +46,49 @@ type SimpleTrack struct {
 	URI         URI `json:"uri"`
 	// Type of the track
 	Type string `json:"type"`
+}
+
+// UnmarshalJSON unmarshals the track data regardless of numeric values being integers or floats.
+func (s *SimpleTrack) UnmarshalJSON(data []byte) error {
+	var v struct {
+		Album            SimpleAlbum       `json:"album"`
+		Artists          []SimpleArtist    `json:"artists"`
+		AvailableMarkets []string          `json:"available_markets"`
+		DiscNumber       float64           `json:"disc_number"`
+		Duration         float64           `json:"duration_ms"`
+		Explicit         bool              `json:"explicit"`
+		ExternalURLs     map[string]string `json:"external_urls"`
+		ExternalIDs      TrackExternalIDs  `json:"external_ids"`
+		Endpoint         string            `json:"href"`
+		ID               ID                `json:"id"`
+		Name             string            `json:"name"`
+		PreviewURL       string            `json:"preview_url"`
+		TrackNumber      float64           `json:"track_number"`
+		URI              URI               `json:"uri"`
+		Type             string            `json:"type"`
+	}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	s.Album = v.Album
+	s.Artists = v.Artists
+	s.AvailableMarkets = v.AvailableMarkets
+	s.DiscNumber = int(v.DiscNumber)
+	s.Duration = int(v.Duration)
+	s.Explicit = v.Explicit
+	s.ExternalURLs = v.ExternalURLs
+	s.ExternalIDs = v.ExternalIDs
+	s.Endpoint = v.Endpoint
+	s.ID = v.ID
+	s.Name = v.Name
+	s.PreviewURL = v.PreviewURL
+	s.TrackNumber = int(v.TrackNumber)
+	s.URI = v.URI
+	s.Type = v.Type
+
+	return nil
 }
 
 func (st SimpleTrack) String() string {
@@ -92,6 +136,38 @@ type FullTrack struct {
 	LinkedFrom *LinkedFromInfo `json:"linked_from"`
 }
 
+// UnmarshalJSON unmarshals the track data regardless of numeric values being integers or floats.
+func (f *FullTrack) UnmarshalJSON(data []byte) error {
+	var v struct {
+		SimpleTrack
+		Popularity float64         `json:"popularity"`
+		IsPlayable *bool           `json:"is_playable"`
+		LinkedFrom *LinkedFromInfo `json:"linked_from"`
+	}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	f.SimpleTrack = v.SimpleTrack
+	f.Album = v.SimpleTrack.Album
+	f.ExternalIDs = map[string]string{}
+	if v.SimpleTrack.ExternalIDs.UPC != "" {
+		f.ExternalIDs["upc"] = v.SimpleTrack.ExternalIDs.UPC
+	}
+	if v.SimpleTrack.ExternalIDs.EAN != "" {
+		f.ExternalIDs["ean"] = v.SimpleTrack.ExternalIDs.EAN
+	}
+	if v.SimpleTrack.ExternalIDs.ISRC != "" {
+		f.ExternalIDs["isrc"] = v.SimpleTrack.ExternalIDs.ISRC
+	}
+	f.Popularity = int(v.Popularity)
+	f.IsPlayable = v.IsPlayable
+	f.LinkedFrom = v.LinkedFrom
+
+	return nil
+}
+
 // PlaylistTrack contains info about a track in a playlist.
 type PlaylistTrack struct {
 	// The date and time the track was added to the playlist.
@@ -116,6 +192,23 @@ type SavedTrack struct {
 	// a time.Time value.
 	AddedAt   string `json:"added_at"`
 	FullTrack `json:"track"`
+}
+
+// UnmarshalJSON unmarshals the track data regardless of numeric values being integers or floats.
+func (s *SavedTrack) UnmarshalJSON(data []byte) error {
+	var v struct {
+		AddedAt   string    `json:"added_at"`
+		FullTrack FullTrack `json:"track"`
+	}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	s.AddedAt = v.AddedAt
+	s.FullTrack = v.FullTrack
+
+	return nil
 }
 
 // TimeDuration returns the track's duration as a time.Duration value.

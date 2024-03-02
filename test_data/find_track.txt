@@ -44,8 +44,8 @@
     "uri" : "spotify:artist:6LqNN22kT3074XbTVUrhzX"
   } ],
   "available_markets" : [ "AD", "AR", "AT", "AU", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DO", "EC", "EE", "ES", "FI", "FR", "GR", "GT", "HK", "HN", "HU", "IE", "IT", "LI", "LT", "LV", "MC", "MT", "MX", "MY", "NI", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
-  "disc_number" : 1,
-  "duration_ms" : 204053,
+  "disc_number" : 1.0,
+  "duration_ms" : 204053.0,
   "explicit" : false,
   "external_ids" : {
     "isrc" : "USRC11301695"
@@ -56,9 +56,9 @@
   "href" : "https://api.spotify.com/v1/tracks/1zHlj4dQ8ZAtrayhuDDmkY",
   "id" : "1zHlj4dQ8ZAtrayhuDDmkY",
   "name" : "Timber",
-  "popularity" : 85,
+  "popularity" : 85.0,
   "preview_url" : "https://p.scdn.co/mp3-preview/18d0a45538122fbe33f22604d0e5608789c10ae4",
-  "track_number" : 1,
+  "track_number" : 1.0,
   "type" : "track",
   "uri" : "spotify:track:1zHlj4dQ8ZAtrayhuDDmkY"
 }
