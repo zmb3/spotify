@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 )
@@ -29,6 +30,29 @@ type FullArtist struct {
 	Followers Followers `json:"followers"`
 	// Images of the artist in various sizes, widest first.
 	Images []Image `json:"images"`
+}
+
+// UnmarshalJSON unmarshals the artist data regardless of numeric values being integers or floats.
+func (f *FullArtist) UnmarshalJSON(data []byte) error {
+	var v struct {
+		SimpleArtist
+		Popularity float64   `json:"popularity"`
+		Genres     []string  `json:"genres"`
+		Followers  Followers `json:"followers"`
+		Images     []Image   `json:"images"`
+	}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	f.SimpleArtist = v.SimpleArtist
+	f.Popularity = int(v.Popularity)
+	f.Genres = v.Genres
+	f.Followers = v.Followers
+	f.Images = v.Images
+
+	return nil
 }
 
 // GetArtist gets Spotify catalog information for a single artist, given its Spotify ID.

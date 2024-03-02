@@ -609,27 +609,27 @@
     },
     "followers" : {
       "href" : null,
-      "total" : 95801
+      "total" : 95801.0
     },
     "genres" : [ "brill building pop", "rock-and-roll", "rockabilly" ],
     "href" : "https://api.spotify.com/v1/artists/0JDkhL4rjiPNEp92jAgJnS",
     "id" : "0JDkhL4rjiPNEp92jAgJnS",
     "images" : [ {
-      "height" : 1375,
+      "height" : 1375.0,
       "url" : "https://i.scdn.co/image/da71623df844c01e6af2a6e770f3873950264183",
-      "width" : 1000
+      "width" : 1000.0
     }, {
-      "height" : 880,
+      "height" : 880.0,
       "url" : "https://i.scdn.co/image/8d084d83df7b70b909a0a5c9fd797eb6c4ce6f23",
-      "width" : 640
+      "width" : 640.0
     }, {
-      "height" : 275,
+      "height" : 275.0,
       "url" : "https://i.scdn.co/image/f819fd632518ed76337a76d6b5b26fe77abbe8ec",
-      "width" : 200
+      "width" : 200.0
     }, {
-      "height" : 88,
+      "height" : 88.0,
       "url" : "https://i.scdn.co/image/b0cfbd6573f3402378d004a5afa0ac4ac629e808",
-      "width" : 64
+      "width" : 64.0
     } ],
     "name" : "Roy Orbison",
     "popularity" : 73,

@@ -112,6 +112,23 @@ type Followers struct {
 	Endpoint string `json:"href"`
 }
 
+// UnmarshalJSON unmarshals the followers data regardless of numeric values being integers or floats.
+func (f *Followers) UnmarshalJSON(data []byte) error {
+	var v struct {
+		Count    float64 `json:"total"`
+		Endpoint string  `json:"href"`
+	}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	f.Count = uint(v.Count)
+	f.Endpoint = v.Endpoint
+
+	return nil
+}
+
 // Image identifies an image associated with an item.
 type Image struct {
 	// The image height, in pixels.
@@ -120,6 +137,25 @@ type Image struct {
 	Width int `json:"width"`
 	// The source URL of the image.
 	URL string `json:"url"`
+}
+
+// UnmarshalJSON unmarshals the image data regardless of numeric values being integers or floats.
+func (i *Image) UnmarshalJSON(data []byte) error {
+	var v struct {
+		Height float64 `json:"height"`
+		Width  float64 `json:"width"`
+		URL    string  `json:"url"`
+	}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	i.Height = int(v.Height)
+	i.Width = int(v.Width)
+	i.URL = v.URL
+
+	return nil
 }
 
 // Download downloads the image and writes its data to the specified io.Writer.
@@ -222,7 +258,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 				// If the context is cancelled, return the original error
 			case <-time.After(retryDuration(resp)):
 				continue
-                        }
+			}
 		}
 		if resp.StatusCode == http.StatusNoContent {
 			return nil
