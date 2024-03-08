@@ -136,6 +136,26 @@ func TestRelatedArtists(t *testing.T) {
 	}
 }
 
+func TestRelatedArtistsWithFloats(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/related_artists_with_floats.txt")
+	defer server.Close()
+
+	artists, err := client.GetRelatedArtists(context.Background(), ID("43ZHCT0cAZBISjO8DG9PnE"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if count := len(artists); count != 20 {
+		t.Fatalf("Got %d artists, wanted 20\n", count)
+	}
+	a2 := artists[2]
+	if a2.Name != "Carl Perkins" {
+		t.Error("Expected Carl Perkins, got ", a2.Name)
+	}
+	if a2.Popularity != 54 {
+		t.Errorf("Expected popularity 54, got %d\n", a2.Popularity)
+	}
+}
+
 func TestArtistAlbumsFiltered(t *testing.T) {
 	client, server := testClientString(http.StatusOK, albumsResponse)
 	defer server.Close()
