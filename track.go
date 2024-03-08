@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -23,9 +22,9 @@ type SimpleTrack struct {
 	// identified by their ISO 3166-1 alpha-2 codes.
 	AvailableMarkets []string `json:"available_markets"`
 	// The disc number (usually 1 unless the album consists of more than one disc).
-	DiscNumber int `json:"disc_number"`
+	DiscNumber Numeric `json:"disc_number"`
 	// The length of the track, in milliseconds.
-	Duration int `json:"duration_ms"`
+	Duration Numeric `json:"duration_ms"`
 	// Whether or not the track has explicit lyrics.
 	// true => yes, it does; false => no, it does not.
 	Explicit bool `json:"explicit"`
@@ -42,53 +41,10 @@ type SimpleTrack struct {
 	// The number of the track.  If an album has several
 	// discs, the track number is the number on the specified
 	// DiscNumber.
-	TrackNumber int `json:"track_number"`
-	URI         URI `json:"uri"`
+	TrackNumber Numeric `json:"track_number"`
+	URI         URI     `json:"uri"`
 	// Type of the track
 	Type string `json:"type"`
-}
-
-// UnmarshalJSON unmarshals the track data regardless of numeric values being integers or floats.
-func (s *SimpleTrack) UnmarshalJSON(data []byte) error {
-	var v struct {
-		Album            SimpleAlbum       `json:"album"`
-		Artists          []SimpleArtist    `json:"artists"`
-		AvailableMarkets []string          `json:"available_markets"`
-		DiscNumber       float64           `json:"disc_number"`
-		Duration         float64           `json:"duration_ms"`
-		Explicit         bool              `json:"explicit"`
-		ExternalURLs     map[string]string `json:"external_urls"`
-		ExternalIDs      TrackExternalIDs  `json:"external_ids"`
-		Endpoint         string            `json:"href"`
-		ID               ID                `json:"id"`
-		Name             string            `json:"name"`
-		PreviewURL       string            `json:"preview_url"`
-		TrackNumber      float64           `json:"track_number"`
-		URI              URI               `json:"uri"`
-		Type             string            `json:"type"`
-	}
-
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-
-	s.Album = v.Album
-	s.Artists = v.Artists
-	s.AvailableMarkets = v.AvailableMarkets
-	s.DiscNumber = int(v.DiscNumber)
-	s.Duration = int(v.Duration)
-	s.Explicit = v.Explicit
-	s.ExternalURLs = v.ExternalURLs
-	s.ExternalIDs = v.ExternalIDs
-	s.Endpoint = v.Endpoint
-	s.ID = v.ID
-	s.Name = v.Name
-	s.PreviewURL = v.PreviewURL
-	s.TrackNumber = int(v.TrackNumber)
-	s.URI = v.URI
-	s.Type = v.Type
-
-	return nil
 }
 
 func (st SimpleTrack) String() string {
@@ -124,7 +80,7 @@ type FullTrack struct {
 	// Popularity of the track.  The value will be between 0 and 100,
 	// with 100 being the most popular.  The popularity is calculated from
 	// both total plays and most recent plays.
-	Popularity int `json:"popularity"`
+	Popularity Numeric `json:"popularity"`
 
 	// IsPlayable defines if the track is playable. It's reported when the "market" parameter is passed to the tracks
 	// listing API.
@@ -134,38 +90,6 @@ type FullTrack struct {
 	// LinkedFrom points to the linked track. It's reported when the "market" parameter is passed to the tracks listing
 	// API.
 	LinkedFrom *LinkedFromInfo `json:"linked_from"`
-}
-
-// UnmarshalJSON unmarshals the track data regardless of numeric values being integers or floats.
-func (f *FullTrack) UnmarshalJSON(data []byte) error {
-	var v struct {
-		SimpleTrack
-		Popularity float64         `json:"popularity"`
-		IsPlayable *bool           `json:"is_playable"`
-		LinkedFrom *LinkedFromInfo `json:"linked_from"`
-	}
-
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-
-	f.SimpleTrack = v.SimpleTrack
-	f.Album = v.SimpleTrack.Album
-	f.ExternalIDs = map[string]string{}
-	if v.SimpleTrack.ExternalIDs.UPC != "" {
-		f.ExternalIDs["upc"] = v.SimpleTrack.ExternalIDs.UPC
-	}
-	if v.SimpleTrack.ExternalIDs.EAN != "" {
-		f.ExternalIDs["ean"] = v.SimpleTrack.ExternalIDs.EAN
-	}
-	if v.SimpleTrack.ExternalIDs.ISRC != "" {
-		f.ExternalIDs["isrc"] = v.SimpleTrack.ExternalIDs.ISRC
-	}
-	f.Popularity = int(v.Popularity)
-	f.IsPlayable = v.IsPlayable
-	f.LinkedFrom = v.LinkedFrom
-
-	return nil
 }
 
 // PlaylistTrack contains info about a track in a playlist.
@@ -192,23 +116,6 @@ type SavedTrack struct {
 	// a time.Time value.
 	AddedAt   string `json:"added_at"`
 	FullTrack `json:"track"`
-}
-
-// UnmarshalJSON unmarshals the track data regardless of numeric values being integers or floats.
-func (s *SavedTrack) UnmarshalJSON(data []byte) error {
-	var v struct {
-		AddedAt   string    `json:"added_at"`
-		FullTrack FullTrack `json:"track"`
-	}
-
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-
-	s.AddedAt = v.AddedAt
-	s.FullTrack = v.FullTrack
-
-	return nil
 }
 
 // TimeDuration returns the track's duration as a time.Duration value.

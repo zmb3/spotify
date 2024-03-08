@@ -30,12 +30,12 @@ type Recommendations struct {
 // RecommendationSeed represents a recommendation seed after
 // being processed by the Spotify API
 type RecommendationSeed struct {
-	AfterFilteringSize int    `json:"afterFilteringSize"`
-	AfterRelinkingSize int    `json:"afterRelinkingSize"`
-	Endpoint           string `json:"href"`
-	ID                 ID     `json:"id"`
-	InitialPoolSize    int    `json:"initialPoolSize"`
-	Type               string `json:"type"`
+	AfterFilteringSize Numeric `json:"afterFilteringSize"`
+	AfterRelinkingSize Numeric `json:"afterRelinkingSize"`
+	Endpoint           string  `json:"href"`
+	ID                 ID      `json:"id"`
+	InitialPoolSize    Numeric `json:"initialPoolSize"`
+	Type               string  `json:"type"`
 }
 
 // MaxNumberOfSeeds allowed by Spotify for a recommendation request

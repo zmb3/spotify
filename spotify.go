@@ -102,60 +102,37 @@ func (id *ID) String() string {
 	return string(*id)
 }
 
+// Numeric is a convenience type for handling numbers sent as either integers or floats.
+type Numeric int
+
+// UnmarshalJSON unmarshals a JSON number (float or int) into the Numeric type.
+func (n *Numeric) UnmarshalJSON(data []byte) error {
+	var f float64
+	if err := json.Unmarshal(data, &f); err != nil {
+		return err
+	}
+	*n = Numeric(int(f))
+	return nil
+}
+
 // Followers contains information about the number of people following a
 // particular artist or playlist.
 type Followers struct {
 	// The total number of followers.
-	Count uint `json:"total"`
+	Count Numeric `json:"total"`
 	// A link to the Web API endpoint providing full details of the followers,
 	// or the empty string if this data is not available.
 	Endpoint string `json:"href"`
 }
 
-// UnmarshalJSON unmarshals the followers data regardless of numeric values being integers or floats.
-func (f *Followers) UnmarshalJSON(data []byte) error {
-	var v struct {
-		Count    float64 `json:"total"`
-		Endpoint string  `json:"href"`
-	}
-
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-
-	f.Count = uint(v.Count)
-	f.Endpoint = v.Endpoint
-
-	return nil
-}
-
 // Image identifies an image associated with an item.
 type Image struct {
 	// The image height, in pixels.
-	Height int `json:"height"`
+	Height Numeric `json:"height"`
 	// The image width, in pixels.
-	Width int `json:"width"`
+	Width Numeric `json:"width"`
 	// The source URL of the image.
 	URL string `json:"url"`
-}
-
-// UnmarshalJSON unmarshals the image data regardless of numeric values being integers or floats.
-func (i *Image) UnmarshalJSON(data []byte) error {
-	var v struct {
-		Height float64 `json:"height"`
-		Width  float64 `json:"width"`
-		URL    string  `json:"url"`
-	}
-
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-
-	i.Height = int(v.Height)
-	i.Width = int(v.Width)
-	i.URL = v.URL
-
-	return nil
 }
 
 // Download downloads the image and writes its data to the specified io.Writer.
