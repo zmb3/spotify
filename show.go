@@ -87,7 +87,7 @@ type EpisodePage struct {
 	Description string `json:"description"`
 
 	// The episode length in milliseconds.
-	Duration_ms int `json:"duration_ms"`
+	Duration_ms Numeric `json:"duration_ms"`
 
 	// Whether or not the episode has explicit content
 	// (true = yes it does; false = no it does not OR unknown).
@@ -147,7 +147,7 @@ type ResumePointObject struct {
 	FullyPlayed bool `json:"fully_played"`
 
 	// The user’s most recent position in the episode in milliseconds.
-	ResumePositionMs int `json:"resume_position_ms"`
+	ResumePositionMs Numeric `json:"resume_position_ms"`
 }
 
 // ReleaseDateTime converts the show's ReleaseDate to a time.TimeValue.

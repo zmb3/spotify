@@ -86,7 +86,7 @@ type FullAlbum struct {
 	// The popularity of the album, represented as an integer between 0 and 100,
 	// with 100 being the most popular.  Popularity of an album is calculated
 	// from the popularity of the album's individual tracks.
-	Popularity  int               `json:"popularity"`
+	Popularity  Numeric           `json:"popularity"`
 	Tracks      SimpleTrackPage   `json:"tracks"`
 	ExternalIDs map[string]string `json:"external_ids"`
 }

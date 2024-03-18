@@ -49,7 +49,7 @@ type Section struct {
 	KeyConfidence           float64 `json:"key_confidence"`
 	Mode                    Mode    `json:"mode"`
 	ModeConfidence          float64 `json:"mode_confidence"`
-	TimeSignature           int     `json:"time_signature"`
+	TimeSignature           Numeric `json:"time_signature"`
 	TimeSignatureConfidence float64 `json:"time_signature_confidence"`
 }
 
@@ -70,16 +70,16 @@ type AnalysisTrack struct {
 	NumSamples              int64   `json:"num_samples"`
 	Duration                float64 `json:"duration"`
 	SampleMD5               string  `json:"sample_md5"`
-	OffsetSeconds           int     `json:"offset_seconds"`
-	WindowSeconds           int     `json:"window_seconds"`
+	OffsetSeconds           Numeric `json:"offset_seconds"`
+	WindowSeconds           Numeric `json:"window_seconds"`
 	AnalysisSampleRate      int64   `json:"analysis_sample_rate"`
-	AnalysisChannels        int     `json:"analysis_channels"`
+	AnalysisChannels        Numeric `json:"analysis_channels"`
 	EndOfFadeIn             float64 `json:"end_of_fade_in"`
 	StartOfFadeOut          float64 `json:"start_of_fade_out"`
 	Loudness                float64 `json:"loudness"`
 	Tempo                   float64 `json:"tempo"`
 	TempoConfidence         float64 `json:"tempo_confidence"`
-	TimeSignature           int     `json:"time_signature"`
+	TimeSignature           Numeric `json:"time_signature"`
 	TimeSignatureConfidence float64 `json:"time_signature_confidence"`
 	Key                     Key     `json:"key"`
 	KeyConfidence           float64 `json:"key_confidence"`

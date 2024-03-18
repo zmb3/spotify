@@ -18,7 +18,7 @@ type PlaylistTracks struct {
 	// the playlist's tracks can be retrieved.
 	Endpoint string `json:"href"`
 	// The total number of tracks in the playlist.
-	Total uint `json:"total"`
+	Total Numeric `json:"total"`
 }
 
 // SimplePlaylist contains basic info about a Spotify playlist.
@@ -621,14 +621,14 @@ func (c *Client) UserFollowsPlaylist(ctx context.Context, playlistID ID, userIDs
 type PlaylistReorderOptions struct {
 	// The position of the first track to be reordered.
 	// This field is required.
-	RangeStart int `json:"range_start"`
+	RangeStart Numeric `json:"range_start"`
 	// The amount of tracks to be reordered.  This field is optional.  If
 	// you don't set it, the value 1 will be used.
-	RangeLength int `json:"range_length,omitempty"`
+	RangeLength Numeric `json:"range_length,omitempty"`
 	// The position where the tracks should be inserted.  To reorder the
 	// tracks to the end of the playlist, simply set this to the position
 	// after the last track.  This field is required.
-	InsertBefore int `json:"insert_before"`
+	InsertBefore Numeric `json:"insert_before"`
 	// The playlist's snapshot ID against which you wish to make the changes.
 	// This field is optional.
 	SnapshotID string `json:"snapshot_id,omitempty"`

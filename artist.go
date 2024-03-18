@@ -22,7 +22,7 @@ type FullArtist struct {
 	SimpleArtist
 	// The popularity of the artist, expressed as an integer between 0 and 100.
 	// The artist's popularity is calculated from the popularity of the artist's tracks.
-	Popularity int `json:"popularity"`
+	Popularity Numeric `json:"popularity"`
 	// A list of genres the artist is associated with.  For example, "Prog Rock"
 	// or "Post-Grunge".  If not yet classified, the slice is empty.
 	Genres    []string  `json:"genres"`

@@ -56,17 +56,17 @@ const albumsResponse = `
 		"href" : "https://api.spotify.com/v1/albums/1WXM7DYQRT7QX8AKBJRfK9",
 		"id" : "1WXM7DYQRT7QX8AKBJRfK9",
 		"images" : [ {
-			"height" : 640,
+			"height" : 640.0,
 			"url" : "https://i.scdn.co/image/590dbe5504d2898c120b942bee2b699404783896",
-			"width" : 640
+			"width" : 640.0
 			}, {
-			"height" : 300,
+			"height" : 300.0,
 			"url" : "https://i.scdn.co/image/9a4db24b1930e8683b4dfd19c7bd2a40672c6718",
-			"width" : 300
+			"width" : 300.0
 			}, {
-			"height" : 64,
+			"height" : 64.0,
 			"url" : "https://i.scdn.co/image/d5cfc167e03ed328ae7dfa9b56d3628d81b6831b",
-			"width" : 64
+			"width" : 64.0
 			} ],
 			"name" : "The Days / Nights",
 			"type" : "album",
@@ -118,6 +118,26 @@ func TestArtistTopTracks(t *testing.T) {
 
 func TestRelatedArtists(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/related_artists.txt")
+	defer server.Close()
+
+	artists, err := client.GetRelatedArtists(context.Background(), ID("43ZHCT0cAZBISjO8DG9PnE"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if count := len(artists); count != 20 {
+		t.Fatalf("Got %d artists, wanted 20\n", count)
+	}
+	a2 := artists[2]
+	if a2.Name != "Carl Perkins" {
+		t.Error("Expected Carl Perkins, got ", a2.Name)
+	}
+	if a2.Popularity != 54 {
+		t.Errorf("Expected popularity 54, got %d\n", a2.Popularity)
+	}
+}
+
+func TestRelatedArtistsWithFloats(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/related_artists_with_floats.txt")
 	defer server.Close()
 
 	artists, err := client.GetRelatedArtists(context.Background(), ID("43ZHCT0cAZBISjO8DG9PnE"))

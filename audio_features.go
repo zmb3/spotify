@@ -23,7 +23,7 @@ type AudioFeatures struct {
 	// and 1.0 is most danceable.
 	Danceability float32 `json:"danceability"`
 	// The length of the track in milliseconds.
-	Duration int `json:"duration_ms"`
+	Duration Numeric `json:"duration_ms"`
 	// Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 	// of intensity and activity.  Typically, energetic tracks feel fast, loud,
 	// and noisy.
@@ -39,7 +39,7 @@ type AudioFeatures struct {
 	Instrumentalness float32 `json:"instrumentalness"`
 	// The key the track is in.  Integers map to pitches using standard Pitch Class notation
 	// (https://en.wikipedia.org/wiki/Pitch_class).
-	Key int `json:"key"`
+	Key Numeric `json:"key"`
 	// Detects the presence of an audience in the recording.  Higher liveness
 	// values represent an increased probability that the track was performed live.
 	// A value above 0.8 provides strong likelihood that the track is live.
@@ -49,7 +49,7 @@ type AudioFeatures struct {
 	// loudness of tracks.  Typical values range between -60 and 0 dB.
 	Loudness float32 `json:"loudness"`
 	// Mode indicates the modality (major or minor) of a track.
-	Mode int `json:"mode"`
+	Mode Numeric `json:"mode"`
 	// Detects the presence of spoken words in a track.  The more exclusively
 	// speech-like the recording, the closer to 1.0 the speechiness will be.
 	// Values above 0.66 describe tracks that are probably made entirely of
@@ -61,7 +61,7 @@ type AudioFeatures struct {
 	Tempo float32 `json:"tempo"`
 	// An estimated overall time signature of a track.  The time signature (meter)
 	// is a notational convention to specify how many beats are in each bar (or measure).
-	TimeSignature int `json:"time_signature"`
+	TimeSignature Numeric `json:"time_signature"`
 	// A link to the Web API endpoint providing full details of the track.
 	TrackURL string `json:"track_href"`
 	// The Spotify URI for the track.

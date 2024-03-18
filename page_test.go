@@ -55,7 +55,7 @@ func TestClient_NextPage(t *testing.T) {
 			assert.Equal(t, tt.ExpectedPath != "", wasCalled)
 			if tt.Err == nil {
 				assert.NoError(t, err)
-				assert.Equal(t, 100, tt.Input.Total) // value should be from original 600
+				assert.Equal(t, 100, int(tt.Input.Total)) // value should be from original 600
 			} else {
 				assert.EqualError(t, err, tt.Err.Error())
 			}
@@ -110,7 +110,7 @@ func TestClient_PreviousPage(t *testing.T) {
 			assert.Equal(t, tt.ExpectedPath != "", wasCalled)
 			if tt.Err == nil {
 				assert.NoError(t, err)
-				assert.Equal(t, 100, tt.Input.Total) // value should be from original 600
+				assert.Equal(t, 100, int(tt.Input.Total)) // value should be from original 600
 			} else {
 				assert.EqualError(t, err, tt.Err.Error())
 			}

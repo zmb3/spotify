@@ -102,11 +102,24 @@ func (id *ID) String() string {
 	return string(*id)
 }
 
+// Numeric is a convenience type for handling numbers sent as either integers or floats.
+type Numeric int
+
+// UnmarshalJSON unmarshals a JSON number (float or int) into the Numeric type.
+func (n *Numeric) UnmarshalJSON(data []byte) error {
+	var f float64
+	if err := json.Unmarshal(data, &f); err != nil {
+		return err
+	}
+	*n = Numeric(int(f))
+	return nil
+}
+
 // Followers contains information about the number of people following a
 // particular artist or playlist.
 type Followers struct {
 	// The total number of followers.
-	Count uint `json:"total"`
+	Count Numeric `json:"total"`
 	// A link to the Web API endpoint providing full details of the followers,
 	// or the empty string if this data is not available.
 	Endpoint string `json:"href"`
@@ -115,9 +128,9 @@ type Followers struct {
 // Image identifies an image associated with an item.
 type Image struct {
 	// The image height, in pixels.
-	Height int `json:"height"`
+	Height Numeric `json:"height"`
 	// The image width, in pixels.
-	Width int `json:"width"`
+	Width Numeric `json:"width"`
 	// The source URL of the image.
 	URL string `json:"url"`
 }
@@ -222,7 +235,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 				// If the context is cancelled, return the original error
 			case <-time.After(retryDuration(resp)):
 				continue
-                        }
+			}
 		}
 		if resp.StatusCode == http.StatusNoContent {
 			return nil

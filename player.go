@@ -24,7 +24,7 @@ type PlayerDevice struct {
 	// Type of device, such as "Computer", "Smartphone" or "Speaker".
 	Type string `json:"type"`
 	// Volume The current volume in percent.
-	Volume int `json:"volume_percent"`
+	Volume Numeric `json:"volume_percent"`
 }
 
 // PlayerState contains information about the current playback.
@@ -57,7 +57,7 @@ type CurrentlyPlaying struct {
 	// PlaybackContext current context
 	PlaybackContext PlaybackContext `json:"context"`
 	// Progress into the currently playing track.
-	Progress int `json:"progress_ms"`
+	Progress Numeric `json:"progress_ms"`
 	// Playing If something is currently playing.
 	Playing bool `json:"is_playing"`
 	// The currently playing track. Can be null.
@@ -110,7 +110,7 @@ type PlayOptions struct {
 	// Must be a positive number. Passing in a position that is greater
 	// than the length of the track will cause the player to start playing the next song.
 	// Defaults to 0, starting a track from the beginning.
-	PositionMs int `json:"position_ms,omitempty"`
+	PositionMs Numeric `json:"position_ms,omitempty"`
 }
 
 // RecentlyPlayedOptions describes options for the recently-played request. All
@@ -120,7 +120,7 @@ type PlayOptions struct {
 type RecentlyPlayedOptions struct {
 	// Limit is the maximum number of items to return. Must be no greater than
 	// fifty.
-	Limit int
+	Limit Numeric
 
 	// AfterEpochMs is a Unix epoch in milliseconds that describes a time after
 	// which to return songs.
