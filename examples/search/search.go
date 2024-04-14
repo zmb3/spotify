@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"log"
 	"os"
+
+	spotifyauth "github.com/zmb3/spotify/v2/auth"
 
 	"golang.org/x/oauth2/clientcredentials"
 
@@ -44,6 +45,22 @@ func main() {
 		fmt.Println("Playlists:")
 		for _, item := range results.Playlists.Playlists {
 			fmt.Println("   ", item.Name)
+		}
+	}
+
+	// search for shows using market query parameter
+	options := []spotify.RequestOption{
+		spotify.Market("CO"),
+	}
+
+	results, err = client.Search(ctx, "cyclast", spotify.SearchTypeShow, options...)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// handle show results
+	if results.Shows != nil {
+		for _, item := range results.Shows.Shows {
+			fmt.Println("	", item.Name)
 		}
 	}
 }
