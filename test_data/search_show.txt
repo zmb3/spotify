@@ -1,0 +1,49 @@
+{
+  "shows": {
+    "href": "https://api.spotify.com/v1/search?query=go+time&type=show&locale=es-CO%2Ces%3Bq%3D0.9%2Cen-US%3Bq%3D0.8%2Cen%3Bq%3D0.7%2Ces-419%3Bq%3D0.6&offset=0&limit=1",
+    "limit": 20,
+    "next": "https://api.spotify.com/v1/search?query=go+time&type=show&locale=es-CO%2Ces%3Bq%3D0.9%2Cen-US%3Bq%3D0.8%2Cen%3Bq%3D0.7%2Ces-419%3Bq%3D0.6&offset=1&limit=1",
+    "offset": 0,
+    "previous": null,
+    "total": 1,
+    "items": [
+      {
+        "available_markets": ["AD", "AE", "AG", "AL", "AM", "AR", "AT", "AU", "BA", "BB", "BE", "BF", "BG", "BH", "BJ", "BO", "BR", "BS", "BT", "BW", "BZ", "CA", "CH", "CL", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FJ", "FM", "FR", "GB", "GD", "GE", "GH", "GM", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JM", "JO", "JP", "KE", "KI", "KN", "KR", "KW", "LB", "LC", "LI", "LR", "LS", "LT", "LU", "LV", "MA", "MC", "ME", "MG", "MH", "MK", "ML", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PL", "PR", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "SA", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "TH", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "UA", "US", "UY", "VC", "VN", "VU", "WS", "XK", "ZA"],
+        "copyrights": [],
+        "description": "Your source for diverse discussions from around the Go community.  This show records LIVE every Tuesday at 3pm US Eastern. Join the Golang community and chat with us during the show in the #gotimefm channel of Gophers slack. Panelists include Mat Ryer, Jon Calhoun, Natalie Pistunovich, Johnny Boursiquot, Angelica Hill, Kris Brandow, and Ian Lopshire. We discuss cloud infrastructure, distributed systems, microservices, Kubernetes, Docker… oh and also Go! Some people search for GoTime or GoTimeFM and can’t find the show, so now the strings GoTime and GoTimeFM are in our description too.",
+        "html_description": "Your source for diverse discussions from around the Go community.  This show records LIVE every Tuesday at 3pm US Eastern. Join the Golang community and chat with us during the show in the #gotimefm channel of Gophers slack. Panelists include Mat Ryer, Jon Calhoun, Natalie Pistunovich, Johnny Boursiquot, Angelica Hill, Kris Brandow, and Ian Lopshire. We discuss cloud infrastructure, distributed systems, microservices, Kubernetes, Docker… oh and also Go! Some people search for GoTime or GoTimeFM and can’t find the show, so now the strings GoTime and GoTimeFM are in our description too.",
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/show/2cKdcxETn7jDp7uJCwqmSE"
+        },
+        "href": "https://api.spotify.com/v1/shows/2cKdcxETn7jDp7uJCwqmSE",
+        "id": "2cKdcxETn7jDp7uJCwqmSE",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/18d9cacf366a7173b10204eb983fe5d374b728dd",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/3f9b1dd55b3353a0d70dfcca6a44c01775cfbfcc",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/aa9e23de8a5a64bedaf526bb963123413984e53f",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "is_externally_hosted": false,
+        "languages": ["en-US"],
+        "media_type": "audio",
+        "name": "Go Time: Golang, Software Engineering",
+        "publisher": "Changelog Media",
+        "type": "show",
+        "uri": "spotify:show:2cKdcxETn7jDp7uJCwqmSE",
+        "total_episodes": 316
+      }
+    ]
+  }
+}
