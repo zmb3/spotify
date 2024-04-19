@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -61,7 +62,46 @@ type CurrentlyPlaying struct {
 	// Playing If something is currently playing.
 	Playing bool `json:"is_playing"`
 	// The currently playing track. Can be null.
-	Item *FullTrack `json:"item"`
+	Item *CurrentlyPlayingTrack `json:"item"`
+}
+
+// CurrentlyPlayingTrack is a union type for both a track and and episode.
+type CurrentlyPlayingTrack struct {
+	Track   *FullTrack
+	Episode *EpisodePage
+}
+
+// UnmarshalJSON customises the unmarshalling based on the type flags set.
+func (t *CurrentlyPlayingTrack) UnmarshalJSON(b []byte) error {
+	if bytes.Equal(b, []byte("null")) {
+		return nil
+	}
+
+	itemType := struct {
+		Type string `json:"type"`
+	}{}
+
+	err := json.Unmarshal(b, &itemType)
+	if err != nil {
+		return err
+	}
+
+	switch itemType.Type {
+	case "episode":
+		err := json.Unmarshal(b, &t.Episode)
+		if err != nil {
+			return err
+		}
+	case "track":
+		err := json.Unmarshal(b, &t.Track)
+		if err != nil {
+			return err
+		}
+	default:
+		return fmt.Errorf("unrecognized item type: %s", itemType.Type)
+	}
+
+	return nil
 }
 
 type RecentlyPlayedItem struct {
@@ -178,9 +218,12 @@ func (c *Client) PlayerState(ctx context.Context, opts ...RequestOption) (*Playe
 // Requires the ScopeUserReadCurrentlyPlaying scope or the ScopeUserReadPlaybackState
 // scope in order to read information
 //
-// Supported options: Market
+// Supported options: Market, AdditionalTypes
 func (c *Client) PlayerCurrentlyPlaying(ctx context.Context, opts ...RequestOption) (*CurrentlyPlaying, error) {
 	spotifyURL := c.baseURL + "me/player/currently-playing"
+
+	// Add default as the first option so it gets override by url.Values#Set
+	opts = append([]RequestOption{AdditionalTypes(EpisodeAdditionalType, TrackAdditionalType)}, opts...)
 
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
 		spotifyURL += "?" + params
