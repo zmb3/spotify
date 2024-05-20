@@ -107,15 +107,15 @@ type SimpleShowPage struct {
 	Shows []FullShow `json:"items"`
 }
 
-// pageable is an internal interface for types that support paging
+// Pageable is an interface for types that support paging
 // by embedding basePage.
-type pageable interface{ canPage() }
+type Pageable interface{ CanPage() }
 
-func (b *basePage) canPage() {}
+func (b *basePage) CanPage() {}
 
 // NextPage fetches the next page of items and writes them into p.
 // It returns ErrNoMorePages if p already contains the last page.
-func (c *Client) NextPage(ctx context.Context, p pageable) error {
+func (c *Client) NextPage(ctx context.Context, p Pageable) error {
 	if p == nil || reflect.ValueOf(p).IsNil() {
 		return fmt.Errorf("spotify: p must be a non-nil pointer to a page")
 	}
@@ -139,7 +139,7 @@ func (c *Client) NextPage(ctx context.Context, p pageable) error {
 
 // PreviousPage fetches the previous page of items and writes them into p.
 // It returns ErrNoMorePages if p already contains the last page.
-func (c *Client) PreviousPage(ctx context.Context, p pageable) error {
+func (c *Client) PreviousPage(ctx context.Context, p Pageable) error {
 	if p == nil || reflect.ValueOf(p).IsNil() {
 		return fmt.Errorf("spotify: p must be a non-nil pointer to a page")
 	}
