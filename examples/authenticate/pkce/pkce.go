@@ -11,6 +11,7 @@ import (
 	"fmt"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"log"
+	"os"
 	"net/http"
 
 	"golang.org/x/oauth2"
@@ -45,6 +46,7 @@ func main() {
 	url := auth.AuthURL(state,
 		oauth2.SetAuthURLParam("code_challenge_method", "S256"),
 		oauth2.SetAuthURLParam("code_challenge", codeChallenge),
+		oauth2.SetAuthURLParam("client_id", os.Getenv("CLIENT_ID")),
 	)
 	fmt.Println("Please log in to Spotify by visiting the following page in your browser:", url)
 
