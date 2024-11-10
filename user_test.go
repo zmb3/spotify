@@ -447,10 +447,7 @@ func TestCurrentUsersTopTracks(t *testing.T) {
 	}
 
 	isrc := "QZ4JJ1764466"
-	i, ok := tracks.Tracks[0].ExternalIDs["isrc"]
-	if !ok {
-		t.Error("External IDs missing ISRC")
-	}
+	i := tracks.Tracks[0].ExternalIDs.ISRC
 	if i != isrc {
 		t.Errorf("Wrong ISRC: want %s, got %s\n", isrc, i)
 	}
