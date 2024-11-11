@@ -49,6 +49,8 @@ type SimpleAlbum struct {
 	ReleaseDate string `json:"release_date"`
 	// The precision with which ReleaseDate value is known: "year", "month", or "day"
 	ReleaseDatePrecision string `json:"release_date_precision"`
+	// The number of tracks on the album.
+	TotalTracks Numeric `json:"total_tracks"`
 }
 
 // ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
