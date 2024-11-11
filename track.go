@@ -73,10 +73,6 @@ type LinkedFromInfo struct {
 // FullTrack provides extra track data in addition to what is provided by SimpleTrack.
 type FullTrack struct {
 	SimpleTrack
-	// The album on which the track appears. The album object includes a link in href to full information about the album.
-	Album SimpleAlbum `json:"album"`
-	// Known external IDs for the track.
-	ExternalIDs map[string]string `json:"external_ids"`
 	// Popularity of the track.  The value will be between 0 and 100,
 	// with 100 being the most popular.  The popularity is calculated from
 	// both total plays and most recent plays.
