@@ -128,6 +128,59 @@ func TestPlayerCurrentlyPlaying(t *testing.T) {
 	}
 }
 
+func TestPlayerCurrentlyPlayingEpisode(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/player_currently_playing_episode.json")
+	defer server.Close()
+
+	current, err := client.PlayerCurrentlyPlaying(context.Background())
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if current.Item == nil {
+		t.Error("Expected item to be a episode")
+	}
+
+	expectedName := "300 multiple choices"
+	actualName := current.Item.Episode.Name
+	if expectedName != actualName {
+		t.Errorf("Got '%s', expected '%s'\n", actualName, expectedName)
+	}
+
+	if current.Playing {
+		t.Error("Expected not to be playing")
+	}
+}
+
+func TestPlayerCurrentlyPlayingOverride(t *testing.T) {
+	var types string
+	client, server := testClientString(http.StatusForbidden, "", func(r *http.Request) {
+		types = r.URL.Query().Get("additional_types")
+	})
+	defer server.Close()
+
+	_, _ = client.PlayerCurrentlyPlaying(context.Background(), AdditionalTypes(EpisodeAdditionalType))
+
+	if types != "episode" {
+		t.Errorf("Expected additional type episode, got %s\n", types)
+	}
+}
+
+func TestPlayerCurrentlyPlayingDefault(t *testing.T) {
+	var types string
+	client, server := testClientString(http.StatusForbidden, "", func(r *http.Request) {
+		types = r.URL.Query().Get("additional_types")
+	})
+	defer server.Close()
+
+	_, _ = client.PlayerCurrentlyPlaying(context.Background())
+
+	if types != "episode,track" {
+		t.Errorf("Expected additional type episode,track, got %s\n", types)
+	}
+}
+
 func TestPlayerRecentlyPlayed(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/player_recently_played.txt")
 	defer server.Close()
