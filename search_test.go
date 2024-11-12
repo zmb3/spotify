@@ -78,6 +78,35 @@ func TestSearchPlaylistTrack(t *testing.T) {
 	}
 }
 
+func TestSearchShow(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/search_show.txt")
+	defer server.Close()
+
+	options := []RequestOption{
+		Market("CO"),
+	}
+
+	result, err := client.Search(context.Background(), "go time", SearchTypeShow, options...)
+	if err != nil {
+		t.Error(err)
+	}
+	if result.Albums != nil {
+		t.Error("Searched for shows but received album results")
+	}
+	if result.Playlists != nil {
+		t.Error("Searched for shows but received playlist results")
+	}
+	if result.Tracks != nil {
+		t.Error("Searched for shows but received track results")
+	}
+	if result.Shows == nil || len(result.Shows.Shows) == 0 {
+		t.Error("Didn't receive show results")
+	}
+	if result.Shows.Shows[0].Name != "Go Time: Golang, Software Engineering" {
+		t.Error("Got wrong show name")
+	}
+}
+
 func TestPrevNextSearchPageErrors(t *testing.T) {
 	client, server := testClientString(0, "")
 	defer server.Close()
