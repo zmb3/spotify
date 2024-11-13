@@ -37,8 +37,10 @@ type AudioFeatures struct {
 	// intended to represent instrumental tracks, but confidence is higher as the
 	// value approaches 1.0.
 	Instrumentalness float32 `json:"instrumentalness"`
-	// The key the track is in.  Integers map to pitches using standard Pitch Class notation
-	// (https://en.wikipedia.org/wiki/Pitch_class).
+	// The key the track is in.  Integers map to pitches using standard
+	// [Pitch Class] notation.
+	//
+	// [Pitch Class]: https://en.wikipedia.org/wiki/Pitch_class
 	Key Numeric `json:"key"`
 	// Detects the presence of an audience in the recording.  Higher liveness
 	// values represent an increased probability that the track was performed live.
@@ -73,7 +75,9 @@ type AudioFeatures struct {
 	Valence float32 `json:"valence"`
 }
 
-// Key represents a pitch using Pitch Class notation.
+// Key represents a pitch using [Pitch Class] notation.
+//
+// [Pitch Class]: https://en.wikipedia.org/wiki/Pitch_class
 type Key int
 
 const (

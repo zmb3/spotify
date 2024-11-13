@@ -2,25 +2,32 @@ package spotify
 
 // TrackAttributes contains various tuneable parameters that can be used for recommendations.
 // For each of the tuneable track attributes, target, min and max values may be provided.
+//
 // Target:
-//   Tracks with the attribute values nearest to the target values will be preferred.
-//   For example, you might request TargetEnergy=0.6 and TargetDanceability=0.8.
-//   All target values will be weighed equally in ranking results.
+//
+//	Tracks with the attribute values nearest to the target values will be preferred.
+//	For example, you might request TargetEnergy=0.6 and TargetDanceability=0.8.
+//	All target values will be weighed equally in ranking results.
+//
 // Max:
-//   A hard ceiling on the selected track attribute’s value can be provided.
-//   For example, MaxInstrumentalness=0.35 would filter out most tracks
-//   that are likely to be instrumental.
+//
+//	A hard ceiling on the selected track attribute’s value can be provided.
+//	For example, MaxInstrumentalness=0.35 would filter out most tracks
+//	that are likely to be instrumental.
+//
 // Min:
-//   A hard floor on the selected track attribute’s value can be provided.
-//   For example, min_tempo=140 would restrict results to only those tracks
-//   with a tempo of greater than 140 beats per minute.
+//
+//	A hard floor on the selected track attribute’s value can be provided.
+//	For example, min_tempo=140 would restrict results to only those tracks
+//	with a tempo of greater than 140 beats per minute.
 type TrackAttributes struct {
 	intAttributes   map[string]int
 	floatAttributes map[string]float64
 }
 
-// NewTrackAttributes returns a new TrackAttributes instance with no attributes set.
+// NewTrackAttributes returns a new [TrackAttributes] instance with no attributes set.
 // Attributes can then be chained following a builder pattern:
+//
 //	ta := NewTrackAttributes().
 //			MaxAcousticness(0.15).
 //			TargetPopularity(90)
@@ -31,7 +38,7 @@ func NewTrackAttributes() *TrackAttributes {
 	}
 }
 
-// MaxAcousticness sets the maximum acousticness
+// MaxAcousticness sets the maximum acousticness.
 // Acousticness is a confidence measure from 0.0 to 1.0 of whether
 // the track is acoustic.  A value of 1.0 represents high confidence
 // that the track is acoustic.
@@ -40,7 +47,7 @@ func (ta *TrackAttributes) MaxAcousticness(acousticness float64) *TrackAttribute
 	return ta
 }
 
-// MinAcousticness sets the minimum acousticness
+// MinAcousticness sets the minimum acousticness.
 // Acousticness is a confidence measure from 0.0 to 1.0 of whether
 // the track is acoustic.  A value of 1.0 represents high confidence
 // that the track is acoustic.
@@ -49,7 +56,7 @@ func (ta *TrackAttributes) MinAcousticness(acousticness float64) *TrackAttribute
 	return ta
 }
 
-// TargetAcousticness sets the target acousticness
+// TargetAcousticness sets the target acousticness.
 // Acousticness is a confidence measure from 0.0 to 1.0 of whether
 // the track is acoustic.  A value of 1.0 represents high confidence
 // that the track is acoustic.
@@ -58,7 +65,7 @@ func (ta *TrackAttributes) TargetAcousticness(acousticness float64) *TrackAttrib
 	return ta
 }
 
-// MaxDanceability sets the maximum danceability
+// MaxDanceability sets the maximum danceability.
 // Danceability describes how suitable a track is for dancing based on
 // a combination of musical elements including tempo, rhythm stability,
 // beat strength, and overall regularity.
@@ -68,7 +75,7 @@ func (ta *TrackAttributes) MaxDanceability(danceability float64) *TrackAttribute
 	return ta
 }
 
-// MinDanceability sets the minimum danceability
+// MinDanceability sets the minimum danceability.
 // Danceability describes how suitable a track is for dancing based on
 // a combination of musical elements including tempo, rhythm stability,
 // beat strength, and overall regularity.
@@ -78,7 +85,7 @@ func (ta *TrackAttributes) MinDanceability(danceability float64) *TrackAttribute
 	return ta
 }
 
-// TargetDanceability sets the target danceability
+// TargetDanceability sets the target danceability.
 // Danceability describes how suitable a track is for dancing based on
 // a combination of musical elements including tempo, rhythm stability,
 // beat strength, and overall regularity.
@@ -88,25 +95,25 @@ func (ta *TrackAttributes) TargetDanceability(danceability float64) *TrackAttrib
 	return ta
 }
 
-// MaxDuration sets the maximum length of the track in milliseconds
+// MaxDuration sets the maximum length of the track in milliseconds.
 func (ta *TrackAttributes) MaxDuration(duration int) *TrackAttributes {
 	ta.intAttributes["max_duration_ms"] = duration
 	return ta
 }
 
-// MinDuration sets the minimum length of the track in milliseconds
+// MinDuration sets the minimum length of the track in milliseconds.
 func (ta *TrackAttributes) MinDuration(duration int) *TrackAttributes {
 	ta.intAttributes["min_duration_ms"] = duration
 	return ta
 }
 
-// TargetDuration sets the target length of the track in milliseconds
+// TargetDuration sets the target length of the track in milliseconds.
 func (ta *TrackAttributes) TargetDuration(duration int) *TrackAttributes {
 	ta.intAttributes["target_duration_ms"] = duration
 	return ta
 }
 
-// MaxEnergy sets the maximum energy
+// MaxEnergy sets the maximum energy.
 // Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 // of intensity and activity.  Typically, energetic tracks feel fast, loud,
 // and noisy.
@@ -115,7 +122,7 @@ func (ta *TrackAttributes) MaxEnergy(energy float64) *TrackAttributes {
 	return ta
 }
 
-// MinEnergy sets the minimum energy
+// MinEnergy sets the minimum energy.
 // Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 // of intensity and activity.  Typically, energetic tracks feel fast, loud,
 // and noisy.
@@ -124,7 +131,7 @@ func (ta *TrackAttributes) MinEnergy(energy float64) *TrackAttributes {
 	return ta
 }
 
-// TargetEnergy sets the target energy
+// TargetEnergy sets the target energy.
 // Energy is a measure from 0.0 to 1.0 and represents a perceptual measure
 // of intensity and activity.  Typically, energetic tracks feel fast, loud,
 // and noisy.
@@ -133,7 +140,7 @@ func (ta *TrackAttributes) TargetEnergy(energy float64) *TrackAttributes {
 	return ta
 }
 
-// MaxInstrumentalness sets the maximum instrumentalness
+// MaxInstrumentalness sets the maximum instrumentalness.
 // Instrumentalness predicts whether a track contains no vocals.
 // "Ooh" and "aah" sounds are treated as instrumental in this context.
 // Rap or spoken word tracks are clearly "vocal".
@@ -144,10 +151,9 @@ func (ta *TrackAttributes) TargetEnergy(energy float64) *TrackAttributes {
 func (ta *TrackAttributes) MaxInstrumentalness(instrumentalness float64) *TrackAttributes {
 	ta.floatAttributes["max_instrumentalness"] = instrumentalness
 	return ta
-
 }
 
-// MinInstrumentalness sets the minimum instrumentalness
+// MinInstrumentalness sets the minimum instrumentalness.
 // Instrumentalness predicts whether a track contains no vocals.
 // "Ooh" and "aah" sounds are treated as instrumental in this context.
 // Rap or spoken word tracks are clearly "vocal".
@@ -158,10 +164,9 @@ func (ta *TrackAttributes) MaxInstrumentalness(instrumentalness float64) *TrackA
 func (ta *TrackAttributes) MinInstrumentalness(instrumentalness float64) *TrackAttributes {
 	ta.floatAttributes["min_instrumentalness"] = instrumentalness
 	return ta
-
 }
 
-// TargetInstrumentalness sets the target instrumentalness
+// TargetInstrumentalness sets the target instrumentalness.
 // Instrumentalness predicts whether a track contains no vocals.
 // "Ooh" and "aah" sounds are treated as instrumental in this context.
 // Rap or spoken word tracks are clearly "vocal".
@@ -172,34 +177,36 @@ func (ta *TrackAttributes) MinInstrumentalness(instrumentalness float64) *TrackA
 func (ta *TrackAttributes) TargetInstrumentalness(instrumentalness float64) *TrackAttributes {
 	ta.floatAttributes["target_instrumentalness"] = instrumentalness
 	return ta
-
 }
 
-// MaxKey sets the maximum key
-// Integers map to pitches using standard Pitch Class notation
-// (https://en.wikipedia.org/wiki/Pitch_class).
+// MaxKey sets the maximum key.
+// Integers map to pitches using standard [Pitch Class] notation
+//
+// [Pitch Class]: https://en.wikipedia.org/wiki/Pitch_class
 func (ta *TrackAttributes) MaxKey(key int) *TrackAttributes {
 	ta.intAttributes["max_key"] = key
 	return ta
 }
 
-// MinKey sets the minimum key
-// Integers map to pitches using standard Pitch Class notation
-// (https://en.wikipedia.org/wiki/Pitch_class).
+// MinKey sets the minimum key.
+// Integers map to pitches using standard [Pitch Class] notation
+//
+// [Pitch Class]: https://en.wikipedia.org/wiki/Pitch_class
 func (ta *TrackAttributes) MinKey(key int) *TrackAttributes {
 	ta.intAttributes["min_key"] = key
 	return ta
 }
 
-// TargetKey sets the target key
-// Integers map to pitches using standard Pitch Class notation
-// (https://en.wikipedia.org/wiki/Pitch_class).
+// TargetKey sets the target key.
+// Integers map to pitches using standard [Pitch Class] notation.
+//
+// [Pitch Class]: https://en.wikipedia.org/wiki/Pitch_class
 func (ta *TrackAttributes) TargetKey(key int) *TrackAttributes {
 	ta.intAttributes["target_key"] = key
 	return ta
 }
 
-// MaxLiveness sets the maximum liveness
+// MaxLiveness sets the maximum liveness.
 // Detects the presence of an audience in the recording.  Higher liveness
 // values represent an increased probability that the track was performed live.
 // A value above 0.8 provides strong likelihood that the track is live.
@@ -208,7 +215,7 @@ func (ta *TrackAttributes) MaxLiveness(liveness float64) *TrackAttributes {
 	return ta
 }
 
-// MinLiveness sets the minimum liveness
+// MinLiveness sets the minimum liveness.
 // Detects the presence of an audience in the recording.  Higher liveness
 // values represent an increased probability that the track was performed live.
 // A value above 0.8 provides strong likelihood that the track is live.
@@ -217,7 +224,7 @@ func (ta *TrackAttributes) MinLiveness(liveness float64) *TrackAttributes {
 	return ta
 }
 
-// TargetLiveness sets the target liveness
+// TargetLiveness sets the target liveness.
 // Detects the presence of an audience in the recording.  Higher liveness
 // values represent an increased probability that the track was performed live.
 // A value above 0.8 provides strong likelihood that the track is live.
@@ -226,7 +233,7 @@ func (ta *TrackAttributes) TargetLiveness(liveness float64) *TrackAttributes {
 	return ta
 }
 
-// MaxLoudness sets the maximum loudness in decibels (dB)
+// MaxLoudness sets the maximum loudness in decibels (dB).
 // Loudness values are averaged across the entire track and are
 // useful for comparing the relative loudness of tracks.
 // Typical values range between -60 and 0 dB.
@@ -235,7 +242,7 @@ func (ta *TrackAttributes) MaxLoudness(loudness float64) *TrackAttributes {
 	return ta
 }
 
-// MinLoudness sets the minimum loudness in decibels (dB)
+// MinLoudness sets the minimum loudness in decibels (dB).
 // Loudness values are averaged across the entire track and are
 // useful for comparing the relative loudness of tracks.
 // Typical values range between -60 and 0 dB.
@@ -244,7 +251,7 @@ func (ta *TrackAttributes) MinLoudness(loudness float64) *TrackAttributes {
 	return ta
 }
 
-// TargetLoudness sets the target loudness in decibels (dB)
+// TargetLoudness sets the target loudness in decibels (dB).
 // Loudness values are averaged across the entire track and are
 // useful for comparing the relative loudness of tracks.
 // Typical values range between -60 and 0 dB.
@@ -253,21 +260,21 @@ func (ta *TrackAttributes) TargetLoudness(loudness float64) *TrackAttributes {
 	return ta
 }
 
-// MaxMode sets the maximum mode
+// MaxMode sets the maximum mode.
 // Mode indicates the modality (major or minor) of a track.
 func (ta *TrackAttributes) MaxMode(mode int) *TrackAttributes {
 	ta.intAttributes["max_mode"] = mode
 	return ta
 }
 
-// MinMode sets the minimum mode
+// MinMode sets the minimum mode.
 // Mode indicates the modality (major or minor) of a track.
 func (ta *TrackAttributes) MinMode(mode int) *TrackAttributes {
 	ta.intAttributes["min_mode"] = mode
 	return ta
 }
 
-// TargetMode sets the target mode
+// TargetMode sets the target mode.
 // Mode indicates the modality (major or minor) of a track.
 func (ta *TrackAttributes) TargetMode(mode int) *TrackAttributes {
 	ta.intAttributes["target_mode"] = mode
@@ -327,7 +334,6 @@ func (ta *TrackAttributes) TargetPopularity(popularity int) *TrackAttributes {
 func (ta *TrackAttributes) MaxSpeechiness(speechiness float64) *TrackAttributes {
 	ta.floatAttributes["max_speechiness"] = speechiness
 	return ta
-
 }
 
 // MinSpeechiness sets the minimum speechiness.
@@ -341,7 +347,6 @@ func (ta *TrackAttributes) MaxSpeechiness(speechiness float64) *TrackAttributes 
 func (ta *TrackAttributes) MinSpeechiness(speechiness float64) *TrackAttributes {
 	ta.floatAttributes["min_speechiness"] = speechiness
 	return ta
-
 }
 
 // TargetSpeechiness sets the target speechiness.
@@ -373,10 +378,9 @@ func (ta *TrackAttributes) MinTempo(tempo float64) *TrackAttributes {
 func (ta *TrackAttributes) TargetTempo(tempo float64) *TrackAttributes {
 	ta.floatAttributes["target_tempo"] = tempo
 	return ta
-
 }
 
-// MaxTimeSignature sets the maximum time signature
+// MaxTimeSignature sets the maximum time signature.
 // The time signature (meter) is a notational convention to
 // specify how many beats are in each bar (or measure).
 func (ta *TrackAttributes) MaxTimeSignature(timeSignature int) *TrackAttributes {
@@ -384,7 +388,7 @@ func (ta *TrackAttributes) MaxTimeSignature(timeSignature int) *TrackAttributes 
 	return ta
 }
 
-// MinTimeSignature sets the minimum time signature
+// MinTimeSignature sets the minimum time signature.
 // The time signature (meter) is a notational convention to
 // specify how many beats are in each bar (or measure).
 func (ta *TrackAttributes) MinTimeSignature(timeSignature int) *TrackAttributes {
@@ -392,7 +396,7 @@ func (ta *TrackAttributes) MinTimeSignature(timeSignature int) *TrackAttributes 
 	return ta
 }
 
-// TargetTimeSignature sets the target time signature
+// TargetTimeSignature sets the target time signature.
 // The time signature (meter) is a notational convention to
 // specify how many beats are in each bar (or measure).
 func (ta *TrackAttributes) TargetTimeSignature(timeSignature int) *TrackAttributes {
@@ -402,7 +406,7 @@ func (ta *TrackAttributes) TargetTimeSignature(timeSignature int) *TrackAttribut
 
 // MaxValence sets the maximum valence.
 // Valence is a measure from 0.0 to 1.0 describing the musical positiveness
-/// conveyed by a track.
+// conveyed by a track.
 // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric),
 // while tracks with low valence sound more negative (e.g. sad, depressed, angry).
 func (ta *TrackAttributes) MaxValence(valence float64) *TrackAttributes {
@@ -412,7 +416,7 @@ func (ta *TrackAttributes) MaxValence(valence float64) *TrackAttributes {
 
 // MinValence sets the minimum valence.
 // Valence is a measure from 0.0 to 1.0 describing the musical positiveness
-/// conveyed by a track.
+// / conveyed by a track.
 // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric),
 // while tracks with low valence sound more negative (e.g. sad, depressed, angry).
 func (ta *TrackAttributes) MinValence(valence float64) *TrackAttributes {
@@ -422,7 +426,7 @@ func (ta *TrackAttributes) MinValence(valence float64) *TrackAttributes {
 
 // TargetValence sets the target valence.
 // Valence is a measure from 0.0 to 1.0 describing the musical positiveness
-/// conveyed by a track.
+// / conveyed by a track.
 // Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric),
 // while tracks with low valence sound more negative (e.g. sad, depressed, angry).
 func (ta *TrackAttributes) TargetValence(valence float64) *TrackAttributes {

@@ -17,7 +17,7 @@ type SimpleArtist struct {
 	ExternalURLs map[string]string `json:"external_urls"`
 }
 
-// FullArtist provides extra artist data in addition to what is provided by SimpleArtist.
+// FullArtist provides extra artist data in addition to what is provided by [SimpleArtist].
 type FullArtist struct {
 	SimpleArtist
 	// The popularity of the artist, expressed as an integer between 0 and 100.
@@ -66,7 +66,9 @@ func (c *Client) GetArtists(ctx context.Context, ids ...ID) ([]*FullArtist, erro
 
 // GetArtistsTopTracks gets Spotify catalog information about an artist's top
 // tracks in a particular country.  It returns a maximum of 10 tracks.  The
-// country is specified as an ISO 3166-1 alpha-2 country code.
+// country is specified as an [ISO 3166-1 alpha-2] country code.
+//
+// [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 func (c *Client) GetArtistsTopTracks(ctx context.Context, artistID ID, country string) ([]FullTrack, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", c.baseURL, artistID, country)
 
@@ -108,7 +110,7 @@ func (c *Client) GetRelatedArtists(ctx context.Context, id ID) ([]FullArtist, er
 // If the Market is not specified, Spotify will likely return a lot
 // of duplicates (one for each market in which the album is available
 //
-// Supported options: Market
+// Supported options: [Market].
 func (c *Client) GetArtistAlbums(ctx context.Context, artistID ID, ts []AlbumType, opts ...RequestOption) (*SimpleAlbumPage, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/albums", c.baseURL, artistID)
 	// add optional query string if options were specified

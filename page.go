@@ -35,49 +35,49 @@ type basePage struct {
 	Previous string `json:"previous"`
 }
 
-// FullArtistPage contains FullArtists returned by the Web API.
+// FullArtistPage contains [FullArtists] returned by the Web API.
 type FullArtistPage struct {
 	basePage
 	Artists []FullArtist `json:"items"`
 }
 
-// SimpleAlbumPage contains SimpleAlbums returned by the Web API.
+// SimpleAlbumPage contains [SimpleAlbums] returned by the Web API.
 type SimpleAlbumPage struct {
 	basePage
 	Albums []SimpleAlbum `json:"items"`
 }
 
-// SavedAlbumPage contains SavedAlbums returned by the Web API.
+// SavedAlbumPage contains [SavedAlbums] returned by the Web API.
 type SavedAlbumPage struct {
 	basePage
 	Albums []SavedAlbum `json:"items"`
 }
 
-// SavedShowPage contains SavedShows returned by the Web API
+// SavedShowPage contains [SavedShows] returned by the Web API
 type SavedShowPage struct {
 	basePage
 	Shows []SavedShow `json:"items"`
 }
 
-// SimplePlaylistPage contains SimplePlaylists returned by the Web API.
+// SimplePlaylistPage contains [SimplePlaylists] returned by the Web API.
 type SimplePlaylistPage struct {
 	basePage
 	Playlists []SimplePlaylist `json:"items"`
 }
 
-// SimpleTrackPage contains SimpleTracks returned by the Web API.
+// SimpleTrackPage contains [SimpleTracks] returned by the Web API.
 type SimpleTrackPage struct {
 	basePage
 	Tracks []SimpleTrack `json:"items"`
 }
 
-// FullTrackPage contains FullTracks returned by the Web API.
+// FullTrackPage contains [FullTracks] returned by the Web API.
 type FullTrackPage struct {
 	basePage
 	Tracks []FullTrack `json:"items"`
 }
 
-// SavedTrackPage contains SavedTracks return by the Web API.
+// SavedTrackPage contains [SavedTracks] return by the Web API.
 type SavedTrackPage struct {
 	basePage
 	Tracks []SavedTrack `json:"items"`
@@ -89,19 +89,19 @@ type PlaylistTrackPage struct {
 	Tracks []PlaylistTrack `json:"items"`
 }
 
-// CategoryPage contains Category objects returned by the Web API.
+// CategoryPage contains [Category] objects returned by the Web API.
 type CategoryPage struct {
 	basePage
 	Categories []Category `json:"items"`
 }
 
-// SimpleEpisodePage contains EpisodePage returned by the Web API.
+// SimpleEpisodePage contains [EpisodePage] returned by the Web API.
 type SimpleEpisodePage struct {
 	basePage
 	Episodes []EpisodePage `json:"items"`
 }
 
-// SimpleShowPage contains ShowPage returned by the Web API.
+// SimpleShowPage contains [ShowPage] returned by the Web API.
 type SimpleShowPage struct {
 	basePage
 	Shows []FullShow `json:"items"`
@@ -114,7 +114,7 @@ type pageable interface{ canPage() }
 func (b *basePage) canPage() {}
 
 // NextPage fetches the next page of items and writes them into p.
-// It returns ErrNoMorePages if p already contains the last page.
+// It returns [ErrNoMorePages] if p already contains the last page.
 func (c *Client) NextPage(ctx context.Context, p pageable) error {
 	if p == nil || reflect.ValueOf(p).IsNil() {
 		return fmt.Errorf("spotify: p must be a non-nil pointer to a page")
@@ -138,7 +138,7 @@ func (c *Client) NextPage(ctx context.Context, p pageable) error {
 }
 
 // PreviousPage fetches the previous page of items and writes them into p.
-// It returns ErrNoMorePages if p already contains the last page.
+// It returns [ErrNoMorePages] if p already contains the last page.
 func (c *Client) PreviousPage(ctx context.Context, p pageable) error {
 	if p == nil || reflect.ValueOf(p).IsNil() {
 		return fmt.Errorf("spotify: p must be a non-nil pointer to a page")
