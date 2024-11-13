@@ -217,11 +217,7 @@ func (c *Client) modifyFollowers(ctx context.Context, usertype string, follow bo
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
 // CurrentUsersFollowedArtists gets the current user's followed artists.

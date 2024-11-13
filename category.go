@@ -30,10 +30,6 @@ func (c *Client) GetCategory(ctx context.Context, id string, opts ...RequestOpti
 	}
 
 	err := c.get(ctx, spotifyURL, &cat)
-	if err != nil {
-		return cat, err
-	}
-
 	return cat, err
 }
 

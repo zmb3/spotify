@@ -79,9 +79,5 @@ func (c *Client) modifyLibrary(ctx context.Context, typ string, add bool, ids ..
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }

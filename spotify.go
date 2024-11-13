@@ -298,15 +298,8 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 			return c.decodeError(resp)
 		}
 
-		err = json.NewDecoder(resp.Body).Decode(result)
-		if err != nil {
-			return err
-		}
-
-		break
+		return json.NewDecoder(resp.Body).Decode(result)
 	}
-
-	return nil
 }
 
 // NewReleases gets a list of new album releases featured in Spotify.

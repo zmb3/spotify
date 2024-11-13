@@ -262,15 +262,10 @@ func (c *Client) TransferPlayback(ctx context.Context, deviceID ID, play bool) e
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 // Play Start a new context or resume current playback on the user's active
@@ -302,14 +297,10 @@ func (c *Client) PlayOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // Pause Playback on the user's currently active device.
@@ -338,14 +329,10 @@ func (c *Client) PauseOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // GetQueue gets the user's queue on the user's currently
@@ -431,14 +418,10 @@ func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // Previous skips to the Previous track in the user's queue in the user's
@@ -467,14 +450,10 @@ func (c *Client) PreviousOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // Seek to the given position in the user’s currently playing track.
@@ -586,12 +565,8 @@ func (c *Client) playerFuncWithOpt(ctx context.Context, urlSuffix string, values
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
