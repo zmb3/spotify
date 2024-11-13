@@ -26,7 +26,7 @@ func TestFeaturedPlaylists(t *testing.T) {
 	if msg != "New Music Friday!" {
 		t.Errorf("Want 'Enjoy a mellow afternoon.', got'%s'\n", msg)
 	}
-	if p.Playlists == nil || len(p.Playlists) == 0 {
+	if len(p.Playlists) == 0 {
 		t.Fatal("Empty playlists result")
 	}
 	expected := "New Music Friday Sweden"
@@ -37,7 +37,6 @@ func TestFeaturedPlaylists(t *testing.T) {
 	if desc := p.Playlists[0].Description; desc != expected {
 		t.Errorf("Want '%s', got '%s'\n", expected, desc)
 	}
-
 }
 
 func TestFeaturedPlaylistsExpiredToken(t *testing.T) {
@@ -88,7 +87,6 @@ func TestPlaylistsForUser(t *testing.T) {
 	if p.Description != expected {
 		t.Errorf("Expected '%s', got '%s'\n", expected, p.Description)
 	}
-
 }
 
 func TestGetPlaylist(t *testing.T) {
