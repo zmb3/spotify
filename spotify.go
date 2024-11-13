@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
@@ -164,7 +163,7 @@ func (e Error) Error() string {
 
 // decodeError decodes an Error from an io.Reader.
 func (c *Client) decodeError(resp *http.Response) error {
-	responseBody, err := ioutil.ReadAll(resp.Body)
+	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
