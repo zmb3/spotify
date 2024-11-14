@@ -79,7 +79,7 @@ https://godoc.org/golang.org/x/oauth2/google
 
 The API will throttle your requests if you are sending them too rapidly.
 The client can be configured to wait and re-attempt the request.
-To enable this, set the `AutoRetry` field on the `Client` struct to `true`.
+To enable this, pass the `WithRetry(true)` option to `New` when creating the client.
 
 For more information, see Spotify [rate-limits](https://developer.spotify.com/documentation/web-api/concepts/rate-limits).
 
