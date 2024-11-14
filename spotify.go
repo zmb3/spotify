@@ -17,9 +17,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-// Version is the version of this library.
-const Version = "1.0.0"
-
 const (
 	// DateLayout can be used with time.Parse to create time.Time values
 	// from Spotify date strings.  For example, PrivateUser.Birthdate
