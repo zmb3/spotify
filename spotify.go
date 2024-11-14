@@ -40,14 +40,19 @@ const (
 	rateLimitExceededStatusCode = 429
 )
 
+// ErrNoMorePages is the error returned when response header has a 'Retry-After'
+// duration longer then the configuerd max.
+var ErrMaxRetryDurationExceeded = errors.New("spotify: retry would take longer then configured max")
+
 // Client is a client for working with the Spotify Web API.
 // It is best to create this using spotify.New()
 type Client struct {
 	http    *http.Client
 	baseURL string
 
-	autoRetry      bool
-	acceptLanguage string
+	autoRetry        bool
+	acceptLanguage   string
+	maxRetryDuration time.Duration
 }
 
 type ClientOption func(client *Client)
@@ -71,6 +76,15 @@ func WithBaseURL(url string) ClientOption {
 func WithAcceptLanguage(lang string) ClientOption {
 	return func(client *Client) {
 		client.acceptLanguage = lang
+	}
+}
+
+// WithMaxRetryDuration limits the amount of time that the client wil wait to retry afther being rate limited.
+// If the retry time is longer then the max, then the client will return an err
+// This option only works when auto retry is enabled
+func WithMaxRetryDuration(duration time.Duration) ClientOption {
+	return func(client *Client) {
+		client.maxRetryDuration = duration
 	}
 }
 
@@ -230,10 +244,14 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		if c.autoRetry &&
 			isFailure(resp.StatusCode, needsStatus) &&
 			shouldRetry(resp.StatusCode) {
+			duration := retryDuration(resp)
+			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
+				return ErrMaxRetryDurationExceeded
+			}
 			select {
 			case <-req.Context().Done():
 				// If the context is cancelled, return the original error
-			case <-time.After(retryDuration(resp)):
+			case <-time.After(duration):
 				continue
 			}
 		}
@@ -285,10 +303,14 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 		defer resp.Body.Close()
 
 		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+			duration := retryDuration(resp)
+			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
+				return ErrMaxRetryDurationExceeded
+			}
 			select {
 			case <-ctx.Done():
 				// If the context is cancelled, return the original error
-			case <-time.After(retryDuration(resp)):
+			case <-time.After(duration):
 				continue
 			}
 		}

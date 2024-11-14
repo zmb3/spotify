@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"context"
-	"golang.org/x/oauth2"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -10,6 +9,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"golang.org/x/oauth2"
 )
 
 func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*Client, *httptest.Server) {
@@ -104,6 +105,29 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	}
 }
 
+func TestNewReleasesMaxRetry(t *testing.T) {
+	t.Parallel()
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Retry-After", "3660") // 61 minutes
+		w.WriteHeader(rateLimitExceededStatusCode)
+		_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+	})
+
+	server := httptest.NewServer(handler)
+	defer server.Close()
+
+	client := &Client{
+		http:             http.DefaultClient,
+		baseURL:          server.URL + "/",
+		autoRetry:        true,
+		maxRetryDuration: time.Hour,
+	}
+	_, err := client.NewReleases(context.Background())
+	if err != ErrMaxRetryDurationExceeded {
+		t.Errorf("Should throw 'ErrMaxRetryDurationExceeded' error, got '%s'", err)
+	}
+}
+
 func TestClient_Token(t *testing.T) {
 	// oauth setup for valid test token
 	config := oauth2.Config{
@@ -144,14 +168,14 @@ func TestClient_Token(t *testing.T) {
 
 	t.Run("non oauth2 transport", func(t *testing.T) {
 		client := &Client{
-			http:    http.DefaultClient,
+			http: http.DefaultClient,
 		}
 		_, err := client.Token()
 		if err == nil || err.Error() != "spotify: client not backed by oauth2 transport" {
 			t.Errorf("Should throw error: %s", "spotify: client not backed by oauth2 transport")
 		}
 	})
-	
+
 	t.Run("invalid token", func(t *testing.T) {
 		httpClient := config.Client(context.Background(), nil)
 		client := New(httpClient)
