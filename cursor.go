@@ -30,7 +30,7 @@ type cursorPage struct {
 }
 
 // FullArtistCursorPage is a cursor-based paging object containing
-// a set of FullArtist objects.
+// a set of [FullArtist] objects.
 type FullArtistCursorPage struct {
 	cursorPage
 	Artists []FullArtist `json:"items"`

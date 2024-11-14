@@ -15,11 +15,12 @@ const (
 	MarketFromToken = "from_token"
 )
 
-// SearchType represents the type of a query used in the Search function.
+// SearchType represents the type of a query used by [Search].
 type SearchType int
 
-// Search type values that can be passed to the Search function.  These are flags
-// that can be bitwise OR'd together to search for multiple types of content simultaneously.
+// Search type values that can be passed to [Search].  These are flags
+// that can be bitwise OR'd together to search for multiple types of content
+// simultaneously.
 const (
 	SearchTypeAlbum    SearchType = 1 << iota
 	SearchTypeArtist              = 1 << iota
@@ -52,7 +53,7 @@ func (st SearchType) encode() string {
 	return strings.Join(types, ",")
 }
 
-// SearchResult contains the results of a call to Search.
+// SearchResult contains the results of a call to [Search].
 // Fields that weren't searched for will be nil pointers.
 type SearchResult struct {
 	Artists   *FullArtistPage     `json:"artists"`
@@ -63,19 +64,19 @@ type SearchResult struct {
 	Episodes  *SimpleEpisodePage  `json:"episodes"`
 }
 
-// Search gets Spotify catalog information about artists, albums, tracks,
+// Search gets [Spotify catalog information] about artists, albums, tracks,
 // or playlists that match a keyword string.  t is a mask containing one or more
 // search types.  For example, `Search(query, SearchTypeArtist|SearchTypeAlbum)`
 // will search for artists or albums matching the specified keywords.
 //
-// Matching
+// # Matching
 //
 // Matching of search keywords is NOT case sensitive.  Keywords are matched in
 // any order unless surrounded by double quotes. Searching for playlists will
 // return results where the query keyword(s) match any part of the playlist's
 // name or description. Only popular public playlists are returned.
 //
-// Operators
+// # Operators
 //
 // The operator NOT can be used to exclude results.  For example,
 // query = "roadhouse NOT blues" returns items that match "roadhouse" but excludes
@@ -85,14 +86,14 @@ type SearchResult struct {
 //
 // Operators should be specified in uppercase.
 //
-// Wildcards
+// # Wildcards
 //
 // The asterisk (*) character can, with some limitations, be used as a wildcard
 // (maximum of 2 per query).  It will match a variable number of non-white-space
 // characters.  It cannot be used in a quoted phrase, in a field filter, or as
 // the first character of a keyword string.
 //
-// Field filters
+// # Field filters
 //
 // By default, results are returned when a match is found in any field of the
 // target object type.  Searches can be made more specific by specifying an album,
@@ -118,7 +119,9 @@ type SearchResult struct {
 // If the client has a valid access token, then the results will only include
 // content playable in the user's country.
 //
-// Limit, Market and Offset request options are supported
+// Supported options: [Limit], [Market], [Offset].
+//
+// [Spotify catalog information]: https://developer.spotify.com/documentation/web-api/reference/search
 func (c *Client) Search(ctx context.Context, query string, t SearchType, opts ...RequestOption) (*SearchResult, error) {
 	v := processOptions(opts...).urlParams
 	v.Set("q", query)
