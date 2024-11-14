@@ -80,7 +80,7 @@ func WithAcceptLanguage(lang string) ClientOption {
 }
 
 // WithMaxRetryDuration limits the amount of time that the client wil wait to retry afther being rate limited.
-// If the retry time is longer then the max, then the client will return an err
+// If the retry time is longer than the max, then the client will return an error.
 // This option only works when auto retry is enabled
 func WithMaxRetryDuration(duration time.Duration) ClientOption {
 	return func(client *Client) {
