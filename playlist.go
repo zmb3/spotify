@@ -98,11 +98,7 @@ func (c *Client) FollowPlaylist(ctx context.Context, playlist ID, public bool) e
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
 
 // UnfollowPlaylist [removes the current user as a follower of a playlist].
@@ -116,11 +112,7 @@ func (c *Client) UnfollowPlaylist(ctx context.Context, playlist ID) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
 
 func buildFollowURI(url string, playlist ID) string {
@@ -202,7 +194,7 @@ func (c *Client) GetPlaylistTracks(
 		return nil, err
 	}
 
-	return &result, err
+	return &result, nil
 }
 
 // PlaylistItem contains info about an item in a playlist.
@@ -249,20 +241,12 @@ func (t *PlaylistItemTrack) UnmarshalJSON(b []byte) error {
 
 	switch itemType.Type {
 	case "episode":
-		err := json.Unmarshal(b, &t.Episode)
-		if err != nil {
-			return err
-		}
+		return json.Unmarshal(b, &t.Episode)
 	case "track":
-		err := json.Unmarshal(b, &t.Track)
-		if err != nil {
-			return err
-		}
+		return json.Unmarshal(b, &t.Track)
 	default:
 		return fmt.Errorf("unrecognized item type: %s", itemType.Type)
 	}
-
-	return nil
 }
 
 // PlaylistItemPage contains information about items in a playlist.
@@ -295,7 +279,7 @@ func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...Re
 		return nil, err
 	}
 
-	return &result, err
+	return &result, nil
 }
 
 // CreatePlaylistForUser [creates a playlist] for a Spotify user.
@@ -338,7 +322,7 @@ func (c *Client) CreatePlaylistForUser(ctx context.Context, userID, playlistName
 		return nil, err
 	}
 
-	return &p, err
+	return &p, nil
 }
 
 // ChangePlaylistName [changes the name of a playlist].  This call requires that the
@@ -407,11 +391,7 @@ func (c *Client) modifyPlaylist(ctx context.Context, playlistID ID, newName, new
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	err = c.execute(req, nil, http.StatusCreated)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusCreated)
 }
 
 // AddTracksToPlaylist [adds one or more tracks to a user's playlist].
@@ -570,12 +550,7 @@ func (c *Client) ReplacePlaylistTracks(ctx context.Context, playlistID ID, track
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusCreated)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.execute(req, nil, http.StatusCreated)
 }
 
 // ReplacePlaylistItems [replaces all the items in a playlist], overwriting its
@@ -637,7 +612,7 @@ func (c *Client) UserFollowsPlaylist(ctx context.Context, playlistID ID, userIDs
 		return nil, err
 	}
 
-	return follows, err
+	return follows, nil
 }
 
 // PlaylistReorderOptions is used with ReorderPlaylistTracks to reorder
@@ -697,7 +672,7 @@ func (c *Client) ReorderPlaylistTracks(ctx context.Context, playlistID ID, opt P
 		return "", err
 	}
 
-	return result.SnapshotID, err
+	return result.SnapshotID, nil
 }
 
 // SetPlaylistImage replaces the image used to represent a playlist.
