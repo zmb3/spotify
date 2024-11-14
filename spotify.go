@@ -41,7 +41,7 @@ const (
 )
 
 // ErrNoMorePages is the error returned when response header has a 'Retry-After'
-// duration longer then the configuerd max.
+// duration longer then the configured max.
 var ErrMaxRetryDurationExceeded = errors.New("spotify: retry would take longer than configured max")
 
 // Client is a client for working with the Spotify Web API.
