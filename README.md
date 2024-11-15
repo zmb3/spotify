@@ -70,7 +70,7 @@ You may find the following resources useful:
 https://developer.spotify.com/web-api/authorization-guide/
 
 2. Go's OAuth2 package:
-https://godoc.org/golang.org/x/oauth2/google
+https://godoc.org/golang.org/x/oauth2
 
 
 ## Helpful Hints
@@ -98,6 +98,6 @@ request, that the Spotify API will simply return null for details about a track
 or episode.
 
 This typically occurs when you are just using an application's auth token, and
-aren't impersonating a user via oauth. As when you are using a token associated
+aren't impersonating a user via OAuth2. As when you are using a token associated
 with a user, the user's market seems to be extracted from their profile and
 used when producing the response.
