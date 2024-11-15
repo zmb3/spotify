@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -123,8 +124,12 @@ func TestNewReleasesMaxRetry(t *testing.T) {
 		maxRetryDuration: time.Hour,
 	}
 	_, err := client.NewReleases(context.Background())
-	if err != ErrMaxRetryDurationExceeded {
-		t.Errorf("Should throw 'ErrMaxRetryDurationExceeded' error, got '%s'", err)
+	var maxErr *MaxRetryDurationExceededErr
+	if !errors.As(err, &maxErr) {
+		t.Errorf("Should throw 'MaxRetryDurationExceededErr' type error, got '%s'", err)
+	}
+	if maxErr.RetryAfter != time.Second*3660 {
+		t.Errorf("Error had wrong 'RetryAfter' value, got %f", maxErr.RetryAfter.Seconds())
 	}
 }
 

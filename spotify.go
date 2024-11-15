@@ -40,9 +40,15 @@ const (
 	rateLimitExceededStatusCode = 429
 )
 
-// ErrNoMorePages is the error returned when response header has a 'Retry-After'
+// MaxRetryDurationExceededErr is the error type returned when response header has a 'Retry-After'
 // duration longer then the configured max.
-var ErrMaxRetryDurationExceeded = errors.New("spotify: retry would take longer than configured max")
+type MaxRetryDurationExceededErr struct {
+	RetryAfter time.Duration
+}
+
+func (e *MaxRetryDurationExceededErr) Error() string {
+	return "spotify: retry would take longer than configured max"
+}
 
 // Client is a client for working with the Spotify Web API.
 // It is best to create this using spotify.New()
@@ -246,7 +252,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 			shouldRetry(resp.StatusCode) {
 			duration := retryDuration(resp)
 			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
-				return ErrMaxRetryDurationExceeded
+				return &MaxRetryDurationExceededErr{RetryAfter: duration}
 			}
 			select {
 			case <-req.Context().Done():
@@ -305,7 +311,7 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
 			duration := retryDuration(resp)
 			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
-				return ErrMaxRetryDurationExceeded
+				return &MaxRetryDurationExceededErr{RetryAfter: duration}
 			}
 			select {
 			case <-ctx.Done():
