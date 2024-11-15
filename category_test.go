@@ -3,7 +3,6 @@ package spotify
 import (
 	"context"
 	"net/http"
-	"strings"
 	"testing"
 )
 
@@ -93,8 +92,8 @@ func TestGetCategoryPlaylistsOpt(t *testing.T) {
 	defer server.Close()
 
 	_, err := client.GetCategoryPlaylists(context.Background(), "id", Limit(5), Offset(10))
-	if err == nil || !strings.Contains(err.Error(), "HTTP 404: Not Found") {
-		t.Errorf("Expected error 'spotify: HTTP 404: Not Found (body empty)', got %v", err)
+	if want := "Not Found"; err == nil || err.Error() != want {
+		t.Errorf("Expected error: want %v, got %v", want, err)
 	}
 }
 
