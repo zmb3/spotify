@@ -2,14 +2,17 @@ package spotify
 
 import (
 	"context"
-	"golang.org/x/oauth2"
+	"errors"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
+
+	"golang.org/x/oauth2"
 )
 
 func testClient(code int, body io.Reader, validators ...func(*http.Request)) (*Client, *httptest.Server) {
@@ -104,6 +107,52 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 	}
 }
 
+func TestRateLimitExceededReportsRetryAfter(t *testing.T) {
+	t.Parallel()
+	const retryAfter = 2
+
+	handlers := []http.HandlerFunc{
+		// first attempt fails
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
+			w.WriteHeader(rateLimitExceededStatusCode)
+			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+		}),
+		// next attempt succeeds
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			f, err := os.Open("test_data/new_releases.txt")
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer f.Close()
+			_, err = io.Copy(w, f)
+			if err != nil {
+				t.Fatal(err)
+			}
+		}),
+	}
+
+	i := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handlers[i](w, r)
+		i++
+	}))
+	defer server.Close()
+
+	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/"}
+	_, err := client.NewReleases(context.Background())
+	if err == nil {
+		t.Fatal("expected an error")
+	}
+	var spotifyError Error
+	if !errors.As(err, &spotifyError) {
+		t.Fatalf("expected a spotify error, got %T", err)
+	}
+	if retryAfter*time.Second-time.Until(spotifyError.RetryAfter) > time.Second {
+		t.Error("expected RetryAfter value")
+	}
+}
+
 func TestClient_Token(t *testing.T) {
 	// oauth setup for valid test token
 	config := oauth2.Config{
@@ -144,14 +193,14 @@ func TestClient_Token(t *testing.T) {
 
 	t.Run("non oauth2 transport", func(t *testing.T) {
 		client := &Client{
-			http:    http.DefaultClient,
+			http: http.DefaultClient,
 		}
 		_, err := client.Token()
 		if err == nil || err.Error() != "spotify: client not backed by oauth2 transport" {
 			t.Errorf("Should throw error: %s", "spotify: client not backed by oauth2 transport")
 		}
 	})
-	
+
 	t.Run("invalid token", func(t *testing.T) {
 		httpClient := config.Client(context.Background(), nil)
 		client := New(httpClient)

@@ -152,6 +152,9 @@ type Error struct {
 	Message string `json:"message"`
 	// The HTTP status code.
 	Status int `json:"status"`
+	// RetryAfter contains the time before which client should not retry a
+	// rate-limited request, calculated from the Retry-After header, when present.
+	RetryAfter time.Time `json:"-"`
 }
 
 func (e Error) Error() string {
@@ -188,6 +191,9 @@ func (c *Client) decodeError(resp *http.Response) error {
 
 		e.E.Message = fmt.Sprintf("spotify: unexpected HTTP %d: %s (empty error)",
 			resp.StatusCode, http.StatusText(resp.StatusCode))
+	}
+	if retryAfter, _ := strconv.Atoi(resp.Header.Get("Retry-After")); retryAfter != 0 {
+		e.E.RetryAfter = time.Now().Add(time.Duration(retryAfter) * time.Second)
 	}
 
 	return e.E
