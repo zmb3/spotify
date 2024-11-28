@@ -73,7 +73,7 @@ func TestNewReleasesRateLimitExceeded(t *testing.T) {
 		// first attempt fails
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", "2")
-			w.WriteHeader(rateLimitExceededStatusCode)
+			w.WriteHeader(http.StatusTooManyRequests)
 			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
@@ -209,4 +209,20 @@ func TestClient_Token(t *testing.T) {
 			t.Errorf("Should throw error: %s", "oauth2: token expired and refresh token is not set")
 		}
 	})
+}
+
+func TestDecode429Error(t *testing.T) {
+	resp := &http.Response{
+		StatusCode: http.StatusTooManyRequests,
+		Header:     http.Header{"Retry-After": []string{"2"}},
+		Body:       io.NopCloser(strings.NewReader(`Too many requests`)),
+	}
+
+	err := decodeError(resp)
+	if err == nil {
+		t.Fatal("Expected error")
+	}
+	if err.Error() != "Too many requests" {
+		t.Error("Invalid error message:", err.Error())
+	}
 }

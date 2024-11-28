@@ -20,6 +20,12 @@ const (
 // Scopes let you specify exactly which types of data your application wants to access.
 // The set of scopes you pass in your authentication request determines what access the
 // permissions the user is asked to grant.
+//
+// [Scopes] are needed when implementing some of the authorization grant types. Make
+// sure you have read the [Authorization guide] to understand the basics.
+//
+// [Scopes]: https://developer.spotify.com/documentation/web-api/concepts/scopes
+// [Authorization guide]: https://developer.spotify.com/documentation/web-api/concepts/authorization
 const (
 	// ScopeImageUpload seeks permission to upload images to Spotify on your behalf.
 	ScopeImageUpload = "ugc-image-upload"
@@ -66,18 +72,17 @@ const (
 )
 
 // Authenticator provides convenience functions for implementing the OAuth2 flow.
-// You should always use `New` to make them.
+// You should always use [New] to make them.
 //
 // Example:
 //
-//     a := spotifyauth.New(redirectURL, spotify.ScopeUserLibraryRead, spotify.ScopeUserFollowRead)
-//     // direct user to Spotify to log in
-//     http.Redirect(w, r, a.AuthURL("state-string"), http.StatusFound)
+//	a := spotifyauth.New(redirectURL, spotify.ScopeUserLibraryRead, spotify.ScopeUserFollowRead)
+//	// direct user to Spotify to log in
+//	http.Redirect(w, r, a.AuthURL("state-string"), http.StatusFound)
 //
-//     // then, in redirect handler:
-//     token, err := a.Token(state, r)
-//     client := a.Client(token)
-//
+//	// then, in redirect handler:
+//	token, err := a.Token(state, r)
+//	client := a.Client(token)
 type Authenticator struct {
 	config *oauth2.Config
 }
@@ -117,7 +122,7 @@ func WithRedirectURL(url string) AuthenticatorOption {
 
 // New creates an authenticator which is used to implement the OAuth2 authorization flow.
 //
-// By default, NewAuthenticator pulls your client ID and secret key from the SPOTIFY_ID and SPOTIFY_SECRET environment variables.
+// By default, it pulls your client ID and secret key from the SPOTIFY_ID and SPOTIFY_SECRET environment variables.
 func New(opts ...AuthenticatorOption) *Authenticator {
 	cfg := &oauth2.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
@@ -140,7 +145,8 @@ func New(opts ...AuthenticatorOption) *Authenticator {
 }
 
 // ShowDialog forces the user to approve the app, even if they have already done so.
-// Without this, users who have already approved the app are immediately redirected to the redirect uri.
+// Without this, users who have already approved the app are immediately redirected
+// to the redirect URL.
 var ShowDialog = oauth2.SetAuthURLParam("show_dialog", "true")
 
 // AuthURL returns a URL to the Spotify Accounts Service's OAuth2 endpoint.
@@ -171,21 +177,21 @@ func (a Authenticator) Token(ctx context.Context, state string, r *http.Request,
 	return a.config.Exchange(ctx, code, opts...)
 }
 
-// Return a new token if an access token has expired.
+// RefreshToken returns a new token if an access token has expired.
 // If it has not expired, return the existing token.
 func (a Authenticator) RefreshToken(ctx context.Context, token *oauth2.Token) (*oauth2.Token, error) {
 	src := a.config.TokenSource(ctx, token)
 	return src.Token()
 }
 
-// Exchange is like Token, except it allows you to manually specify the access
+// Exchange is like [Token], except it allows you to manually specify the access
 // code instead of pulling it out of an HTTP request.
 func (a Authenticator) Exchange(ctx context.Context, code string, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
 	return a.config.Exchange(ctx, code, opts...)
 }
 
-// Client creates a *http.Client that will use the specified access token for its API requests.
-// Combine this with spotify.HTTPClientOpt.
+// Client creates a [net/http.Client] that will use the specified access token
+// for its API requests. You will typically pass this to [github.com/zmb3/spotify.New].
 func (a Authenticator) Client(ctx context.Context, token *oauth2.Token) *http.Client {
 	return a.config.Client(ctx, token)
 }

@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strings"
 	"testing"
 	"time"
 )
@@ -606,7 +605,7 @@ func TestClient_ReplacePlaylistItems(t *testing.T) {
 				items:      []URI{"spotify:track:track1", "spotify:track:track2"},
 			},
 			want: want{
-				err: "spotify: HTTP 403: Forbidden (body empty)",
+				err: "Forbidden",
 			},
 		},
 	}
@@ -714,8 +713,8 @@ func TestReorderPlaylistRequest(t *testing.T) {
 		RangeStart:   3,
 		InsertBefore: 8,
 	})
-	if err == nil || !strings.Contains(err.Error(), "HTTP 404: Not Found") {
-		t.Errorf("Expected error 'spotify: HTTP 404: Not Found (body empty)', got %v", err)
+	if want := "Not Found"; err == nil || err.Error() != want {
+		t.Errorf("Expected error: want %v, got %v", want, err)
 	}
 }
 

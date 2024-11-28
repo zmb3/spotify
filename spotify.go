@@ -30,10 +30,6 @@ const (
 	// defaultRetryDurationS helps us fix an apparent server bug whereby we will
 	// be told to retry but not be given a wait-interval.
 	defaultRetryDuration = time.Second * 5
-
-	// rateLimitExceededStatusCode is the code that the server returns when our
-	// request frequency is too high.
-	rateLimitExceededStatusCode = 429
 )
 
 // Client is a client for working with the Spotify Web API.
@@ -162,10 +158,21 @@ func (e Error) Error() string {
 }
 
 // decodeError decodes an Error from an io.Reader.
-func (c *Client) decodeError(resp *http.Response) error {
+func decodeError(resp *http.Response) error {
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+	if ctHeader := resp.Header.Get("Content-Type"); ctHeader == "" {
+		msg := string(responseBody)
+		if len(msg) == 0 {
+			msg = http.StatusText(resp.StatusCode)
+		}
+
+		return Error{
+			Message: msg,
+			Status:  resp.StatusCode,
+		}
 	}
 
 	if len(responseBody) == 0 {
@@ -245,7 +252,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		if (resp.StatusCode >= 300 ||
 			resp.StatusCode < 200) &&
 			isFailure(resp.StatusCode, needsStatus) {
-			return c.decodeError(resp)
+			return decodeError(resp)
 		}
 
 		if result != nil {
@@ -286,7 +293,7 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+		if resp.StatusCode == http.StatusTooManyRequests && c.autoRetry {
 			select {
 			case <-ctx.Done():
 				// If the context is cancelled, return the original error
@@ -298,7 +305,7 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 			return nil
 		}
 		if resp.StatusCode != http.StatusOK {
-			return c.decodeError(resp)
+			return decodeError(resp)
 		}
 
 		return json.NewDecoder(resp.Body).Decode(result)
