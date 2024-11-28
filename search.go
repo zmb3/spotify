@@ -2,8 +2,13 @@ package spotify
 
 import (
 	"context"
+	"errors"
 	"strings"
 )
+
+// ErrSearchMarketRequired is the error returned when you attempt to search for shows
+// but "market" is not part of options parameters. It is required due to Spotify API unsolved issue.
+var ErrSearchMarketRequired = errors.New("spotify:search: searching for shows requires market parameter")
 
 const (
 	// MarketFromToken can be used in place of the Options.Country parameter
@@ -126,6 +131,10 @@ func (c *Client) Search(ctx context.Context, query string, t SearchType, opts ..
 	v := processOptions(opts...).urlParams
 	v.Set("q", query)
 	v.Set("type", t.encode())
+
+	if t == SearchTypeShow && v.Get("market") == "" {
+		return nil, ErrSearchMarketRequired
+	}
 
 	spotifyURL := c.baseURL + "search?" + v.Encode()
 
