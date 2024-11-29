@@ -115,7 +115,7 @@ func TestRateLimitExceededReportsRetryAfter(t *testing.T) {
 		// first attempt fails
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
-			w.WriteHeader(rateLimitExceededStatusCode)
+			w.WriteHeader(http.StatusTooManyRequests)
 			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
@@ -144,6 +144,33 @@ func TestRateLimitExceededReportsRetryAfter(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected an error")
 	}
+	var spotifyError Error
+	if !errors.As(err, &spotifyError) {
+		t.Fatalf("expected a spotify error, got %T", err)
+	}
+	if retryAfter*time.Second-time.Until(spotifyError.RetryAfter) > time.Second {
+		t.Error("expected RetryAfter value")
+	}
+}
+
+func TestRateLimitExceededMaxRetryConfig(t *testing.T) {
+	t.Parallel()
+	const retryAfter = 3660 // 61 minutes
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
+		w.WriteHeader(http.StatusTooManyRequests)
+		_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
+	})
+	server := httptest.NewServer(handler)
+	defer server.Close()
+	client := &Client{
+		http:             http.DefaultClient,
+		baseURL:          server.URL + "/",
+		autoRetry:        true,
+		maxRetryDuration: time.Hour,
+	}
+
+	_, err := client.NewReleases(context.Background())
 	var spotifyError Error
 	if !errors.As(err, &spotifyError) {
 		t.Fatalf("expected a spotify error, got %T", err)
