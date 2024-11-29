@@ -9,16 +9,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
 
 	"golang.org/x/oauth2"
 )
-
-// Version is the version of this library.
-const Version = "1.0.0"
 
 const (
 	// DateLayout can be used with time.Parse to create time.Time values
@@ -34,21 +30,7 @@ const (
 	// defaultRetryDurationS helps us fix an apparent server bug whereby we will
 	// be told to retry but not be given a wait-interval.
 	defaultRetryDuration = time.Second * 5
-
-	// rateLimitExceededStatusCode is the code that the server returns when our
-	// request frequency is too high.
-	rateLimitExceededStatusCode = 429
 )
-
-// MaxRetryDurationExceededErr is the error type returned when response header has a 'Retry-After'
-// duration longer then the configured max.
-type MaxRetryDurationExceededErr struct {
-	RetryAfter time.Duration
-}
-
-func (e *MaxRetryDurationExceededErr) Error() string {
-	return "spotify: retry would take longer than configured max"
-}
 
 // Client is a client for working with the Spotify Web API.
 // It is best to create this using spotify.New()
@@ -176,6 +158,9 @@ type Error struct {
 	Message string `json:"message"`
 	// The HTTP status code.
 	Status int `json:"status"`
+	// RetryAfter contains the time before which client should not retry a
+	// rate-limited request, calculated from the Retry-After header, when present.
+	RetryAfter time.Time `json:"-"`
 }
 
 func (e Error) Error() string {
@@ -183,10 +168,21 @@ func (e Error) Error() string {
 }
 
 // decodeError decodes an Error from an io.Reader.
-func (c *Client) decodeError(resp *http.Response) error {
-	responseBody, err := ioutil.ReadAll(resp.Body)
+func decodeError(resp *http.Response) error {
+	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+	if ctHeader := resp.Header.Get("Content-Type"); ctHeader == "" {
+		msg := string(responseBody)
+		if len(msg) == 0 {
+			msg = http.StatusText(resp.StatusCode)
+		}
+
+		return Error{
+			Message: msg,
+			Status:  resp.StatusCode,
+		}
 	}
 
 	if len(responseBody) == 0 {
@@ -212,6 +208,9 @@ func (c *Client) decodeError(resp *http.Response) error {
 
 		e.E.Message = fmt.Sprintf("spotify: unexpected HTTP %d: %s (empty error)",
 			resp.StatusCode, http.StatusText(resp.StatusCode))
+	}
+	if retryAfter, _ := strconv.Atoi(resp.Header.Get("Retry-After")); retryAfter != 0 {
+		e.E.RetryAfter = time.Now().Add(time.Duration(retryAfter) * time.Second)
 	}
 
 	return e.E
@@ -252,7 +251,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 			shouldRetry(resp.StatusCode) {
 			duration := retryDuration(resp)
 			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
-				return &MaxRetryDurationExceededErr{RetryAfter: duration}
+				return decodeError(resp)
 			}
 			select {
 			case <-req.Context().Done():
@@ -267,7 +266,7 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		if (resp.StatusCode >= 300 ||
 			resp.StatusCode < 200) &&
 			isFailure(resp.StatusCode, needsStatus) {
-			return c.decodeError(resp)
+			return decodeError(resp)
 		}
 
 		if result != nil {
@@ -308,10 +307,10 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 
 		defer resp.Body.Close()
 
-		if resp.StatusCode == rateLimitExceededStatusCode && c.autoRetry {
+		if resp.StatusCode == http.StatusTooManyRequests && c.autoRetry {
 			duration := retryDuration(resp)
 			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
-				return &MaxRetryDurationExceededErr{RetryAfter: duration}
+				return decodeError(resp)
 			}
 			select {
 			case <-ctx.Done():
@@ -324,18 +323,11 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 			return nil
 		}
 		if resp.StatusCode != http.StatusOK {
-			return c.decodeError(resp)
+			return decodeError(resp)
 		}
 
-		err = json.NewDecoder(resp.Body).Decode(result)
-		if err != nil {
-			return err
-		}
-
-		break
+		return json.NewDecoder(resp.Body).Decode(result)
 	}
-
-	return nil
 }
 
 // NewReleases gets a list of new album releases featured in Spotify.

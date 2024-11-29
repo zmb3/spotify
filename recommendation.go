@@ -16,19 +16,19 @@ type Seeds struct {
 	Genres  []string
 }
 
-// count returns the total number of seeds contained in s
+// count returns the total number of seeds contained in s.
 func (s Seeds) count() int {
 	return len(s.Artists) + len(s.Tracks) + len(s.Genres)
 }
 
-// Recommendations contains a list of recommended tracks based on seeds
+// Recommendations contains a list of recommended tracks based on seeds.
 type Recommendations struct {
 	Seeds  []RecommendationSeed `json:"seeds"`
 	Tracks []SimpleTrack        `json:"tracks"`
 }
 
 // RecommendationSeed represents a recommendation seed after
-// being processed by the Spotify API
+// being processed by the Spotify API.
 type RecommendationSeed struct {
 	AfterFilteringSize Numeric `json:"afterFilteringSize"`
 	AfterRelinkingSize Numeric `json:"afterRelinkingSize"`
@@ -38,7 +38,7 @@ type RecommendationSeed struct {
 	Type               string  `json:"type"`
 }
 
-// MaxNumberOfSeeds allowed by Spotify for a recommendation request
+// MaxNumberOfSeeds allowed by Spotify for a recommendation request.
 const MaxNumberOfSeeds = 5
 
 // setSeedValues sets url values into v for each seed in seeds
@@ -67,14 +67,17 @@ func setTrackAttributesValues(trackAttributes *TrackAttributes, values url.Value
 	}
 }
 
-// GetRecommendations returns a list of recommended tracks based on the given seeds.
-// Recommendations are generated based on the available information for a given seed entity
-// and matched against similar artists and tracks. If there is sufficient information
-// about the provided seeds, a list of tracks will be returned together with pool size details.
-// For artists and tracks that are very new or obscure
-// there might not be enough data to generate a list of tracks.
+// GetRecommendations returns a [list of recommended tracks] based on the given
+// seeds. Recommendations are generated based on the available information for a
+// given seed entity and matched against similar artists and tracks. If there is
+// sufficient information about the provided seeds, a list of tracks will be
+// returned together with pool size details. For artists and tracks that are
+// very new or obscure there might not be enough data to generate a list of
+// tracks.
 //
-// Supported options: Limit, Country
+// Supported options: [Limit], [Country].
+//
+// [list of recommended tracks]: https://developer.spotify.com/documentation/web-api/reference/get-recommendations
 func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttributes *TrackAttributes, opts ...RequestOption) (*Recommendations, error) {
 	v := processOptions(opts...).urlParams
 
@@ -99,8 +102,10 @@ func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttri
 	return &recommendations, err
 }
 
-// GetAvailableGenreSeeds retrieves a list of available genres seed parameter values for
-// recommendations.
+// GetAvailableGenreSeeds retrieves a [list of available genres] seed parameter
+// values for recommendations.
+//
+// [list of available genres]: https://developer.spotify.com/documentation/web-api/reference/get-recommendation-genres
 func (c *Client) GetAvailableGenreSeeds(ctx context.Context) ([]string, error) {
 	spotifyURL := c.baseURL + "recommendations/available-genre-seeds"
 

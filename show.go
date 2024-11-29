@@ -9,10 +9,9 @@ import (
 )
 
 type SavedShow struct {
-	// The date and time the show was saved, represented as an ISO
-	// 8601 UTC timestamp with a zero offset (YYYY-MM-DDTHH:MM:SSZ).
-	// You can use the TimestampLayout constant to convert this to
-	// a time.Time value.
+	// The date and time the show was saved, represented as an ISO 8601 UTC
+	// timestamp with a zero offset (YYYY-MM-DDTHH:MM:SSZ). You can use
+	// [TimestampLayout] to convert this to a [time.Time].
 	AddedAt  string `json:"added_at"`
 	FullShow `json:"show"`
 }
@@ -28,7 +27,9 @@ type FullShow struct {
 // SimpleShow contains basic data about a show.
 type SimpleShow struct {
 	// A list of the countries in which the show can be played,
-	// identified by their ISO 3166-1 alpha-2 code.
+	// identified by their [ISO 3166-1 alpha-2] code.
+	//
+	// [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 	AvailableMarkets []string `json:"available_markets"`
 
 	// The copyright statements of the show.
@@ -60,7 +61,9 @@ type SimpleShow struct {
 	IsExternallyHosted *bool `json:"is_externally_hosted"`
 
 	// A list of the languages used in the show, identified by
-	// their ISO 639 code.
+	// their [ISO 639] code.
+	//
+	// [ISO 639]: https://en.wikipedia.org/wiki/ISO_639
 	Languages []string `json:"languages"`
 
 	// The media type of the show.
@@ -99,7 +102,9 @@ type EpisodePage struct {
 	// A link to the Web API endpoint providing full details of the episode.
 	Href string `json:"href"`
 
-	// The Spotify ID for the episode.
+	// The [Spotify ID] for the episode.
+	//
+	// [Spotify ID]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 	ID ID `json:"id"`
 
 	// The cover art for the episode in various sizes, widest first.
@@ -112,7 +117,9 @@ type EpisodePage struct {
 	// Otherwise false.
 	IsPlayable bool `json:"is_playable"`
 
-	// A list of the languages used in the episode, identified by their ISO 639 code.
+	// A list of the languages used in the episode, identified by their [ISO 639] code.
+	//
+	// [ISO 639]: https://en.wikipedia.org/wiki/ISO_639
 	Languages []string `json:"languages"`
 
 	// The name of the episode.
@@ -150,9 +157,9 @@ type ResumePointObject struct {
 	ResumePositionMs Numeric `json:"resume_position_ms"`
 }
 
-// ReleaseDateTime converts the show's ReleaseDate to a time.TimeValue.
+// ReleaseDateTime converts [EpisodePage.ReleaseDate] to a [time.Time].
 // All of the fields in the result may not be valid.  For example, if
-// ReleaseDatePrecision is "month", then only the month and year
+// [EpisodePage.ReleaseDatePrecision] is "month", then only the month and year
 // (but not the day) of the result are valid.
 func (e *EpisodePage) ReleaseDateTime() time.Time {
 	if e.ReleaseDatePrecision == "day" {
@@ -169,9 +176,11 @@ func (e *EpisodePage) ReleaseDateTime() time.Time {
 	return time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC)
 }
 
-// GetShow retrieves information about a specific show.
-// API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-show
-// Supported options: Market
+// GetShow retrieves information about a [specific show].
+//
+// Supported options: [Market].
+//
+// [specific show]: https://developer.spotify.com/documentation/web-api/reference/get-a-show
 func (c *Client) GetShow(ctx context.Context, id ID, opts ...RequestOption) (*FullShow, error) {
 	spotifyURL := c.baseURL + "shows/" + string(id)
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -188,9 +197,11 @@ func (c *Client) GetShow(ctx context.Context, id ID, opts ...RequestOption) (*Fu
 	return &result, nil
 }
 
-// GetShowEpisodes retrieves paginated episode information about a specific show.
-// API reference: https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-a-shows-episodes
-// Supported options: Market, Limit, Offset
+// GetShowEpisodes retrieves paginated [episode information] about a specific show.
+//
+// Supported options: [Market], [Limit], [Offset].
+//
+// [episode information]: https://developer.spotify.com/documentation/web-api/reference/get-a-shows-episodes
 func (c *Client) GetShowEpisodes(ctx context.Context, id string, opts ...RequestOption) (*SimpleEpisodePage, error) {
 	spotifyURL := c.baseURL + "shows/" + id + "/episodes"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -207,8 +218,9 @@ func (c *Client) GetShowEpisodes(ctx context.Context, id string, opts ...Request
 	return &result, nil
 }
 
-// SaveShowsForCurrentUser saves one or more shows to current Spotify user's library.
-// API reference: https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user
+// SaveShowsForCurrentUser [saves one or more shows] to current Spotify user's library.
+//
+// [saves one or more shows]: https://developer.spotify.com/documentation/web-api/reference/save-shows-user
 func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []ID) error {
 	spotifyURL := c.baseURL + "me/shows?ids=" + strings.Join(toStringSlice(ids), ",")
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, spotifyURL, nil)
@@ -219,8 +231,9 @@ func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []ID) error {
 	return c.execute(req, nil, http.StatusOK)
 }
 
-// GetEpisode gets an episode from a show.
-// API reference: https://developer.spotify.com/documentation/web-api/reference/get-an-episode
+// GetEpisode gets an [episode] from a show.
+//
+// [episode]: https://developer.spotify.com/documentation/web-api/reference/get-an-episode
 func (c *Client) GetEpisode(ctx context.Context, id string, opts ...RequestOption) (*EpisodePage, error) {
 	spotifyURL := c.baseURL + "episodes/" + id
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {

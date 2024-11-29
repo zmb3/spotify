@@ -34,28 +34,32 @@ type User struct {
 type PrivateUser struct {
 	User
 	// The country of the user, as set in the user's account profile.
-	// An ISO 3166-1 alpha-2 country code.  This field is only available when the
-	// current user has granted access to the ScopeUserReadPrivate scope.
+	// An [ISO 3166-1 alpha-2] country code.  This field is only available when
+	// the current user has granted access to the [ScopeUserReadPrivate] scope.
+	//
+	// [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 	Country string `json:"country"`
 	// The user's email address, as entered by the user when creating their account.
 	// Note: this email is UNVERIFIED - there is no proof that it actually
 	// belongs to the user.  This field is only available when the current user
-	// has granted access to the ScopeUserReadEmail scope.
+	// has granted access to the [ScopeUserReadEmail] scope.
 	Email string `json:"email"`
 	// The user's Spotify subscription level: "premium", "free", etc.
 	// The subscription level "open" can be considered the same as "free".
 	// This field is only available when the current user has granted access to
-	// the ScopeUserReadPrivate scope.
+	// the [ScopeUserReadPrivate] scope.
 	Product string `json:"product"`
 	// The user's date of birth, in the format 'YYYY-MM-DD'.  You can use
-	// the DateLayout constant to convert this to a time.Time value.
-	// This field is only available when the current user has granted
-	// access to the ScopeUserReadBirthdate scope.
+	// [DateLayout] to convert this to a [time.Time] value. This field is only
+	// available when the current user has granted access to the
+	// [ScopeUserReadBirthdate] scope.
 	Birthdate string `json:"birthdate"`
 }
 
-// GetUsersPublicProfile gets public profile information about a
+// GetUsersPublicProfile gets [public profile] information about a
 // Spotify User.  It does not require authentication.
+//
+// [public profile]: https://developer.spotify.com/documentation/web-api/reference/get-users-profile
 func (c *Client) GetUsersPublicProfile(ctx context.Context, userID ID) (*User, error) {
 	spotifyURL := c.baseURL + "users/" + string(userID)
 
@@ -70,17 +74,19 @@ func (c *Client) GetUsersPublicProfile(ctx context.Context, userID ID) (*User, e
 }
 
 // CurrentUser gets detailed profile information about the
-// current user.
+// [current user].
 //
 // Reading the user's email address requires that the application
-// has the ScopeUserReadEmail scope.  Reading the country, display
+// has the [ScopeUserReadEmail] scope.  Reading the country, display
 // name, profile images, and product subscription level requires
-// that the application has the ScopeUserReadPrivate scope.
+// that the application has the [ScopeUserReadPrivate] scope.
 //
 // Warning: The email address in the response will be the address
 // that was entered when the user created their spotify account.
 // This email address is unverified - do not assume that Spotify has
 // checked that the email address actually belongs to the user.
+//
+// [current user]: https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile
 func (c *Client) CurrentUser(ctx context.Context) (*PrivateUser, error) {
 	var result PrivateUser
 
@@ -92,12 +98,12 @@ func (c *Client) CurrentUser(ctx context.Context) (*PrivateUser, error) {
 	return &result, nil
 }
 
-// CurrentUsersShows gets a list of shows saved in the current
+// CurrentUsersShows gets a [list of shows] saved in the current
 // Spotify user's "Your Music" library.
 //
-// API Doc: https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-shows
+// Supported options: [Limit], [Offset].
 //
-// Supported options: Limit, Offset
+// [list of shows]: https://developer.spotify.com/documentation/web-api/reference/get-users-saved-shows
 func (c *Client) CurrentUsersShows(ctx context.Context, opts ...RequestOption) (*SavedShowPage, error) {
 	spotifyURL := c.baseURL + "me/shows"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -114,12 +120,12 @@ func (c *Client) CurrentUsersShows(ctx context.Context, opts ...RequestOption) (
 	return &result, nil
 }
 
-// CurrentUsersTracks gets a list of songs saved in the current
+// CurrentUsersTracks gets a [list of songs] saved in the current
 // Spotify user's "Your Music" library.
 //
-// API Doc: https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-users-saved-tracks
+// Supported options: [Limit], [Country], [Offset].
 //
-// Supported options: Limit, Country, Offset
+// [list of songs]: https://developer.spotify.com/documentation/web-api/reference/get-users-saved-tracks
 func (c *Client) CurrentUsersTracks(ctx context.Context, opts ...RequestOption) (*SavedTrackPage, error) {
 	spotifyURL := c.baseURL + "me/tracks"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -136,51 +142,63 @@ func (c *Client) CurrentUsersTracks(ctx context.Context, opts ...RequestOption) 
 	return &result, nil
 }
 
-// FollowUser adds the current user as a follower of one or more
-// spotify users, identified by their Spotify IDs.
+// FollowUser [adds the current user as a follower] of one or more
+// spotify users, identified by their [Spotify ID]s.
 //
 // Modifying the lists of artists or users the current user follows
-// requires that the application has the ScopeUserFollowModify scope.
+// requires that the application has the [ScopeUserFollowModify] scope.
+//
+// [adds the current user as a follower]: https://developer.spotify.com/documentation/web-api/reference/follow-artists-users
+// [Spotify ID]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 func (c *Client) FollowUser(ctx context.Context, ids ...ID) error {
 	return c.modifyFollowers(ctx, "user", true, ids...)
 }
 
-// FollowArtist adds the current user as a follower of one or more
-// spotify artists, identified by their Spotify IDs.
+// FollowArtist [adds the current user as a follower] of one or more
+// spotify artists, identified by their [Spotify ID]s.
 //
 // Modifying the lists of artists or users the current user follows
-// requires that the application has the ScopeUserFollowModify scope.
+// requires that the application has the [ScopeUserFollowModify] scope.
+//
+// [adds the current user as a follower]: https://developer.spotify.com/documentation/web-api/reference/follow-artists-users
+// [Spotify ID]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 func (c *Client) FollowArtist(ctx context.Context, ids ...ID) error {
 	return c.modifyFollowers(ctx, "artist", true, ids...)
 }
 
-// UnfollowUser removes the current user as a follower of one or more
+// UnfollowUser [removes the current user as a follower] of one or more
 // Spotify users.
 //
 // Modifying the lists of artists or users the current user follows
-// requires that the application has the ScopeUserFollowModify scope.
+// requires that the application has the [ScopeUserFollowModify] scope.
+//
+// [removes the current user as a follower]: https://developer.spotify.com/documentation/web-api/reference/unfollow-artists-users
 func (c *Client) UnfollowUser(ctx context.Context, ids ...ID) error {
 	return c.modifyFollowers(ctx, "user", false, ids...)
 }
 
-// UnfollowArtist removes the current user as a follower of one or more
+// UnfollowArtist [removes the current user as a follower] of one or more
 // Spotify artists.
 //
 // Modifying the lists of artists or users the current user follows
-// requires that the application has the ScopeUserFollowModify scope.
+// requires that the application has the [ScopeUserFollowModify] scope.
+//
+// [removes the current user as a follower]: https://developer.spotify.com/documentation/web-api/reference/unfollow-artists-users
 func (c *Client) UnfollowArtist(ctx context.Context, ids ...ID) error {
 	return c.modifyFollowers(ctx, "artist", false, ids...)
 }
 
-// CurrentUserFollows checks to see if the current user is following
+// CurrentUserFollows [checks to see if the current user is following]
 // one or more artists or other Spotify Users.  This call requires
-// ScopeUserFollowRead.
+// [ScopeUserFollowRead].
 //
 // The t argument indicates the type of the IDs, and must be either
 // "user" or "artist".
 //
 // The result is returned as a slice of bool values in the same order
 // in which the IDs were specified.
+//
+// [checks to see if the current user is following]: https://developer.spotify.com/documentation/web-api/reference/check-current-user-follows
 func (c *Client) CurrentUserFollows(ctx context.Context, t string, ids ...ID) ([]bool, error) {
 	if l := len(ids); l == 0 || l > 50 {
 		return nil, errors.New("spotify: UserFollows supports 1 to 50 IDs")
@@ -217,16 +235,15 @@ func (c *Client) modifyFollowers(ctx context.Context, usertype string, follow bo
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil, http.StatusNoContent)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil, http.StatusNoContent)
 }
 
-// CurrentUsersFollowedArtists gets the current user's followed artists.
-// This call requires that the user has granted the ScopeUserFollowRead scope.
-// Supported options: Limit, After
+// CurrentUsersFollowedArtists gets the [current user's followed artists].
+// This call requires that the user has granted the [ScopeUserFollowRead] scope.
+//
+// Supported options: [Limit], [After].
+//
+// [current user's followed artists]: https://developer.spotify.com/documentation/web-api/reference/get-followed
 func (c *Client) CurrentUsersFollowedArtists(ctx context.Context, opts ...RequestOption) (*FullArtistCursorPage, error) {
 	spotifyURL := c.baseURL + "me/following"
 	v := processOptions(opts...).urlParams
@@ -247,10 +264,12 @@ func (c *Client) CurrentUsersFollowedArtists(ctx context.Context, opts ...Reques
 	return &result.A, nil
 }
 
-// CurrentUsersAlbums gets a list of albums saved in the current
+// CurrentUsersAlbums gets a [list of albums] saved in the current
 // Spotify user's "Your Music" library.
 //
-// Supported options: Market, Limit, Offset
+// Supported options: [Market], [Limit], [Offset].
+//
+// [list of albums]: https://developer.spotify.com/documentation/web-api/reference/get-users-saved-albums
 func (c *Client) CurrentUsersAlbums(ctx context.Context, opts ...RequestOption) (*SavedAlbumPage, error) {
 	spotifyURL := c.baseURL + "me/albums"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -267,15 +286,17 @@ func (c *Client) CurrentUsersAlbums(ctx context.Context, opts ...RequestOption) 
 	return &result, nil
 }
 
-// CurrentUsersPlaylists gets a list of the playlists owned or followed by
+// CurrentUsersPlaylists gets a [list of the playlists] owned or followed by
 // the current spotify user.
 //
-// Private playlists require the ScopePlaylistReadPrivate scope.  Note that
+// Private playlists require the [ScopePlaylistReadPrivate] scope.  Note that
 // this scope alone will not return collaborative playlists, even though
 // they are always private.  In order to retrieve collaborative playlists
-// the user must authorize the ScopePlaylistReadCollaborative scope.
+// the user must authorize the [ScopePlaylistReadCollaborative] scope.
 //
-// Supported options: Limit, Offset
+// Supported options: [Limit], [Offset].
+//
+// [list of the playlists]: https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists
 func (c *Client) CurrentUsersPlaylists(ctx context.Context, opts ...RequestOption) (*SimplePlaylistPage, error) {
 	spotifyURL := c.baseURL + "me/playlists"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -292,10 +313,12 @@ func (c *Client) CurrentUsersPlaylists(ctx context.Context, opts ...RequestOptio
 	return &result, nil
 }
 
-// CurrentUsersTopArtists fetches a list of the user's top artists over the specified Timerange.
-// The default is medium term.
+// CurrentUsersTopArtists fetches a list of the [user's top artists] over the specified [Timerange].
+// The default is [MediumTermRange].
 //
-// Supported options: Limit, Timerange
+// Supported options: [Limit], [Timerange]
+//
+// [user's top artists]: https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
 func (c *Client) CurrentUsersTopArtists(ctx context.Context, opts ...RequestOption) (*FullArtistPage, error) {
 	spotifyURL := c.baseURL + "me/top/artists"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -312,11 +335,13 @@ func (c *Client) CurrentUsersTopArtists(ctx context.Context, opts ...RequestOpti
 	return &result, nil
 }
 
-// CurrentUsersTopTracks fetches the user's top tracks over the specified Timerange
-// sensible defaults. The default limit is 20 and the default timerange
-// is medium_term. This call requires ScopeUserTopRead.
+// CurrentUsersTopTracks fetches the [user's top tracks] over the specified
+// [Timerange]. The default limit is 20 and the default timerange is
+// [MediumTermRange]. This call requires [ScopeUserTopRead].
 //
-// Supported options: Limit, Timerange, Offset
+// Supported options: [Limit], [Timerange], [Offset].
+//
+// [user's top tracks]: https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
 func (c *Client) CurrentUsersTopTracks(ctx context.Context, opts ...RequestOption) (*FullTrackPage, error) {
 	spotifyURL := c.baseURL + "me/top/tracks"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {

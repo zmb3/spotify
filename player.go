@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// PlayerDevice contains information about a device that a user can play music on
+// PlayerDevice contains information about a device that a user can play music on.
 type PlayerDevice struct {
 	// ID of the device. This may be empty.
 	ID ID `json:"id"`
@@ -38,7 +38,7 @@ type PlayerState struct {
 	RepeatState string `json:"repeat_state"`
 }
 
-// PlaybackContext is the playback context
+// PlaybackContext is the playback context.
 type PlaybackContext struct {
 	// ExternalURLs of the context, or null if not available.
 	ExternalURLs map[string]string `json:"external_urls"`
@@ -50,7 +50,7 @@ type PlaybackContext struct {
 	URI URI `json:"uri"`
 }
 
-// CurrentlyPlaying contains the information about currently playing items
+// CurrentlyPlaying contains the information about currently playing items.
 type CurrentlyPlaying struct {
 	// Timestamp when data was fetched
 	Timestamp int64 `json:"timestamp"`
@@ -79,7 +79,7 @@ type RecentlyPlayedResult struct {
 	Items []RecentlyPlayedItem `json:"items"`
 }
 
-// PlaybackOffset can be specified either by track URI OR Position. If the
+// PlaybackOffset can be specified either by track URI or Position. If the
 // Position field is set to a non-nil pointer, it will be taken into
 // consideration when specifying the playback offset. If the Position field is
 // set to a nil pointer, it will be ignored and only the URI will be used to
@@ -100,7 +100,7 @@ type PlayOptions struct {
 	// PlaybackContext Spotify URI of the context to play.
 	// Valid contexts are albums, artists & playlists.
 	PlaybackContext *URI `json:"context_uri,omitempty"`
-	// URIs Array of the Spotify track URIs to play
+	// URIs Array of the Spotify track URIs to play.
 	URIs []URI `json:"uris,omitempty"`
 	// PlaybackOffset Indicates from where in the context playback should start.
 	// Only available when context corresponds to an album or playlist
@@ -114,9 +114,10 @@ type PlayOptions struct {
 }
 
 // RecentlyPlayedOptions describes options for the recently-played request. All
-// fields are optional. Only one of `AfterEpochMs` and `BeforeEpochMs` may be
-// given. Note that it seems as if Spotify only remembers the fifty most-recent
-// tracks as of right now.
+// fields are optional. Only one of AfterEpochMs and BeforeEpochMs may be
+// given.
+//
+// Note: it seems as if Spotify only remembers the fifty most-recent tracks.
 type RecentlyPlayedOptions struct {
 	// Limit is the maximum number of items to return. Must be no greater than
 	// fifty.
@@ -138,7 +139,7 @@ type Queue struct {
 
 // PlayerDevices information about available devices for the current user.
 //
-// Requires the ScopeUserReadPlaybackState scope in order to read information
+// Requires the [ScopeUserReadPlaybackState] scope in order to read information
 func (c *Client) PlayerDevices(ctx context.Context) ([]PlayerDevice, error) {
 	var result struct {
 		PlayerDevices []PlayerDevice `json:"devices"`
@@ -153,9 +154,9 @@ func (c *Client) PlayerDevices(ctx context.Context) ([]PlayerDevice, error) {
 }
 
 // PlayerState gets information about the playing state for the current user
-// Requires the ScopeUserReadPlaybackState scope in order to read information
+// Requires the [ScopeUserReadPlaybackState] scope in order to read information
 //
-// Supported options: Market
+// Supported options: [Market].
 func (c *Client) PlayerState(ctx context.Context, opts ...RequestOption) (*PlayerState, error) {
 	spotifyURL := c.baseURL + "me/player"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -175,10 +176,10 @@ func (c *Client) PlayerState(ctx context.Context, opts ...RequestOption) (*Playe
 // PlayerCurrentlyPlaying gets information about the currently playing status
 // for the current user.
 //
-// Requires the ScopeUserReadCurrentlyPlaying scope or the ScopeUserReadPlaybackState
-// scope in order to read information
+// Requires the [ScopeUserReadCurrentlyPlaying] scope or the [ScopeUserReadPlaybackState]
+// scope in order to read information.
 //
-// Supported options: Market
+// Supported options: [Market].
 func (c *Client) PlayerCurrentlyPlaying(ctx context.Context, opts ...RequestOption) (*CurrentlyPlaying, error) {
 	spotifyURL := c.baseURL + "me/player/currently-playing"
 
@@ -201,12 +202,12 @@ func (c *Client) PlayerCurrentlyPlaying(ctx context.Context, opts ...RequestOpti
 }
 
 // PlayerRecentlyPlayed gets a list of recently-played tracks for the current
-// user. This call requires ScopeUserReadRecentlyPlayed.
+// user. This call requires [ScopeUserReadRecentlyPlayed].
 func (c *Client) PlayerRecentlyPlayed(ctx context.Context) ([]RecentlyPlayedItem, error) {
 	return c.PlayerRecentlyPlayedOpt(ctx, nil)
 }
 
-// PlayerRecentlyPlayedOpt is like PlayerRecentlyPlayed, but it accepts
+// PlayerRecentlyPlayedOpt is like [PlayerRecentlyPlayed], but it accepts
 // additional options for sorting and filtering the results.
 func (c *Client) PlayerRecentlyPlayedOpt(ctx context.Context, opt *RecentlyPlayedOptions) ([]RecentlyPlayedItem, error) {
 	spotifyURL := c.baseURL + "me/player/recently-played"
@@ -243,7 +244,7 @@ func (c *Client) PlayerRecentlyPlayedOpt(ctx context.Context, opt *RecentlyPlaye
 // paused on the new device you should send a pause command to the currently
 // active device before transferring to the new device_id.
 //
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// Requires the [ScopeUserModifyPlaybackState] in order to modify the player state.
 func (c *Client) TransferPlayback(ctx context.Context, deviceID ID, play bool) error {
 	reqData := struct {
 		DeviceID []ID `json:"device_ids"`
@@ -262,24 +263,19 @@ func (c *Client) TransferPlayback(ctx context.Context, deviceID ID, play bool) e
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 // Play Start a new context or resume current playback on the user's active
-// device. This call requires ScopeUserModifyPlaybackState in order to modify the player state.
+// device. This call requires [ScopeUserModifyPlaybackState] in order to modify the player state.
 func (c *Client) Play(ctx context.Context) error {
 	return c.PlayOpt(ctx, nil)
 }
 
-// PlayOpt is like Play but with more options
+// PlayOpt is like [Play] but with more options.
 func (c *Client) PlayOpt(ctx context.Context, opt *PlayOptions) error {
 	spotifyURL := c.baseURL + "me/player/play"
 	buf := new(bytes.Buffer)
@@ -302,26 +298,22 @@ func (c *Client) PlayOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // Pause Playback on the user's currently active device.
 //
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// Requires the [ScopeUserModifyPlaybackState] in order to modify the player state.
 func (c *Client) Pause(ctx context.Context) error {
 	return c.PauseOpt(ctx, nil)
 }
 
-// PauseOpt is like Pause but with more options
+// PauseOpt is like [Pause] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) PauseOpt(ctx context.Context, opt *PlayOptions) error {
 	spotifyURL := c.baseURL + "me/player/pause"
 
@@ -338,18 +330,14 @@ func (c *Client) PauseOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // GetQueue gets the user's queue on the user's currently
-// active device. This call requires ScopeUserReadPlaybackState
+// active device. This call requires [ScopeUserReadPlaybackState]
 func (c *Client) GetQueue(ctx context.Context) (*Queue, error) {
 	spotifyURL := c.baseURL + "me/player/queue"
 	v := url.Values{}
@@ -368,15 +356,15 @@ func (c *Client) GetQueue(ctx context.Context) (*Queue, error) {
 }
 
 // QueueSong adds a song to the user's queue on the user's currently
-// active device. This call requires ScopeUserModifyPlaybackState
-// in order to modify the player state
+// active device. This call requires [ScopeUserModifyPlaybackState]
+// to modify the player state
 func (c *Client) QueueSong(ctx context.Context, trackID ID) error {
 	return c.QueueSongOpt(ctx, trackID, nil)
 }
 
-// QueueSongOpt is like QueueSong but with more options
+// QueueSongOpt is like [QueueSong] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) QueueSongOpt(ctx context.Context, trackID ID, opt *PlayOptions) error {
 	uri := "spotify:track:" + trackID
 	spotifyURL := c.baseURL + "me/player/queue"
@@ -406,15 +394,15 @@ func (c *Client) QueueSongOpt(ctx context.Context, trackID ID, opt *PlayOptions)
 }
 
 // Next skips to the next track in the user's queue in the user's
-// currently active device. This call requires ScopeUserModifyPlaybackState
-// in order to modify the player state
+// currently active device. This call requires [ScopeUserModifyPlaybackState]
+// in order to modify the player state.
 func (c *Client) Next(ctx context.Context) error {
 	return c.NextOpt(ctx, nil)
 }
 
-// NextOpt is like Next but with more options
+// NextOpt is like Next but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 	spotifyURL := c.baseURL + "me/player/next"
 
@@ -431,26 +419,22 @@ func (c *Client) NextOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
-// Previous skips to the Previous track in the user's queue in the user's
-// currently active device. This call requires ScopeUserModifyPlaybackState
+// Previous skips to the previous track in the user's queue on the user's
+// currently active device. This call requires [ScopeUserModifyPlaybackState]
 // in order to modify the player state
 func (c *Client) Previous(ctx context.Context) error {
 	return c.PreviousOpt(ctx, nil)
 }
 
-// PreviousOpt is like Previous but with more options
+// PreviousOpt is like [Previous] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) PreviousOpt(ctx context.Context, opt *PlayOptions) error {
 	spotifyURL := c.baseURL + "me/player/previous"
 
@@ -467,14 +451,10 @@ func (c *Client) PreviousOpt(ctx context.Context, opt *PlayOptions) error {
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // Seek to the given position in the user’s currently playing track.
@@ -483,14 +463,14 @@ func (c *Client) PreviousOpt(ctx context.Context, opt *PlayOptions) error {
 // Passing in a position that is greater than the length of the track
 // will cause the player to start playing the next song.
 //
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// Requires the [ScopeUserModifyPlaybackState] in order to modify the player state.
 func (c *Client) Seek(ctx context.Context, position int) error {
 	return c.SeekOpt(ctx, position, nil)
 }
 
-// SeekOpt is like Seek but with more options
+// SeekOpt is like [Seek] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) SeekOpt(ctx context.Context, position int, opt *PlayOptions) error {
 	return c.playerFuncWithOpt(
 		ctx,
@@ -511,9 +491,9 @@ func (c *Client) Repeat(ctx context.Context, state string) error {
 	return c.RepeatOpt(ctx, state, nil)
 }
 
-// RepeatOpt is like Repeat but with more options
+// RepeatOpt is like [Repeat] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored.
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) RepeatOpt(ctx context.Context, state string, opt *PlayOptions) error {
 	return c.playerFuncWithOpt(
 		ctx,
@@ -529,14 +509,14 @@ func (c *Client) RepeatOpt(ctx context.Context, state string, opt *PlayOptions) 
 //
 // Percent is must be a value from 0 to 100 inclusive.
 //
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// Requires the [ScopeUserModifyPlaybackState] in order to modify the player state.
 func (c *Client) Volume(ctx context.Context, percent int) error {
 	return c.VolumeOpt(ctx, percent, nil)
 }
 
-// VolumeOpt is like Volume but with more options
+// VolumeOpt is like [Volume] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) VolumeOpt(ctx context.Context, percent int, opt *PlayOptions) error {
 	return c.playerFuncWithOpt(
 		ctx,
@@ -550,14 +530,14 @@ func (c *Client) VolumeOpt(ctx context.Context, percent int, opt *PlayOptions) e
 
 // Shuffle switches shuffle on or off for user's playback.
 //
-// Requires the ScopeUserModifyPlaybackState in order to modify the player state
+// Requires the [ScopeUserModifyPlaybackState] in order to modify the player state.
 func (c *Client) Shuffle(ctx context.Context, shuffle bool) error {
 	return c.ShuffleOpt(ctx, shuffle, nil)
 }
 
-// ShuffleOpt is like Shuffle but with more options
+// ShuffleOpt is like [Shuffle] but with more options.
 //
-// Only expects PlayOptions.DeviceID, all other options will be ignored
+// Only expects [PlayOptions.DeviceID], all other options will be ignored.
 func (c *Client) ShuffleOpt(ctx context.Context, shuffle bool, opt *PlayOptions) error {
 	return c.playerFuncWithOpt(
 		ctx,
@@ -586,12 +566,8 @@ func (c *Client) playerFuncWithOpt(ctx context.Context, urlSuffix string, values
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil,
+	return c.execute(req, nil,
 		http.StatusAccepted,
 		http.StatusNoContent,
 	)
-	if err != nil {
-		return err
-	}
-	return nil
 }

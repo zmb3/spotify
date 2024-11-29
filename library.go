@@ -37,31 +37,31 @@ func (c *Client) libraryContains(ctx context.Context, typ string, ids ...ID) ([]
 }
 
 // AddTracksToLibrary saves one or more tracks to the current user's
-// "Your Music" library.  This call requires the ScopeUserLibraryModify scope.
+// "Your Music" library.  This call requires the [ScopeUserLibraryModify] scope.
 // A track can only be saved once; duplicate IDs are ignored.
 func (c *Client) AddTracksToLibrary(ctx context.Context, ids ...ID) error {
 	return c.modifyLibrary(ctx, "tracks", true, ids...)
 }
 
 // RemoveTracksFromLibrary removes one or more tracks from the current user's
-// "Your Music" library.  This call requires the ScopeUserModifyLibrary scope.
+// "Your Music" library.  This call requires the [ScopeUserModifyLibrary] scope.
 // Trying to remove a track when you do not have the user's authorization
-// results in a `spotify.Error` with the status code set to http.StatusUnauthorized.
+// results in an [Error] with the status code set to [net/http.StatusUnauthorized].
 func (c *Client) RemoveTracksFromLibrary(ctx context.Context, ids ...ID) error {
 	return c.modifyLibrary(ctx, "tracks", false, ids...)
 }
 
 // AddAlbumsToLibrary saves one or more albums to the current user's
-// "Your Albums" library.  This call requires the ScopeUserLibraryModify scope.
+// "Your Albums" library.  This call requires the [ScopeUserLibraryModify] scope.
 // A track can only be saved once; duplicate IDs are ignored.
 func (c *Client) AddAlbumsToLibrary(ctx context.Context, ids ...ID) error {
 	return c.modifyLibrary(ctx, "albums", true, ids...)
 }
 
 // RemoveAlbumsFromLibrary removes one or more albums from the current user's
-// "Your Albums" library.  This call requires the ScopeUserModifyLibrary scope.
+// "Your Albums" library.  This call requires the [ScopeUserModifyLibrary] scope.
 // Trying to remove a track when you do not have the user's authorization
-// results in a `spotify.Error` with the status code set to http.StatusUnauthorized.
+// results in an [Error] with the status code set to [net/http.StatusUnauthorized].
 func (c *Client) RemoveAlbumsFromLibrary(ctx context.Context, ids ...ID) error {
 	return c.modifyLibrary(ctx, "albums", false, ids...)
 }
@@ -79,9 +79,5 @@ func (c *Client) modifyLibrary(ctx context.Context, typ string, add bool, ids ..
 	if err != nil {
 		return err
 	}
-	err = c.execute(req, nil)
-	if err != nil {
-		return err
-	}
-	return nil
+	return c.execute(req, nil)
 }
