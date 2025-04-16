@@ -115,7 +115,7 @@ func TestRateLimitExceededReportsRetryAfter(t *testing.T) {
 		// first attempt fails
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
-			w.WriteHeader(rateLimitExceededStatusCode)
+			w.WriteHeader(http.StatusTooManyRequests)
 			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
@@ -222,7 +222,16 @@ func TestDecode429Error(t *testing.T) {
 	if err == nil {
 		t.Fatal("Expected error")
 	}
-	if err.Error() != "Too many requests" {
-		t.Error("Invalid error message:", err.Error())
+	if err.Error() != "spotify: Too many requests [429]" {
+		t.Error("Unexpected error message:", err.Error())
+	}
+	const wantSTatus = http.StatusTooManyRequests
+	var gotStatus int
+	var statusErr interface{ HTTPStatus() int }
+	if errors.As(err, &statusErr) {
+		gotStatus = statusErr.HTTPStatus()
+	}
+	if gotStatus != wantSTatus {
+		t.Errorf("Expected status %d, got %d", wantSTatus, gotStatus)
 	}
 }

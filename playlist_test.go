@@ -605,7 +605,7 @@ func TestClient_ReplacePlaylistItems(t *testing.T) {
 				items:      []URI{"spotify:track:track1", "spotify:track:track2"},
 			},
 			want: want{
-				err: "Forbidden",
+				err: "spotify: Forbidden [403]",
 			},
 		},
 	}
@@ -713,7 +713,7 @@ func TestReorderPlaylistRequest(t *testing.T) {
 		RangeStart:   3,
 		InsertBefore: 8,
 	})
-	if want := "Not Found"; err == nil || err.Error() != want {
+	if want := "spotify: Not Found [404]"; err == nil || err.Error() != want {
 		t.Errorf("Expected error: want %v, got %v", want, err)
 	}
 }
