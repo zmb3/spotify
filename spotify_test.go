@@ -225,4 +225,13 @@ func TestDecode429Error(t *testing.T) {
 	if err.Error() != "spotify: Too many requests [429]" {
 		t.Error("Unexpected error message:", err.Error())
 	}
+	const wantSTatus = http.StatusTooManyRequests
+	var gotStatus int
+	var statusErr interface{ HTTPStatus() int }
+	if errors.As(err, &statusErr) {
+		gotStatus = statusErr.HTTPStatus()
+	}
+	if gotStatus != wantSTatus {
+		t.Errorf("Expected status %d, got %d", wantSTatus, gotStatus)
+	}
 }
