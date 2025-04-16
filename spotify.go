@@ -154,7 +154,13 @@ type Error struct {
 }
 
 func (e Error) Error() string {
-	return e.Message
+	return fmt.Sprintf("spotify: %s [%d]", e.Message, e.Status)
+}
+
+// HTTPStatus returns the HTTP status code returned by the server when the error
+// occurred.
+func (e Error) HTTPStatus() int {
+	return e.Status
 }
 
 // decodeError decodes an Error from an io.Reader.
@@ -176,7 +182,10 @@ func decodeError(resp *http.Response) error {
 	}
 
 	if len(responseBody) == 0 {
-		return fmt.Errorf("spotify: HTTP %d: %s (body empty)", resp.StatusCode, http.StatusText(resp.StatusCode))
+		return Error{
+			Message: "server response without body",
+			Status:  resp.StatusCode,
+		}
 	}
 
 	buf := bytes.NewBuffer(responseBody)
@@ -186,18 +195,20 @@ func decodeError(resp *http.Response) error {
 	}
 	err = json.NewDecoder(buf).Decode(&e)
 	if err != nil {
-		return fmt.Errorf("spotify: couldn't decode error: (%d) [%s]", len(responseBody), responseBody)
+		return Error{
+			Message: fmt.Sprintf("failed to decode error response %q", responseBody),
+			Status:  resp.StatusCode,
+		}
 	}
 
+	e.E.Status = resp.StatusCode
 	if e.E.Message == "" {
 		// Some errors will result in there being a useful status-code but an
-		// empty message, which will confuse the user (who only has access to
-		// the message and not the code). An example of this is when we send
-		// some of the arguments directly in the HTTP query and the URL ends-up
-		// being too long.
+		// empty message. An example of this is when we send some of the
+		// arguments directly in the HTTP query and the URL ends-up being too
+		// long.
 
-		e.E.Message = fmt.Sprintf("spotify: unexpected HTTP %d: %s (empty error)",
-			resp.StatusCode, http.StatusText(resp.StatusCode))
+		e.E.Message = "server response without error description"
 	}
 	if retryAfter, _ := strconv.Atoi(resp.Header.Get("Retry-After")); retryAfter != 0 {
 		e.E.RetryAfter = time.Now().Add(time.Duration(retryAfter) * time.Second)

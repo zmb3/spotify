@@ -222,7 +222,7 @@ func TestDecode429Error(t *testing.T) {
 	if err == nil {
 		t.Fatal("Expected error")
 	}
-	if err.Error() != "Too many requests" {
-		t.Error("Invalid error message:", err.Error())
+	if err.Error() != "spotify: Too many requests [429]" {
+		t.Error("Unexpected error message:", err.Error())
 	}
 }

@@ -92,7 +92,7 @@ func TestGetCategoryPlaylistsOpt(t *testing.T) {
 	defer server.Close()
 
 	_, err := client.GetCategoryPlaylists(context.Background(), "id", Limit(5), Offset(10))
-	if want := "Not Found"; err == nil || err.Error() != want {
+	if want := "spotify: Not Found [404]"; err == nil || err.Error() != want {
 		t.Errorf("Expected error: want %v, got %v", want, err)
 	}
 }
