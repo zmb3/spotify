@@ -115,7 +115,7 @@ func TestRateLimitExceededReportsRetryAfter(t *testing.T) {
 		// first attempt fails
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
-			w.WriteHeader(rateLimitExceededStatusCode)
+			w.WriteHeader(http.StatusTooManyRequests)
 			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
 		}),
 		// next attempt succeeds
