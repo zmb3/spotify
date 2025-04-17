@@ -38,6 +38,9 @@ type SimpleShow struct {
 	// A description of the show.
 	Description string `json:"description"`
 
+	// A description of the episode. This field may contain HTML tags.
+	HtmlDescription string `json:"html_description"`
+
 	// Whether or not the show has explicit content
 	// (true = yes it does; false = no it does not OR unknown).
 	Explicit bool `json:"explicit"`
@@ -88,6 +91,9 @@ type EpisodePage struct {
 
 	// A description of the episode.
 	Description string `json:"description"`
+
+	// A description of the episode. This field may contain HTML tags.
+	HtmlDescription string `json:"html_description"`
 
 	// The episode length in milliseconds.
 	Duration_ms Numeric `json:"duration_ms"`
