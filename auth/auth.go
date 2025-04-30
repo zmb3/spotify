@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"net/url"
 	"os"
 
 	"golang.org/x/oauth2"
@@ -158,11 +159,11 @@ func (a Authenticator) AuthURL(state string, opts ...oauth2.AuthCodeOption) stri
 	return a.config.AuthCodeURL(state, opts...)
 }
 
-// Token pulls an authorization code from an HTTP request and attempts to exchange
+// Token pulls an authorization code from a redirected URL and attempts to exchange
 // it for an access token.  The standard use case is to call Token from the handler
 // that handles requests to your application's redirect URL.
-func (a Authenticator) Token(ctx context.Context, state string, r *http.Request, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
-	values := r.URL.Query()
+func (a Authenticator) Token(ctx context.Context, state string, redirect *url.URL, opts ...oauth2.AuthCodeOption) (*oauth2.Token, error) {
+	values := redirect.Query()
 	if e := values.Get("error"); e != "" {
 		return nil, errors.New("spotify: auth failed - " + e)
 	}
