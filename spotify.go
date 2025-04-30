@@ -38,8 +38,9 @@ type Client struct {
 	http    *http.Client
 	baseURL string
 
-	autoRetry      bool
-	acceptLanguage string
+	autoRetry        bool
+	acceptLanguage   string
+	maxRetryDuration time.Duration
 }
 
 type ClientOption func(client *Client)
@@ -63,6 +64,15 @@ func WithBaseURL(url string) ClientOption {
 func WithAcceptLanguage(lang string) ClientOption {
 	return func(client *Client) {
 		client.acceptLanguage = lang
+	}
+}
+
+// WithMaxRetryDuration limits the amount of time that the client will wait to retry after being rate limited.
+// If the retry time is longer than the max, then the client will return an error.
+// This option only works when auto retry is enabled
+func WithMaxRetryDuration(duration time.Duration) ClientOption {
+	return func(client *Client) {
+		client.maxRetryDuration = duration
 	}
 }
 
@@ -250,10 +260,14 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 		if c.autoRetry &&
 			isFailure(resp.StatusCode, needsStatus) &&
 			shouldRetry(resp.StatusCode) {
+			duration := retryDuration(resp)
+			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
+				return decodeError(resp)
+			}
 			select {
 			case <-req.Context().Done():
 				// If the context is cancelled, return the original error
-			case <-time.After(retryDuration(resp)):
+			case <-time.After(duration):
 				continue
 			}
 		}
@@ -305,10 +319,14 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 		defer resp.Body.Close()
 
 		if resp.StatusCode == http.StatusTooManyRequests && c.autoRetry {
+			duration := retryDuration(resp)
+			if c.maxRetryDuration > 0 && duration > c.maxRetryDuration {
+				return decodeError(resp)
+			}
 			select {
 			case <-ctx.Done():
 				// If the context is cancelled, return the original error
-			case <-time.After(retryDuration(resp)):
+			case <-time.After(duration):
 				continue
 			}
 		}
