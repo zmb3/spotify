@@ -282,6 +282,22 @@ func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...Re
 	return &result, nil
 }
 
+// NextItems returns the next page of items in a playlist.
+func (page *PlaylistItemPage) NextItems(ctx context.Context, c *Client) (*PlaylistItemPage, error) {
+	var result PlaylistItemPage
+
+	if page != nil && page.Next == "" {
+		return nil, nil
+	}
+
+	err := c.get(ctx, page.Next, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, err
+}
+
 // CreatePlaylistForUser [creates a playlist] for a Spotify user.
 // The playlist will be empty until you add tracks to it.
 // The playlistName does not need to be unique - a user can have

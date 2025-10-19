@@ -742,3 +742,93 @@ func TestSetPlaylistImage(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestPlaylistItemPageNextItemsNoMorePages(t *testing.T) {
+	client, server := testClientString(http.StatusOK, "")
+	defer server.Close()
+
+	page := &PlaylistItemPage{
+		basePage: basePage{
+			Next:  "", // Empty next URL indicates last page
+			Total: 10,
+		},
+		Items: []PlaylistItem{}, // Current page items
+	}
+
+	nextPage, err := page.NextItems(context.Background(), client)
+	if err != nil {
+		t.Error("Expected no error for last page, got:", err)
+		return
+	}
+	if nextPage != nil {
+		t.Error("Expected nil for last page, got non-nil result")
+	}
+}
+
+func TestPlaylistItemPageNextItemsError(t *testing.T) {
+	client, server := testClientString(http.StatusInternalServerError, `{"error": {"status": 500, "message": "Internal server error"}}`)
+	defer server.Close()
+
+	page := &PlaylistItemPage{
+		basePage: basePage{
+			Next:  server.URL + "/v1/playlists/test/tracks?offset=50",
+			Total: 100,
+		},
+		Items: []PlaylistItem{},
+	}
+
+	nextPage, err := page.NextItems(context.Background(), client)
+	if err == nil {
+		t.Error("Expected an error for server error response, got nil")
+		return
+	}
+	if nextPage != nil {
+		t.Error("Expected nil result on error, got non-nil")
+	}
+}
+
+func TestPlaylistItemPageNextItemsWithNextURL(t *testing.T) {
+	client, server := testClientFile(http.StatusOK, "test_data/playlist_items_next_page.json")
+	defer server.Close()
+
+	page := &PlaylistItemPage{
+		basePage: basePage{
+			Next:   server.URL + "/v1/playlists/23Ay9WfURne0LvtlCvYTkj/tracks?offset=50&limit=50",
+			Total:  51,
+			Limit:  50,
+			Offset: 0,
+		},
+		Items: []PlaylistItem{
+			{
+				AddedAt: "2022-05-20T14:10:29Z",
+				IsLocal: false,
+			},
+		},
+	}
+
+	nextPage, err := page.NextItems(context.Background(), client)
+	if err != nil {
+		t.Error("Expected no error, got:", err)
+		return
+	}
+	if nextPage == nil {
+		t.Error("Expected next page result, got nil")
+		return
+	}
+
+	if nextPage.Total != 51 {
+		t.Errorf("Expected total 51, got %d", nextPage.Total)
+	}
+	if nextPage.Offset != 50 {
+		t.Errorf("Expected offset 50, got %d", nextPage.Offset)
+	}
+	if len(nextPage.Items) != 1 {
+		t.Errorf("Expected 1 item, got %d", len(nextPage.Items))
+	}
+
+	expectedTrackName := "Blinding Lights"
+	actualTrackName := nextPage.Items[0].Track.Track.Name
+	if expectedTrackName != actualTrackName {
+		t.Errorf("Expected track name '%s', got '%s'", expectedTrackName, actualTrackName)
+	}
+}
