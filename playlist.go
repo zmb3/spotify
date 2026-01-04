@@ -406,6 +406,28 @@ func (c *Client) AddTracksToPlaylist(ctx context.Context, playlistID ID, trackID
 	for i, id := range trackIDs {
 		uris[i] = fmt.Sprintf("spotify:track:%s", id)
 	}
+
+	return c.addURIsToPlaylist(ctx, playlistID, uris)
+}
+
+// AddEpisodesToPlaylist [adds one or more podcast episodes to a user's playlist].
+// This call requires [ScopePlaylistModifyPublic] or [ScopePlaylistModifyPrivate].
+// A maximum of 100 episodes can be added per call.  It returns a snapshot ID that
+// can be used to identify this version (the new version) of the playlist in
+// future requests.
+//
+// [adds one or more episodes to a user's playlist]: https://developer.spotify.com/documentation/web-api/reference/add-tracks-to-playlist
+func (c *Client) AddEpisodesToPlaylist(ctx context.Context, playlistID ID, episodeIDs ...ID) (snapshotID string, err error) {
+	uris := make([]string, len(episodeIDs))
+	for i, id := range episodeIDs {
+		uris[i] = fmt.Sprintf("spotify:episode:%s", id)
+	}
+
+	return c.addURIsToPlaylist(ctx, playlistID, uris)
+}
+
+// addURIsToPlaylist is an internal function to add one or more tracks OR podcast episodes to a user's playlist.
+func (c *Client) addURIsToPlaylist(ctx context.Context, playlistID ID, uris []string) (snapshotID string, err error) {
 	m := make(map[string]interface{})
 	m["uris"] = uris
 
