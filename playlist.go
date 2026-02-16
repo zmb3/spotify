@@ -260,10 +260,10 @@ type PlaylistItemPage struct {
 //
 // Supported options: [Limit], [Offset], [Market], [Fields].
 //
-// [gets full details of the items in a playlist]: https://developer.spotify.com/documentation/web-api/reference/get-playlists-tracks
+// [gets full details of the items in a playlist]: https://developer.spotify.com/documentation/web-api/reference/get-playlists-items
 // [Spotify ID]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...RequestOption) (*PlaylistItemPage, error) {
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items", c.baseURL, playlistID)
 
 	// Add default as the first option so it gets override by url.Values#Set
 	opts = append([]RequestOption{AdditionalTypes(EpisodeAdditionalType, TrackAdditionalType)}, opts...)
@@ -400,7 +400,7 @@ func (c *Client) modifyPlaylist(ctx context.Context, playlistID ID, newName, new
 // can be used to identify this version (the new version) of the playlist in
 // future requests.
 //
-// [adds one or more tracks to a user's playlist]: https://developer.spotify.com/documentation/web-api/reference/add-tracks-to-playlist
+// [adds one or more tracks to a user's playlist]: https://developer.spotify.com/documentation/web-api/reference/add-items-to-playlist
 func (c *Client) AddTracksToPlaylist(ctx context.Context, playlistID ID, trackIDs ...ID) (snapshotID string, err error) {
 	uris := make([]string, len(trackIDs))
 	for i, id := range trackIDs {
@@ -409,7 +409,7 @@ func (c *Client) AddTracksToPlaylist(ctx context.Context, playlistID ID, trackID
 	m := make(map[string]interface{})
 	m["uris"] = uris
 
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks",
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items",
 		c.baseURL, string(playlistID))
 	body, err := json.Marshal(m)
 	if err != nil {
@@ -441,7 +441,7 @@ func (c *Client) AddTracksToPlaylist(ctx context.Context, playlistID ID, trackID
 // of the track will be removed.  If successful, the snapshot ID returned can be used to
 // identify the playlist version in future requests.
 //
-// [removes one or more tracks from a user's playlist]: https://developer.spotify.com/documentation/web-api/reference/remove-tracks-playlist
+// [removes one or more tracks from a user's playlist]: https://developer.spotify.com/documentation/web-api/reference/remove-items-from-playlist
 func (c *Client) RemoveTracksFromPlaylist(ctx context.Context, playlistID ID, trackIDs ...ID) (newSnapshotID string, err error) {
 	tracks := make([]struct {
 		URI string `json:"uri"`
@@ -503,7 +503,7 @@ func (c *Client) removeTracksFromPlaylist(
 		m["snapshot_id"] = snapshotID
 	}
 
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks",
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items",
 		c.baseURL, string(playlistID))
 	body, err := json.Marshal(m)
 	if err != nil {
@@ -538,13 +538,13 @@ func (c *Client) removeTracksFromPlaylist(
 // A maximum of 100 tracks are permitted in this call.  Additional tracks must be
 // added via [AddTracksToPlaylist].
 //
-// [replaces all of the tracks in a playlist]: https://developer.spotify.com/documentation/web-api/reference/reorder-or-replace-playlists-tracks
+// [replaces all of the tracks in a playlist]: https://developer.spotify.com/documentation/web-api/reference/reorder-or-replace-playlists-items
 func (c *Client) ReplacePlaylistTracks(ctx context.Context, playlistID ID, trackIDs ...ID) error {
 	trackURIs := make([]string, len(trackIDs))
 	for i, u := range trackIDs {
 		trackURIs[i] = fmt.Sprintf("spotify:track:%s", u)
 	}
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks?uris=%s",
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items?uris=%s",
 		c.baseURL, playlistID, strings.Join(trackURIs, ","))
 	req, err := http.NewRequestWithContext(ctx, "PUT", spotifyURL, nil)
 	if err != nil {
@@ -564,7 +564,7 @@ func (c *Client) ReplacePlaylistTracks(ctx context.Context, playlistID ID, track
 // A maximum of 100 tracks is permited in this call.  Additional tracks must be
 // added via AddTracksToPlaylist.
 //
-// [replaces all the items in a playlist]: https://developer.spotify.com/documentation/web-api/reference/reorder-or-replace-playlists-tracks
+// [replaces all the items in a playlist]: https://developer.spotify.com/documentation/web-api/reference/reorder-or-replace-playlists-items
 func (c *Client) ReplacePlaylistItems(ctx context.Context, playlistID ID, items ...URI) (string, error) {
 	m := make(map[string]interface{})
 	m["uris"] = items
@@ -574,7 +574,7 @@ func (c *Client) ReplacePlaylistItems(ctx context.Context, playlistID ID, items 
 		return "", err
 	}
 
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items", c.baseURL, playlistID)
 	req, err := http.NewRequestWithContext(ctx, "PUT", spotifyURL, bytes.NewReader(body))
 	if err != nil {
 		return "", err
@@ -653,7 +653,7 @@ type PlaylistReorderOptions struct {
 // Reordering tracks in the user's private playlists (including collaborative playlists) requires
 // [ScopePlaylistModifyPrivate].
 func (c *Client) ReorderPlaylistTracks(ctx context.Context, playlistID ID, opt PlaylistReorderOptions) (snapshotID string, err error) {
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items", c.baseURL, playlistID)
 	j, err := json.Marshal(opt)
 	if err != nil {
 		return "", err
