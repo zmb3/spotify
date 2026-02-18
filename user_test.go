@@ -3,67 +3,20 @@ package spotify
 import (
 	"context"
 	"fmt"
-	"io"
 	"net/http"
-	"net/http/httptest"
 	"strings"
 	"testing"
 )
 
-const userResponse = `
-{
-  "display_name" : "Ronald Pompa",
-  "external_urls" : {
-    "spotify" : "https://open.spotify.com/user/wizzler"
-    },
-    "followers" : {
-      "href" : null,
-      "total" : 3829
-    },
-    "href" : "https://api.spotify.com/v1/users/wizzler",
-    "id" : "wizzler",
-    "images" : [ {
-      "height" : null,
-      "url" : "http://profile-images.scdn.co/images/userprofile/default/9d51820e73667ea5f1e97ea601cf0593b558050e",
-      "width" : null
-    } ],
-    "type" : "user",
-    "uri" : "spotify:user:wizzler"
-}`
-
-func TestUserProfile(t *testing.T) {
-	client, server := testClientString(http.StatusOK, userResponse)
-	defer server.Close()
-
-	user, err := client.GetUsersPublicProfile(context.Background(), "wizzler")
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	if user.ID != "wizzler" {
-		t.Error("Expected user wizzler, got ", user.ID)
-	}
-	if f := user.Followers.Count; f != 3829 {
-		t.Errorf("Expected 3829 followers, got %d\n", f)
-	}
-}
-
 func TestCurrentUser(t *testing.T) {
 	json := `{
-		"country" : "US",
 		"display_name" : null,
-		"email" : "username@domain.com",
 		"external_urls" : {
 			"spotify" : "https://open.spotify.com/user/username"
-		},
-		"followers" : {
-			"href" : null,
-			"total" : 0
 		},
 		"href" : "https://api.spotify.com/v1/users/userame",
 		"id" : "username",
 		"images" : [ ],
-		"product" : "premium",
 		"type" : "user",
 		"uri" : "spotify:user:username",
 		"birthdate" : "1985-05-01"
@@ -76,117 +29,8 @@ func TestCurrentUser(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	if me.Country != CountryUSA ||
-		me.Email != "username@domain.com" ||
-		me.Product != "premium" {
-		t.Error("Received incorrect response")
-	}
 	if me.Birthdate != "1985-05-01" {
 		t.Errorf("Expected '1985-05-01', got '%s'\n", me.Birthdate)
-	}
-}
-
-func TestFollowUsersMissingScope(t *testing.T) {
-	json := `{
-		"error": {
-			"status": 403,
-			"message": "Insufficient client scope"
-		}
-	}`
-	client, server := testClientString(http.StatusForbidden, json, func(req *http.Request) {
-		if req.URL.Query().Get("type") != "user" {
-			t.Error("Request made with the wrong type parameter")
-		}
-	})
-	defer server.Close()
-
-	err := client.FollowUser(context.Background(), ID("exampleuser01"))
-	serr, ok := err.(Error)
-	if !ok {
-		t.Fatal("Expected insufficient client scope error")
-	}
-	if serr.Status != http.StatusForbidden {
-		t.Error("Expected HTTP 403")
-	}
-}
-
-func TestFollowArtist(t *testing.T) {
-	client, server := testClientString(http.StatusNoContent, "", func(req *http.Request) {
-		if req.URL.Query().Get("type") != "artist" {
-			t.Error("Request made with the wrong type parameter")
-		}
-	})
-	defer server.Close()
-
-	if err := client.FollowArtist(context.Background(), "3ge4xOaKvWfhRwgx0Rldov"); err != nil {
-		t.Error(err)
-	}
-}
-
-func TestFollowArtistAutoRetry(t *testing.T) {
-	t.Parallel()
-	handlers := []http.HandlerFunc{
-		// first attempt fails
-		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Retry-After", "2")
-			w.WriteHeader(http.StatusTooManyRequests)
-			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
-		}),
-		// next attempt succeeds
-		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.WriteHeader(http.StatusNoContent)
-		}),
-	}
-
-	i := 0
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		handlers[i](w, r)
-		i++
-	}))
-	defer server.Close()
-
-	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", autoRetry: true}
-	if err := client.FollowArtist(context.Background(), "3ge4xOaKvWfhRwgx0Rldov"); err != nil {
-		t.Error(err)
-	}
-}
-
-func TestFollowUsersInvalidToken(t *testing.T) {
-	json := `{
-		"error": {
-			"status": 401,
-			"message": "Invalid access token"
-		}
-	}`
-	client, server := testClientString(http.StatusUnauthorized, json, func(req *http.Request) {
-		if req.URL.Query().Get("type") != "user" {
-			t.Error("Request made with the wrong type parameter")
-		}
-	})
-	defer server.Close()
-
-	err := client.FollowUser(context.Background(), ID("dummyID"))
-	serr, ok := err.(Error)
-	if !ok {
-		t.Fatal("Expected invalid token error")
-	}
-	if serr.Status != http.StatusUnauthorized {
-		t.Error("Expected HTTP 401")
-	}
-}
-
-func TestUserFollows(t *testing.T) {
-	json := "[ false, true ]"
-	client, server := testClientString(http.StatusOK, json)
-	defer server.Close()
-
-	follows, err := client.CurrentUserFollows(context.Background(), "artist", ID("74ASZWbe4lXaubB36ztrGX"), ID("08td7MxkoHQkXnWAYD8d6Q"))
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	if len(follows) != 2 || follows[0] || !follows[1] {
-		t.Error("Incorrect result", follows)
 	}
 }
 
@@ -248,15 +92,6 @@ func TestCurrentUsersAlbums(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'\n", expected, albums.Albums[0].Name)
 		fmt.Printf("\n%#v\n", albums.Albums[0])
 	}
-
-	upc := "886444160742"
-	u, ok := albums.Albums[0].ExternalIDs["upc"]
-	if !ok {
-		t.Error("External IDs missing UPC")
-	}
-	if u != upc {
-		t.Errorf("Wrong UPC: want %s, got %s\n", upc, u)
-	}
 }
 
 func TestCurrentUsersPlaylists(t *testing.T) {
@@ -300,8 +135,8 @@ func TestCurrentUsersPlaylists(t *testing.T) {
 		if p.IsPublic != tests[i].Public {
 			t.Errorf("Expected public to be %#v, got %#v\n", tests[i].Public, p.IsPublic)
 		}
-		if int(p.Tracks.Total) != tests[i].TrackCount {
-			t.Errorf("Expected %d tracks, got %d\n", tests[i].TrackCount, p.Tracks.Total)
+		if int(p.Items.Total) != tests[i].TrackCount {
+			t.Errorf("Expected %d tracks, got %d\n", tests[i].TrackCount, p.Items.Total)
 		}
 	}
 }
@@ -406,9 +241,6 @@ func TestCurrentUsersTopArtists(t *testing.T) {
 		t.Error("Didn't get expected number of results")
 		return
 	}
-	if artists.Artists[0].Followers.Count != 8437 {
-		t.Errorf("Expected follower count of 8437, got %d\n", artists.Artists[0].Followers.Count)
-	}
 
 	name := "insaneintherainmusic"
 	if artists.Artists[0].Name != name {
@@ -444,11 +276,5 @@ func TestCurrentUsersTopTracks(t *testing.T) {
 	if tracks.Tracks[0].Name != name {
 		t.Errorf("Expected '%s', got '%s'\n", name, tracks.Tracks[0].Name)
 		fmt.Printf("\n%#v\n", tracks.Tracks[0])
-	}
-
-	isrc := "QZ4JJ1764466"
-	i := tracks.Tracks[0].ExternalIDs.ISRC
-	if i != isrc {
-		t.Errorf("Wrong ISRC: want %s, got %s\n", isrc, i)
 	}
 }

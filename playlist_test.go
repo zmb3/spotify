@@ -61,33 +61,6 @@ func TestFeaturedPlaylistsExpiredToken(t *testing.T) {
 	}
 }
 
-func TestPlaylistsForUser(t *testing.T) {
-	client, server := testClientFile(http.StatusOK, "test_data/playlists_for_user.txt")
-	defer server.Close()
-
-	playlists, err := client.GetPlaylistsForUser(context.Background(), "whizler")
-	if err != nil {
-		t.Error(err)
-	}
-	if l := len(playlists.Playlists); l == 0 {
-		t.Fatal("Didn't get any results")
-	} else if l != 7 {
-		t.Errorf("Got %d playlists, expected 7\n", l)
-	}
-
-	p := playlists.Playlists[0]
-	if p.Name != "Top 40" {
-		t.Error("Expected Top 40, got", p.Name)
-	}
-	if p.Tracks.Total != 40 {
-		t.Error("Expected 40 tracks, got", p.Tracks.Total)
-	}
-	expected := "Nederlandse Top 40, de enige echte hitlijst van Nederland! Official Dutch Top 40. Check top40.nl voor alle details en luister iedere vrijdag vanaf 14.00 uur naar de lijst op Qmusic met Domien Verschuuren."
-	if p.Description != expected {
-		t.Errorf("Expected '%s', got '%s'\n", expected, p.Description)
-	}
-}
-
 func TestGetPlaylist(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/get_playlist.txt")
 	defer server.Close()
@@ -125,51 +98,8 @@ func TestGetPlaylistOpt(t *testing.T) {
 		t.Error("No description should be included")
 	}
 	// A bit counterintuitive, but we excluded tracks.total from the API call so it should be 0 in the model.
-	if p.Tracks.Total != 0 {
-		t.Errorf("Tracks.Total should be 0, got %d", p.Tracks.Total)
-	}
-}
-
-func TestFollowPlaylistSetsContentType(t *testing.T) {
-	client, server := testClientString(http.StatusOK, "", func(req *http.Request) {
-		if req.Header.Get("Content-Type") != "application/json" {
-			t.Error("Follow playlist request didn't contain Content-Type: application/json")
-		}
-	})
-	defer server.Close()
-
-	err := client.FollowPlaylist(context.Background(), "playlistID", true)
-	if err != nil {
-		t.Error(err)
-	}
-}
-
-func TestGetPlaylistTracks(t *testing.T) {
-	client, server := testClientFile(http.StatusOK, "test_data/playlist_tracks.txt")
-	defer server.Close()
-
-	tracks, err := client.GetPlaylistTracks(context.Background(), "5lH9NjOeJvctAO92ZrKQNB")
-	if err != nil {
-		t.Error(err)
-	}
-	if tracks.Total != 40 {
-		t.Errorf("Got %d tracks, expected 40\n", tracks.Total)
-	}
-	if len(tracks.Tracks) == 0 {
-		t.Fatal("No tracks returned")
-	}
-	expected := "Calm Down"
-	actual := tracks.Tracks[0].Track.Name
-	if expected != actual {
-		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
-	}
-	added := tracks.Tracks[0].AddedAt
-	tm, err := time.Parse(TimestampLayout, added)
-	if err != nil {
-		t.Error(err)
-	}
-	if f := tm.Format(DateLayout); f != "2022-07-15" {
-		t.Errorf("Expected added at 2022-07-15, got %s\n", f)
+	if p.Items.Total != 0 {
+		t.Errorf("Items.Total should be 0, got %d", p.Items.Total)
 	}
 }
 
@@ -188,7 +118,7 @@ func TestGetPlaylistItemsEpisodes(t *testing.T) {
 		t.Fatal("No tracks returned")
 	}
 	expected := "112: Dirty Coms"
-	actual := tracks.Items[0].Track.Episode.Name
+	actual := tracks.Items[0].Item.Episode.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
 	}
@@ -217,7 +147,7 @@ func TestGetPlaylistItemsTracks(t *testing.T) {
 		t.Fatal("No tracks returned")
 	}
 	expected := "Typhoons"
-	actual := tracks.Items[0].Track.Track.Name
+	actual := tracks.Items[0].Item.Track.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
 	}
@@ -247,7 +177,7 @@ func TestGetPlaylistItemsTracksAndEpisodes(t *testing.T) {
 	}
 
 	expected := "491- The Missing Middle"
-	actual := tracks.Items[0].Track.Episode.Name
+	actual := tracks.Items[0].Item.Episode.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
 	}
@@ -261,7 +191,7 @@ func TestGetPlaylistItemsTracksAndEpisodes(t *testing.T) {
 	}
 
 	expected = "Typhoons"
-	actual = tracks.Items[2].Track.Track.Name
+	actual = tracks.Items[2].Item.Track.Name
 	if expected != actual {
 		t.Errorf("Got '%s', expected '%s'\n", actual, expected)
 	}
@@ -303,19 +233,6 @@ func TestGetPlaylistItemsDefault(t *testing.T) {
 	}
 }
 
-func TestUserFollowsPlaylist(t *testing.T) {
-	client, server := testClientString(http.StatusOK, `[ true, false ]`)
-	defer server.Close()
-
-	follows, err := client.UserFollowsPlaylist(context.Background(), ID("2v3iNvBS8Ay1Gt2uXtUKUT"), "possan", "elogain")
-	if err != nil {
-		t.Error(err)
-	}
-	if len(follows) != 2 || !follows[0] || follows[1] {
-		t.Errorf("Expected '[true, false]', got %#v\n", follows)
-	}
-}
-
 // NOTE collaborative is a fmt boolean.
 var newPlaylist = `
 {
@@ -343,8 +260,8 @@ var newPlaylist = `
 },
 "public": false,
 "snapshot_id": "s0o3TSuYnRLl2jch+oA4OEbKwq/fNxhGBkSPnvhZdmWjNV0q3uCAWuGIhEx8SHIx",
-"tracks": {
-	"href": "https://api.spotify.com/v1/users/thelinmichael/playlists/7d2D2S200NyUE5KYs80PwO/tracks",
+"items": {
+	"href": "https://api.spotify.com/v1/users/thelinmichael/playlists/7d2D2S200NyUE5KYs80PwO/items",
 	"items": [ ],
 	"limit": 100,
 	"next": null,
@@ -360,7 +277,7 @@ func TestCreatePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, false))
 	defer server.Close()
 
-	p, err := client.CreatePlaylistForUser(context.Background(), "thelinmichael", "A New Playlist", "Test Description", false, false)
+	p, err := client.CreatePlaylist(context.Background(), "A New Playlist", "Test Description", false, false)
 	if err != nil {
 		t.Error(err)
 	}
@@ -373,7 +290,7 @@ func TestCreatePlaylist(t *testing.T) {
 	if p.Description != "Test Description" {
 		t.Errorf("Expected 'Test Description', got '%s'\n", p.Description)
 	}
-	if p.Tracks.Total != 0 {
+	if p.Items.Total != 0 {
 		t.Error("Expected new playlist to be empty")
 	}
 	if p.Collaborative {
@@ -385,7 +302,7 @@ func TestCreateCollaborativePlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, true))
 	defer server.Close()
 
-	p, err := client.CreatePlaylistForUser(context.Background(), "thelinmichael", "A New Playlist", "Test Description", false, true)
+	p, err := client.CreatePlaylist(context.Background(), "A New Playlist", "Test Description", false, true)
 	if err != nil {
 		t.Error(err)
 	}
@@ -398,7 +315,7 @@ func TestCreateCollaborativePlaylist(t *testing.T) {
 	if p.Description != "Test Description" {
 		t.Errorf("Expected 'Test Description', got '%s'\n", p.Description)
 	}
-	if p.Tracks.Total != 0 {
+	if p.Items.Total != 0 {
 		t.Error("Expected new playlist to be empty")
 	}
 	if !p.Collaborative {
@@ -485,9 +402,9 @@ func TestRemoveTracksFromPlaylist(t *testing.T) {
 		if err != nil {
 			t.Fatal("Error decoding request body:", err)
 		}
-		tracksArray, ok := body["tracks"]
+		tracksArray, ok := body["items"]
 		if !ok {
-			t.Error("No tracks JSON object in request body")
+			t.Error("No items JSON object in request body")
 		}
 		tracksSlice := tracksArray.([]interface{})
 		if l := len(tracksSlice); l != 2 {
@@ -530,7 +447,7 @@ func TestRemoveTracksFromPlaylistOpt(t *testing.T) {
 			fmt.Println(string(requestBody))
 			return
 		}
-		jsonTracks := body["tracks"].([]interface{})
+		jsonTracks := body["items"].([]interface{})
 		if len(jsonTracks) != 3 {
 			t.Fatal("Expected 3 tracks, got", len(jsonTracks))
 		}

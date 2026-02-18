@@ -20,13 +20,9 @@ type SimpleArtist struct {
 // FullArtist provides extra artist data in addition to what is provided by [SimpleArtist].
 type FullArtist struct {
 	SimpleArtist
-	// The popularity of the artist, expressed as an integer between 0 and 100.
-	// The artist's popularity is calculated from the popularity of the artist's tracks.
-	Popularity Numeric `json:"popularity"`
 	// A list of genres the artist is associated with.  For example, "Prog Rock"
 	// or "Post-Grunge".  If not yet classified, the slice is empty.
-	Genres    []string  `json:"genres"`
-	Followers Followers `json:"followers"`
+	Genres []string `json:"genres"`
 	// Images of the artist in various sizes, widest first.
 	Images []Image `json:"images"`
 }
@@ -42,46 +38,6 @@ func (c *Client) GetArtist(ctx context.Context, id ID) (*FullArtist, error) {
 	}
 
 	return &a, nil
-}
-
-// GetArtists gets spotify catalog information for several artists based on their
-// Spotify IDs.  It supports up to 50 artists in a single call.  Artists are
-// returned in the order requested.  If an artist is not found, that position
-// in the result will be nil.  Duplicate IDs will result in duplicate artists
-// in the result.
-func (c *Client) GetArtists(ctx context.Context, ids ...ID) ([]*FullArtist, error) {
-	spotifyURL := fmt.Sprintf("%sartists?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
-
-	var a struct {
-		Artists []*FullArtist
-	}
-
-	err := c.get(ctx, spotifyURL, &a)
-	if err != nil {
-		return nil, err
-	}
-
-	return a.Artists, nil
-}
-
-// GetArtistsTopTracks gets Spotify catalog information about an artist's top
-// tracks in a particular country.  It returns a maximum of 10 tracks.  The
-// country is specified as an [ISO 3166-1 alpha-2] country code.
-//
-// [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-func (c *Client) GetArtistsTopTracks(ctx context.Context, artistID ID, country string) ([]FullTrack, error) {
-	spotifyURL := fmt.Sprintf("%sartists/%s/top-tracks?country=%s", c.baseURL, artistID, country)
-
-	var t struct {
-		Tracks []FullTrack `json:"tracks"`
-	}
-
-	err := c.get(ctx, spotifyURL, &t)
-	if err != nil {
-		return nil, err
-	}
-
-	return t.Tracks, nil
 }
 
 // GetRelatedArtists gets Spotify catalog information about artists similar to a

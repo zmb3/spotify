@@ -1,83 +1,84 @@
 package spotify
 
 import (
+	"bytes"
 	"context"
-	"errors"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
 )
 
-// UserHasTracks checks if one or more tracks are saved to the current user's
-// "Your Music" library.
-func (c *Client) UserHasTracks(ctx context.Context, ids ...ID) ([]bool, error) {
-	return c.libraryContains(ctx, "tracks", ids...)
-}
-
-// UserHasAlbums checks if one or more albums are saved to the current user's
-// "Your Albums" library.
-func (c *Client) UserHasAlbums(ctx context.Context, ids ...ID) ([]bool, error) {
-	return c.libraryContains(ctx, "albums", ids...)
-}
-
-func (c *Client) libraryContains(ctx context.Context, typ string, ids ...ID) ([]bool, error) {
-	if l := len(ids); l == 0 || l > 50 {
-		return nil, errors.New("spotify: supports 1 to 50 IDs per call")
+// SaveToLibrary saves one or more items to the current user's library.
+// This call accepts Spotify URIs (e.g. "spotify:track:xxx", "spotify:album:xxx",
+// "spotify:artist:xxx", "spotify:playlist:xxx").
+//
+// Appropriate scopes need to be passed depending on the entities being saved.
+func (c *Client) SaveToLibrary(ctx context.Context, uris ...URI) error {
+	if l := len(uris); l == 0 {
+		return fmt.Errorf("spotify: at least one URI is required")
 	}
-	spotifyURL := fmt.Sprintf("%sme/%s/contains?ids=%s", c.baseURL, typ, strings.Join(toStringSlice(ids), ","))
+	spotifyURL := c.baseURL + "me/library"
+	body := struct {
+		URIs []URI `json:"uris"`
+	}{URIs: uris}
+	bodyJSON, err := json.Marshal(body)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequestWithContext(ctx, "PUT", spotifyURL, bytes.NewReader(bodyJSON))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	return c.execute(req, nil)
+}
+
+// RemoveFromLibrary removes one or more items from the current user's library.
+// This call accepts Spotify URIs (e.g. "spotify:track:xxx", "spotify:album:xxx",
+// "spotify:artist:xxx", "spotify:playlist:xxx").
+//
+// Appropriate scopes need to be passed depending on the entities being removed.
+func (c *Client) RemoveFromLibrary(ctx context.Context, uris ...URI) error {
+	if l := len(uris); l == 0 {
+		return fmt.Errorf("spotify: at least one URI is required")
+	}
+	spotifyURL := c.baseURL + "me/library"
+	body := struct {
+		URIs []URI `json:"uris"`
+	}{URIs: uris}
+	bodyJSON, err := json.Marshal(body)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequestWithContext(ctx, "DELETE", spotifyURL, bytes.NewReader(bodyJSON))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	return c.execute(req, nil)
+}
+
+// UserHasSavedItems checks if one or more items are saved in the current user's library.
+// This call accepts Spotify URIs (e.g. "spotify:track:xxx", "spotify:album:xxx").
+//
+// The result is returned as a slice of bool values in the same order
+// in which the URIs were specified.
+func (c *Client) UserHasSavedItems(ctx context.Context, uris ...URI) ([]bool, error) {
+	if l := len(uris); l == 0 {
+		return nil, fmt.Errorf("spotify: at least one URI is required")
+	}
+	uriStrings := make([]string, len(uris))
+	for i, u := range uris {
+		uriStrings[i] = string(u)
+	}
+	spotifyURL := fmt.Sprintf("%sme/library/contains?uris=%s", c.baseURL, strings.Join(uriStrings, ","))
 
 	var result []bool
-
 	err := c.get(ctx, spotifyURL, &result)
 	if err != nil {
 		return nil, err
 	}
 
-	return result, err
-}
-
-// AddTracksToLibrary saves one or more tracks to the current user's
-// "Your Music" library.  This call requires the [ScopeUserLibraryModify] scope.
-// A track can only be saved once; duplicate IDs are ignored.
-func (c *Client) AddTracksToLibrary(ctx context.Context, ids ...ID) error {
-	return c.modifyLibrary(ctx, "tracks", true, ids...)
-}
-
-// RemoveTracksFromLibrary removes one or more tracks from the current user's
-// "Your Music" library.  This call requires the [ScopeUserModifyLibrary] scope.
-// Trying to remove a track when you do not have the user's authorization
-// results in an [Error] with the status code set to [net/http.StatusUnauthorized].
-func (c *Client) RemoveTracksFromLibrary(ctx context.Context, ids ...ID) error {
-	return c.modifyLibrary(ctx, "tracks", false, ids...)
-}
-
-// AddAlbumsToLibrary saves one or more albums to the current user's
-// "Your Albums" library.  This call requires the [ScopeUserLibraryModify] scope.
-// A track can only be saved once; duplicate IDs are ignored.
-func (c *Client) AddAlbumsToLibrary(ctx context.Context, ids ...ID) error {
-	return c.modifyLibrary(ctx, "albums", true, ids...)
-}
-
-// RemoveAlbumsFromLibrary removes one or more albums from the current user's
-// "Your Albums" library.  This call requires the [ScopeUserModifyLibrary] scope.
-// Trying to remove a track when you do not have the user's authorization
-// results in an [Error] with the status code set to [net/http.StatusUnauthorized].
-func (c *Client) RemoveAlbumsFromLibrary(ctx context.Context, ids ...ID) error {
-	return c.modifyLibrary(ctx, "albums", false, ids...)
-}
-
-func (c *Client) modifyLibrary(ctx context.Context, typ string, add bool, ids ...ID) error {
-	if l := len(ids); l == 0 || l > 50 {
-		return errors.New("spotify: this call supports 1 to 50 IDs per call")
-	}
-	spotifyURL := fmt.Sprintf("%sme/%s?ids=%s", c.baseURL, typ, strings.Join(toStringSlice(ids), ","))
-	method := "DELETE"
-	if add {
-		method = "PUT"
-	}
-	req, err := http.NewRequestWithContext(ctx, method, spotifyURL, nil)
-	if err != nil {
-		return err
-	}
-	return c.execute(req, nil)
+	return result, nil
 }

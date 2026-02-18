@@ -27,7 +27,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTM1MDMsNThlNjY3ZmM0OGQxNDM1MzE3OGY1NDk4NmQyNTMzNDczOGFlZWI2Yg==",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/5lH9NjOeJvctAO92ZrKQNB/tracks",
       "total" : 40
     },
@@ -60,7 +60,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTY2MzI3OTI2MCwwMDAwMDAwMDg2MTBkOGJjODI0ZTRkM2ExOGZhMDQ5ZjhhZjgyMTFh",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdPec7aLTmlC/tracks",
       "total" : 100
     },
@@ -93,7 +93,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTY2MzI2NDczOSwwMDAwMDAwMGZjZDJjNjBjNTY4NjI0NDNlNWZiYzhlOGY1NjQ0NTUw",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWWeNODNe68OF/tracks",
       "total" : 100
     },
@@ -126,7 +126,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTY2Mjc1NDQ5OCwwMDAwMDAwMDNmNDdiZjY0MGM4YzI1Y2ZkZmRkZGEzNzk1ZTYxOTlk",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWZpGSuzrdTXg/tracks",
       "total" : 100
     },
@@ -159,7 +159,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MzEsOGI2NjA5YWUzNzI1MjZlNjVmYTM2YzZkYTQ1NWJlZThiNTBlZDVmNg==",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/18V3GF4nC6II1tqwo4Sa5k/tracks",
       "total" : 53
     },
@@ -192,7 +192,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "NDM3OCw0ZDhiNWRmZDNjNjc4Y2E0Y2Q1MzRmYzMxMzdkOTZiNTk2NWJmZTlk",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/1yzak2pFIMsjWQRD38Hstf/tracks",
       "total" : 50
     },
@@ -225,7 +225,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTMwMDAsZjJmOTNiZDc5ZWQ1ZjhjZTQwNjZhZDQzOTFjZGZiMjQ4M2Q1MWM4Ng==",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/7vrhBxI0VHV0CNcj06Cno3/tracks",
       "total" : 30
     },

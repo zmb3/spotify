@@ -7,7 +7,7 @@
     "type" : "user",
     "uri" : "spotify:user:nederlandse_top_40"
   },
-  "tracks" : {
+  "items" : {
     "items" : [ {
       "added_by" : {
         "id" : "nederlandse_top_40"

@@ -323,29 +323,6 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 	}
 }
 
-// NewReleases gets a list of new album releases featured in Spotify.
-// Supported options: Country, Limit, Offset
-func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums *SimpleAlbumPage, err error) {
-	spotifyURL := c.baseURL + "browse/new-releases"
-	if params := processOptions(opts...).urlParams.Encode(); params != "" {
-		spotifyURL += "?" + params
-	}
-
-	var objmap map[string]*json.RawMessage
-	err = c.get(ctx, spotifyURL, &objmap)
-	if err != nil {
-		return nil, err
-	}
-
-	var result SimpleAlbumPage
-	err = json.Unmarshal(*objmap["albums"], &result)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
-}
-
 // Token gets the client's current token.
 func (c *Client) Token() (*oauth2.Token, error) {
 	transport, ok := c.http.Transport.(*oauth2.Transport)

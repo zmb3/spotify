@@ -14,7 +14,7 @@
       },
       "is_local": false,
       "primary_color": null,
-      "track": {
+      "item": {
         "album": {
           "album_type": "album",
           "artists": [
@@ -478,7 +478,7 @@
       },
       "is_local": false,
       "primary_color": null,
-      "track": {
+      "item": {
         "album": {
           "album_type": "single",
           "artists": [

@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -15,12 +14,7 @@ type SimpleAlbum struct {
 	Name string `json:"name"`
 	// A slice of [SimpleArtist].
 	Artists []SimpleArtist `json:"artists"`
-	// The field is present when getting an artist’s
-	// albums. Possible values are “album”, “single”,
-	// “compilation”, “appears_on”. Compare to album_type
-	// this field represents relationship between the artist
-	// and the album.
-	AlbumGroup string `json:"album_group"`
+
 	// The type of the album: one of "album",
 	// "single", or "compilation".
 	AlbumType string `json:"album_type"`
@@ -32,13 +26,6 @@ type SimpleAlbum struct {
 	//
 	// [Spotify URI]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
 	URI URI `json:"uri"`
-	// The markets in which the album is available, identified using
-	// [ISO 3166-1 alpha-2] country codes.  Note that an album is considered
-	// available in a market when at least 1 of its tracks is available in that
-	// market.
-	//
-	// [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-	AvailableMarkets []string `json:"available_markets"`
 	// A link to the Web API endpoint providing full
 	// details of the album.
 	Endpoint string `json:"href"`
@@ -88,14 +75,9 @@ type Copyright struct {
 // FullAlbum provides extra album data in addition to the data provided by [SimpleAlbum].
 type FullAlbum struct {
 	SimpleAlbum
-	Copyrights []Copyright `json:"copyrights"`
-	Genres     []string    `json:"genres"`
-	// The popularity of the album, represented as an integer between 0 and 100,
-	// with 100 being the most popular.  Popularity of an album is calculated
-	// from the popularity of the album's individual tracks.
-	Popularity  Numeric           `json:"popularity"`
-	Tracks      SimpleTrackPage   `json:"tracks"`
-	ExternalIDs map[string]string `json:"external_ids"`
+	Copyrights []Copyright     `json:"copyrights"`
+	Genres     []string        `json:"genres"`
+	Tracks     SimpleTrackPage `json:"tracks"`
 }
 
 // SavedAlbum provides info about an album saved to a user's account.
@@ -134,36 +116,6 @@ func toStringSlice(ids []ID) []string {
 		result[i] = str.String()
 	}
 	return result
-}
-
-// GetAlbums gets Spotify Catalog information for [multiple albums], given their
-// [Spotify ID]s.  It supports up to 20 IDs in a single call.  Albums are returned
-// in the order requested.  If an album is not found, that position in the
-// result slice will be nil.
-//
-// Supported options: [Market].
-//
-// [multiple albums]: https://developer.spotify.com/documentation/web-api/reference/get-multiple-albums
-// [Spotify ID]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
-func (c *Client) GetAlbums(ctx context.Context, ids []ID, opts ...RequestOption) ([]*FullAlbum, error) {
-	if len(ids) > 20 {
-		return nil, errors.New("spotify: exceeded maximum number of albums")
-	}
-	params := processOptions(opts...).urlParams
-	params.Set("ids", strings.Join(toStringSlice(ids), ","))
-
-	spotifyURL := fmt.Sprintf("%salbums?%s", c.baseURL, params.Encode())
-
-	var a struct {
-		Albums []*FullAlbum `json:"albums"`
-	}
-
-	err := c.get(ctx, spotifyURL, &a)
-	if err != nil {
-		return nil, err
-	}
-
-	return a.Albums, nil
 }
 
 // AlbumType represents the type of an album. It can be used to filter

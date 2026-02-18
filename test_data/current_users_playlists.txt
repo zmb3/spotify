@@ -27,7 +27,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "NSw5ZTBhOGQ5M2JkMWM1NDViMWI2YjBiZDcyOTE0NzE0Nzg4MWY0NmNm",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/3sPyrAW9PVUMxL9i6QFbaV/tracks",
       "total" : 3
     },
@@ -68,7 +68,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTUsNDAyOTY5ZjNiNTZlZjIzNWYwYzNhMDc2ZTc5NzI4OTI2OGM5YmJlNg==",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/1hronnZ0DOUXcMna7JtgaN/tracks",
       "total" : 10
     },
@@ -109,7 +109,7 @@
     "primary_color" : null,
     "public" : false,
     "snapshot_id" : "MTIsNzk4ZWUwMWM4Zjg1MDY0MDgyODBlZmEzMDFkOTlhZTUwYmM3ZDkwZg==",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/46TfdmGiWxxX4uZzqohw89/tracks",
       "total" : 7
     },
@@ -142,7 +142,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "OSw0OWMxZjMxNDAwMjM0ODk5NTE0MTlkMTNlM2UzYzA5NzllZTU2ZjI0",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/01ckpilMpZMY54FNOmM6hx/tracks",
       "total" : 3
     },
@@ -183,7 +183,7 @@
     "primary_color" : null,
     "public" : true,
     "snapshot_id" : "MTgsMTE3NDA3N2VjNzA5ZDBkNzJjMDA1MDk4YjBlNDRjOTkzZTZiNDRkMg==",
-    "tracks" : {
+    "items" : {
       "href" : "https://api.spotify.com/v1/playlists/19DESVha4FbNzqQfcGXMjc/tracks",
       "total" : 10
     },

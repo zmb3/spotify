@@ -83,16 +83,10 @@ type SavedTrackPage struct {
 	Tracks []SavedTrack `json:"items"`
 }
 
-// PlaylistTrackPage contains information about tracks in a playlist.
+// PlaylistTrackPage contains information about items in a playlist.
 type PlaylistTrackPage struct {
 	basePage
-	Tracks []PlaylistTrack `json:"items"`
-}
-
-// CategoryPage contains [Category] objects returned by the Web API.
-type CategoryPage struct {
-	basePage
-	Categories []Category `json:"items"`
+	Items []PlaylistTrack `json:"items"`
 }
 
 // SimpleEpisodePage contains [EpisodePage] returned by the Web API.

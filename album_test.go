@@ -47,45 +47,6 @@ func TestFindAlbumBadID(t *testing.T) {
 	}
 }
 
-// The example from https://developer.spotify.com/web-api/get-several-albums/
-func TestFindAlbums(t *testing.T) {
-	client, server := testClientFile(http.StatusOK, "test_data/find_albums.txt")
-	defer server.Close()
-
-	res, err := client.GetAlbums(context.Background(), []ID{"41MnTivkwTO3UUJ8DrqEJJ", "6JWc4iAiJ9FjyK0B59ABb4", "6UXCm6bOO4gFlDQZV5yL37", "0X8vBD8h1Ga9eLT8jx9VCC"})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(res) != 4 {
-		t.Fatalf("Expected 4 albums, got %d", len(res))
-	}
-	expectedAlbums := []string{
-		"The Best Of Keane (Deluxe Edition)",
-		"Strangeland",
-		"Night Train",
-		"Mirrored",
-	}
-	for i, name := range expectedAlbums {
-		if res[i].Name != name {
-			t.Error("Expected album", name, "but got", res[i].Name)
-		}
-	}
-	release := res[0].ReleaseDateTime()
-	if release.Year() != 2013 ||
-		release.Month() != 11 ||
-		release.Day() != 8 {
-		t.Errorf("Expected release 2013-11-08, got %d-%02d-%02d\n",
-			release.Year(), release.Month(), release.Day())
-	}
-	releaseMonthPrecision := res[3].ReleaseDateTime()
-	if releaseMonthPrecision.Year() != 2007 ||
-		releaseMonthPrecision.Month() != 3 ||
-		releaseMonthPrecision.Day() != 1 {
-		t.Errorf("Expected release 2007-03-01, got %d-%02d-%02d\n",
-			releaseMonthPrecision.Year(), releaseMonthPrecision.Month(), releaseMonthPrecision.Day())
-	}
-}
-
 func TestFindAlbumTracks(t *testing.T) {
 	client, server := testClientFile(http.StatusOK, "test_data/find_album_tracks.txt")
 	defer server.Close()

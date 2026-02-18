@@ -119,7 +119,7 @@ type SearchResult struct {
 // If the client has a valid access token, then the results will only include
 // content playable in the user's country.
 //
-// Supported options: [Limit], [Market], [Offset].
+// Supported options: [Limit] (max 10, default 5), [Market], [Offset].
 //
 // [Spotify catalog information]: https://developer.spotify.com/documentation/web-api/reference/search
 func (c *Client) Search(ctx context.Context, query string, t SearchType, opts ...RequestOption) (*SearchResult, error) {

@@ -14,7 +14,7 @@
       },
       "is_local": false,
       "primary_color": null,
-      "track": {
+      "item": {
         "audio_preview_url": "https://p.scdn.co/mp3-preview/58e56ec5a44a886fc17def91ed22dd8b60f6a22d",
         "description": "This episode we talk with a guy named “Drew” who gives us a rare peek into what some of the young hackers are up to today. From listening to Drew, we can see that times are changing for the motive behind hacking. In the ’90s and ’00s it was done for fun and curiosity. In the ’10s Anonymous showed us what Hacktivism is. And now, in the ’20s, the young hackers seem to be profit driven.    Sponsors  Support for this show comes from Linode. Linode supplies you with virtual servers. Visit linode.com/darknet and get a special offer.    Support for this show comes from Juniper Networks. Juniper Networks is dedicated to simplifying network operations and driving superior experiences for end users. Visit juniper.net/darknet to learn more about how Juniper Secure Edge can help you keep your remote workforce seamlessly secure wherever they are.",
         "duration_ms": 5303484,
@@ -284,7 +284,7 @@
       },
       "is_local": false,
       "primary_color": null,
-      "track": {
+      "item": {
         "audio_preview_url": "https://p.scdn.co/mp3-preview/51a69faa68c2aa450f62f2a987f7c7b1ba2211c4",
         "description": "Adam got a job doing IT work at a learning academy. He liked it and was happy there and feeling part of the team. But a strange series of events took him in another direction, that definitely didn’t make him happy.  Sponsors Support for this show comes from Axonius. Securing assets — whether managed, unmanaged, ephemeral, or in the cloud — is a tricky task. The Axonius Cybersecurity Asset Management Platform correlates asset data from existing solutions to provide an always up-to-date inventory, uncover gaps, and automate action. Axonius gives IT and security teams the confidence to control complexity by mitigating threats, navigating risk, decreasing incidents, and informing business-level strategy — all while eliminating manual, repetitive tasks. Visit axonius.com/darknet to learn more and try it free.  Support for this podcast comes from Cybereason. Cybereason reverses the attacker’s advantage and puts the power back in the defender’s hands. End cyber attacks. From endpoints to everywhere. Learn more at Cybereason.com/darknet.  Support for this show comes from Varonis. Do you wonder what your company’s ransomware blast radius is? Varonis does a free cyber resilience assessment that tells you how many important files a compromised user could steal, whether anything would beep if they did, and a whole lot more. They actually do all the work – show you where your data is too open, if anyone is using it, and what you can lock down before attackers get inside. They also can detect behavior that looks like ransomware and stop it automatically. To learn more visit www.varonis.com/darknet.",
         "duration_ms": 3253838,
@@ -554,7 +554,7 @@
       },
       "is_local": false,
       "primary_color": null,
-      "track": {
+      "item": {
         "audio_preview_url": "https://p.scdn.co/mp3-preview/7103b353fb65f620a30270f41ceb8a0d57549b53",
         "description": "HD Moore (https://twitter.com/hdmoore) invented a hacking tool called Metasploit. He crammed it with tons of exploits and payloads that can be used to hack into computers. What could possibly go wrong? Learn more about what HD does today by visiting rumble.run/.  Sponsors Support for this show comes from Quorum Cyber. They exist to defend organisations against cyber security breaches and attacks. That’s it. No noise. No hard sell. If you’re looking for a partner to help you reduce risk and defend against the threats that are targeting your business — and specially if you are interested in Microsoft Security - reach out to www.quorumcyber.com.  Support for this show comes from Snyk. Snyk is a developer security platform that helps you secure your applications from the start. It automatically scans your code, dependencies, containers, and cloud infrastructure configs — finding and fixing vulnerabilities in real time. And Snyk does it all right from the existing tools and workflows you already use. IDEs, CLI, repos, pipelines, Docker Hub, and more — so your work isn’t interrupted. Create your free account at snyk.co/darknet.",
         "duration_ms": 4553665,
@@ -824,7 +824,7 @@
       },
       "is_local": false,
       "primary_color": null,
-      "track": {
+      "item": {
         "audio_preview_url": "https://p.scdn.co/mp3-preview/a02a9a07c09bc940e684c42c35238a786975e914",
         "description": "Some video game players buy cheats to win. Let’s take a look at this game cheating industry to see who the players are.  Sponsors Support for this show comes from Axonius. Securing assets — whether managed, unmanaged, ephemeral, or in the cloud — is a tricky task. The Axonius Cybersecurity Asset Management Platform correlates asset data from existing solutions to provide an always up-to-date inventory, uncover gaps, and automate action. Axonius gives IT and security teams the confidence to control complexity by mitigating threats, navigating risk, decreasing incidents, and informing business-level strategy — all while eliminating manual, repetitive tasks. Visit axonius.com/darknet to learn more and try it free.  Support for this podcast comes from Cybereason. Cybereason reverses the attacker’s advantage and puts the power back in the defender’s hands. End cyber attacks. From endpoints to everywhere. Learn more at Cybereason.com/darknet.",
         "duration_ms": 2443102,

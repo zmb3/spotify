@@ -1,7 +1,6 @@
 package spotify
 
 import (
-	"bytes"
 	"context"
 	"net/http"
 	"testing"
@@ -39,30 +38,6 @@ func TestGetShowEpisodes(t *testing.T) {
 	}
 	if len(r.Episodes) != 25 {
 		t.Error("Invalid data", len(r.Episodes))
-	}
-}
-
-func TestSaveShowsForCurrentUser(t *testing.T) {
-	c, s := testClient(http.StatusOK, new(bytes.Buffer), func(req *http.Request) {
-		if ids := req.URL.Query().Get("ids"); ids != "1,2" {
-			t.Error("Invalid data:", ids)
-		}
-	})
-	defer s.Close()
-
-	err := c.SaveShowsForCurrentUser(context.Background(), []ID{"1", "2"})
-	if err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestSaveShowsForCurrentUser_Errors(t *testing.T) {
-	c, s := testClient(http.StatusInternalServerError, new(bytes.Buffer))
-	defer s.Close()
-
-	err := c.SaveShowsForCurrentUser(context.Background(), []ID{"1"})
-	if err == nil {
-		t.Fatal(err)
 	}
 }
 

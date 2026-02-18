@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
-	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -49,108 +48,6 @@ func testClientFile(code int, filename string, validators ...func(*http.Request)
 		panic(err)
 	}
 	return testClient(code, f, validators...)
-}
-
-func TestNewReleases(t *testing.T) {
-	c, s := testClientFile(http.StatusOK, "test_data/new_releases.txt")
-	defer s.Close()
-
-	r, err := c.NewReleases(context.Background())
-	if err != nil {
-		t.Fatal(err)
-	}
-	if r.Albums[0].ID != "60mvULtYiNSRmpVvoa3RE4" {
-		t.Error("Invalid data:", r.Albums[0].ID)
-	}
-	if r.Albums[0].Name != "We Are One (Ole Ola) [The Official 2014 FIFA World Cup Song]" {
-		t.Error("Invalid data", r.Albums[0].Name)
-	}
-}
-
-func TestNewReleasesRateLimitExceeded(t *testing.T) {
-	t.Parallel()
-	handlers := []http.HandlerFunc{
-		// first attempt fails
-		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Retry-After", "2")
-			w.WriteHeader(http.StatusTooManyRequests)
-			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
-		}),
-		// next attempt succeeds
-		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			f, err := os.Open("test_data/new_releases.txt")
-			if err != nil {
-				t.Fatal(err)
-			}
-			defer f.Close()
-			_, err = io.Copy(w, f)
-			if err != nil {
-				t.Fatal(err)
-			}
-		}),
-	}
-
-	i := 0
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		handlers[i](w, r)
-		i++
-	}))
-	defer server.Close()
-
-	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/", autoRetry: true}
-	releases, err := client.NewReleases(context.Background())
-	if err != nil {
-		t.Fatal(err)
-	}
-	if releases.Albums[0].ID != "60mvULtYiNSRmpVvoa3RE4" {
-		t.Error("Invalid data:", releases.Albums[0].ID)
-	}
-}
-
-func TestRateLimitExceededReportsRetryAfter(t *testing.T) {
-	t.Parallel()
-	const retryAfter = 2
-
-	handlers := []http.HandlerFunc{
-		// first attempt fails
-		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
-			w.WriteHeader(http.StatusTooManyRequests)
-			_, _ = io.WriteString(w, `{ "error": { "message": "slow down", "status": 429 } }`)
-		}),
-		// next attempt succeeds
-		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			f, err := os.Open("test_data/new_releases.txt")
-			if err != nil {
-				t.Fatal(err)
-			}
-			defer f.Close()
-			_, err = io.Copy(w, f)
-			if err != nil {
-				t.Fatal(err)
-			}
-		}),
-	}
-
-	i := 0
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		handlers[i](w, r)
-		i++
-	}))
-	defer server.Close()
-
-	client := &Client{http: http.DefaultClient, baseURL: server.URL + "/"}
-	_, err := client.NewReleases(context.Background())
-	if err == nil {
-		t.Fatal("expected an error")
-	}
-	var spotifyError Error
-	if !errors.As(err, &spotifyError) {
-		t.Fatalf("expected a spotify error, got %T", err)
-	}
-	if retryAfter*time.Second-time.Until(spotifyError.RetryAfter) > time.Second {
-		t.Error("expected RetryAfter value")
-	}
 }
 
 func TestClient_Token(t *testing.T) {

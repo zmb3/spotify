@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"context"
-	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -26,12 +25,6 @@ type FullShow struct {
 
 // SimpleShow contains basic data about a show.
 type SimpleShow struct {
-	// A list of the countries in which the show can be played,
-	// identified by their [ISO 3166-1 alpha-2] code.
-	//
-	// [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-	AvailableMarkets []string `json:"available_markets"`
-
 	// The copyright statements of the show.
 	Copyrights []Copyright `json:"copyrights"`
 
@@ -71,9 +64,6 @@ type SimpleShow struct {
 
 	// The name of the show.
 	Name string `json:"name"`
-
-	// The publisher of the show.
-	Publisher string `json:"publisher"`
 
 	// The object type: “show”.
 	Type string `json:"type"`
@@ -216,19 +206,6 @@ func (c *Client) GetShowEpisodes(ctx context.Context, id string, opts ...Request
 	}
 
 	return &result, nil
-}
-
-// SaveShowsForCurrentUser [saves one or more shows] to current Spotify user's library.
-//
-// [saves one or more shows]: https://developer.spotify.com/documentation/web-api/reference/save-shows-user
-func (c *Client) SaveShowsForCurrentUser(ctx context.Context, ids []ID) error {
-	spotifyURL := c.baseURL + "me/shows?ids=" + strings.Join(toStringSlice(ids), ",")
-	req, err := http.NewRequestWithContext(ctx, http.MethodPut, spotifyURL, nil)
-	if err != nil {
-		return err
-	}
-
-	return c.execute(req, nil, http.StatusOK)
 }
 
 // GetEpisode gets an [episode] from a show.
