@@ -25,6 +25,8 @@ import (
 const redirectURI = "http://localhost:8080/callback"
 
 var (
+	// Pass your client ID and secret as environment variables: SPOTIFY_ID, SPOTIFY_SECRET
+	// Or you can use spotifyauth.WithClientID and spotifyauth.WithClientSecret to explicitly set them here
 	auth  = spotifyauth.New(spotifyauth.WithRedirectURL(redirectURI), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
 	ch    = make(chan *spotify.Client)
 	state = "abc123"
