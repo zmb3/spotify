@@ -49,6 +49,8 @@ func (c *Client) GetArtist(ctx context.Context, id ID) (*FullArtist, error) {
 // returned in the order requested.  If an artist is not found, that position
 // in the result will be nil.  Duplicate IDs will result in duplicate artists
 // in the result.
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) GetArtists(ctx context.Context, ids ...ID) ([]*FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 
@@ -67,6 +69,8 @@ func (c *Client) GetArtists(ctx context.Context, ids ...ID) ([]*FullArtist, erro
 // GetArtistsTopTracks gets Spotify catalog information about an artist's top
 // tracks in a particular country.  It returns a maximum of 10 tracks.  The
 // country is specified as an [ISO 3166-1 alpha-2] country code.
+//
+// Deprecated: The Spotify endpoint is deprecated.
 //
 // [ISO 3166-1 alpha-2]: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 func (c *Client) GetArtistsTopTracks(ctx context.Context, artistID ID, country string) ([]FullTrack, error) {
@@ -88,6 +92,8 @@ func (c *Client) GetArtistsTopTracks(ctx context.Context, artistID ID, country s
 // given artist.  Similarity is based on analysis of the Spotify community's
 // listening history.  This function returns up to 20 artists that are considered
 // related to the specified artist.
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) GetRelatedArtists(ctx context.Context, id ID) ([]FullArtist, error) {
 	spotifyURL := fmt.Sprintf("%sartists/%s/related-artists", c.baseURL, id)
 

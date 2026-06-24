@@ -292,6 +292,9 @@ func TestGetPlaylistItemsOverride(t *testing.T) {
 func TestGetPlaylistItemsDefault(t *testing.T) {
 	var types string
 	client, server := testClientString(http.StatusForbidden, "", func(r *http.Request) {
+		if r.URL.Path != "/playlists/playlistID/items" {
+			t.Errorf("Expected /playlists/playlistID/items, got %s", r.URL.Path)
+		}
 		types = r.URL.Query().Get("additional_types")
 	})
 	defer server.Close()
@@ -300,6 +303,23 @@ func TestGetPlaylistItemsDefault(t *testing.T) {
 
 	if types != "episode,track" {
 		t.Errorf("Expected additional type episode, got %s\n", types)
+	}
+}
+
+func TestCreatePlaylistForCurrentUser(t *testing.T) {
+	client, server := testClientString(http.StatusCreated, fmt.Sprintf(newPlaylist, false), func(req *http.Request) {
+		if req.URL.Path != "/me/playlists" {
+			t.Errorf("Expected /me/playlists, got %s", req.URL.Path)
+		}
+	})
+	defer server.Close()
+
+	p, err := client.CreatePlaylist(context.Background(), "A New Playlist", "Test Description", false, false)
+	if err != nil {
+		t.Error(err)
+	}
+	if p.Name != "A New Playlist" {
+		t.Errorf("Expected 'A New Playlist', got '%s'\n", p.Name)
 	}
 }
 
@@ -473,8 +493,45 @@ func TestAddTracksToPlaylist(t *testing.T) {
 	}
 }
 
+func TestAddItemsToPlaylist(t *testing.T) {
+	client, server := testClientString(http.StatusCreated, `{ "snapshot_id" : "snapshot" }`, func(req *http.Request) {
+		if req.URL.Path != "/playlists/playlist_id/items" {
+			t.Errorf("Expected /playlists/playlist_id/items, got %s", req.URL.Path)
+		}
+		requestBody, err := io.ReadAll(req.Body)
+		if err != nil {
+			t.Fatal("Could not read request body:", err)
+		}
+
+		var body map[string]interface{}
+		err = json.Unmarshal(requestBody, &body)
+		if err != nil {
+			t.Fatal("Error decoding request body:", err)
+		}
+		items := body["uris"].([]interface{})
+		if items[0] != "spotify:track:track1" {
+			t.Errorf("Expected spotify:track:track1, got %s", items[0])
+		}
+		if items[1] != "spotify:episode:episode1" {
+			t.Errorf("Expected spotify:episode:episode1, got %s", items[1])
+		}
+	})
+	defer server.Close()
+
+	snapshot, err := client.AddItemsToPlaylist(context.Background(), ID("playlist_id"), URI("spotify:track:track1"), URI("spotify:episode:episode1"))
+	if err != nil {
+		t.Error(err)
+	}
+	if snapshot != "snapshot" {
+		t.Error("Didn't get expected snapshot ID")
+	}
+}
+
 func TestRemoveTracksFromPlaylist(t *testing.T) {
 	client, server := testClientString(http.StatusOK, `{ "snapshot_id" : "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" }`, func(req *http.Request) {
+		if req.URL.Path != "/playlists/playlistID/tracks" {
+			t.Errorf("Expected /playlists/playlistID/tracks, got %s", req.URL.Path)
+		}
 		requestBody, err := io.ReadAll(req.Body)
 		if err != nil {
 			t.Fatal("Could not read request body:", err)
@@ -509,6 +566,49 @@ func TestRemoveTracksFromPlaylist(t *testing.T) {
 		t.Error(err)
 	}
 	if snapshotID != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
+		t.Error("Incorrect snapshot ID")
+	}
+}
+
+func TestRemoveItemsFromPlaylist(t *testing.T) {
+	client, server := testClientString(http.StatusOK, `{ "snapshot_id" : "snapshot" }`, func(req *http.Request) {
+		if req.URL.Path != "/playlists/playlistID/items" {
+			t.Errorf("Expected /playlists/playlistID/items, got %s", req.URL.Path)
+		}
+		requestBody, err := io.ReadAll(req.Body)
+		if err != nil {
+			t.Fatal("Could not read request body:", err)
+		}
+
+		var body map[string]interface{}
+		err = json.Unmarshal(requestBody, &body)
+		if err != nil {
+			t.Fatal("Error decoding request body:", err)
+		}
+		itemsArray, ok := body["items"]
+		if !ok {
+			t.Error("No items JSON object in request body")
+		}
+		itemsSlice := itemsArray.([]interface{})
+		if l := len(itemsSlice); l != 2 {
+			t.Fatalf("Expected 2 items, got %d\n", l)
+		}
+		item0 := itemsSlice[0].(map[string]interface{})
+		itemURI, ok := item0["uri"]
+		if !ok {
+			t.Error("Item object doesn't contain 'uri' field")
+		}
+		if itemURI != "spotify:track:track1" {
+			t.Errorf("Expected URI: 'spotify:track:track1', got '%s'\n", itemURI)
+		}
+	})
+	defer server.Close()
+
+	snapshotID, err := client.RemoveItemsFromPlaylist(context.Background(), "playlistID", "spotify:track:track1", "spotify:episode:episode1")
+	if err != nil {
+		t.Error(err)
+	}
+	if snapshotID != "snapshot" {
 		t.Error("Incorrect snapshot ID")
 	}
 }
@@ -554,6 +654,49 @@ func TestRemoveTracksFromPlaylistOpt(t *testing.T) {
 	// intentionally not passing a snapshot ID here
 	snapshotID, err := client.RemoveTracksFromPlaylistOpt(context.Background(), "playlistID", tracks, "")
 	if err != nil || snapshotID != "JbtmHBDBAYu3/bt8BOXKjzKx3i0b6LCa/wVjyl6qQ2Yf6nFXkbmzuEa+ZI/U1yF+" {
+		t.Fatal("Remove call failed. err=", err)
+	}
+}
+
+func TestRemoveItemsFromPlaylistOpt(t *testing.T) {
+	client, server := testClientString(http.StatusOK, `{ "snapshot_id" : "snapshot" }`, func(req *http.Request) {
+		if req.URL.Path != "/playlists/playlistID/items" {
+			t.Errorf("Expected /playlists/playlistID/items, got %s", req.URL.Path)
+		}
+		requestBody, err := io.ReadAll(req.Body)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		var body map[string]interface{}
+		err = json.Unmarshal(requestBody, &body)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if body["snapshot_id"] != "snapshot1" {
+			t.Errorf("Expected snapshot1, got %s", body["snapshot_id"])
+		}
+		jsonItems := body["items"].([]interface{})
+		if len(jsonItems) != 1 {
+			t.Fatal("Expected 1 item, got", len(jsonItems))
+		}
+		item := jsonItems[0].(map[string]interface{})
+		expected := "spotify:episode:episode1"
+		if item["uri"] != expected {
+			t.Fatalf("Want '%s', got '%s'\n", expected, item["uri"])
+		}
+		indices := item["positions"].([]interface{})
+		if len(indices) != 1 || int(indices[0].(float64)) != 9 {
+			t.Error("Item indices incorrect")
+		}
+	})
+	defer server.Close()
+
+	items := []ItemToRemove{
+		NewItemToRemove("spotify:episode:episode1", []int{9}),
+	}
+	snapshotID, err := client.RemoveItemsFromPlaylistOpt(context.Background(), "playlistID", items, "snapshot1")
+	if err != nil || snapshotID != "snapshot" {
 		t.Fatal("Remove call failed. err=", err)
 	}
 }
@@ -670,6 +813,9 @@ func TestReplacePlaylistTracksForbidden(t *testing.T) {
 
 func TestReorderPlaylistRequest(t *testing.T) {
 	client, server := testClientString(http.StatusNotFound, "", func(req *http.Request) {
+		if req.URL.Path != "/playlists/playlist/items" {
+			t.Errorf("Expected /playlists/playlist/items, got %s", req.URL.Path)
+		}
 		if ct := req.Header.Get("Content-Type"); ct != "application/json" {
 			t.Errorf("Expected Content-Type: application/json, got '%s'\n", ct)
 		}
@@ -709,7 +855,7 @@ func TestReorderPlaylistRequest(t *testing.T) {
 	})
 	defer server.Close()
 
-	_, err := client.ReorderPlaylistTracks(context.Background(), "playlist", PlaylistReorderOptions{
+	_, err := client.ReorderPlaylistItems(context.Background(), "playlist", PlaylistReorderOptions{
 		RangeStart:   3,
 		InsertBefore: 8,
 	})

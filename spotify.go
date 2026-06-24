@@ -325,6 +325,8 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 
 // NewReleases gets a list of new album releases featured in Spotify.
 // Supported options: Country, Limit, Offset
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums *SimpleAlbumPage, err error) {
 	spotifyURL := c.baseURL + "browse/new-releases"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {

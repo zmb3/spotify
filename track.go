@@ -159,6 +159,8 @@ func (c *Client) GetTrack(ctx context.Context, id ID, opts ...RequestOption) (*F
 //
 // Supported options: [Market].
 //
+// Deprecated: The Spotify endpoint is deprecated.
+//
 // [multiple tracks]: https://developer.spotify.com/documentation/web-api/reference/get-several-tracks
 func (c *Client) GetTracks(ctx context.Context, ids []ID, opts ...RequestOption) ([]*FullTrack, error) {
 	if len(ids) > 50 {

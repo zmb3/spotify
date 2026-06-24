@@ -112,6 +112,8 @@ const (
 // high-level acoustic attributes of audio tracks.
 // Objects are returned in the order requested.  If an object
 // is not found, a nil value is returned in the appropriate position.
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) GetAudioFeatures(ctx context.Context, ids ...ID) ([]*AudioFeatures, error) {
 	url := fmt.Sprintf("%saudio-features?ids=%s", c.baseURL, strings.Join(toStringSlice(ids), ","))
 

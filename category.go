@@ -22,6 +22,8 @@ type Category struct {
 // GetCategory gets a single category used to tag items in Spotify.
 //
 // Supported options: [Country], [Locale].
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) GetCategory(ctx context.Context, id string, opts ...RequestOption) (Category, error) {
 	cat := Category{}
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s", c.baseURL, id)
@@ -36,6 +38,8 @@ func (c *Client) GetCategory(ctx context.Context, id string, opts ...RequestOpti
 // GetCategoryPlaylists gets a list of Spotify playlists tagged with a particular category.
 //
 // Supported options: [Country], [Limit], [Offset].
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) GetCategoryPlaylists(ctx context.Context, catID string, opts ...RequestOption) (*SimplePlaylistPage, error) {
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s/playlists", c.baseURL, catID)
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {
@@ -57,6 +61,8 @@ func (c *Client) GetCategoryPlaylists(ctx context.Context, catID string, opts ..
 // GetCategories gets a list of categories used to tag items in Spotify
 //
 // Supported options: [Country], [Locale], [Limit], [Offset].
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) GetCategories(ctx context.Context, opts ...RequestOption) (*CategoryPage, error) {
 	spotifyURL := c.baseURL + "browse/categories"
 	if query := processOptions(opts...).urlParams.Encode(); query != "" {
