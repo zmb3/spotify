@@ -143,6 +143,8 @@ func toStringSlice(ids []ID) []string {
 //
 // Supported options: [Market].
 //
+// Deprecated: The Spotify endpoint is deprecated.
+//
 // [multiple albums]: https://developer.spotify.com/documentation/web-api/reference/get-multiple-albums
 // [Spotify ID]: https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
 func (c *Client) GetAlbums(ctx context.Context, ids []ID, opts ...RequestOption) ([]*FullAlbum, error) {

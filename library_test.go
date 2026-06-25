@@ -23,11 +23,54 @@ func TestUserHasTracks(t *testing.T) {
 	}
 }
 
+func TestUserHasLibraryItems(t *testing.T) {
+	client, server := testClientString(http.StatusOK, `[ false, true ]`, func(req *http.Request) {
+		if req.URL.Path != "/me/library/contains" {
+			t.Errorf("Expected /me/library/contains, got %s", req.URL.Path)
+		}
+		if uris := req.URL.Query().Get("uris"); uris != "spotify:track:track1,spotify:album:album1" {
+			t.Errorf("Expected library item URIs, got %s", uris)
+		}
+	})
+	defer server.Close()
+
+	contains, err := client.UserHasLibraryItems(context.Background(), "spotify:track:track1", "spotify:album:album1")
+	if err != nil {
+		t.Error(err)
+	}
+	if l := len(contains); l != 2 {
+		t.Error("Expected 2 results, got", l)
+	}
+	if contains[0] || !contains[1] {
+		t.Error("Expected [false, true], got", contains)
+	}
+}
+
 func TestAddTracksToLibrary(t *testing.T) {
 	client, server := testClientString(http.StatusOK, "")
 	defer server.Close()
 
 	err := client.AddTracksToLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestAddItemsToLibrary(t *testing.T) {
+	client, server := testClientString(http.StatusOK, "", func(req *http.Request) {
+		if req.Method != http.MethodPut {
+			t.Errorf("Expected PUT, got %s", req.Method)
+		}
+		if req.URL.Path != "/me/library" {
+			t.Errorf("Expected /me/library, got %s", req.URL.Path)
+		}
+		if uris := req.URL.Query().Get("uris"); uris != "spotify:track:track1,spotify:album:album1" {
+			t.Errorf("Expected library item URIs, got %s", uris)
+		}
+	})
+	defer server.Close()
+
+	err := client.AddItemsToLibrary(context.Background(), "spotify:track:track1", "spotify:album:album1")
 	if err != nil {
 		t.Error(err)
 	}
@@ -66,6 +109,26 @@ func TestRemoveTracksFromLibrary(t *testing.T) {
 	defer server.Close()
 
 	err := client.RemoveTracksFromLibrary(context.Background(), "4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M")
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestRemoveItemsFromLibrary(t *testing.T) {
+	client, server := testClientString(http.StatusOK, "", func(req *http.Request) {
+		if req.Method != http.MethodDelete {
+			t.Errorf("Expected DELETE, got %s", req.Method)
+		}
+		if req.URL.Path != "/me/library" {
+			t.Errorf("Expected /me/library, got %s", req.URL.Path)
+		}
+		if uris := req.URL.Query().Get("uris"); uris != "spotify:track:track1,spotify:album:album1" {
+			t.Errorf("Expected library item URIs, got %s", uris)
+		}
+	})
+	defer server.Close()
+
+	err := client.RemoveItemsFromLibrary(context.Background(), "spotify:track:track1", "spotify:album:album1")
 	if err != nil {
 		t.Error(err)
 	}

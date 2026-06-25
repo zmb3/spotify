@@ -100,6 +100,8 @@ type AnalysisTrack struct {
 // GetAudioAnalysis queries the Spotify web API for an [audio analysis] of a
 // single track.
 //
+// Deprecated: The Spotify endpoint is deprecated.
+//
 // [audio analysis]: https://developer.spotify.com/documentation/web-api/reference/get-audio-analysis
 func (c *Client) GetAudioAnalysis(ctx context.Context, id ID) (*AudioAnalysis, error) {
 	url := fmt.Sprintf("%saudio-analysis/%s", c.baseURL, id)

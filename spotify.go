@@ -169,35 +169,28 @@ func decodeError(resp *http.Response) error {
 	if err != nil {
 		return err
 	}
+
+	var e struct {
+		E Error `json:"error"`
+	}
+
+	e.E = Error{
+		Message: "server response without body",
+	}
+
 	if ctHeader := resp.Header.Get("Content-Type"); ctHeader == "" {
 		msg := string(responseBody)
 		if len(msg) == 0 {
 			msg = http.StatusText(resp.StatusCode)
 		}
+		e.E.Message = msg
+	} else if len(responseBody) != 0 {
+		buf := bytes.NewBuffer(responseBody)
 
-		return Error{
-			Message: msg,
-			Status:  resp.StatusCode,
-		}
-	}
-
-	if len(responseBody) == 0 {
-		return Error{
-			Message: "server response without body",
-			Status:  resp.StatusCode,
-		}
-	}
-
-	buf := bytes.NewBuffer(responseBody)
-
-	var e struct {
-		E Error `json:"error"`
-	}
-	err = json.NewDecoder(buf).Decode(&e)
-	if err != nil {
-		return Error{
-			Message: fmt.Sprintf("failed to decode error response %q", responseBody),
-			Status:  resp.StatusCode,
+		e.E = Error{}
+		err = json.NewDecoder(buf).Decode(&e)
+		if err != nil {
+			e.E.Message = fmt.Sprintf("failed to decode error response %q", responseBody)
 		}
 	}
 
@@ -325,6 +318,8 @@ func (c *Client) get(ctx context.Context, url string, result interface{}) error 
 
 // NewReleases gets a list of new album releases featured in Spotify.
 // Supported options: Country, Limit, Offset
+//
+// Deprecated: The Spotify endpoint is deprecated.
 func (c *Client) NewReleases(ctx context.Context, opts ...RequestOption) (albums *SimpleAlbumPage, err error) {
 	spotifyURL := c.baseURL + "browse/new-releases"
 	if params := processOptions(opts...).urlParams.Encode(); params != "" {

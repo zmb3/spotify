@@ -77,6 +77,8 @@ func setTrackAttributesValues(trackAttributes *TrackAttributes, values url.Value
 //
 // Supported options: [Limit], [Country].
 //
+// Deprecated: The Spotify endpoint is deprecated.
+//
 // [list of recommended tracks]: https://developer.spotify.com/documentation/web-api/reference/get-recommendations
 func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttributes *TrackAttributes, opts ...RequestOption) (*Recommendations, error) {
 	v := processOptions(opts...).urlParams
@@ -104,6 +106,8 @@ func (c *Client) GetRecommendations(ctx context.Context, seeds Seeds, trackAttri
 
 // GetAvailableGenreSeeds retrieves a [list of available genres] seed parameter
 // values for recommendations.
+//
+// Deprecated: The Spotify endpoint is deprecated.
 //
 // [list of available genres]: https://developer.spotify.com/documentation/web-api/reference/get-recommendation-genres
 func (c *Client) GetAvailableGenreSeeds(ctx context.Context) ([]string, error) {
