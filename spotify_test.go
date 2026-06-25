@@ -235,3 +235,124 @@ func TestDecode429Error(t *testing.T) {
 		t.Errorf("Expected status %d, got %d", wantSTatus, gotStatus)
 	}
 }
+
+func TestDecodeErrorResponses(t *testing.T) {
+	tests := []struct {
+		name        string
+		statusCode  int
+		header      http.Header
+		body        string
+		wantMessage string
+		wantRetry   bool
+	}{
+		{
+			name:        "json error",
+			statusCode:  http.StatusUnauthorized,
+			header:      http.Header{"Content-Type": []string{"application/json"}},
+			body:        `{ "error": { "status": 401, "message": "Invalid access token" } }`,
+			wantMessage: "spotify: Invalid access token [401]",
+		},
+		{
+			name:        "empty body without content type",
+			statusCode:  http.StatusNotFound,
+			body:        "",
+			wantMessage: "spotify: Not Found [404]",
+		},
+		{
+			name:        "plain text without content type",
+			statusCode:  http.StatusTooManyRequests,
+			body:        "Too many requests",
+			wantMessage: "spotify: Too many requests [429]",
+		},
+		{
+			name:        "empty json body",
+			statusCode:  http.StatusBadGateway,
+			header:      http.Header{"Content-Type": []string{"application/json"}},
+			body:        "",
+			wantMessage: "spotify: server response without body [502]",
+		},
+		{
+			name:        "malformed json body",
+			statusCode:  http.StatusInternalServerError,
+			header:      http.Header{"Content-Type": []string{"application/json"}},
+			body:        `not-json`,
+			wantMessage: `spotify: failed to decode error response "not-json" [500]`,
+		},
+		{
+			name:        "json error without message",
+			statusCode:  http.StatusRequestURITooLong,
+			header:      http.Header{"Content-Type": []string{"application/json"}},
+			body:        `{ "error": { "status": 414 } }`,
+			wantMessage: "spotify: server response without error description [414]",
+		},
+		{
+			name:        "valid retry after",
+			statusCode:  http.StatusTooManyRequests,
+			header:      http.Header{"Content-Type": []string{"application/json"}, "Retry-After": []string{"2"}},
+			body:        `{ "error": { "status": 429, "message": "slow down" } }`,
+			wantMessage: "spotify: slow down [429]",
+			wantRetry:   true,
+		},
+		{
+			name:        "invalid retry after",
+			statusCode:  http.StatusTooManyRequests,
+			header:      http.Header{"Content-Type": []string{"application/json"}, "Retry-After": []string{"invalid"}},
+			body:        `{ "error": { "status": 429, "message": "slow down" } }`,
+			wantMessage: "spotify: slow down [429]",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp := &http.Response{
+				StatusCode: tt.statusCode,
+				Header:     tt.header,
+				Body:       io.NopCloser(strings.NewReader(tt.body)),
+			}
+
+			err := decodeError(resp)
+			if err == nil {
+				t.Fatal("Expected error")
+			}
+			if err.Error() != tt.wantMessage {
+				t.Errorf("Expected %q, got %q", tt.wantMessage, err.Error())
+			}
+
+			var spotifyError Error
+			if !errors.As(err, &spotifyError) {
+				t.Fatalf("Expected spotify Error, got %T", err)
+			}
+			if spotifyError.Status != tt.statusCode {
+				t.Errorf("Expected status %d, got %d", tt.statusCode, spotifyError.Status)
+			}
+			if tt.wantRetry && time.Until(spotifyError.RetryAfter) <= 0 {
+				t.Error("Expected RetryAfter to be set in the future")
+			}
+			if !tt.wantRetry && !spotifyError.RetryAfter.IsZero() {
+				t.Errorf("Expected zero RetryAfter, got %v", spotifyError.RetryAfter)
+			}
+		})
+	}
+}
+
+func TestDecodeErrorReadError(t *testing.T) {
+	readErr := errors.New("read failed")
+	resp := &http.Response{
+		StatusCode: http.StatusInternalServerError,
+		Header:     http.Header{"Content-Type": []string{"application/json"}},
+		Body:       io.NopCloser(errorReader{err: readErr}),
+	}
+
+	err := decodeError(resp)
+	if !errors.Is(err, readErr) {
+		t.Errorf("Expected read error, got %v", err)
+	}
+}
+
+type errorReader struct {
+	err error
+}
+
+func (r errorReader) Read([]byte) (int, error) {
+	return 0, r.err
+}

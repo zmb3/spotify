@@ -184,11 +184,10 @@ func decodeError(resp *http.Response) error {
 			msg = http.StatusText(resp.StatusCode)
 		}
 		e.E.Message = msg
-	}
-
-	if len(responseBody) != 0 {
+	} else if len(responseBody) != 0 {
 		buf := bytes.NewBuffer(responseBody)
 
+		e.E = Error{}
 		err = json.NewDecoder(buf).Decode(&e)
 		if err != nil {
 			e.E.Message = fmt.Sprintf("failed to decode error response %q", responseBody)
