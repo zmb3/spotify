@@ -169,35 +169,29 @@ func decodeError(resp *http.Response) error {
 	if err != nil {
 		return err
 	}
+
+	var e struct {
+		E Error `json:"error"`
+	}
+
+	e.E = Error{
+		Message: "server response without body",
+	}
+
 	if ctHeader := resp.Header.Get("Content-Type"); ctHeader == "" {
 		msg := string(responseBody)
 		if len(msg) == 0 {
 			msg = http.StatusText(resp.StatusCode)
 		}
-
-		return Error{
-			Message: msg,
-			Status:  resp.StatusCode,
-		}
+		e.E.Message = msg
 	}
 
-	if len(responseBody) == 0 {
-		return Error{
-			Message: "server response without body",
-			Status:  resp.StatusCode,
-		}
-	}
+	if len(responseBody) != 0 {
+		buf := bytes.NewBuffer(responseBody)
 
-	buf := bytes.NewBuffer(responseBody)
-
-	var e struct {
-		E Error `json:"error"`
-	}
-	err = json.NewDecoder(buf).Decode(&e)
-	if err != nil {
-		return Error{
-			Message: fmt.Sprintf("failed to decode error response %q", responseBody),
-			Status:  resp.StatusCode,
+		err = json.NewDecoder(buf).Decode(&e)
+		if err != nil {
+			e.E.Message = fmt.Sprintf("failed to decode error response %q", responseBody)
 		}
 	}
 
