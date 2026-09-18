@@ -209,8 +209,36 @@ type PlaylistItem struct {
 	AddedBy User `json:"added_by"`
 	// Whether this track is a local file or not.
 	IsLocal bool `json:"is_local"`
-	// Information about the track.
+	// Information about the track or episode.
 	Track PlaylistItemTrack `json:"track"`
+}
+
+// UnmarshalJSON supports both legacy playlist item responses ("track") and
+// current API responses ("item").
+func (p *PlaylistItem) UnmarshalJSON(b []byte) error {
+	type playlistItemJSON struct {
+		AddedAt string             `json:"added_at"`
+		AddedBy User                 `json:"added_by"`
+		IsLocal bool                 `json:"is_local"`
+		Track   *PlaylistItemTrack   `json:"track"`
+		Item    *PlaylistItemTrack   `json:"item"`
+	}
+
+	var aux playlistItemJSON
+	if err := json.Unmarshal(b, &aux); err != nil {
+		return err
+	}
+
+	p.AddedAt = aux.AddedAt
+	p.AddedBy = aux.AddedBy
+	p.IsLocal = aux.IsLocal
+	switch {
+	case aux.Item != nil:
+		p.Track = *aux.Item
+	case aux.Track != nil:
+		p.Track = *aux.Track
+	}
+	return nil
 }
 
 // PlaylistItemTrack is a union type for both tracks and episodes. If both
@@ -260,10 +288,10 @@ type PlaylistItemPage struct {
 //
 // Supported options: [Limit], [Offset], [Market], [Fields].
 //
-// [gets full details of the items in a playlist]: https://developer.spotify.com/documentation/web-api/reference/get-playlists-tracks
+// [gets full details of the items in a playlist]: https://developer.spotify.com/documentation/web-api/reference/get-playlists-items
 // [Spotify ID]: https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids
 func (c *Client) GetPlaylistItems(ctx context.Context, playlistID ID, opts ...RequestOption) (*PlaylistItemPage, error) {
-	spotifyURL := fmt.Sprintf("%splaylists/%s/tracks", c.baseURL, playlistID)
+	spotifyURL := fmt.Sprintf("%splaylists/%s/items", c.baseURL, playlistID)
 
 	// Add default as the first option so it gets override by url.Values#Set
 	opts = append([]RequestOption{AdditionalTypes(EpisodeAdditionalType, TrackAdditionalType)}, opts...)
