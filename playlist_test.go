@@ -291,8 +291,10 @@ func TestGetPlaylistItemsOverride(t *testing.T) {
 
 func TestGetPlaylistItemsDefault(t *testing.T) {
 	var types string
+	var path string
 	client, server := testClientString(http.StatusForbidden, "", func(r *http.Request) {
 		types = r.URL.Query().Get("additional_types")
+		path = r.URL.Path
 	})
 	defer server.Close()
 
@@ -300,6 +302,41 @@ func TestGetPlaylistItemsDefault(t *testing.T) {
 
 	if types != "episode,track" {
 		t.Errorf("Expected additional type episode, got %s\n", types)
+	}
+	if path != "/playlists/playlistID/items" {
+		t.Errorf("Expected /items endpoint, got path %s\n", path)
+	}
+}
+
+func TestGetPlaylistItemsItemWrapper(t *testing.T) {
+	body := `{
+		"href": "https://api.spotify.com/v1/playlists/test/items",
+		"items": [{
+			"added_at": "2022-05-20T14:10:29Z",
+			"added_by": {"id": "u", "type": "user"},
+			"is_local": false,
+			"item": {
+				"type": "track",
+				"name": "Test Track",
+				"id": "tid"
+			}
+		}],
+		"limit": 100,
+		"offset": 0,
+		"total": 1
+	}`
+	client, server := testClientString(http.StatusOK, body)
+	defer server.Close()
+
+	page, err := client.GetPlaylistItems(context.Background(), "playlistID")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if page.Total != 1 {
+		t.Fatalf("expected 1 item, got %d", page.Total)
+	}
+	if page.Items[0].Track.Track == nil || page.Items[0].Track.Track.Name != "Test Track" {
+		t.Fatalf("expected track from item wrapper, got %#v", page.Items[0].Track)
 	}
 }
 
